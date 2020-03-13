@@ -14,9 +14,26 @@ public class Staircase {
      * post: prints a right-aligned staircase with steps number of rows,
      *       and an increasing number of # symbols going down the rows
      *********************************************************************/
-     public static void printStaircase(int steps)
+     public static void printStaircase(int stepNum)
      {
-
+         //  # initialize a count of symbols to print on each step of the staircase
+         int quota = 1;
+         // build the representation of the steps using # symbols and spaces
+         for (int i = 0; i < stepNum; i+=1) {
+             String step = "";
+             for (int j = 0; j < stepNum; j++) {
+                 // print spaces until it is time to add # to the output line
+                 if (stepNum - j <= quota) {
+                     step += "#";
+                 } else {
+                     step += " ";
+                 }
+             }
+             // display the output
+             System.out.println(step);
+             // increment the number of symbols needed for the next iteration
+             quota += 1;
+         }
      }
 
      /*******************************************************************
@@ -34,7 +51,7 @@ public class Staircase {
 
          // printing the staircase
          System.out.println("------------------------------------------------");
-         System.out.println("Here You Go! Have Fun and Reach Your Dreams!");
+         System.out.println("Here You Go! Have Fun and Climb For Your Dreams!");
          printStaircase(steps);
 
      }
