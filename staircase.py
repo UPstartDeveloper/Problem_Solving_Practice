@@ -6,7 +6,6 @@ def staircase(hashtags):
        those characters.
 
     '''
-    full = ""
     quota = 1
     for i in range(hashtags):
         line = ""
@@ -15,10 +14,10 @@ def staircase(hashtags):
                 line += "#"
             else:
                 line += " "
-        full += line + "\n"
+        print(line)
         quota += 1
-    return full
+    return None
 
 
 if __name__ == "__main__":
-    print(staircase(4))
+    staircase(4)
