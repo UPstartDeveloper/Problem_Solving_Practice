@@ -18,17 +18,15 @@ public class Solution {
      */
      public static String calculateNewHour(String time) {
          // initial conversion (that works for most PM times)
-         int currentHour = Integer.parseInt(time.substring(0, 2)) + 12;
-         // rounding of AM values
-         if (time.substring(8).startsWith("AM")) {
-                currentHour %= 12;
-         }
-         // conversion for 12 PM times
-         if (currentHour == 24) {
-             currentHour = 12;
+         int currentHour = Integer.parseInt(time.substring(0, 2));
+         // determine and perform any conversion if needed
+         if ((time.contains("AM") && currentHour == 12) ||
+             (time.contains("PM") && currentHour != 12)) {
+             currentHour += 12;
          }
          // initialize output value
          String newHour = String.valueOf(currentHour);
+         // if necessary to make 2 characters long, then we add zero to output
          if (newHour.length() == 1) {
              newHour = "0" + newHour;
          }
@@ -60,9 +58,9 @@ public class Solution {
     private static final Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        String timeAM = "06:40:03AM";
+        String timeAM = "12:40:03AM";
         String timePM = "12:56:34PM";
-        System.out.println(timeConversion(timePM));
+        System.out.println(timeConversion(timeAM));
 
     }
 }
