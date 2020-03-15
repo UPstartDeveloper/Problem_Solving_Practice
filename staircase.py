@@ -3,8 +3,8 @@
 
 
 def staircase(num_steps):
-    """Given an integer number of num_steps, return a right aligned staircase of
-       those characters.
+    """Given an integer number of num_steps, return a right aligned staircase
+       of those characters.
 
        Parameters:
        num_steps(int): a value representing the number of steps there are in
