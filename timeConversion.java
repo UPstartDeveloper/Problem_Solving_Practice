@@ -11,22 +11,26 @@ public class Solution {
 
     /*
      * calculateNewHour
-     * pre: String hourInPM has two digits that represent a number 1-12, and
-            is for a time in the PM format
+     * pre: String time is a time given in 12-hour AM/PM format,
+     *      i.e. '07:23:45AM' or '10:36:55PM'
      * post: String newHour is a two character that represent the equivalent
-             hour for 24-format. It is between 13-23, and includes 0 as well.
+             hour for 24-format. It is between 0-24
      */
-     public static String calculateNewHour(String hourInPM) {
-         // convert the hour using integers
-         int currentHour = Integer.parseInt(hourInPM) + 12;
-         // convert to 00 if necessary
-         if (currentHour == 24) {
-             currentHour = 0;
+     public static String calculateNewHour(String time) {
+         // initial conversion (that works for most PM times)
+         int currentHour = Integer.parseInt(time.substring(0, 2)) + 12;
+         // rounding of AM values
+         if (time.substring(8).startsWith("AM")) {
+                currentHour %= 12;
          }
+         // conversion for 12 PM times
+         if (currentHour == 24) {
+             currentHour = 12;
+         }
+         // initialize output value
          String newHour = String.valueOf(currentHour);
-         // add an extra 0 to the output if necessary
          if (newHour.length() == 1) {
-             newHour = "00";
+             newHour = "0" + newHour;
          }
          return newHour;
      }
@@ -40,26 +44,14 @@ public class Solution {
     static String timeConversion(String time) {
         // declare output value
         String twentyFour = "";
-        // determine if s is a AM or PM time
-        String amOrPM = time.substring(8);
-        if (amOrPM.startsWith("A")) {
-            // return the same time without the AM piece
-            twentyFour = time.substring(0, 8);
-
-        } else { // time is in PM
-            // store the subset of characters in s that are the same in output
-            String common = time.substring(2, 8);
-            // calculate what the hour of twentyFour should be
-            String hourInPM = time.substring(0, 2);
-            String newHour = calculateNewHour(hourInPM);
-            // combine the new hour with old minutes and seconds
-            twentyFour = newHour + common;
-
-        }
+        // store the subset of characters in s that are the same in output
+        String common = time.substring(2, 8);
+        // calculate what the hour of twentyFour should be
+        String newHour = calculateNewHour(time);
+        // combine the new hour with old minutes and seconds
+        twentyFour = newHour + common;
         return twentyFour;
-
     }
-
     /*
      * Scanner instance and main method are inspired by tbe starter
      * on Hacker Rank (same link as above):
@@ -68,9 +60,9 @@ public class Solution {
     private static final Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        String timeAM = "12:56:34AM";
+        String timeAM = "06:40:03AM";
         String timePM = "12:56:34PM";
-        System.out.println(timeConversion(timeAM));
+        System.out.println(timeConversion(timePM));
 
     }
 }
