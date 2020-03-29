@@ -13,8 +13,30 @@ public class Solution {
 
     // Complete the compareTriplets function below.
     static List<Integer> compareTriplets(List<Integer> a, List<Integer> b) {
-
-
+        // init variables to store the comparative scores of Alice and Bob
+        int aCompScore = 0;
+        int bCompScore = 0;
+        // traverse both a and b arrays
+        for(int i = 0; i < a.size(); i++)
+        {
+            // retreive the score of Alice and Bob at this index
+            int aScore = a.get(i);
+            int bScore = b.get(i);
+            // decide whether to award Alice or Bob a point for this index
+            if (aScore > bScore)
+            {
+                aCompScore += 1;
+            }
+            else if (bScore > aScore)
+            {
+                bCompScore += 1;
+            }
+        }
+        // return a new List of the comparative scores
+        List<Integer> comparativeScores = new ArrayList<Integer>();
+        comparativeScores.add(aCompScore);
+        comparativeScores.add(bCompScore);
+        return comparativeScores;
     }
 
     public static void main(String[] args) throws IOException {
