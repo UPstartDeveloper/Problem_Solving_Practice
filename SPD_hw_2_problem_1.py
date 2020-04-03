@@ -79,4 +79,95 @@ would look like in reverse, in terms of the nodes
 Everything here looks great so far - before coding it up we should probably
 take a closer look at the decode() and encode() first, right?
 
+decode() => it takes in a LinkedList as input right? Oh no, even better if we
+just made it a property of the LinkedList class!
+
+the steps of this method
+ we need to traverse the nodes
+ we can take the value from each node, and add it to a sum variable
+ (this can just keep incrementing, and that way even though it's out of order
+ we'll end up with the true decimal value at the end)
+
+ Oh, but we also have to make sure to be multiplying these by the power of ten,
+ based on which power of ten we're at in the problem!
+ Yeah - and that's fairly simple though, because the first value in the list
+ is in the ones place, followed by tens
+
+ so to speak, we can just keep another variable called exponent, and on each
+ iterative step through the list we can make sure to raise 10 by that value,
+ take that value and multiply it by the value in the Node, and THAT's what we
+ can increment sum by!
+
+Here's the pseudocode then:
+
+LinkedList.decode():
+    sum starts at 0
+    exponent starts at 1
+
+    data = grab next item from node, starting from the head
+
+    sum += 10**exponent * data
+
+    return the sum at the end
+
+
+encode(sum):
+    going from left to right, grab digits from the sum
+    prepend them to the linkedlist (aka append them before the head node)
+    return the linkedlist at the end
+
+Did that make sense so far? ok then, let's jump into the code!
+
 '''
+
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None  # pointer to the next Node in the list
+
+
+class LinkedList:
+    def __init__(self, items=None):
+        self.size = 0  # property for number of Nodes, starts at zero default
+        self.head = self.tail = None
+        # create the nodes of the list, if they are initially passed in
+        if items is not None:
+            for item in items:
+                self.append(item)
+
+    def append(self, item):
+        '''Adds a new item to the list.'''
+        # construct a new Node
+        node = Node(item)
+        # increment the size of the list
+        self.size += 1
+        # add it to the linkedlist (as the head no previous)
+        if self.size == 0:
+            self.head = node
+        # otherwise set it as the new tail
+        else:
+            # if there's no current tail
+            if self.size == 1:
+                self.head.next = node
+            # or if a tail already exists, set the node next to it
+            else:
+                self.tail.next = node
+            # no matter what, set the new tail of the list to the new node
+            self.tail = node
+
+    def prepend(self, item):
+        '''Adds an item at the front of a linked list.'''
+        node = Node(item)  # make a new Node
+        self.size += 1  # increment size of the list
+        current_head = self.head  # save memory address of where head is now
+        node.next = current_head  # ensure we don't lose the rest of the list
+        self.head = node  # set the new node where it belongs
+
+    def delete(self, item):
+        """Delete a node with the given item, or raise ValueError if not found.
+           Implementation left blank for now, because not needed to solve this
+           problem.
+
+        """
+        pass
