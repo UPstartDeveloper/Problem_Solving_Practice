@@ -51,6 +51,54 @@ idea emerges, ok?
 '''
 
 
+def binary_search(array, other_num, low, high):
+    """Searches for the other number needed to make the target sum.
+       Returns array index, or -1 if not found.
+       low and high - index positions between which we are searchig
+
+    """
+    mid = (low + high) // 2
+    # base case - successful
+    if array[mid] == other_num:
+        return mid
+    # base case - not successful
+    elif low == high:
+        return -1
+    # recursive case - int too small, so move to upper half
+    elif array[mid] < other_num:
+        return binary_search(array, other_num, mid, high)
+    # recursive case - int too large, so move to lower half
+    elif array[mid] > other_num:
+        return binary_search(array, other_num, low, mid)
+
+
 def two_sum(array, target):
     '''Solution to the above problem.'''
-    pass
+    array.sort()  # sort the array
+    pair = []  # init list to store indices
+    for index in range(len(array)):
+        num = array[index]
+        # calculate the other number we need to make the target sum
+        other_num = target - num
+        # perform binary search on the rest of the array, supply low and high
+        other_index = binary_search(array, other_num, 1, len(array))
+        # if both indices valid, we found the pair!
+        if not (other_index == -1 or other_index == index):
+            pair = [index, other_index]
+    return pair
+
+
+if __name__ == "__main__":
+    print(two_sum([2, 7, 11, 15], 9))  # it works!
+
+
+'''
+In terms of tradeoffs I do sacrifice a lot of time by sorting the list, and
+that would become a real problem if this is used with a dataset of thousands
+of items.
+
+To improve it, might I suggest using a hash table instead? That way we could
+avoid sorting, use a traversal to build a histogram of our numbers, and lookup
+the other number need to make a pair in linear search (but at the same time
+that may make it harder to return the index of the numbers).
+'''
