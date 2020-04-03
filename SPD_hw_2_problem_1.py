@@ -164,6 +164,25 @@ class LinkedList:
         node.next = current_head  # ensure we don't lose the rest of the list
         self.head = node  # set the new node where it belongs
 
+    def decode(self):
+        """Return the decimal value corresponding to the sequence of ints in
+           this list.
+
+        """
+        # init return value
+        sum = 0
+        # counter for the exponent value at each node in the list
+        exponent = 1
+        # start traversal from the head node, (may be None)
+        node = self.head
+        # traverse the list
+        while node is not None:
+            # increment sum
+            sum += node.data * (10 ** exponent)
+            # move the next node
+            node = node.next
+        return sum
+
     def delete(self, item):
         """Delete a node with the given item, or raise ValueError if not found.
            Implementation left blank for now, because not needed to solve this
@@ -171,3 +190,50 @@ class LinkedList:
 
         """
         pass
+
+
+def encode(value):
+    """Return the linkedlist representation of a nonegative decimal integer.
+       To implement this number, we need to slice off each integer, make a node
+       for it, and insert it into the list somewhere.
+
+       I see two ways of going about this:
+       1. Left to right: We start by grabbing digits from the highest place
+       value, then prepend each of them the linkedlist.
+
+       2. Right to left: We grab digits from the lowest place value, then
+       append them to the list.
+
+       In terms of tradeoffs, neither approach has any clear benefit over the
+       other. Both of these approaches scale in O(n) time, where n is the
+       number of digits in the value.
+
+       But since I'm left handed, I'll go with the first approach,
+       because it seems more familiar to write from L to R for me:
+       Google "cognitivie ease" if interested in learning more :)
+
+    """
+    # to figure out the place value of the front digit, I will begin by
+    # modulo dividing the whole number by 10, and
+    # count how many times I need to do this until the quotient is 0
+    places = 0  # counter variable
+    decimal = value  # copy of value, so we don't mdoify it
+    while decimal > 0:
+        places += 1
+        decimal %= 10
+    # next step: init a new linked list for the return value
+    ll = LinkedList()
+    # next step: adding nodes to the list
+    while decimal > 0:
+        # we take each integer off from the value
+        next_digit = decimal // (10**places)
+        # prepend to the list
+        ll.prepend(Node(next_digit))
+        # decrement places for the next iteration
+        places -= 1
+    # return the list at the end
+    return ll
+
+# If this looks like a lot, don't worry my friend - I agree with you!
+# I acknowledge if this concerns you, and will be sure to test this at the end,
+# so we can see if it actually works or not
