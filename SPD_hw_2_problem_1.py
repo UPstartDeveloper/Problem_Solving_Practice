@@ -121,13 +121,13 @@ Did that make sense so far? ok then, let's jump into the code!
 '''
 
 
-class Node:
+class Node(object):
     def __init__(self, data):
         self.data = data
         self.next = None  # pointer to the next Node in the list
 
 
-class LinkedList:
+class LinkedList(object):
     def __init__(self, items=None):
         self.size = 0  # property for number of Nodes, starts at zero default
         self.head = self.tail = None
@@ -136,25 +136,40 @@ class LinkedList:
             for item in items:
                 self.append(item)
 
+    def __str__(self):
+        '''Returns a string representation of the list nodes in order.'''
+        # init return string
+        repr = ''
+        # traverse over nodes to build the string
+        node = self.head
+        while node is not Node:
+            data = node.data
+            # make the string to repesent the next node data in overall repr
+            if node == self.tail:
+                repr += f" {data}"
+            else:
+                repr += f"{data} -> "
+            node = node.next
+        return repr
+
     def append(self, item):
         '''Adds a new item to the list.'''
         # construct a new Node
         node = Node(item)
-        # increment the size of the list
-        self.size += 1
         # add it to the linkedlist (as the head no previous)
         if self.size == 0:
             self.head = node
         # otherwise set it as the new tail
+        # if there's no current tail
+        elif self.size == 1:
+            self.head.next = node
+        # or if a tail already exists, set the node next to it
         else:
-            # if there's no current tail
-            if self.size == 1:
-                self.head.next = node
-            # or if a tail already exists, set the node next to it
-            else:
-                self.tail.next = node
-            # no matter what, set the new tail of the list to the new node
-            self.tail = node
+            self.tail.next = node
+        # no matter what, set the new tail of the list to the new node
+        self.tail = node
+        # increment the size of the list
+        self.size += 1
 
     def prepend(self, item):
         '''Adds an item at the front of a linked list.'''
@@ -234,6 +249,71 @@ def encode(value):
     # return the list at the end
     return ll
 
-# If this looks like a lot, don't worry my friend - I agree with you!
-# I acknowledge if this concerns you, and will be sure to test this at the end,
-# so we can see if it actually works or not
+
+'''
+To the interviewer:
+If this looks like a lot, don't worry my friend - I agree with you!
+I acknowledge if this concerns you, and will be sure to test this at the end,
+so we can see if it actually works or not.
+'''
+
+
+def combine_linked_lists(list1, list2):
+    '''Provide solution for the overall problem (see top).'''
+    # decode the lists
+    value1 = list1.decode()
+    value2 = list2.decode()
+    # find the sum
+    sum = value1 + value2
+    # return the encoded form of sum
+    return encode(sum)
+
+
+'''
+To the interviewer:
+Whew, that was a lot of work - and all for just 4 lines of code at the end!
+Ok, now I test this with the input you provided, and of course I'm sure we
+can find some ways to improve it...
+'''
+
+if __name__ == "__main__":
+    # Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+    # By the way, is it ok to input values like this using lists?
+    # Sorry for not clarifying earlier!
+    list1 = LinkedList([2, 4, 3])
+    list2 = LinkedList([5, 6, 4])
+    # Output: 7 -> 0 -> 8
+    list3 = combine_linked_lists(list1, list2)
+    print(list3)
+
+'''
+To the interviewer:
+Discuss tradeoffs/Suggest improvements
+Oh that's weird! I am not sure why it's not working - I'm sure it's just a
+small runtime error somewhere, such as I didn't implement the __str__ magic
+function correctly - and if I was doing this for real I'm sure I could look up
+the fix in the Python docs reasonably fast.
+
+Other than that, I like how our solution turned out!
+In terms of Big O complexity for combine_linked_lists:
+
+decode operations - O(n1 + n2), where n1 and n2 are the number of digits in the
+                    first and second linked lists being decoded, respectively
+computing sum - O(1), so we don't reall need to worry about that asymptotically
+encode - O(m) - scales linearly to the number of digits in the sum
+
+Hmm, I'm not sure how I could improve the runtime - but in terms of the actual
+engineering, I think we could definitely improve this using another data
+structure!
+
+I think perhaps if we used a queue, it might help us in terms of pulling apart
+the digits from the lists - instead of figuring out all the math, we could just
+enqueue and dequeue. Again, the runtime complexity wouldn't change, it'd still
+be in linear time since we have to go through all the digits, but in terms of
+simplicity of code and the actual computations we have to process, we might be
+able to shave off some time in the real world - and you know these blockchain
+apps need to be high performance if they're going to compete!
+
+That's all I got for now. What do you think?
+
+'''
