@@ -36,6 +36,7 @@ def build_histogram(text):
     words = text.split()
     # make a distribution of word types and count of tokens
     for word in words:
+        word = word.lower()
         if word not in histogram:
             histogram[word] = 1
         else:  # word type already seen before in histogram
@@ -78,6 +79,28 @@ def find_largest(word_counts, count):
     return largest_pairs
 
 
+def insertion_sort(items):
+    """Sort given items by taking first unsorted item, inserting it in sorted
+       order in front of items, and repeating until all items are in order.
+
+    """
+    # make sure list is not so small it already counts as sorted
+    if not len(items) == 1:
+        next_index = 1
+        # perform as many as n - 1 insertions (n is number of items)
+        while next_index < len(items):
+            # figure out the index where the insertion must occur
+            insert_at = next_index
+            while insert_at >= 1 and (
+                  items[next_index][1] >= items[insert_at - 1][1]):
+                insert_at -= 1
+            # perform the swap
+            insert_item = items.pop(next_index)
+            items.insert(insert_at, insert_item)
+            # move on to the next index
+            next_index += 1
+
+
 def get_frequent_words(text, count):
     """A variation of the n-choose-k problem, which also involves sorting.
        Assumptions:
@@ -89,12 +112,17 @@ def get_frequent_words(text, count):
     # build a distribution using a hashtable data type
     histogram = build_histogram(text)
     # find the k-largest mappings
-    largest = find_largest(histogram.items(), count)
+    largest_pairs = find_largest(list(histogram.items()), count)
     # sort the largest_pairs in descending order
+    insertion_sort(largest_pairs)
     # return just the words
+    largest_words = list()
+    for i in range(len(largest_pairs)):
+        largest_words.append(largest_pairs[i][0])
+    return largest_words
 
 
 if __name__ == '__main__':
     text = 'One fish two fish red fish blue fish'
     count = 3  # expected k <= number of word types
-    get_frequent_words(text, count)
+    print(get_frequent_words(text, count))
