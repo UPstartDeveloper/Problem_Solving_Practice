@@ -30,7 +30,8 @@ histogram.items() => [
 """
 
 
-def get_duplicate_words(text, k):
+def build_histogram(text):
+    '''Builds a distribution of the word types and numbers of word tokens.'''
     histogram = {}
     words = text.split()
     # make a distribution of word types and count of tokens
@@ -39,3 +40,22 @@ def get_duplicate_words(text, k):
             histogram[word] = 1
         else:  # word type already seen before in histogram
             histogram[word] += 1
+    return histogram
+
+
+def get_frequent_words(text, k):
+    '''A variation of the n-choose-k problem, which also involves sorting.
+       Assumptions:
+        1) the text contains alphabetic characters, with spaces in between
+        2) Each word type has a distinct number of tokens associated with it
+        3) word types are case insensitive, i.e. "one" = "One"
+    '''
+    # build a distribution using a hashtable data type
+    histogram = build_histogram(text)
+    print(histogram)
+
+
+if __name__ == '__main__':
+    text = 'One fish two fish red fish blue fish'
+    k = 3  # expected k <= number of word types
+    get_frequent_words(text, k)
