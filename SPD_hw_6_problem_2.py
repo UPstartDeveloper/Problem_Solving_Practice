@@ -1,6 +1,10 @@
+import unittest
 """
-Given a RNA
+RNA Transcription
+Problem found on Exercism. Description can be found at the following URL:
+https://exercism.io/my/solutions/a8890252f83a47848618974c0adb725f
 
+Notes:
 DNA A, C, G, T
 RNA A, C, G, U
 
@@ -35,13 +39,27 @@ def get_complement(dna):
         'G': 'C'
     }
     rna_seq = ''
-    for letter in dna:  # O(n)
+    for letter in dna:  # O(n) space and time
         rna_seq += rna_key[letter]
 
     return rna_seq
 
-# space and time - O(n)
+
+# Test Cases
+class RNATranscriptionTests(unittest.TestCase):
+    def test_get_complement_on_good_inputs(self):
+        dna = 'GCTA'
+        assert get_complement(dna) == 'CGAU'
+
+        dna = 'CTAG'
+        assert get_complement(dna) == 'GAUC'
+
+    def test_get_complement_on_bad_inputs(self):
+        pass
+
+    def test_get_complement_on_edge_cases(self):
+        pass
 
 
 if __name__ == '__main__':
-    print(get_complement('GCTA'))  # CGAU
+    unittest.main()
