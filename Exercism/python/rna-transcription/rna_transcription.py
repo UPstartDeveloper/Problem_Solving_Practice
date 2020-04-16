@@ -41,17 +41,20 @@ def to_rna(dna):
         'G': 'C',
         ' ': ' '
     }
+    # characters to skip over, if they appear in dna
+    skip_chars = ".,/?><':;&^%$#@!*(){}[]"
     rna_seq = ''
     if isinstance(dna, str) is True:
-        for char in dna:  # O(n) space and time
-            if isinstance(char, str) is True and char in rna_key.keys():
-                # if a DNA character, add the RNA complemet
-                rna_seq += rna_key[char.upper()]
-            else:
-                raise ValueError(err_msg)
+        for char in dna:
+            if isinstance(char, str) is True:
+                if char in rna_key.keys():
+                    # if a DNA character, add the RNA complement
+                    rna_seq += rna_key[char.upper()]
+                elif char not in skip_chars and char.isalpha() is True:
+                    raise ValueError(err_msg)
     else:
         raise ValueError(err_msg)
-    return rna_seq
+    return rna_seq.strip()  # delete leading spaces and spaces at the end
 
 
 # Test Cases
@@ -71,7 +74,11 @@ class RNATranscriptionTests(unittest.TestCase):
             to_rna('ABCD')
 
     def test_to_rna_on_edge_cases(self):
-        pass
+        dna = 'GC//TA'
+        assert to_rna(dna) == 'CGAU'
+
+        dna = '>33GCTA    ...?'
+        assert to_rna(dna) == 'CGAU'
 
 
 if __name__ == '__main__':
