@@ -30,7 +30,7 @@ return string
 """
 
 
-def get_complement(dna):
+def to_rna(dna):
     # map DNA letters to RNA letters
     rna_key = {
         'A': 'U',
@@ -39,25 +39,30 @@ def get_complement(dna):
         'G': 'C'
     }
     rna_seq = ''
-    for letter in dna:  # O(n) space and time
-        rna_seq += rna_key[letter]
+    for char in dna:  # O(n) space and time
+        if isinstance(char, str):
+            if char in rna_key.keys():
+                # if a DNA character, add the RNA complemet
+                rna_seq += rna_key[char]
+            else:
+                rna_seq += char
 
     return rna_seq
 
 
 # Test Cases
 class RNATranscriptionTests(unittest.TestCase):
-    def test_get_complement_on_good_inputs(self):
+    def test_to_rna_on_good_inputs(self):
         dna = 'GCTA'
-        assert get_complement(dna) == 'CGAU'
+        assert to_rna(dna) == 'CGAU'
 
-        dna = 'CTAG'
-        assert get_complement(dna) == 'GAUC'
+        dna = 'CTAG GTAC'
+        assert to_rna(dna) == 'GAUC CAUG'
 
-    def test_get_complement_on_bad_inputs(self):
+    def test_to_rna_on_bad_inputs(self):
         pass
 
-    def test_get_complement_on_edge_cases(self):
+    def test_to_rna_on_edge_cases(self):
         pass
 
 
