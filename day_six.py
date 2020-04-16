@@ -81,8 +81,8 @@ Idea 2:
 make subset for top k values
 load the first k elements
 iterate through one by one in the scores
-    if the next element is greater than the current_min in our subset, replace with
-    the new element
+    if the next element is greater than the current_min in our subset, replace
+    with the new element
 
 sort in decreasing order (insertion)
 
@@ -102,11 +102,9 @@ def return_k_highest(scores, k):
     top_score = scores[:k]
     current = 0
 
-
     scores = [4, 6, 8, 7, 9]
     k = 2
     print(return_k_highest(scores, k))
-
 
 
 '''
@@ -123,57 +121,6 @@ B - ['4']
 E - ['Spider-Man']
 
 4. Find the longest substring of unique letters in a given string of n letters.
-
-'''
-
-
-'''
-Given a RNA
-
-DNA A, C, G, T
-RNA A, C, G, U
-
-test case:
-string, no spaces, all upper case
-'ACTGT'
-
-RNA:
-'UGACA'
-
-{    D    R
-    'A': 'U'
-}
-
-Idea #1
-make an empty string for the RNA sequence
-traverse the DNA strand:
-    enqueue the letter from the front
-    add corresponding letter in RNA to RNA seq
-
-return string
-
-'''
-'''
-
-def get_complement(dna):
-    # map DNA letters to RNA letters
-    rna_key = {   #  O(1)
-        'A': 'U',
-        'T': 'A',
-        'C': 'G',
-        'G': 'C'
-    }
-    rna_seq = ''
-    for letter in dna:  # O(n)
-        rna_seq += rna_key[letter]
-
-    return rna_seq
-
-# space and time - O(n)
-
-
-if __name__ == '__main__':
-    print(get_complement('GCTA'))  # CGAU
 
 '''
 
