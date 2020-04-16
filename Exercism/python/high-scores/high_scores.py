@@ -2,6 +2,17 @@
 import sys
 
 
+# Helper functions
+def clean_scores(scores):
+    '''Filters the scores list of non-numerical values.'''
+    candidate_scores = list()
+    for score in scores:
+        if (isinstance(score, int) or isinstance(score, float)):
+            candidate_scores.append(score)
+    return candidate_scores
+
+
+# Solutions
 def latest(scores):
     """Return the value that was added last to a list of scores.
        Assumptions:
@@ -16,10 +27,7 @@ def latest(scores):
        https://exercism.io/my/solutions/b50ca3f9f3d54e4fa958ff970aea2489
     """
     # take all unique numerical values into a separate list
-    candidate_scores = list()
-    for score in scores:
-        if (isinstance(score, int) or isinstance(score, float)):
-            candidate_scores.append(score)
+    candidate_scores = clean_scores(scores)
     # if there were no numrical scores, exit function
     if len(candidate_scores) == 0:
         return "Scores are unavailable right now."
@@ -43,11 +51,8 @@ def personal_best(scores):
 
     """
     # take all unique numerical values into a separate list
-    candidate_scores = list()
-    for score in scores:
-        if (isinstance(score, int) or isinstance(score, float)):
-            candidate_scores.append(score)
-    # if there were no numrical scores, exit function
+    candidate_scores = clean_scores(scores)
+    # if there were no numerical scores, exit function
     if len(candidate_scores) == 0:
         return "Top score is unavailable right now."
     # loop through the set of candidate scores
