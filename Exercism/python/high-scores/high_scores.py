@@ -16,10 +16,14 @@ def clean_scores(scores):
 def latest(scores):
     """Return the value that was added last to a list of scores.
        Assumptions:
-       scores is an sorted list of numbers, ints or floating point,
-       both positives and negatives, and there may be duplicates, and is
-       in order of when the user hit that score (i.e. earliest score is at
-       first index).
+       1. scores is a list.
+       2. All numerical values present are sorted in order of date added, from
+          earliest to latest.
+       3. There may be other data types present, yet only ints and floats are
+          valid return types.
+       4. Numerical values may have duplicates, and they may contain a mixture
+          of positive or negative numbers, or integer and floating point
+          numbers.
 
        I am not allowed to mutate the input.
 
@@ -39,12 +43,12 @@ def personal_best(scores):
     """Executes linear search for top score, and returns the value.
 
        Assumptions:
-       scores is an unsorted list of numbers, ints or floating point,
-       both positives and negatives, and there may be duplicates.
-
-       Only one score can be returned by this function.
-
-       I am not allowed to mutate the input.
+       1. scores is an unsorted list.
+       2. There may be duplicates.
+       3. Other data types may also appear, and only floats and ints are valid
+          as return values.
+       4. Only one score can be returned by this function.
+       5. I am not allowed to mutate the input.
 
        Problem was provided by Exercism:
        https://exercism.io/my/solutions/b50ca3f9f3d54e4fa958ff970aea2489
