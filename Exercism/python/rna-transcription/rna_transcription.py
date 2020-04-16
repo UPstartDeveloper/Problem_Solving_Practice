@@ -1,4 +1,5 @@
 import unittest
+from string import ascii_uppercase as alphabet
 """
 RNA Transcription
 Problem found on Exercism. Description can be found at the following URL:
@@ -31,22 +32,25 @@ return string
 
 
 def to_rna(dna):
+    err_msg = 'Input not a DNA strand.'
     # map DNA letters to RNA letters
     rna_key = {
         'A': 'U',
         'T': 'A',
         'C': 'G',
-        'G': 'C'
+        'G': 'C',
+        ' ': ' '
     }
     rna_seq = ''
-    for char in dna:  # O(n) space and time
-        if isinstance(char, str):
-            if char in rna_key.keys():
+    if isinstance(dna, str) is True:
+        for char in dna:  # O(n) space and time
+            if isinstance(char, str) is True and char in rna_key.keys():
                 # if a DNA character, add the RNA complemet
-                rna_seq += rna_key[char]
+                rna_seq += rna_key[char.upper()]
             else:
-                rna_seq += char
-
+                raise ValueError(err_msg)
+    else:
+        raise ValueError(err_msg)
     return rna_seq
 
 
@@ -60,7 +64,11 @@ class RNATranscriptionTests(unittest.TestCase):
         assert to_rna(dna) == 'GAUC CAUG'
 
     def test_to_rna_on_bad_inputs(self):
-        pass
+        with self.assertRaises(ValueError):
+            to_rna(123)
+
+        with self.assertRaises(ValueError):
+            to_rna('ABCD')
 
     def test_to_rna_on_edge_cases(self):
         pass
