@@ -4,13 +4,19 @@ https://leetcode.com/problems/median-of-two-sorted-arrays/
 '''
 '''
 Variable Table:
-Variable     |
-Values       |
-
+Variable     |    nums1    |   nums2   |  merged   |
+Values       |   [1, 3]    |     [2]   |     []    |
+                                       |           |  index1  |   index2  |
+                                       |           |   0      |    0      |  num1  |  num2   |
+                                       |           |          |           |  1     |   3     |
+                   [3]     |           |     [1]   |          |           |
+                           |     []    |   [1, 2]  |
+                           |           | [1, 2, 3] | mid_index|  middle   |
+                                                   |    2     |   2
 '''
 
 
-def find_median_sorted_arrays(nums1: List[int], nums2: List[int]) -> float:
+def find_median_sorted_arrays(nums1, nums2) -> float:
     '''Merges two sorted lists of numbers, and returns the median of all.'''
     # create a new list of all items in order
     merged = list()
@@ -26,7 +32,7 @@ def find_median_sorted_arrays(nums1: List[int], nums2: List[int]) -> float:
     if len(nums1) > 0:
         merged.extend(nums1)
     else:  # len(nums1) == 0, and len(num2) > 0
-        merged.extend(num2)
+        merged.extend(nums2)
     # determine middle index and element of the array
     mid_index = len(merged) // 2
     middle = merged[mid_index]
@@ -40,10 +46,10 @@ def find_median_sorted_arrays(nums1: List[int], nums2: List[int]) -> float:
 
 if __name__ == '__main__':
     # test on good inputs
-    nums1 = [1, 2]
-    num2 = [3, 4]
-    assert find_median_sorted_arrays(nums1, nums2) == 2.5
-
     nums1 = [1, 3]
-    num2 = [3]
+    nums2 = [2]
     assert find_median_sorted_arrays(nums1, nums2) == 2
+
+    nums1 = [1, 2]
+    nums2 = [3, 4]
+    assert find_median_sorted_arrays(nums1, nums2) == 2.5
