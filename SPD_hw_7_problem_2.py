@@ -12,7 +12,30 @@ Values       |
 
 def find_median_sorted_arrays(nums1: List[int], nums2: List[int]) -> float:
     '''Merges two sorted lists of numbers, and returns the median of all.'''
-    pass
+    # create a new list of all items in order
+    merged = list()
+    index1, index2 = 0, 0
+    while index1 < len(nums1) and index2 < len(nums2):
+        num1, num2 = nums1[index1], nums2[index2]
+        # decide which number takes the next spot in merged
+        if num1 <= num2:
+            merged.append(nums1.pop(index1))
+        else:  # num1 < num2
+            merged.append(nums2.pop(index2))
+    # if lists of unequal size, then we add all remaining from the non-empty
+    if len(nums1) > 0:
+        merged.extend(nums1)
+    else:  # len(nums1) == 0, and len(num2) > 0
+        merged.extend(num2)
+    # determine middle index and element of the array
+    mid_index = len(merged) // 2
+    middle = merged[mid_index]
+    # if the list has odd number of elements, we know what to return!
+    if len(merged) % 2 > 0:
+        return middle
+    else:  # len(merged) == 0
+        # return the mean of the two elements in the middle
+        return (middle + merged[mid_index - 1]) / 2
 
 
 if __name__ == '__main__':
