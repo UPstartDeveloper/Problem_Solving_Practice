@@ -20,7 +20,7 @@ def total(basket):
             j = i + 1
             if j < len(book_orders):
                 other_order = book_orders[j]
-                print(book_orders)
+                # print(book_orders)
                 # if this order has no unique values versus another order
                 if (len(order - other_order) == 0 and not
                         len(order) >= len(other_order)):
@@ -34,12 +34,12 @@ def total(basket):
                     # reassign into the book_orders array
                     print(i, j)
                     book_orders[i], book_orders[j] = order, other_order
-                            '''del book_orders[i + 1]
-                            if i < j:
-                                del book_orders[j]
-                            else:
-                                del book_orders[j + 1]
-                            print(book_orders)'''
+                    '''del book_orders[i + 1]
+                    if i < j:
+                        del book_orders[j]
+                    else:
+                        del book_orders[j + 1]
+                    print(book_orders)'''
     # use the lengths of each set to calculate discount percentage
     cost_one_book = 8
     order_discounts = {
