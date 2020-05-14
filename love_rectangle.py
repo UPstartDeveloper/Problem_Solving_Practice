@@ -67,10 +67,11 @@ def rectangle_love(rect1, rect2):
     def access_edge(rect, start, length):
         """Return the starting coordinate value, and length of the rectangle
            occupies on some axis.
+
         """
         return rect[start], rect[length]
 
-    def find_axis_overlap(rect1, rect2, axis):
+    def find_axis_overlap(axis):
         '''Compute the location of two rectangles' overlap on an axis.'''
         # determine the axis we are traversing
         if axis == 'x':
@@ -101,8 +102,16 @@ def rectangle_love(rect1, rect2):
                 rect1_coordinate += 1
         # return the values, check to make sure an overlap found
         if intersected_length == 0:
-            return None
-        else:
-            return rect1_coordinate, intersected_length
+            rect1_coordinate = None
+        return rect1_coordinate, intersected_length
 
-        
+    # putting it all together - X-axis overlap
+    x_overlap_start, x_overlap_length = find_axis_overlap('x')
+    y_overlap_start, y_overlap_length = find_axis_overlap('y')
+    # build the dictionary
+    return {
+        'left_x': x_overlap_start,
+        'bottom_y': y_overlap_start,
+        'width': x_overlap_length,
+        'height': y_overlap_length
+    }
