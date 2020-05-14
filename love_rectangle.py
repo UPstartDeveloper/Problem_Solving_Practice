@@ -21,6 +21,23 @@ What shall be returned if there is no intersection between the two rectangles?
     positive integers, as the coordinate values at their vertices.
 
 """
+# Find the intersection of both rectangles on the X-axis, if any
+"""
+Idea 1: using Sets
+rect1_x = make_set(rect1['left_x'], rect1['width'])
+rect2_x = make_set(rect2['left_x'], rect2['width'])
+x_intersection = rect1_x.intersection(rect2_x)
+# Do the same for both rectangles in the Y-axis
+rect1_y = make_set(rect1['left_x'], rect1['height'])
+rect2_y = make_set(rect2['left_x'], rect2['height'])
+y_intersection = rect1_y.intersection(rect2_y)
+# construct a new rectanngle dict
+intersected = {}
+return interested
+
+oh no! this data structure won't let be able to pull out either the
+the bottm_y or left_x
+"""
 
 
 def make_set(start_coordinate, length):
@@ -29,41 +46,26 @@ def make_set(start_coordinate, length):
     return set(range(start_coordinate, end_coordinate + 1))
 
 
+"""
+Idea 2: using iteration
+
+1. have some control variable, like continue = True
+   a. while continue is True, we iterate over the range of coordinate
+      values that each rectangle occupies along that axis
+   b. if we see a matching coordinate, then we want to see how wide/high
+      it goes. We can then break, and move on to the following steps:
+      - compute the final coordinate that each rectangle occupies on
+        the axis
+      - compare them to see which is smaller
+      - calculate the distance from the start of the intersection, to the
+        smaller final coordinate
+   c. if no match occurs, then return None for that axis
+
+"""
+
+
 def rectangle_love(rect1, rect2):
     '''Computes the overlap between two rectangles in the Cartesian plane.'''
-    # Find the intersection of both rectangles on the X-axis, if any
-    """
-    Idea 1: using Sets
-    rect1_x = make_set(rect1['left_x'], rect1['width'])
-    rect2_x = make_set(rect2['left_x'], rect2['width'])
-    x_intersection = rect1_x.intersection(rect2_x)
-    # Do the same for both rectangles in the Y-axis
-    rect1_y = make_set(rect1['left_x'], rect1['height'])
-    rect2_y = make_set(rect2['left_x'], rect2['height'])
-    y_intersection = rect1_y.intersection(rect2_y)
-    # construct a new rectanngle dict
-    intersected = {}
-    return interested
-
-    oh no! this data structure won't let be able to pull out either the
-    the bottm_y or left_x
-    """
-    """
-    Idea 2: using iteration
-
-    1. have some control variable, like continue = True
-       a. while continue is True, we iterate over the range of coordinate
-          values that each rectangle occupies along that axis
-       b. if we see a matching coordinate, then we want to see how wide/high
-          it goes. We can then break, and move on to the following steps:
-          - compute the final coordinate that each rectangle occupies on
-            the axis
-          - compare them to see which is smaller
-          - calculate the distance from the start of the intersection, to the
-            smaller final coordinate
-       c. if no match occurs, then return None for that axis
-
-    """
     def access_edge(rect, start, length):
         """Return the starting coordinate value, and length of the rectangle
            occupies on some axis.
@@ -83,26 +85,26 @@ def rectangle_love(rect1, rect2):
         rect2_start, rect2_length = access_edge(rect2, start, length)
         # calculate the final coordinate values for both rectangles on the axis
         rect1_final, rect2_final = (
-            rect1_start + rect1_length + 1
+            rect1_start + rect1_length + 1,
             rect2_start + rect2_length + 1
         )
         # make a range of the second rectangles coordinate values
-        rect2_range = range(rect2_start, rect2_final)
+        rect2_range = list(range(rect2_start, rect2_final))
         # find if any overlap occurs
         rect1_coordinate, intersected_length = rect1_start, 0
-        while rect1_coordinate > rect1_final:
+        while rect1_coordinate < rect1_final:
             if rect1_coordinate in rect2_range:
                 # determine the length of the overlap
                 if rect1_final <= rect2_final:
-                    intersected_length = rect1_final - rect1_coordinate
+                    intersected_length = rect1_final - rect1_coordinate - 1
                 else:
-                    intersected_length = rect2_final - rect1_coordinate
+                    intersected_length = rect2_final - rect1_coordinate - 1
                 break
             else:
                 rect1_coordinate += 1
         # return the values, check to make sure an overlap found
         if intersected_length == 0:
-            rect1_coordinate = None
+            rect1_coordinate, intersected_length = None, None
         return rect1_coordinate, intersected_length
 
     # putting it all together - X-axis overlap
@@ -115,3 +117,7 @@ def rectangle_love(rect1, rect2):
         'width': x_overlap_length,
         'height': y_overlap_length
     }
+
+
+if __name__ == '__main__':
+    pass
