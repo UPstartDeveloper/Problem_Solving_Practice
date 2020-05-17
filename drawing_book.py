@@ -33,7 +33,7 @@ B: compare the two numbers for the page turning:
 """
 
 
-def drawing_book(target_page, book_length):
+def drawing_book(book_length, target_page):
     '''Return the minimum number of page turns needed to reach a page.'''
     # calculate number of page turns from the front
     if target_page > 1:
@@ -49,3 +49,16 @@ def drawing_book(target_page, book_length):
     if front_page_turns != back_page_turns:
         return min([front_page_turns, back_page_turns])
     return front_page_turns
+
+"""
+Test Cases
+
+Variables   |  book_length | target_page | front_page_turns | back_page_turns |
+
+Values      |       6      |      2      |        0         |      3          |
+
+Oh no! it looks like this first approach incorrectly calculated both values for
+the number of page turns. How can we refine the algorithm?
+
+
+"""
