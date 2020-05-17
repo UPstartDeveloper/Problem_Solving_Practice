@@ -60,6 +60,19 @@ Values      |       6      |      2      |        0         |      3          |
 Oh no! it looks like this first approach incorrectly calculated both values for
 the number of page turns. How can we refine the algorithm?
 
+Idea #3 - "map" page numbers to an array index for the front page turns,
+          and calculate the turns from the back using the total amount of
+          "page pairs" in the book
+
+          e.g. a book of 6 pages, and the target is page 5
+          it can be represented like this:
+             0        1       2      3
+          [ (1,) , (2, 3), (4, 5),  (6,)  ]
+
+          total pages that are paired together in the book: 4
+          turns from the front: 2
+          turns from the back: 1
+          minimum number of turns is 1.
     """
     # calculate the length of an array that could repr pairs of page numbers
     if book_length % 2 == 0:
