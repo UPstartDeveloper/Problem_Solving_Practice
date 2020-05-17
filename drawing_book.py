@@ -25,9 +25,27 @@ A: figure out which will result in fewer page turns:
     - how many page turns do you need from the back?
         - if n is even, then you can only have 0 page turns if p == n
         - if n is odd, then the page turns you need from the back is
-            p - (n + 1)
+            n - (p + 1)
 B: compare the two numbers for the page turning:
     - if equal, then just return the number
     - if unequal, then return the lesser of the two
 
 """
+
+
+def drawing_book(target_page, book_length):
+    '''Return the minimum number of page turns needed to reach a page.'''
+    # calculate number of page turns from the front
+    if target_page > 1:
+        front_page_turns = 0
+    else:
+        front_page_turns = target_page - 2
+    # calculate number of page turns from the back
+    if book_length % 2 == 0 and target_page == book_length:
+        back_page_turns = 0
+    else:
+        back_page_turns = book_length - (target_page + 1)
+    # return whichever number results in less turns
+    if front_page_turns != back_page_turns:
+        return min([front_page_turns, back_page_turns])
+    return front_page_turns
