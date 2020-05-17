@@ -62,11 +62,18 @@ the number of page turns. How can we refine the algorithm?
 
     """
     # calculate the length of an array that could repr pairs of page numbers
-    num_page_pairs = book_length - 2
+    if book_length % 2 == 0:
+        num_page_pairs = (book_length / 2) + 1
+    elif book_length % 2 > 0:
+        num_page_pairs = (book_length // 2) + 1
     # exit early if possible
     if target_page == 1 or target_page == book_length:
         return 0
     # calculate the page turns needed, and return the minimum
-    front_turns = target_page // 2
-    turns_from_back = num_page_pairs - (front_turns + 1)
+    front_turns = int(target_page // 2)
+    turns_from_back = int(num_page_pairs - (front_turns + 1))
     return min([front_turns, turns_from_back])
+
+
+if __name__ == '__main__':
+    print(drawing_book(6, 4))
