@@ -74,14 +74,14 @@ Idea #3 - "map" page numbers to an array index for the front page turns,
           turns from the back: 1
           minimum number of turns is 1.
     """
+    # exit early if possible
+    if target_page == 1 or target_page == book_length:
+        return 0
     # calculate the length of an array that could repr pairs of page numbers
     if book_length % 2 == 0:
         num_page_pairs = (book_length / 2) + 1
     elif book_length % 2 > 0:
         num_page_pairs = (book_length // 2) + 1
-    # exit early if possible
-    if target_page == 1 or target_page == book_length:
-        return 0
     # calculate the page turns needed, and return the minimum
     front_turns = int(target_page // 2)
     turns_from_back = int(num_page_pairs - (front_turns + 1))
