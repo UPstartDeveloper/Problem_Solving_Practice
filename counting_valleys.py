@@ -24,6 +24,11 @@ C: if we see a 'D':
 D: fast forward the index by howver many steps just taken in the inner loop, or
     just by 1 if we didn't enter the loop
 E: after the traversal, return the valley_count
+
+Idea #4: using compound conditional
+- assume that we only need to account for a 'U' if it's getting us out of a
+  valley
+- only time I need to increment valley count is after a 'U' step
 """
 
 
@@ -57,7 +62,7 @@ def counting_valleys(n, s):
         if len(steps) == 0:
             valley_count += 1
 
-    return valley_count"""
+    return valley_count
     altitude, valley_count, i = 0, 0, 0
     while i < len(s):
         letter = s[i]
@@ -83,4 +88,21 @@ def counting_valleys(n, s):
                     j += 1
         else:
             i += 1
+    return valley_count"""
+    altitude, valley_depth, valley_count = 0, 0, 0
+    for letter in s:
+        # adjust the altitude and depth on a 'D'
+        if letter == 'D':
+            # entering a valley
+            if altitude == 0:
+                valley_depth += 1
+            altitude -= 1
+        # adjust the altitude and depth on a 'U'
+        elif letter == 'U':
+            altitude += 1
+            if valley_depth > 0:
+                valley_depth -= 1
+            # exiting a valley
+            if valley_depth == 0 and altitude == 0:
+                valley_count += 1
     return valley_count
