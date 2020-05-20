@@ -26,36 +26,31 @@ Idea 1: using for loops
 """
 
 
-def find_combos(keyboards, drives, b):
-    """Traverse both arrays of prices such that there are always two products
-       being combined.
-
-    """
-    # make the shorter list the one iterated over in the outer loop
-    if len(keyboards) <= len(drives):
-        outer, inner = keyboards, drives
-    else:  # len(keyboards) > len(drives)
-        outer, inner = drives, keyboards
-    # build the combinations
-    combos = list()
-    for price1 in outer:
-        for price2 in inner:
-            combo = price1 + price2
-            # only add combos within budget, and that have both products
-            if combo <= b and price1 > 0 and price2 > 0:
-                combos.append(combo)
-    return combos
-
-
 def get_money_spent(keyboards, drives, b):
     # calculate all ways the customer can purchase the product
-    combos = find_combos(keyboards, drives, b)
-    # in case there were no combinations that fit the requirements
-    if len(combos) == 0:
-        return -1
-    # choose the combination that spends the most money in combos list
     max_combo = 0
-    for combo in combos:
-        if combo > max_combo:
-            max_combo = combo
+    for k_price in keyboards:
+        for d_price in drives:
+            combo = k_price + d_price
+            # only add combos within budget, and that have both products
+            if combo <= b and k_price > 0 and d_price > 0:
+                if combo > max_combo:
+                    max_combo = combo
+    # check to make sure a max_combo was able to be found
+    if max_combo == 0:
+        max_combo = -1
     return max_combo
+
+
+"""
+Big O Complexity:
+
+Time: The runtime of this function rises asymptotically with respect to the
+      sizes of both keyboards and drives. Since we have defined the process
+      to finding all combinations of the prices using nested for loops, the
+      average case runtime of this function will be O(n * m).
+
+Space: This functions uses only local variables, so its memory usages is
+       independent of the input. It is therefore O(1).
+
+"""
