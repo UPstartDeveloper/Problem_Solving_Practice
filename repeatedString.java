@@ -2,21 +2,14 @@
  * Hacker Rank Problem found here:
  * https://www.hackerrank.com/challenges/repeated-string/problem?h_l=interview&playlist_slugs%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D=warmup
  */
- import java.io.*;
- import java.math.*;
- import java.security.*;
- import java.text.*;
- import java.util.*;
- import java.util.concurrent.*;
- import java.util.regex.*;
 
- public class Solution {
+ public class repeatedString {
      //-----------------------------------------------------
      // pre: String s, and long n
      // post: return the number of times "a" appears in
      //       first n letters of s, repeated over and over
      //------------------------------------------------------
-     public static long repeatedString(String s, long n){
+     public static long repeatString(String s, long n){
         // count the number of times "a" appears in s
         long numAsInOne = 0;
         for(int i = 0; i < s.length(); i++){
@@ -46,7 +39,7 @@
          // execute repeatedString on a reasonable test input
          String s = "aba";
          long n = 10;
-         long As = repeatedString(s, n);
+         long As = repeatString(s, n);
          System.out.println("The correct ouput for the above is: " + As);
      }
  }
