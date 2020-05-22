@@ -11,6 +11,11 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.regex.*;
 
+/* Variable Trace Table
+ * Variables  | currentIndex   |  jumps | jumpLength  |   c => Length: 6
+ * Value      |     0          |   0    |    2        | [0, 0, 0, 1, 0, 0,]
+ *            |     2          |   1    |    2        |
+ */
 public class Solution {
 
     /*
@@ -21,11 +26,13 @@ public class Solution {
         // init currentIndex and jumps
         int currentIndex = 0, jumps = 0;
         // traverse the clouds
-        while (currentIndex < c.length){
+        while (currentIndex < c.length - 1){
             // find the number of clouds to advance on the next jump
             int jumpLength = 2;
-            // if the cloud 2 steps aheads is a thunderhead, then only jump 1 ahead
-            if (c[currentIndex + jumpLength] == 1){
+            // switch jumpLength to 1 if we're going outside c,
+            // or jumping onto a thunderhead
+            int nextIndex = currentIndex + jumpLength;
+            if (nextIndex >= c.length || c[nextIndex] == 1){
                 jumpLength = 1;
             }
             // advance the player
