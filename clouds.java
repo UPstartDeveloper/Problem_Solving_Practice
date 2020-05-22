@@ -18,7 +18,23 @@ public class Solution {
      * Post int jumps: minimum number of advances needed to reach last cloud
      */
     public static int jumpingOnClouds(int[] c) {
-
+        // init currentIndex and jumps
+        int currentIndex = 0, jumps = 0;
+        // traverse the clouds
+        while (currentIndex < c.length){
+            // find the number of clouds to advance on the next jump
+            int jumpLength = 2;
+            // if the cloud 2 steps aheads is a thunderhead, then only jump 1 ahead
+            if (c[currentIndex + jumpLength] == 1){
+                jumpLength = 1;
+            }
+            // advance the player
+            currentIndex += jumpLength;
+            // increment jumps made
+            jumps += 1;
+        }
+        // return the minimum number of jumps
+        return jumps;
 
     }
 
