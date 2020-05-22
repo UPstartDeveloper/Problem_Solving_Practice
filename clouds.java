@@ -11,6 +11,10 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.regex.*;
 
+/* Assumptions Made in Solution:
+ * the array of clouds always begins and ends with a cumulus cloud (0)
+ */
+
 /* Variable Trace Table
  * Variables  | currentIndex   |  jumps | jumpLength  |   c => Length: 6
  * Value      |     0          |   0    |    2        | [0, 0, 0, 1, 0, 0,]
@@ -80,3 +84,18 @@ public class Solution {
         scanner.close();
     }
 }
+/*
+ * Big O Complexity:
+ * Time: This runtime of this solution rises asymptotically the amount of
+         iterations made while traversing the array, which increases linearly
+         with respect to the length of c. This in turn can be represented by the
+         variable n, which allows us to express the runtime complexity as O(n).
+         This is arguably the fastest runtime complexity for this problem, because
+         we always need to traverse the array in some form, in order to know how
+         many 0's and 1's there are, and at which indices in the array they are
+         located.
+ *
+ * Space: This solution uses memory for local variables, meaning its space
+          complexity is independent of the input. Therefore, the space complexity
+          can be expressed as O(!).
+ */
