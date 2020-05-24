@@ -59,14 +59,22 @@ public class LeftRotations{
         while (swaps < arr.length - 1){
             // make the left rotation for one element
             int newIndex = calculateNewIndex(arr, currentIndex, d);
-            temp = arr[newIndex]
+            temp = arr[newIndex];
             arr[newIndex] = swappingValue;
             currentIndex = newIndex;
             swappingValue = temp;
             swaps += 1;
         }
         return arr;
-
+    }
+    public static int[] simpleRotLeft(int[] arr, int d){
+        int changeInPos = d % arr.length;
+        int[] newArr = new int[arr.length];
+        for (int i = 0; i < newArr.length; i++){
+            int formerLoc = (i + changeInPos) % arr.length;
+            newArr[i] = arr[formerLoc];
+        }
+        return newArr;
     }
 
     public static void main(String[] args){
