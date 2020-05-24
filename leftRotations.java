@@ -26,19 +26,50 @@
  *                  that is left of it
  *              D: when we reach the first index, we copy over the value into the greatest index position
  *      2. Negative Indexing - O(n)
- *        A:  iterate over the arr
- *             B: calculate the change in each element's index - it will equal the difference between 
+ *        A:  calculate the change in each element's index - it will equal the difference between 
  *                  arr.length and d
- *             C: if the change is positive, keep a refernce to the element that is 1 left of the currElement (starting at 0)
- *                if the change is negative, keep a refernce to the element that is 1 right of the currElement (starting at 0)
- *             D: on each iteration:
- *                  calculate the newIndex for both the index being iterated on, as well as its neighbor
- *                  store the value currently being stored in the newIndex of the iterated over index, in a temp variable
- *                  move over the item at the index being iterated over, then its neighbor
+*         B: iterate over the array 
+*             C: if the change is positive, keep a refernce to the element that is 1 left of the currElement (starting at 0)
+*                if the change is negative, keep a refernce to the element that is 1 right of the currElement (starting at 0)
+*             D: on each iteration:
+*                  calculate the newIndex for both the index being iterated on, as well as its neighbor
+*                  store the value currently being stored in the newIndex of the iterated over index, in a temp variable
+*                  move over the item at the index being iterated over, then its neighbor
  *        E: return the new array
  *              arr             neighborIndex          currentIndex  
- *          [1, 2, 3, 4, 5]         4                       0
- *          []
- *          
- * /
+ *          [1, 2, 3, 4, 5]         4                       0  
+ */
+public class LeftRotations{
+    public static int calculateNewIndex(int[] arr, int currentIndex, int changeInIndex){
+        int newIndex = currentIndex - changeInIndex;
+        if (newIndex < 0){
+            newIndex += arr.length;
+        }
+        return newIndex;
+    }
+    public static void swap(int[] arr, int index, int otherIndex){
+        int temp = arr[index];
+        arr[index] = arr[otherIndex];
+        arr[otherIndex] = temp;
+    } 
+
+    public static int[] rotLeft(int[] arr, int d){
+        // calculate the change in index
+        int changeInIndex = arr.length % d;
+        int newIndex = calculateNewIndex(arr, 0, changeInIndex);
+        // iterate over the array - one less than the length is the number of swaps needed
+        for (int i = 0; i < arr.length - 1; i++){
+            swap(arr, 0, newIndex);
+            newIndex += 1;
+        }
+        return arr;
+
+    }
+
+    public static void main(String[] args){
+
+    }
+}
+
+
 
