@@ -54,13 +54,16 @@ public class LeftRotations{
     } 
 
     public static int[] rotLeft(int[] arr, int d){
-        // calculate the change in index
-        int changeInIndex = arr.length % d;
-        int newIndex = calculateNewIndex(arr, 0, changeInIndex);
         // iterate over the array - one less than the length is the number of swaps needed
-        for (int i = 0; i < arr.length - 1; i++){
-            swap(arr, 0, newIndex);
-            newIndex += 1;
+        int swaps = 0, currentIndex = 0, swappingValue = arr[currentIndex], temp = 0;
+        while (swaps < arr.length - 1){
+            // make the left rotation for one element
+            int newIndex = calculateNewIndex(arr, currentIndex, d);
+            temp = arr[newIndex]
+            arr[newIndex] = swappingValue;
+            currentIndex = newIndex;
+            swappingValue = temp;
+            swaps += 1;
         }
         return arr;
 
