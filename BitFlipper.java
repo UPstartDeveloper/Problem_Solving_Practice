@@ -8,12 +8,13 @@ public class BitFlipper {
 
     // Complete the flippingBits function below.
     /*
-     * Pre: long n is an unsigned decimal integer
+     * Pre: long n is an unsigned decimal, that can be represented by
+     *      a 32-bit integer
      * Post: long is an unsigned decimal integer, and is found by
      *       "flipping" all the bits in the binary representation 
      *      of the input
      */
-    static long flippingBits(long n) {
+    public static long flippingBits(long n) {
         // convert n to 32-bit number
         int[] nInBinary = new int[32];
         double maxExponent = nInBinary.length - 1;
@@ -56,6 +57,21 @@ public class BitFlipper {
     }
 
     public static void main(String[] args) {
-        
+        // generate reasonable test input
+        long n = 0;
+        // output should be 4294967295, maximum value of a 32-bit integer
+        long output = flippingBits(n);
+        System.out.println("The largest possible value that can be stored in a " +
+                           "32-bit integers is: " + output);
     }
 }
+
+/* Complexity Analysis
+ *
+ * Time: the runtime of the BitFlipper.flippingBits method does not rise in relation to the
+ *       value of n. Therefore the runtime is asymptotically constant, or O(1).
+ * Space: the memory used by this method is local to the function itself. We will always need an
+ *         array of 32 memory locations, because the pre-condition of the method is that n is an unsigned
+ *         32-bit decimal integer. Therefore the space used by the method is also independent of the input,
+ *         and can be expressed as O(1).
+ */
