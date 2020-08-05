@@ -48,6 +48,7 @@ public class Staircase {
          Scanner scan = new Scanner(System.in);
          System.out.print("Enter number of step in staircase: ");
          int steps = scan.nextInt();
+         scan.close();
 
          // printing the staircase
          System.out.println("------------------------------------------------");
