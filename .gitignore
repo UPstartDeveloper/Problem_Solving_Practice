@@ -1,5 +1,6 @@
-# macOS
+# macOS and Editor 
 .DS_Store
+.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
