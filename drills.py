@@ -5,7 +5,7 @@ remove every node in that linked list, that has the value
 return the head
 
 Input:  1->2->6->3->4->5->6->None, val = 6
- Output: 1->2->3->4->5 
+Output: 1->2->3->4->5
 
 6->5->-6-7, 6
 

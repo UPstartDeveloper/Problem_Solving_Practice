@@ -44,7 +44,7 @@ def wave_array(integers):
             # move on to next window
             print(integers)
             start += 1
-            end += 2
+            end += 1
         end_overall += 1
     return integers
 

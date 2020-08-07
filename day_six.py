@@ -132,9 +132,9 @@ everything below 3,099
 
 Roman numerals are represented by seven different symbols:
 I, V, X, L, C, D and M.
-  Symbol       Value 
-1 V             5 
-10 L            50 C
-100 D           500 M
+Symbol       Value
+1V             5
+10L            50C
+100D           500M
 1000
 '''
