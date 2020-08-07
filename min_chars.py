@@ -2,6 +2,46 @@ import math
 
 
 def minimum_characters(phrase):
+    # A: init num of minimumCharacters needed
+    min_chars = 0
+    # B: init the left and right indices = len(phrase) / 2
+    midpoint = math.ceil(len(phrase) / 2) - 1
+    # C: iterate from the midpoint
+    while midpoint > -1:
+        # set indices for left and right
+        left = right = midpoint
+        print(midpoint)
+        #  while phrase[left] == phrase[right]:
+        while left > -1 and right < len(phrase):
+            # D: check letters from left and right
+            if phrase[left] == phrase[right]:
+                print(f'Letters {phrase[left]} at {left} = {phrase[right]} at {right}')
+                # move left and right
+                left -= 1
+                right += 1
+                print(left, right)
+            else: # letters don't match
+                # move midpoint left and start over
+                midpoint -= 1
+                break
+        # if there are index errors
+        if left == -1 or right == len(phrase): 
+            # find the longer side
+            left_length = len(phrase[:left])  
+            right_length = len(phrase[right:]) 
+            # add on the length of remaining characters on this side
+            if left_length >= right_length:
+                min_chars += left_length
+            else:
+                min_chars += right_length
+            # break out of the outer loop
+            break
+    return min_chars
+
+
+
+"""
+def minimum_characters(phrase):
   # A: init num of minimumCharacters needed
   min_chars = 0
   # B: init the left and right indices = len(phrase) / 2
@@ -41,14 +81,8 @@ def minimum_characters(phrase):
       left_index -= 1
       right_index += 1
   return min_chars
-  
-# Case 1: "DDFGFDDD" FAILING
-# Case 2: "ABC" PASSED
-# Case 3: "AACECAAAA" FAILING
-phrase = "ABC"
-print(minimum_characters(phrase))
 
-
+"""
 """
 Variable - Value Trace
           0  1  2
@@ -71,4 +105,9 @@ left_is_longer = True
 
 """
     
-  
+if __name__ == '__main__':
+    # Case 1: "DDFGFDDD" FAILING
+    # Case 2: "ABC" PASSED
+    # Case 3: "AACECAAAA" FAILING
+    phrase = "ABC"
+    print(minimum_characters(phrase))
