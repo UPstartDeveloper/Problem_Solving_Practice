@@ -109,5 +109,5 @@ if __name__ == '__main__':
     # Case 1: "DDFGFDDD" FAILING
     # Case 2: "ABC" PASSED
     # Case 3: "AACECAAAA" FAILING
-    phrase = "ABC"
+    phrase = "AACECAAAA"
     print(minimum_characters(phrase))
