@@ -46,3 +46,4 @@ def valid_anagram(s,t):
       return False
   # All checks pass
   return True
+      
