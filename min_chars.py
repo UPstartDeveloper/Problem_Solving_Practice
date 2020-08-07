@@ -25,17 +25,17 @@ def minimum_characters(phrase):
                 midpoint -= 1
                 break
         # if there are index errors
-        if left == -1 or right == len(phrase): 
-            # find the longer side
-            left_length = len(phrase[:left])  
-            right_length = len(phrase[right:]) 
-            # add on the length of remaining characters on this side
-            if left_length >= right_length:
-                min_chars += left_length
-            else:
+        if left == -1 or right == len(phrase):
+              if left == -1:
+                # add length of remaining chars on right  
+                right_length = len(phrase[right:]) 
                 min_chars += right_length
-            # break out of the outer loop
-            break
+              elif right == len(phrase):
+                  # add length of remaining chars on left
+                  left_length = len(phrase[:left])
+                  min_chars += left_length
+              # break out of the outer loop
+              break
     return min_chars
 
 
@@ -106,8 +106,8 @@ left_is_longer = True
 """
     
 if __name__ == '__main__':
-    # Case 1: "DDFGFDDD" FAILING
+    # Case 1: "DDFGFDDD" PASSEd
     # Case 2: "ABC" PASSED
-    # Case 3: "AACECAAAA" FAILING
-    phrase = "AACECAAAA"
+    # Case 3: "AACECAAAA" PASSED
+    phrase = "DDFGFDDD"
     print(minimum_characters(phrase))
