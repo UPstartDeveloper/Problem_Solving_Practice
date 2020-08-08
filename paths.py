@@ -22,6 +22,9 @@ output:
 from typing import List
 
 
+# Idea #1: using Lists
+# Time is Quadratic
+# Memory is O(n) - linear
 def get_destination_city(paths):
     # create two lists, one for origin cities and the destination cities
     origins, destinations = list(), list()  # O(1)
@@ -36,6 +39,32 @@ def get_destination_city(paths):
     target_cities = [city for city in destinations if city not in origins]  # c^2 iterations
     # we assume there is only one city in the list
     return target_cities[0]
+
+# Idea 2: using a dict
+# Time is still quadratic
+# memory is still linear 
+
+# paths = [   [outlink, inlink]    ] -> city with no outlink
+def get_destination_city(paths):
+    city_outlinks = dict()
+    # iterate over the paths, add the cities and number of outlinks
+    for path in paths:  # p iterations
+        # unpack the path into the origin and destination city
+        origin, destination = path
+        # add origin to the dictionary
+        if origin in city_outlinks:  # c iterations = 2p
+            city_outlinks[origin] += 1
+        else:  # origin city is not yet in city_outlinks
+            city_outlinks[origin] = 1
+        # add destination to the dictionary
+        if destination not in city_outlinks:  # c iteration = 2p
+            city_outlinks[destination] = 0
+    # find the city with no outlinks
+    for city in city_outlinks:
+        if city_outlinks[city] == 0:
+            return city
+    
+    
 
 
 if __name__ == '__main__':
