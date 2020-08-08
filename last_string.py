@@ -66,7 +66,7 @@ def length_of_last_word(words):
     # index the last word
     start += WORDS_LENGTH; end += WORDS_LENGTH
     last_word = words[start:end + 1]
-    print(f'Last word: {last_word}')
+    print(f"Last word: '{last_word}'")
     # return the length of the substring between the delimiters
     return len(last_word)
 
