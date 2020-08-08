@@ -63,6 +63,64 @@ def get_destination_city(paths):
     for city in city_outlinks:
         if city_outlinks[city] == 0:
             return city
+
+# Idea 3: Using OOP:
+"""
+Complexity Analysis:
+
+Time: linear 
+The runtime of this function scales linearly as the number of paths, p, 
+which the airline company serves asymptotically increases. Therefore the
+runtime can be expressed as O(3p), which simplifies to O(p).
+
+Space: linear
+The additional memory used by this solution rises in linear proportion to 
+number of cities, or c (which equals 2p), which the computer needs to allocate
+memory for during execution. Therefore the space complexity can be expressed as 
+O(p), because the memory will grow linearly the size of the input asymptotically
+grows. Unfortunately this linear space complexity is also more expensive than
+the linear space complexities of the previous two solutions, because it uses 
+custom Python classes rather than just the built-in data types. It is still in
+the same complexity class, but regardless in production environments it will
+be more expensive by a certain coefficient (which can be determined by
+benchmarking). 
+
+"""
+
+class City:
+    """
+    For now, all this class will do is 
+    store the numbers of inlinks/outlinks that
+    a city has, not the cities those links 
+    come from/go to.
+    """
+    def __init__(self, city_name):
+        self.city_name = city_name
+        self.inlinks = self.outlinks = 0
+
+class Airline:
+    def __init__(self):
+        self.cities = dict()  # str -> City obj
+
+    def set_paths(self, path):
+        # iterate over the path
+        for path in paths:  # p iterations
+            # make city objects
+            origin, destination = path
+            origin_city, destination_city = (
+                City(origin), City(destination)
+            )
+            # increment the inlink/outlink properties
+            origin_city.outlinks += 1
+            destination_city.inlinks += 1
+            # add to the overall object dictionary
+            self.cities[origin] = origin_city
+            self.cities[destination] = destination_city
+        # return the city with no outlinks
+        for city in self.cities:  # c iterations = 2p iterations
+            city_outlinks = self.cities[city].outlinks
+            if city_outlinks == 0:
+                return city
     
     
 
