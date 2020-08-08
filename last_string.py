@@ -45,11 +45,8 @@ def length_of_last_word(words):
             STOP = -1
         # iterate
         while index != STOP:  # stops for words with no space
-            print(index)
-            # check for a letter
-            print(words[start + progress])
             # stop for words with space
-            if words[index].isalpha() and words[start + progress] == " ":
+            if words[index].isalpha() and words[index + progress] == " ":
                 break
             else: 
                 index += progress
@@ -66,7 +63,6 @@ def length_of_last_word(words):
     # index the last word
     start += WORDS_LENGTH; end += WORDS_LENGTH
     last_word = words[start:end + 1]
-    print(f"Last word: '{last_word}'")
     # return the length of the substring between the delimiters
     return len(last_word)
 
