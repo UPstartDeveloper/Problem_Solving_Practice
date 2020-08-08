@@ -44,6 +44,7 @@ def length_of_last_word(words):
             # iterating forwards
             STOP = -1
         # iterate
+        # print(index, STOP)
         while index != STOP:  # stops for words with no space
             # stop for words with space
             if words[index].isalpha() and words[index + progress] == " ":
@@ -54,6 +55,9 @@ def length_of_last_word(words):
     # useful constants for iteration
     WORDS_LENGTH  = len(words)
     STOP_INDEX_NEGATIVE  = -(WORDS_LENGTH)
+    # solve for all cases with no space
+    if " " not in words:
+        return len(words)
     # find the index of the starting delimiter of the last word
     start = -1
     start = traverse(start, -1)
@@ -68,7 +72,7 @@ def length_of_last_word(words):
 
 if __name__ == '__main__':
     # test case 1
-    words = 'aaa'
+    words = 'World'
     print(length_of_last_word(words))
     # test case 2
     words = 'Hello World'
@@ -76,5 +80,3 @@ if __name__ == '__main__':
     # test case 3
     words = ' World '
     print(length_of_last_word(words))
-    # possible_space_index = start + progress
-    # if words[possible_space_index] == " ":
