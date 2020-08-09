@@ -124,5 +124,6 @@ if __name__ == '__main__':
     # print(longest_palindrome("cbbd"))
     # Test Case 2
     # print(longest_palindrome("babad"))
-    print(longest_palindrome("bbbbbbbbbbbbbbbbbbbbbfbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"))
-    # print(longest_palindrome("racecar"))
+    # print(longest_palindrome("bbbbbbbbbbbbbbbbbbbbbfbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"))
+    print(longest_palindrome("racecar"))
+    print(longest_palindrome(""))    
