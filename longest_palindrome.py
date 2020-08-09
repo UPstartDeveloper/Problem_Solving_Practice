@@ -73,7 +73,7 @@ def longest_palindrome(input_string):
         return True
     def add_palindromes(start_index, end_index):
         # check if the substring is a palindrome
-        substring = input_string[start_index:end_index]
+        substring = input_string[start_index:end_index + 1]
         # check if we need another palindrome
         longest_pal_len = 0
         # determine if there's a palindrome length > remaining substr's
@@ -83,10 +83,12 @@ def longest_palindrome(input_string):
         if longest_pal_len > len(substring):
             # so exit early
             return
+        # verify if the substring is a palindrome
         is_pal = is_palindrome(substring)
         # if it is, add it to the dict
         if is_pal is True:
             pal_length = len(substring)
+            # entry_index = 
             entry = (start_index, substring)
             # add as a new entry
             if pal_length not in len_palindromes:
@@ -105,18 +107,24 @@ def longest_palindrome(input_string):
             add_palindromes(start_index, end_index - 1)
             # and also try moving both indicies in
             # add_palindromes(start_index + 1, end_index - 1)
-    # iterate from both ends of the input_string towards the center 
-    start, end = 0, len(input_string)
-    # B: get all the palindromes
-    add_palindromes(start, end)
+    # for strings with words and spaces in between, split into muliple words
+    for word in input_string.split():
+        # iterate from both ends of the input_string towards the center 
+        start_index = input_string.index(word)
+        end_index = start_index + len(word)
+        # B: get all the palindromes
+        add_palindromes(start_index, end_index)
     # C: get the longest length palindromes
-    longest_len = max((len_palindromes.keys()))
-    longest_palindromes = len_palindromes[longest_len]
-    # get the longest palindrome that appears earliest
-    longest_palindromes.sort()
-    index, palindrome = longest_palindromes[0]
+    # check for the empty string edge case
+    if len(input_string) > 0:
+        longest_len = max((len_palindromes.keys()))
+        longest_palindromes = len_palindromes[longest_len]
+        # get the longest palindrome that appears earliest
+        longest_palindromes.sort()
+        index, palindrome = longest_palindromes[0]
+        input_string = palindrome
     print(len_palindromes)
-    return palindrome
+    return input_string
 
 
 if __name__ == '__main__':
@@ -125,5 +133,12 @@ if __name__ == '__main__':
     # Test Case 2
     # print(longest_palindrome("babad"))
     # print(longest_palindrome("bbbbbbbbbbbbbbbbbbbbbfbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"))
-    print(longest_palindrome("racecar"))
-    print(longest_palindrome(""))    
+    # print(longest_palindrome(" racecar "))
+    # print(longest_palindrome("i want to be a racecar driver"))   
+    print(longest_palindrome("abba is babaabab")) 
+
+"""
+Going Further:
+    I would look for a way to ensure that only unique substrings
+    of the input string would be checked to see if they're palindromes.
+"""
