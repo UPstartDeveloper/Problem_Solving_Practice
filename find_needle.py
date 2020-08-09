@@ -3,7 +3,7 @@ def set_letters(haystack, needle, needle_index, haystack_index):
     needle[needle_index], haystack[haystack_index]
     )
     return needle_letter, haystack_letter
-
+"""
 def strStr(haystack, needle):
     # init a variable tracking the index of where the match begins
     match_start = 0
@@ -31,9 +31,21 @@ def strStr(haystack, needle):
         haystack_index = match_start
     # needle not found
     return -1
+"""
+# This is Abhishek Kulkarni's solution, I have pasted it here to compare
+# with the one I have above
+def strStr(haystack: str, needle: str):
+    # handles cases where needle is empty, or haystack is identical to needle
+    if needle == haystack or needle == "":
+        return 0
+    for i in range(len(haystack)):
+        if haystack[i:i+len(needle)] == needle:
+            return i
+    return -1
+
 
 if __name__ == '__main__':
-    print(strStr("aaaaa", "bba"))
+    print(strStr("aaaab", "b"))
 """
      0   1   2  3  4 
      h   e   l  o  o
