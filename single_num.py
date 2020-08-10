@@ -16,22 +16,17 @@ def is_in_range(num, target_appearances, rest_appearances):
 
 def align_nums(nums, bits_needed):
     for index, num in enumerate(nums):
-        # print(num)
         # see difference in lengthof num, and needed num of bits
         diff = bits_needed - len(num)
-        # print(diff)
         # make up the length difference
         if diff > 0:
             # convert to list, to be able to insert
             num = list(num)
-            # print(f'Converted num to list: {num}')
             # fill in 0's in front of num
             for position in range(diff):
                 num.insert(0, '0')
-                # print(num)
             # convert back to string
             num = ''.join(num)
-            # print(f'Converted num to str: {num}')
             # replace num in nums array
             nums[index] = num
     return nums
@@ -41,10 +36,8 @@ def single_number(nums):
     # find how long all the binary numbers need to be, n
     max_num = max(nums)
     bits_needed = find_max_power_of_2(max_num)
-    # print(f'Bits needed: {bits_needed}')
     # convert all the nums to their binary equivalents
     nums = [bin(num)[2:] for num in nums]
-    # print(nums)
     # make sure all the nums are the same length
     nums = align_nums(nums, bits_needed)
     print(nums)
@@ -54,7 +47,6 @@ def single_number(nums):
     for bit_pos in range(bits_needed):
         # create a mask (1 << n)
         mask = 1 << bit_pos
-        # print(f'Mask: {mask}')
         # count up the ones present in that bit pos, over all nums
         count = 0
         for num in nums:
@@ -70,7 +62,6 @@ def single_number(nums):
     # convert the bits into a string in right order
     final_binary.reverse()
     binary_str = ''.join(final_binary)
-    # print(binary_str)
     # decode the binary number into base 10
     target_num = int(binary_str, 2) 
     return target_num
