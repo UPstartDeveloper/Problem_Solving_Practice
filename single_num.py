@@ -88,7 +88,8 @@ class Trinary:
         num = 0
         for i in range(32):
             if self.bits[i] == 1:
-                num |= 1 << i
+                num += 2**(i)
+                print(f'Num changed: {num}')
         return num
 
 def single_number(nums):
@@ -96,10 +97,42 @@ def single_number(nums):
     for num in nums:
         tri.xor(num)
     return tri.value()
-  
+"""
 
+def single_number(nums):
+    nums[0] = int(bin(nums[0])[2:])
+    print(nums[0])
+    # convert whole array to binary
+    for index in range(1, len(nums)):
+        nums[index] = int(bin(nums[index])[2:]) + nums[index - 1]
+        print(nums)
+    # print(nums)
+    # print(bin(nums[-1]))
+    string_sum = str(nums[-1])
+    # print(string_sum)
+    binary_result = "0b"
+    for digit in string_sum:
+        # print(each)
+        if int(digit) % 3 == 1:
+            # print(int(each) % 3 + 1)
+            binary_result = binary_result + "1"
+        else:
+            binary_result = binary_result + "0"
+    # print(binary_result)
+    print(int(binary_result, 2))
+    single_answer = int(binary_result, 2)
+    return single_answer
+
+
+if __name__ == "__main__":
+    array1 = [2, 2, 2, 3]
+    array2 = [1, 2, 3, 1, 10, 2, 3, 1, 2, 3]
+    big_array = [1, 2, 3, 1, 2, 3, 1, 2, 3] * 5000
+    big_array.append(20)
+    single_number(big_array)
+"""
 
 if __name__ == '__main__':
     nums = [3, 3, 3, 10]
-    print(single_number(nums))
+    single_number(nums)
     
