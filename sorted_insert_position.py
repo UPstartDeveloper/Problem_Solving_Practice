@@ -15,21 +15,18 @@ def find_index(sorted_list, target):
         # Base case: the target value is found
         if mid_val == target:
             return mid_index
-        # the index where the target is expected is found
-        elif mid_val != target and mid_index == hi_index:
-            return mid_index
         # target value not found:
         elif mid_val > target:
             # if target lies "before" the array
             if low_index == hi_index:
                 # return the 0 index
-                return 0
+                return mid_index
             # otherwise search the lower half of the array
             return binary_search(low_index, mid_index - 1)
         elif mid_val < target:
             # if target lies "after" the last value
             if low_index == hi_index:
-                return ARRAY_LENGTH
+                return mid_index + 1
             # otherwise search the larger half of the array
             return binary_search(mid_index + 1, hi_index)
     # store the array length
