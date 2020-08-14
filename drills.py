@@ -70,6 +70,7 @@ def remove(head, val):
 
 # n + n --> O(n)
 
+"""
 if __name__ == '__main__':
     # Input:  1->2->6->3->4->5->6->None, val = 6
     node = ListNode(6)
@@ -84,3 +85,8 @@ if __name__ == '__main__':
     while new_node is not None:
         print(new_node)
         new_node = new_node.next
+"""
+
+"""August 14, 2020"""
+
+
