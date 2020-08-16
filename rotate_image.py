@@ -56,11 +56,10 @@ def rotate_inplace(matrix):
         # move the indices
         row_index_start += 1
         row_index_end -= 1
-    # print(matrix)
     # B: Swap elements along the left-right, up-down diagonal 
     for diagonal_index in range(NUM_ROWS):
         # index the elements to swap around the diagonal element
-        for swap_elem in range(diagonal_index):
+        for swap_elem in range(diagonal_index + 1):
             # index the elements to swap
             next_to_diagonal = matrix[diagonal_index][diagonal_index - swap_elem]
             above_diagonal = matrix[diagonal_index - swap_elem][diagonal_index]
