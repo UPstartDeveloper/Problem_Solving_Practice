@@ -45,5 +45,5 @@ def merge_sort(nums):
     return merged 
   
 if __name__ == '__main__':
-    nums = [2, 2,2,2,2,2,22,2,2,2,2,2,2,2,2,22,2,2]
+    nums = [2, 2,2,2,2,2,22,2,2,2,2, 6, 3,3, 1,2,2,2,2,22,2,2]
     print(merge_sort(nums))
