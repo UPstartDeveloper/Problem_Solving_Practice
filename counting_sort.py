@@ -7,6 +7,8 @@ def color_sort(nums):
     """
     # populate an array of the counts of each color
     counts = [0 for _ in range(3)]
+    #  0  1  2
+    # [0, 0, 0]
     for color in nums:
         counts[color] += 1
     # reassign the appropiate color into each index in nums
@@ -30,7 +32,7 @@ counts = [2, 3, 1]
 
 nums = [0, 0, 1, 1, 1, 2]
 
-index = 5
+index = 6
 
 color = 2, count = 1
 

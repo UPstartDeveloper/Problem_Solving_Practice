@@ -21,6 +21,7 @@ def merge_sort(nums):
             else:  # item1 > item2
                 merged.append(item2)
                 index2 += 1
+                # merged = [3, 9, ]
         # merge any unmerged items
         if index1 < LENGTH1:
             merged.extend(list1[index1:])
@@ -36,6 +37,7 @@ def merge_sort(nums):
     left_subproblem = merge_sort(nums[:mid_index])
     # B: sort the right side
     right_subproblem = merge_sort(nums[mid_index:])
+    print(f'Middle index: {mid_index}')
     print(f'Left:{left_subproblem}, and Right: {right_subproblem}')
     # CONQUER
     # C: sort them both into one larger sorted list
@@ -45,5 +47,6 @@ def merge_sort(nums):
     return merged 
   
 if __name__ == '__main__':
-    nums = [2, 2,2,2,2,2,22,2,2,2,2, 6, 3,3, 1,2,2,2,2,22,2,2]
+    # nums = [2, 2,2,2,2,2,22,2,2,2,2, 6, 3,3, 1,2,2,2,2,22,2,2]
+    nums = [38, 27, 43, 3, 9, 82, 10]
     print(merge_sort(nums))
