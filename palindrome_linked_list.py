@@ -5,6 +5,28 @@ class ListNode:
         self.next = next
         
 class Solution:
+    def reverse(self, head_second_half):
+        """Reverses the order of ListNodes that come after the 
+           input ListNode.
+
+           Parameters:
+           head_second_half (ListNode): a node in the middle of the 
+                                        LinkedList
+
+           Returns: the new head node of this section of the list
+
+        """
+        new_head = None
+        while head_second_half is not None:
+            # make a switch, using a temp variable
+            node_after = head_second_half.next
+            head_second_half.next = new_head
+            new_head = head_second_half
+            head_second_half = node_after
+        return new_head
+
+
+        
     def is_palindrome(self, head: ListNode):
         """
         assume numeric elements
@@ -30,7 +52,7 @@ class Solution:
         NUM_ELEM = 4
         
         """
-        
+        """
         # A: store in a list
         elements = list()  # O(1)
         while head is not None:  # n iterations  - O(n)
@@ -48,7 +70,7 @@ class Solution:
             if element_left != element_right:
                 return False
         return True
-        
+        """
         """
         1->2->1
         
@@ -108,6 +130,7 @@ class Solution:
         D: compare each element in the first and second halves
             - return T/F based on each element is ==
         """
+        """
         # A: find the number of elements
         num_elements = 0
         curr_node = head
@@ -121,6 +144,7 @@ class Solution:
         for i in range(MID_INDEX):
             middle = middle.next
         # C: reverse the second half (starts 1 node after middle)
+        """
         """
         1->2->2->1->None
 
@@ -150,5 +174,43 @@ class Solution:
         1                 1
         
         """
+        # Two Car solution
+        # A: get two pointers at end, and middle of the list
+        slower = faster = head
+        while faster.next is not None and faster.next.next is not None:
+            # move the pointers ahead
+            faster = faster.next.next
+            slower = slower.next
+        # B: reverse the second half of the linked list
+        head_second_half = self.reverse(slower.next)
+        # C: Check that the two halves are equal
+        while head is not None and head_second_half is not None:
+            # find the mismatch
+            if head.val != head_second_half.val:
+                return False
+            # otherwise move on to the next nodes
+            head = head.next
+            head_second_half = head_second_half.next
+        # the list is palindromic
+        return True
+
+
+if __name__ == '__main__':
+    # set up the list 
+    nodes = [
+        ListNode(1),
+        ListNode(2),
+        ListNode(2),
+        ListNode(1),
+    ]
+    nodes[0].next = nodes[1]
+    nodes[1].next = nodes[2]
+    nodes[2].next = nodes[3]
+    # test the solution (should be True)
+    sol = Solution()
+    print(sol.is_palindrome(nodes[0]))
+    
+            
+        
   
         
