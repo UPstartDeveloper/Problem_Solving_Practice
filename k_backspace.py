@@ -1,4 +1,4 @@
-def k_backspace(input_string):
+def k_backspace(input_string) -> int:
     s_index = len(input_string) - 1
     # iterate in reverse
     while s_index > 0: 
@@ -98,3 +98,58 @@ Indices After Deletion:
 01234
 aaa<<
 """
+
+'''Alternative Solution that uses expression as a Stack'''
+class StackSolution:
+    def evalRPN(self, expression: List[str]) -> int:
+        def add(x, y):
+            return x + y
+        def subtract(x, y):
+            return x
+        def multiply(x, y):
+            return x * y
+        def divide(x, y):
+            return x // y
+        # map operation functions to characters
+        op_char_func = {
+            '+': add,
+            '-': subtract,
+            '*': multiply,
+            '/': divide
+          }
+        OPERATORS = list(op_char_func.keys())
+        # reverse the list
+        expression.reverse()
+        # use the expression as a stack, iterate in reverse
+        index = len(expression) - 1
+        while len(expression) > 2:
+            # check for the first calculation
+            possible_int1, possible_int2, possible_operator = (
+            expression[index], expression[index - 1], expression[index - 2]
+            )
+            # make sure we have integers (in str data type)
+            operands_valid = True
+            try:
+                possible_int1 = int(possible_int1)
+                possible_int2 = int(possible_int1)
+            # if it fails, then move on to the next set of three elements
+            except ValueError:
+                # move on the next index 
+                operands_valid = False
+            # also have to validate the operator
+            if possible_operator in OPERATORS and operands_valid is True:
+                # do the calculation
+                operation = op_char_func[possible_operator]
+                result = operation(possible_int1, possible_int2)
+                # place the result into the expression
+                expression.pop(index)
+                expression.pop(index - 1)
+                expression.pop(index - 2)
+                expression.insert(index -2, result)
+                # if you reached the bottom of the stack, start over at top
+                if index == 2:
+                    index = len(expression) - 1
+                    break
+                index -= 1
+        # return final result
+        return expression[0]
