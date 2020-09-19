@@ -1,7 +1,7 @@
 def find_array_quadruplet(arr, s):
     '''Returns a quadtuple of elements in arr, that sum to s, in sorted order.'''
     solution = []
-    arr.sort()
+    arr.sort()  # n log n
     for i in range(len(arr)):
         for j in range(len(arr)):
             if i != j:
