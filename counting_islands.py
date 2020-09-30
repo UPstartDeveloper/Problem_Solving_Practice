@@ -95,7 +95,10 @@ def get_number_of_islands(binaryMatrix):
   # B: traverse the matrix
   # define directions
   NUM_ROWS = len(binaryMatrix)
-  NUM_COLS = len(binaryMatrix[0])
+  NUM_COLS = 0
+  # update number of columns - overcome the assumption of >= 1 rows
+  if NUM_ROWS > 0:
+    NUM_COLS = len(binaryMatrix[0])
   current_row, current_col = 0, 0
   RIGHT, LEFT, UP, DOWN = (
     (0, 1),
