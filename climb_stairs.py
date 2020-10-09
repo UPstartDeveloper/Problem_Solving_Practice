@@ -177,6 +177,7 @@ class Solution(object):
         # return the total paths
         return self.num_paths_overall
         """
+        """
         dist_so_far = 0
         paths_found = set()
         def calculate_paths(dist_so_far, additional_dist):
@@ -199,7 +200,21 @@ class Solution(object):
             return
         calculate_paths(dist_so_far, 0)
         return self.num_paths_overall
-        
+        """
+        # allocate space for an array, in which each index = n,
+        answers = list(range(n + 1))
+        # store the number of ways to get to every subproblem, using 1's and 2's
+        index = 0
+        while index < len(answers):
+            # Base cases
+            if index < 3:
+                answers[index] = index
+            # Recursive Cases
+            else:
+                answers[index] = answers[index - 1] + answers[index - 2]
+            index += 1
+        # return the answer to the largest subproblem
+        return answers[n]
     
     
 """

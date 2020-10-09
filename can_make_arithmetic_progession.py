@@ -132,4 +132,4 @@ class Solution:
         reverse_sorted_array = sorted(arr, reverse=True)
         print(reverse_sorted_array)
         return (is_arith_prog(sorted_array) or is_arith_prog(reverse_sorted_array))
-                
+    
