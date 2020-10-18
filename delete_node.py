@@ -53,50 +53,20 @@ class Solution:
                  ^
         [1, 2, 3, 4] - stack
         """
-        
-        
-        # Idea #1
-        # A: init stack
-        stack = list()
-        # B: push all nodes onto stack
-        node = head
-        while node is not None:
-            stack.append(node)
-            node = node.next
-        # C: deletion
-        # if the node being deleted is the head, 
-        if n == len(stack):
-            # modify the head
-            if n > 1:
-                new_head = stack[1]
-                head = new_head
-            else:  # n = 1
-                # delete the last node
-                head = None
-        else:  # head stays the same, node in the middle or end is deleted
-            # calculate the index where we expect the node BEFORE the one to delete is
-            node_before_index = len(stack) - (n + 1)  # 1 - 2 = -1
-            # grab a node at the before index
-            node_before = stack[node_before_index]
-            # deletion
-            node_before.next = node_before.next.next
-        # D: return the head
-        return head
-        """
-        # Idea 2
-        # init 2 pointers
-        slow = head
-        if head.next is not None:
-            fast = head.next
-        # iterate until the node being deleted (fast), node_before it
-        while fast is not None:
-            # move ahead both pointers
-            slow = fast
+        slow = fast = head
+        # move ahead fast by n steps
+        for _ in range(n):
             fast = fast.next
-            # if node to delete is found
-            if 
-                # delete that node
-                sl
-        # return the head
+        # move both to right spots for deletion
+        if fast is not None:
+            while fast.next is not None:
+                # move fast and slow
+                fast = fast.next
+                slow = slow.next
+        if head.next is None:  # only 1
+            head = None
+        elif fast is None:  # head being deleted
+            head = head.next
+        else:
+            slow.next = slow.next.next
         return head
-        """
