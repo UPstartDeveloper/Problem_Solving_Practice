@@ -10,7 +10,7 @@ def moveZerosToEnd(arr):
   # move zeros to the back
   while zero < len(arr) and nonzero < len(arr):
     # no need to swap 0's with each other - just move nz right
-    if arr[nz] == 0:
+    if arr[nonzero] == 0:
       nonzero += 1
     # use the pointers to swap
     else:
