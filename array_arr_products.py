@@ -27,21 +27,19 @@ def array_of_array_products(arr):
     # return the array
     return output
     """
-  
-    # make an array filled with left side ansers
-    left = list([1])
-    for index in range(1, len(arr)):
-        next_left = left[index - 1] * arr[index - 1]
-        left.append(next_left)
-    # modify the array to also account for the right side
-    right = list([1 for _ in len(arr)])
-    for index in range(len(right) - 2, 0, -1):
-        next_right = arr[index + 1] * right[index + 1]
-        right[index] = next_right
-    # bring it all together
     output = list()
-    for index in range(len(arr)):
-        output.append(left[index] * right[index])
+    if len(arr) > 1:
+        product = 1
+        for index in range(len(arr)):
+            output.append(product)
+        product *= arr[index]
+        # modify the array to also account for the right side
+        if len(output) > 1:
+            right = 1
+            for index in range(len(output) - 1, -1, -1):
+                output[index] *= right
+                right *= arr[index]
+    # bring it all together
     return output
 
 
