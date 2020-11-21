@@ -186,6 +186,7 @@ class Solution:
         largest_sum, largest_subarray = sorted_sums_and_subarrays[0]
         # return that subarray
         """
+        # Brute force
         largest_sum = nums[0]
         # set the size of the subarray
         sub_size = 0
@@ -206,6 +207,22 @@ class Solution:
             sub_size += 1
         # return the largest sum
         return largest_sum
+
+        # Top-Down Recursive Approach:
+        # base case: array length is 1
+        if len(nums) == 1:
+            # return the one element in the array
+            return nums[0]
+        # recursive case: array length is >= 2 
+        else:
+            # find the max sum of the array with everything but last elem
+            left_onward = self.maxSubArray(nums[:-1])
+            # find the largest_sum of the array w/ all but first elem
+            right_onward = self.maxSubArray(nums[1:])
+            # find the sum of the whole thing - up to n
+            whole_sum = sum(nums)
+            # return thr largest of the three
+            return max(left_onward, right_onward, whole_sum)
         """
         return largest_sum
         
