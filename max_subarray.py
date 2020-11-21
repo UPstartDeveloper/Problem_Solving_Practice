@@ -185,6 +185,28 @@ class Solution:
         )
         largest_sum, largest_subarray = sorted_sums_and_subarrays[0]
         # return that subarray
+        """
+        largest_sum = nums[0]
+        # set the size of the subarray
+        sub_size = 0
+        while sub_size < len(nums):
+            # find all subarrays of that size in the whole array
+            start_index = 0
+            end_index = start_index + sub_size
+            while end_index < len(nums):
+                sub = nums[start_index:end_index + 1]
+                # calculate their sum
+                sub_sum = sum(sub)
+                # compare it to the largest sum we've seen so far
+                if sub_sum > largest_sum:
+                    largest_sum = sub_sum
+                # increment the indices
+                start_index += 1
+                end_index += 1
+            sub_size += 1
+        # return the largest sum
+        return largest_sum
+        """
         return largest_sum
         
 """
