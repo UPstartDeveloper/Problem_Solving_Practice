@@ -224,6 +224,20 @@ class Solution:
             # return thr largest of the three
             return max(left_onward, right_onward, whole_sum)
         """
+        # DP Solution - Bottom up
+        # init the highest sum we've seen so far
+        largest_sum = new_max = nums[0]
+        # find the globally high sum
+        for end in range(1, len(nums)):
+            # find the sum from adding the next number
+            next_num = nums[end]
+            next_sum = new_max + next_num
+            # include this number in the subarr, or start anew
+            new_max = max(next_num, next_sum)
+            # update the globally highest subarray sum if needed
+            if new_max > largest_sum:
+                largest_sum = new_max
+            print(new_max, largest_sum)
         return largest_sum
         
 """
