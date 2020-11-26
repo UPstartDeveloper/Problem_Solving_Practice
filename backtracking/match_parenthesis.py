@@ -97,7 +97,7 @@ def generate_parentheses(n):
                 return new_permutation
     def generate_permutations(permutation, parentheses_left):
         # base case: added n ()'s
-        if parentheses_left ==  0:
+        if parentheses_left ==  0 and len(permutation) == required_length:
         # append to the output
             if permutation not in output: 
                 output.append(permutation)
@@ -117,6 +117,9 @@ def generate_parentheses(n):
     # init the output of all the permutations
     output = list()
     if n > 0:
+        # save the required length in a global variable
+        global required_length
+        required_length = 2 * n
         # add the first parentheses
         permutation = "()"
         n -= 1
@@ -149,5 +152,6 @@ n   |   permutation   |     ap      |     np    |   popped?
 0       '((()))'                                        X  
 
 """
+
 if __name__ == "__main__":
     print(generate_parentheses(3))
