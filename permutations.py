@@ -20,7 +20,7 @@ class Solution:
                 # append to the output
                 next_perm = list(np.array(permutation).copy())
                 self.output.append(next_perm)
-                print(f'appended {permutation} to the output: {self.output}')
+                # print(f'appended {permutation} to the output: {self.output}')
                 return
             # Recursive Case:
             else:  # permutation is incomplete
