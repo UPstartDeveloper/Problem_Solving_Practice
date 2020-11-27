@@ -55,16 +55,17 @@ def generate_parentheses(n):
     # Assume n > 1
     """
     global output
-    def add_adj(permutation):  # '()'
+    def add_adj(permutation, parentheses_left):  # '()'
         # find the last ')' char
         for index_char in range(len(permutation) - 1, -1, -1):
             char = permutation[index_char]
             if char == ')':
                 # add the new '()' next to it
                 new_permutation = ''.join([
-                    permutation[:index_char + 1], '()' 
+                    permutation[:index_char + 1], '()', permutation[index_char + 1:]
                 ])
-                return new_permutation
+                generate_permutations(new_permutation, parentheses_left - 1)
+                # return new_permutation
     def add_nested(permutation):
         # find the index of the last ')' char
         # '(())' 
@@ -107,9 +108,9 @@ def generate_parentheses(n):
             # add another by nest(), then recurse
             nested_permutation = add_nested(permutation)
             generate_permutations(nested_permutation, parentheses_left - 1)
-            # add another () by adj(), then recurse
-            adj_permutation = add_adj(permutation)
-            generate_permutations(adj_permutation, parentheses_left - 1)
+            # add another () by adj(), and do so recursively
+            adj_permutation = add_adj(permutation, parentheses_left)
+            # generate_permutations(adj_permutation, parentheses_left - 1)
             # decrement n
             parentheses_left -= 1
             if parentheses_left == 0:
@@ -154,4 +155,4 @@ n   |   permutation   |     ap      |     np    |   popped?
 """
 
 if __name__ == "__main__":
-    print(generate_parentheses(3))
+    print(generate_parentheses(1))
