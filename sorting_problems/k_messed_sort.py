@@ -3,31 +3,21 @@ from heapq import heapify, heappush, heappop
 
 def sort_k_messed_array(arr, k):
     if k > 0:
-        index = 0
+        index = k + 1  # window size
         # iterate a window over the array - put the elems in a heap
-        window = arr[:index + k + 1]
+        window = arr[:index]
         heapify(window)  # k log k iterations
-        END = len(arr) - k
         while index < len(arr):  # n iterations
-            # compare the heap root to the idx
-            elem = arr[index]
-            # heappush(window, elem)
-            root = heappop(window)
-            if elem > root:
-                # find where root is located
-                for root_index in range(index + 1, index + 1 + k):
-                    if arr[root_index] == root:
-                        # swap
-                        arr[index], arr[root_index] = (
-                            arr[root_index], arr[index]
-                        )
-                        break
+            arr[index - (k + 1)] = heappop(window)  # log k
+            heappush(window, arr[index])  # log k
             # increment the index
             index += 1
-            # add to the heap if needed
-            if index < END:  # k iterations
-                heappush(window, arr[index + k])
+        # add any last elements
+        if len(window) > 0:
+            for index in range(len(arr) - (k + 1), len(arr)):
+                arr[index] = heappop(window)
     return arr
+  
 
 
 if __name__ == "__main__":
@@ -41,4 +31,5 @@ if __name__ == "__main__":
     print(sort_k_messed_array(arr, k))
 
 
-# Time: (k * log k) + (k * 1) + (n * k)
+# Time: O(n log k)
+# Space (k)
