@@ -1,16 +1,29 @@
+class Memoize:
+    def __init__(self, func):
+        self.func = func
+        self.cache = dict()
+
+    def __call__(self, str1, str2):
+        if (str1, str2) not in self.cache and (str2, str1) not in self.cache:
+            self.cache[(str1, str2)] = self.func(str1, str2)
+        answer = self.cache[(str1, str2)]
+        return answer
+
+@Memoize
 def deletion_distance(str1, str2):
-  # base cases:
-  if str1 == str2:
-    return 0
-  elif str1 == "":
-    return len(str2)
-  elif str2 == "":
-    return len(str1)
-  # recursive cases: not totally equal
-  elif str1[-1] != str2[-1]:
-    return 1 + min(deletion_distance(str1[:-1], str2), deletion_distance(str1, str2[:-1]))
-  elif str1[-1] == str2[-1]:
-    return deletion_distance(str1[:-1], str2[:-1])
+    # base cases:
+    if str1 == str2:
+        return 0
+    elif str1 == "":
+        return len(str2)
+    elif str2 == "":
+        return len(str1)
+    # recursive cases: not totally equal
+    elif str1[-1] != str2[-1]:
+        # calculate the two possible deletion distances
+        return 1 + min(deletion_distance(str1[:-1], str2), deletion_distance(str1, str2[:-1]))
+    elif str1[-1] == str2[-1]:
+        return deletion_distance(str1[:-1], str2[:-1])
 
 
 """
@@ -42,3 +55,11 @@ Constraints:
 [output] integer
 
 """
+
+
+if __name__ == "__main__":
+    # str1 = "some"
+    # str2 = "thing"
+    str1 = "ddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    str2 = "fffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    print(deletion_distance(str1, str2))
