@@ -40,8 +40,40 @@ def find_busiest_period(data):
     - can the total number of people ever go negative? no
         - can we assume the first point is people entering (opening time)? yes
     - allowed to use built-in sorting methods?
-    
+
     """
+    # A: iterate over rest of points
+    pt_idx = 0
+    max_pop, max_time = 0, 0
+    current_pop = max_pop
+    while pt_idx < len(data):
+        # find the time of the poinr
+        people_time = 0
+        time, people, increase = data[pt_idx]
+        if increase == 1:
+            people_time += people
+        else:
+            people_time -= people
+        # find the total number of people in the mall at the time
+        while pt_idx < len(data) - 1 and data[pt_idx + 1][0] == time:
+            pt_idx += 1
+            time, people, increase = data[pt_idx]
+            if increase == 1:
+                people_time += people
+            else:
+                people_time -= people
+        pt_idx += 1
+        # update the current total
+        current_pop += people_time
+        # if the current total > largest ever
+        if current_pop > max_pop:
+            # updates largest popuation and corresponding time
+            max_pop = current_pop
+            max_time = time
+    # C: return the largest time
+    return max_time
+
+"""
     # init the total population
     initial = data[0]
     total = initial[1]
@@ -79,7 +111,7 @@ def find_busiest_period(data):
         if pop == max_pop:
             return time
 
-
+"""
 """
 total = 17
 
@@ -93,7 +125,7 @@ pt = 1487901211, 7,  0]
 }
 
 Time: O(n)
-Space: O(n)\
+Space: O(n)
 
 
 
