@@ -29,7 +29,8 @@ def merge_sort(nums):
             merged.extend(list2[index2:])
         return merged
     # Base Case
-    if len(nums) == 1:
+    if len(nums) <= 2:
+        nums.sort()
         return nums
     # DIVIDE - Recursive Case
     mid_index = len(nums) // 2
@@ -47,6 +48,6 @@ def merge_sort(nums):
     return merged 
   
 if __name__ == '__main__':
-    # nums = [2, 2,2,2,2,2,22,2,2,2,2, 6, 3,3, 1,2,2,2,2,22,2,2]
-    nums = [38, 27, 43, 3, 9, 82, 10]
+    nums = [2, 2,2,2,2,2,22,2,2,2,2, 6, 3,3, 1,2,2,2,2,22,2,2]
+    # nums = [38, 27, 43, 3, 9, 82, 10]
     print(merge_sort(nums))
