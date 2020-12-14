@@ -41,7 +41,7 @@ public class MinimalTree {
 
     // solution to the problem
     public Node populateTree() {
-        
+        // calculate the middle index
         return this.root;
     }
 }
