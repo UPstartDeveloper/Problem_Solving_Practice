@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """
 Cracking the Coding Interview 8.2:
 
@@ -15,6 +16,13 @@ Assumptions:
 - there is guaranteed to be a path from the upper left to 
     bottom right corners
 
+Time: O(V)
+Space: O(V)
+
+What I learned: keep in mind the return value for EVERY stack frame
+that hasn't been popped yet! The function doesn't really exit until
+all the stack frames do.
+
 """
 
 
@@ -26,34 +34,34 @@ def find_path(grid, stack=None, path=None):
         # push the starting cell onto the stack
         stack.append((0, 0))
         return find_path(grid, stack, path)
-    else:
-        # Recursive Case: check what's in the next cell
-        # print(f"Stack: {stack}")
-        next_cell = stack.pop()
-        # visit the next cell - add it to our path so far
-        path.append(next_cell)
-        # check if we have reached the destination
-        row, col = next_cell
-        print("row and col", row, col)
-        if (row == len(grid) - 1) and (col == len(grid[0]) - 1):
-            print(f"Path: {path}")
-            return path
-        # otherwise, see if we can continue going down
-        if (row + 1) < len(grid) and grid[row + 1][col] != 0:
-            stack.append((row + 1, col))
-            path = find_path(grid, stack, path)
-            # remove the last added vertex, since if it led to a dead end
-            if path[-1] != (row - 1, col - 1):
-                path.pop()
-        # and see if we can continue going up
-        if (col + 1) < len(grid[0]) and grid[row][col + 1] != 0:
-            stack.append((row, col + 1))
-            path = find_path(grid, stack, path)
-            # remove the last added vertex, since if it led to a dead end
-            if path[-1] != (row - 1, col - 1):
-                path.pop()
-        print(f"Path: {path}")
+    # Recursive Case: check what's in the next cell
+    # print(f"Stack: {stack}")
+    next_cell = stack.pop()
+    # visit the next cell - add it to our path so far
+    path.append(next_cell)
+    # check if we have reached the destination
+    row, col = next_cell
+    # print("row and col", row, col)
+    if (row == len(grid) - 1) and (col == len(grid[0]) - 1):
+        print(f"Path found: {path}")
         return path
+    # otherwise, see if we can continue going down
+    neighbors = [
+        (row + 1, col), (row, col + 1)
+    ]
+    for neighbor in neighbors:
+        n_row, n_col = neighbor
+        if n_row < len(grid) and n_col < len(grid[0]) and grid[n_row][n_col] != 0:
+            stack.append(neighbor)
+            path = find_path(grid, stack, path)
+            # stop early, if dest. found
+            if path[-1] == (len(grid) - 1, len(grid[0]) - 1):
+                break
+    # when we hit a dead end, that's not the destination
+    else: # remove cell on the dead end path
+        path.pop()
+    return path
+
 
 if __name__ == "__main__":
     # init a test grid - 0 means "the robot can't go here"
