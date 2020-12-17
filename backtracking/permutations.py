@@ -1,9 +1,8 @@
 import numpy as np 
 class Solution:
+    # init the empty output array
     output = list()
-
     def get_permutations(self, input_list):
-        # init the empty output array
         def get_remaining_nums(nums_left, index):
             # make a deep copy of the array 
             # (so the changes made to one don't affect the other)
