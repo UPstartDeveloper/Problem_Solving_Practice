@@ -35,9 +35,10 @@
  * sort the chars in the string lexicogrpahically 
  * linear pass over the string, see if any adj chars match
  * am I allowed to use the built-in sort function
- * linearithmic time, more chars, and constant space
+ * linearithmic time, more chars, and linear space
  * 
  */
+import java.util.Arrays;
 
 public class UniqueString {
     public static boolean isUnique(String str) {
@@ -55,6 +56,30 @@ public class UniqueString {
         }
         // 2: otherwise, the string's unique
         return true;
+    }
+
+
+    public static boolean isUnique2(String str) {
+        // 1: create an array of the sorted characters of the string
+        char[] characters = str.toCharArray();
+        Arrays.sort(characters);
+        // 1: iterate over the string's chars with 2 pointers
+        for (int charIndex = 0; charIndex < str.length() - 1; charIndex += 1) {
+            // a): check adjacent characters at each iteration
+            char currentChar = characters[charIndex];
+            char otherChar = characters[charIndex + 1];
+            // b): if there's a duplicate char, the string's not unique
+            if (currentChar == otherChar) {
+                return false;
+            }
+        }
+        // 2: otherwise, the string's unique
+        return true;
+    }
+
+    public static void main(String[] args) {
+        // posiive test case
+        System.out.println(isUnique("abc"));
     }
 }
 
