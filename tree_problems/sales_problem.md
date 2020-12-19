@@ -4,7 +4,7 @@ The car manufacturer Honda holds their distribution system in the form of a tree
 
 Take for example the tree below:
 
-![tree image](https://postimg.cc/w3gtcj7r)
+[![Screen-Shot-2020-12-18-at-7-12-01-PM.png](https://i.postimg.cc/h479nJgK/Screen-Shot-2020-12-18-at-7-12-01-PM.png)](https://postimg.cc/w3gtcj7r)
 
 A path from Honda’s factory to a car dealership, which is a path from the root to a leaf in the tree, is called a Sales Path. The cost of a Sales Path is the sum of the costs for every node in the path. For example, in the tree above one Sales Path is 0→3→0→10, and its cost is 13 (0+3+0+10).
 
