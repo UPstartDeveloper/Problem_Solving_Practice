@@ -17,7 +17,7 @@ pop() - remove and return the last value at the top of the stack
 min() - remove the smallest value in the stack (numbers, strings)
 
 Brute Force min:
-- linear search for the minimum element
+- linear search for the minimum element, call after each push/pop
     - obviously it's linear, so not going to work in O(1)
 
 - Data Structure Brainstorm:
@@ -73,10 +73,80 @@ hierarchy: every key maps to it's number of occurences, and next smallest
     5: (1, MAX) --> next largest hasn't yet come
 }
 
+when min is deleted, how to find the next smallest
+
 push 2
 push 2
 push 5
 push 1
 pop()
 push 3
+
+stack:
+[2, 5, 1, -9 ,5, 6, 4]
+
+min: -9
+
+Helpful Hint from LeetCode (credit to @aakarshmadhavan):
+"Consider each node in the stack having a minimum value."
 """
+
+
+class MinStack:
+
+    def __init__(self):
+        """
+        initialize the data structure. Using dynamic arrays.
+
+        Every item in the min_nums array, is the smallest item.
+        Out of itself and all its left neighbors.
+
+        Adds O(n) space, and alls all methods to run in O(1) time.
+        """
+        self.stack = list()
+        self.min = float('inf')
+        self.min_nums = list()
+
+    def push(self, x: int) -> None:
+        '''Add the new node the stack, and update the minimum.'''
+        # add the new number to the stack
+        self.stack.append(x)
+        # add the new number to the list of min nums
+        if x < self.min:
+            self.min = x
+        self.min_nums.append(self.min)
+        
+    def pop(self) -> None:
+        '''Removes and returns the top node in the stack.'''
+        # remove the top elements on both arrays
+        removed = self.stack.pop()
+        self.min_nums.pop()
+        # reassign the min property
+        print(self.min_nums)
+        if len(self.min_nums) > 0:
+            self.min = self.min_nums[-1]
+        else:  # assume no client will call min if no items in the stack
+            self.min = float('inf')
+        # return the removed item
+        return removed
+
+    def top(self) -> int:
+        '''return the top of the stack'''
+        return self.stack[-1]
+
+    def get_min(self) -> int:
+        '''get the min number property'''
+        return self.min
+
+    def is_empty(self):
+        '''Returns a boolean for there being 0 elements in the stack.'''
+        return len(self.stack) == 0
+
+if __name__ == "__main__":
+    # driver code from LeetCode
+    # Your MinStack object will be instantiated and called as such:
+    # obj = MinStack()
+    # obj.push(x)
+    # obj.pop()
+    # param_3 = obj.top()
+    # param_4 = obj.getMin()
