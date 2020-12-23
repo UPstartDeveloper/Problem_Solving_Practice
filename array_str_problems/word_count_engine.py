@@ -44,13 +44,13 @@ def word_count_engine(document):
     return sorted_words
 
 
-  """# E: convert numbers to string
+"""# E: convert numbers to string
   for index, type_token_tuple in enumerate(type_tokens_list):
     type_of_word, token_count = type_token_tuple
     type_tokens_list[index] = [type_of_word, str(token_count)]
   # F: return the 2D array
   return type_tokens_list"""
-  """
+"""
   w = words in document
   n = len go doc
   time O(n + w log w)
