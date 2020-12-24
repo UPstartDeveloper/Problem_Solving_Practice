@@ -51,16 +51,39 @@ def root(x, n):
     O(log(decision_space))
             
     """
-    def binary_search(low_idx, high_idx, array):
+    # Early exit:
+    if x == 0 or x == 1:
+        return x
+    # init the lower and upper bounds
+    lower = 0
+    upper = max(1, x)
+    # init the approximate root, by taking the average
+    root = (upper + lower) / 2
+    # binary search the decision space (what's between the bounds)
+    while (root - lower) >= 0.001:
+        # bring down the upper bound
+        if math.pow(root, n) > x:
+            upper = root
+        # bring up the lower bound
+        elif math.pow(root, n) < x:
+            lower = root
+        # root has been found
+        else:  # math.pow(root, n) == x
+            return root
+        # otherwise, recalculate the next value to try for the root
+        root = (upper + lower) / 2
+
+    """
+    def binary_search(low_idx, high_idx, array=None):
         # middle value
-        mid_idx = (low_idx + high_idx) // 2
-        middle = array[mid_idx]
+        middle = (low_idx + high_idx) // 2
+        # middle = array[mid_idx]
         if math.pow(middle, n) == x:
             return middle
         elif math.pow(middle, n) < x:
-            return binary_search(mid_idx + 1, high_idx)
+            return binary_search(middle + 0.001, high_idx)
         elif math.pow(middle, n) > x:
-            return binary_search(low_idx, mid_idx - 1)
+            return binary_search(low_idx, middle - 0.001)
 
     # A: find the higher bound
     higher = 0
@@ -69,11 +92,14 @@ def root(x, n):
     # B: find the lower bound
     lower = higher - 1
     # C: binary search
+    binary_search(lower, higher)
+    """
+    """
     possible_root = lower
     while math.pow(possible_root, n) < x:
         possible_root += 0.001
     return possible_root
-    
+    """
     """
     possible_roots = [
         root in range(lower, higher + 1, 0.001)
