@@ -57,7 +57,7 @@ import java.util.*;
         
     }
     // Linked List instance variables
-    Node head;
+    public Node head;
 
     public LinkedList() {
         this.head = null;
@@ -96,6 +96,6 @@ import java.util.*;
         int[] items = {1, -1, 6, 5, 1, 5, 7};
         // make Nodes for each item
         LinkedList ll = new LinkedList();
-        ll.head = Node(items[0]);
+        ll.head = ll.new Node(items[0]);
     }
  }

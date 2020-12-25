@@ -2,12 +2,9 @@
  * https://www.hackerrank.com/challenges/time-conversion/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
  */
 import java.io.*;
-import java.math.*;
-import java.text.*;
-import java.util.*;
-import java.util.regex.*;
+// import java.util.*;
 
-public class Solution {
+public class timeConversion {
 
     /*
      * calculateNewHour
@@ -39,7 +36,7 @@ public class Solution {
      * post: String twentyFour is the equivalent of s in 24-hour format,
      *      i.e. '07:23:45' or or '22:36:55PM'
      */
-    static String timeConversion(String time) {
+    static String convertTime(String time) {
         // declare output value
         String twentyFour = "";
         // store the subset of characters in s that are the same in output
@@ -55,12 +52,12 @@ public class Solution {
      * on Hacker Rank (same link as above):
      * https://www.hackerrank.com/challenges/time-conversion/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
      */
-    private static final Scanner scan = new Scanner(System.in);
+    // private static final Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
         String timeAM = "12:40:03AM";
-        String timePM = "12:56:34PM";
-        System.out.println(timeConversion(timeAM));
+        // String timePM = "12:56:34PM";
+        System.out.println(convertTime(timeAM));
 
     }
 }

@@ -2,7 +2,6 @@
  * The following solution is provided for the Hacker Rank problem at this link:
  * http://hr.gs/bddefe 
  */
-import java.lang.*;
 
 public class BitFlipper {
 

@@ -4,12 +4,7 @@
  */
 
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
 /* Assumptions Made in Solution:
  * the array of clouds always begins and ends with a cumulus cloud (0)
@@ -20,7 +15,7 @@ import java.util.regex.*;
  * Value      |     0          |   0    |    2        | [0, 0, 0, 1, 0, 0,]
  *            |     2          |   1    |    2        |
  */
-public class Solution {
+public class clouds {
 
     /*
      * Pre: int[] c: integers representing the clouds to traverse
