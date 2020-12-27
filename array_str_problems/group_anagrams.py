@@ -97,4 +97,30 @@ old = "tan"
 
 Time: O(s^2) when each s belongs in it's own group
 Space: O(s + l), where l = is the length of the longest string
+
+
+Pseudocode for another Solution, possibly linear time:
+
+A: init two pointers at the first two strs
+B: check which strings belong together:
+    - if two words are anagrams:
+        - place them in the first string's group (create if not already there)
+        - then move both pointers ahead by one
+    - otherwise:
+        - make a new group for the second string
+        - move ahead the second pointer only
+C: return the groups
+
+Example where this algorithm seemed to work:
+
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+                1     2 MATCH
+                      1     2 !MATCH
+                      1           2 MATCH
+                            1           2 MATCH
+                                  1           2 !MATCH
+Resulting output:
+[["bat"],["nat","tan"],["ate","eat","tea"]]
+                    
+Actual Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
 """
