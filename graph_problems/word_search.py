@@ -1,3 +1,5 @@
+from typing import List
+
 class Solution:
     # init is_found, and a stack, a visited set
     def __init__(self):
@@ -63,7 +65,39 @@ class Solution:
                     # if no matches (or the first node doesn't match) - then move one
          # return the is_found value
         """
-        def check_letter(row_index, col_index, word_index):
+        def check_letter_mutative(row_index, col_index, word_index):
+            # get the letter from the board
+            board_letter = board[row_index][col_index]
+            # add this node to the visited set
+            # self.visited.add((row_index, col_index))
+            board[row_index][col_index] = "0"
+            # get the letter from the word
+            word_letter = word[word_index]
+            # print(f"At board letter: {board_letter} at {(row_index, col_index)}")
+            # print(f"checking against word letter: {word_letter} at {word_index}")
+            # print(f"Visited so far: {self.visited}")
+            # if matching,
+            if word_letter == board_letter:  
+                # if matching the end, return True
+                if word_index == len(word) - 1:
+                    self.is_found = True
+                # push the neighbors 
+                else:  # (if not in the end)
+                    for direction in self.DIRECTIONS:
+                        # calculate the coordinates of the neighbor to check next
+                        delta_row, delta_col = self.DIRECTIONS[direction]
+                        # print(f"Going {direction} from {(row_index, col_index)}")
+                        next_row, next_col = (row_index + delta_row, col_index + delta_col)
+                        # validate that we can go here
+                        if 0 <= next_row < len(board) and 0 <= next_col < len(board[next_row]):
+                            # if (next_row, next_col) not in self.visited and board[next_row][next_col] == word[word_index + 1]:
+                            if board[next_row][next_col] == word[word_index + 1]:
+                                # traverse the next node
+                                check_letter_mutative(next_row, next_col, word_index + 1) 
+                                # in case that route didn't help, remove
+                                # self.visited.remove((next_row, next_col))
+            board[row_index][col_index] = board_letter
+        def check_letter_immutative(row_index, col_index, word_index):
             # get the letter from the board
             board_letter = board[row_index][col_index]
             # add this node to the visited set
@@ -89,7 +123,7 @@ class Solution:
                         if 0 <= next_row < len(board) and 0 <= next_col < len(board[next_row]):
                             if (next_row, next_col) not in self.visited and board[next_row][next_col] == word[word_index + 1]:
                                 # traverse the next node
-                                check_letter(next_row, next_col, word_index + 1) 
+                                check_letter_immutative(next_row, next_col, word_index + 1) 
                                 # in case that route didn't help, remove
                                 self.visited.remove((next_row, next_col))        
         # A: check the grid to make sure it's not empty
@@ -103,7 +137,7 @@ class Solution:
                     # traverse from this board vertex
                     self.visited = set([])
                     if board_letter == word_letter:
-                        check_letter(row_index, col_index, word_index)
+                        check_letter_mutative(row_index, col_index, word_index)
                         # exit early if the word found
                         if self.is_found is True:
                             return self.is_found
@@ -189,4 +223,16 @@ nc = 1, 2
 
 """
             
-                        
+
+if __name__ == "__main__":
+    """board = [
+        ["A","B","C","E"],
+        ["S","F","E","S"],
+        ["A","D","E","E"]
+    ]
+    word = "ABCESEEEFS"""
+
+    board = [["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"],["a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","b"]]
+    word = "baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"  
+    sol = Solution()
+    print(sol.exist(board, word))                     
