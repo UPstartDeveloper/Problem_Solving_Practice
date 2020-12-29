@@ -94,9 +94,9 @@ def power_set(values):
     # C: return all the subsets
     return len(subsets)
 
+
 """
-Time: O(n!)
-Space: O(n!)
+Time and Space: O(sum(n! / ((n - k)! k!)), where k goes from 1 to n)
 
 values = 
 {6, 7, 8}
