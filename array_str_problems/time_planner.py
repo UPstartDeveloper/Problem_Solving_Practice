@@ -94,7 +94,6 @@ def meeting_planner(slotsA, slotsB, dur):
             else
             return False
         
-    """
     def find_earlier_end(slotsA, slotsB):
         # find both ending times
         A_end, B_end = slotsA[-1][1], slotsB[-1][1]
@@ -135,3 +134,27 @@ def meeting_planner(slotsA, slotsB, dur):
         if fits(slotsA, meeting) is True and fits(slotsB, meeting) is True:
             return meeting
     return []
+    """
+    """
+      input:  slotsA = [[10, 50], [60, 120], [140, 210]]
+                          ^
+              slotsB = [[0, 15],  [20, 50],[60, 70]]
+    Helper Functions:
+    1. If a suggested interval fits within a second
+    2. See if there's any overlap between two intervals
+        if start_time2 < end_time1 <= end_time2:
+            - True --> go from the end time backwards
+            elif  if start_time2 <= start1 < end_time2:
+            - True --> go from start time forwards
+            else
+            return False ===> return empty list
+    3. iterate over both schedules
+        - take 2 intervals
+        - try and find a meetig - if [x, y] return early
+    - else:
+        - keep iterating
+        - find the greater of the two end times (in the current A and B)
+        - for the other person, find the next start time
+            - if next_st > larger endt
+            - move the other index ahead
+    """
