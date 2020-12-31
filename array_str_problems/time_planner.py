@@ -93,7 +93,72 @@ def meeting_planner(slotsA, slotsB, dur):
             - True
             else
             return False
-        
+    """ 
+    def find_next_intervals(index1, index2):
+        start1, end1 = slotsA[index1]
+        start2, end2 = slotsB[index2]
+        # for the other person, find the next start time (move index ahead)
+        if end2 > end1 and index1 < len(slotsA):
+            index1 += 1
+            if index1 < len(slotsA):  # not the end of the line
+                start1 = slotsA[index1][0]
+                # if next_st > larger end time
+                if start1 > end2:
+                    # move the other index ahead
+                    index2 += 1
+        elif index2 < len(slotsB):  # end2 <= end1
+            index2 += 1
+            if index2 < len(slotsB):  # not the end of the line
+                start2 = slotsB[index1][0]
+                # if next_st > larger end time
+                if start2 > end1:
+                    # move the other index ahead
+                    index1 += 1
+        return index1, index2
+  
+    def have_overlap(interval1, interval2, dur):
+        """
+        Determines if two time intervals have any overlap
+        If so we return a suggested time interval
+        """
+        # unpack to get the start times and end times
+        start1, end1 = interval1
+        start2, end2 = interval2
+        # see if the first one has any overlap w/ second
+        meeting_times = list()
+        if start2 < end1 <= end2:
+            # go from the end time backwards
+            start = end1 - dur
+            if start >= start2 and end1 - dur >= start1:
+                meeting_times = [start, end1]
+        elif start2 <= start1 < end2:
+            # go from start time forwards
+            end = start1 + dur
+            if end <= end1 and end <= end2:
+                meeting_times = [start1, end]
+        # otherwise there is no overlap
+        return meeting_times
+  
+    # A: iterate over both schedules
+    index1, index2 = 0, 0
+    # B: find where the meeting can occur
+    meeting = list()
+    while index1 < len(slotsA) and index2 < len(slotsB):
+        interval1, interval2 = slotsA[index1], slotsB[index2]
+        # find if there's a meeting in the next two intervals for A and B
+        meeting = have_overlap(interval1, interval2, dur)
+        # if so, return it
+        if len(meeting) == 2:
+            return meeting
+        elif len(have_overlap(interval2, interval1, dur)) == 2:
+            return have_overlap(interval2, interval1, dur)
+        # if not find the indices for the next iteration
+        index1, index2 = find_next_intervals(index1, index2)
+    # return the lack of a meeting
+    return meeting  
+
+    
+    """ 
     def find_earlier_end(slotsA, slotsB):
         # find both ending times
         A_end, B_end = slotsA[-1][1], slotsB[-1][1]
