@@ -91,7 +91,7 @@ class Solution:
         )
         return change == n
 
-    """def get_coin_combinations(self, n, remainder=None, multiplier=1):
+    def get_coin_combinations(self, n, remainder=None, multiplier=1):
         # Base Case: init the number of combinations, and the coins array
         if remainder is None:
             remainder = n
@@ -122,7 +122,7 @@ class Solution:
                     remainder = original_remainder
         # if we reach the end, we've gotten all combinations
         # if multiplier == 1:
-        return self.combos"""
+        return self.combos
 
     def get_coin_combinations_brute_force(self, n):
         """
@@ -153,7 +153,7 @@ class Solution:
         return combos
 
 if __name__ == "__main__":
-    n = 125
+    n = 24
     sol = Solution()
     print(sol.get_coin_combinations(n))
 
