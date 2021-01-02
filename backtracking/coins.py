@@ -67,17 +67,27 @@ Break down the problem a little
 as we move to each multiplier:
 - if the remaining change >= the multiplier, try out coefficients from 0 --> until amt > n
 - if the remaining change < the multiplier, leave a 0 there and move on 
+
+
+# A: find out which multiplier to go from (greatest to least)
+    # iterate over the array of them all [1, 5, 10, 25]
+# B: for each multiplier 
+    # find out the upper bound
+    # iterate over the coefficients from (upper... 0) 
+        # put the coefficient in the array for that array
+
 """
 
 
 class Solution:
 
-    next_multipliers = {
+    """next_multipliers = {
         1: 5,
         5: 10,
         10: 25,
         25: 1,
-    }
+    }"""
+    multipliers = [1, 5, 10, 25]
 
     coins = list()
 
@@ -91,7 +101,13 @@ class Solution:
         )
         return change == n
 
-    def get_coin_combinations(self, n, remainder=None, multiplier=1):
+    def get_coin_combinations(self, n, remainder=None, multiplier_index=0):
+        """
+        Recursive Solution
+        Big O Analysis:
+        Time - O(n^4)
+        Space - O(n^4)
+        """
         # Base Case: init the number of combinations, and the coins array
         if remainder is None:
             remainder = n
@@ -100,9 +116,9 @@ class Solution:
         elif remainder == 0:  # and self.make_change(n) is True:
             # we've found another combo
             self.combos += 1
-            print(f"Combo found: {multiplier}")
         # Recursive Case: otherwise find the next combination
-        if remainder > 0:
+        if remainder > 0 and multiplier_index < len(self.multipliers):
+            multiplier = self.multipliers[multiplier_index]
             # calculate the upper bound for the current multiplier
             upper = remainder // multiplier
             original_remainder = remainder
@@ -111,17 +127,13 @@ class Solution:
                 # iterate down from the upper bound
                 for coefficient in range(upper, -1, -1):
                     # decrement the n (update the remainder)
-                    print(f'Remainder before multiplication: {remainder, coefficient, multiplier}')
-                    # new_remainder = remainder - (coefficient * multiplier)
                     remainder -= (coefficient * multiplier)
-                    print(f'Remainder after multiplication: {remainder}')
                     # try to see how we can combine w/ other multipliers
-                    next_multiplier = self.next_multipliers[multiplier]
+                    next_multiplier = multiplier_index + 1
                     self.get_coin_combinations(n, remainder, next_multiplier)
                     # "reset" the remainder for the next iteration
                     remainder = original_remainder
         # if we reach the end, we've gotten all combinations
-        # if multiplier == 1:
         return self.combos
 
     def get_coin_combinations_brute_force(self, n):
@@ -153,9 +165,9 @@ class Solution:
         return combos
 
 if __name__ == "__main__":
-    n = 24
+    n = 1250
     sol = Solution()
-    print(sol.get_coin_combinations(n))
+    print(sol.get_coin_combinations_brute_force(n))
 
 
 """
