@@ -61,7 +61,9 @@ Recursive Case: queens > 0:
         - check off the rows, columns, and diagonals
         - decrement queens
     - at end of the for loops
-        - if the number of queens != 0 --> STOP
+        - if the number of queens != 0 
+            - it either means we need to stop - if there's a B in the second to last col
+            - or it was just a bad placement - then reset the board
         - if it is, call the base case (print the board)
 
 Helper Functions:
@@ -74,9 +76,152 @@ Helper Functions:
     - row --, col --
 - reset_board:
     - remove the X's
-    - replace the Q's w/ B's - "used before"
+    - replace the Q's in the first row w/ B's - "used before"
 
 - how do we know when to stop?
     - guess it there should be enough 
 "
 """
+
+from typing import List
+
+
+class Solution:
+    
+    output = list()
+    
+    def check_off_row(self, row_idx, board):
+        # same row, col ++
+        for col_idx in range(len(board[row_idx])):
+            board[row_idx][col_idx] = "X"
+        return 
+ 
+    def check_off_col(self, col_idx, board):
+        # row ++, same col
+        for row_idx in len(board):
+            board[row_idx][col_idx] = "X"
+        return
+
+    def check_off_diagonals(self, row_idx, col_idx, board):
+        def find_diagonal_above(is_left):
+            start_row, start_col = row_idx, col_idx
+            '''find the starting point for the diagonal from above'''
+            if is_left is True:
+                while start_col > -1:
+                    start_col -= 1
+                    start_row -= 1
+            else:  # on the latter half of the cols
+                while start_col < len(board[0]):
+                    start_col += 1
+                    start_row -= 1
+            return start_row, start_col
+
+        def find_diagonal_below(is_left):
+            '''find the starting point of the diagonal from below'''
+            start_row, start_col = row_idx, col_idx
+            if is_left is True:
+                while start_col > -1:
+                    start_col -= 1
+                    start_row += 1
+            else:  # on the latter half of the cols
+                while start_col < len(board[0]):
+                    start_col += 1
+                    start_row += 1
+            return start_row, start_col
+            
+        def check_downwards(start_row, start_col, is_left):
+            '''check off all spaces in the diagonal (go downwards); row ++, col++'''
+            if is_left is True:
+                # left to right
+                while start_col < len(board) and start_row < len(board):
+                    board[start_row][start_col] = "X"
+                    start_row += 1
+                    start_col += 1
+            else:  # right to left
+                while start_col > -1 and start_row < len(board):
+                    board[start_row][start_col] = "X"
+                    start_row += 1
+                    start_col -= 1
+
+        def check_upwards(start_row, start_col, is_left):
+            '''check off all spaces in the diagonal (go upwards); row --, col++'''
+            if is_left is True:
+                # left to right
+                while start_col < len(board) and start_row > -1:
+                    board[start_row][start_col] = "X"
+                    start_row -= 1
+                    start_col += 1
+            else:  # right to left
+                while start_col > -1 and start_row > -1:
+                    board[start_row][start_col] = "X"
+                    start_row -= 1
+                    start_col -= 1
+        
+        # determine which side we're on
+        is_left = True
+        if col_idx >= len(board) // 2:
+            is_left = False
+        # check off the diagonal from below first
+        start_row, start_col = find_diagonal_below(is_left)
+        check_upwards(start_row, start_col, is_left)
+        # check off the diagonal from above next
+        start_row, start_col = find_diagonal_above(is_left)
+        check_downwards(start_row, start_col, is_left)
+        return 
+        
+    def reset_board(self, n, board):
+        # replace the the X's and B's w/ periods
+        b_locs = list()
+        for row_idx, row in enumerate(board):
+            for col_idx, char in enumerate(row):
+                if char == 'X' or char == 'B':
+                    row[col_idx] = "."
+                    # if it was a B, save it for later
+                    if char == "B":
+                        b_locs.append((row_idx, col_idx))
+        # add the board to the output, if n == 0
+        if n == 0:
+            self.output.append(board)
+        # replace the Q's in the first row w/ B's - "used before"
+        for col_idx, char in enumerate(board[0]):
+            if char == "Q":
+                board[0][col_idx] = 'B'
+        # restore the "B"'s that were there before
+        index_bs = 0
+        for row_idx, row in enumerate(board):
+            for col_idx, char in enumerate(row):
+                if index_bs < len(b_locs) and (row_idx, col_idx) == b_locs[index_bs]:
+                    board[row_idx][col_idx] = "B"
+                    index_bs += 1
+                    
+        self.solveNQueens(n, board)
+        
+    def solveNQueens(self, n: int, board=None) -> List[List[str]]:
+        # A: get the number of queens and the board
+        if board is None:
+            board = [
+                ''.join(["." for _ in range(n)]) for _ in range(n)
+            ]
+        # B: iterate over the rows and columns to solve the board
+        for row_idx, row in enumerate(board):
+            for col_idx, char in enumerate(row):
+                # place a Q on the first spot that's not "."" or B
+                if char != '.' and char != "B":
+                    row[col_idx] = "Q"
+                    # check off the rows, columns, and diagonals
+                    self.check_off_row(row_idx, board)
+                    self.check_off_col(col_idx, board)
+                    self.check_off_diagonals(row_idx, col_idx, board)
+                    # decrement queens
+                    n -= 1
+        # C: at end of the for loops, try to see if we solved it
+        if n != 0:
+            # we may need to STOP - there's a B in the 2nd to last col
+            if board[0][n - 2] == "B":
+                return self.output
+            else:  # or it was just a bad placement - then reset the board
+                self.reset_board(n, board)
+        # D: if we solved the board, then reset it 
+        else:  # n == 0
+            self.reset_board(n, board)
+                
