@@ -12,35 +12,32 @@ import java.lang.Integer;
 public class StockRise {
     
     public static int getLargestIncrease(int[] prices) {
+        /* Big O Analysis
+         * Time is O(n)
+         * Space is O(1)
+         */
         // A: init the largest difference at 0
         int largestIncrease = 0;
         int smallestSoFar = Integer.MAX_VALUE;
-        // B: use two pointers to linearly search for the largest increase
-        int firstNumIdx = 0;
-        while(firstNumIdx < prices.length) {
-            // C: get the first number
-            int firstNum = prices[firstNumIdx];
-            // replace the smallest if appropaite
-            if (firstNum < smallestSoFar) {
-                smallestSoFar = firstNum;
-            }
-            // D: move ahead to the next largest foreseeable number
-            int secondNumIdx = firstNumIdx + 1;
-            while(secondNumIdx < prices.length - 1 && prices[secondNumIdx + 1] > firstNum) {
-                secondNumIdx += 1;
-            }
-            // E: calculate the difference
-            if (secondNumIdx < prices.length) {
-                int currentIncrease = prices[secondNumIdx] - smallestSoFar;
-                // F: and update the answer as necessary
-                if (currentIncrease > largestIncrease) {
-                    largestIncrease = currentIncrease;
+        // B: linearly search for the largest increase
+        int index = 0;
+        while (index < prices.length) {
+            int price = prices[index];
+            // Case 1: this is the smallest number so far
+            if (price < smallestSoFar) {
+                smallestSoFar = price;
+            } else {
+                // Case 2: this could be our largest increase so far
+                int difference = price - smallestSoFar;
+                // update the answer as appropiate
+                if (difference > largestIncrease) {
+                    largestIncrease = difference;
                 }
+                // move on in the prices array
+                index += 1;
             }
-            // G: move ahead the firstNum's pointer
-            firstNumIdx = secondNumIdx;
         }
-        // H: return the answer
+        // C: return the answer
         return largestIncrease;
     }
     public static void main(String[] args) {
