@@ -193,35 +193,35 @@ class Solution:
                 if index_bs < len(b_locs) and (row_idx, col_idx) == b_locs[index_bs]:
                     board[row_idx][col_idx] = "B"
                     index_bs += 1
-                    
-        self.solveNQueens(n, board)
+        return
         
     def solveNQueens(self, n: int, board=None) -> List[List[str]]:
-        # A: get the number of queens and the board
-        if board is None:
-            board = [
-                ''.join(["." for _ in range(n)]) for _ in range(n)
-            ]
-        # B: iterate over the rows and columns to solve the board
-        for row_idx, row in enumerate(board):
-            for col_idx, char in enumerate(row):
-                # place a Q on the first spot that's not "."" or B
-                if char != '.' and char != "B":
-                    row[col_idx] = "Q"
-                    # check off the rows, columns, and diagonals
-                    self.check_off_row(row_idx, board)
-                    self.check_off_col(col_idx, board)
-                    self.check_off_diagonals(row_idx, col_idx, board)
-                    # decrement queens
-                    n -= 1
-        # C: at end of the for loops, try to see if we solved it
-        if n != 0:
-            # we may need to STOP - there's a B in the 2nd to last col
-            if board[0][n - 2] == "B":
-                return self.output
-            else:  # or it was just a bad placement - then reset the board
+        while True:
+            # A: get the number of queens and the board
+            if board is None:
+                board = [
+                    ''.join(["." for _ in range(n)]) for _ in range(n)
+                ]
+            # B: iterate over the rows and columns to solve the board
+            for row_idx, row in enumerate(board):
+                for col_idx, char in enumerate(row):
+                    # place a Q on the first spot that's not "."" or B
+                    if char != '.' and char != "B":
+                        row[col_idx] = "Q"
+                        # check off the rows, columns, and diagonals
+                        self.check_off_row(row_idx, board)
+                        self.check_off_col(col_idx, board)
+                        self.check_off_diagonals(row_idx, col_idx, board)
+                        # decrement queens
+                        n -= 1
+            # C: at end of the for loops, try to see if we solved it
+            if n != 0:
+                # we may need to STOP - there's a B in the 2nd to last col
+                if board[0][n - 2] == "B":
+                    return self.output
+                else:  # or it was just a bad placement - then reset the board
+                    self.reset_board(n, board)
+            # D: if we solved the board, then reset it 
+            else:  # n == 0
                 self.reset_board(n, board)
-        # D: if we solved the board, then reset it 
-        else:  # n == 0
-            self.reset_board(n, board)
                 
