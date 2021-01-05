@@ -1,7 +1,7 @@
 class Solution:
     def findMinStep(self, board: str, hand: str) -> int:
         """
-        Zuma Game:
+        Zuma Game: from https://leetcode.com/problems/zuma-game/
         
         questions: 
         - can only insert 1 ball at a time? yes

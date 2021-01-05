@@ -1,3 +1,5 @@
+from typing import List
+
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         """
@@ -33,8 +35,11 @@ class Solution:
 
         
         """
+        """
+        Solution 1: O(n^2 * l), where n = # strings and l = length of longest
+                    O(n * l) space
         def make_histogram(string) -> dict:
-            '''enumerate the number of times each unique letter appears'''
+            '''enumerate the tokens of each unique letter appears'''
             hist = dict()
             for char in string:
                 if char in hist:
@@ -46,32 +51,76 @@ class Solution:
             # B: check the lengths of the strings
             if len(new) != len(old):
                 return False
-            # C: make histograms for both strings
-            new_hist, old_hist = (
-                make_histogram(new), make_histogram(old)
-            )
             # D: check to make sure both has the same types and tokens
-            for char, tokens in new_hist.items():
+            for char, tokens in new.items():
                 # try and get the character type from the other histogram
-                if char not in old_hist or (char in old_hist and tokens != old_hist[char]):
+                if char not in old:
+                    return False
+                elif (char in old and tokens != old[char]):
                     return False
             return True
         # A: init a list for the output
         output = list()  # O(s)
+        str_hists = dict()
         # B: loop over each string
         for new_string in strs:
-            group_index = -1
-            # C: check if this string is an anagram with 1 str from all of the other groups
+            # search all the groups with a histogram of the string
+            str_hist = make_histogram(new_string)
+            # C: check if this string is an anagram in one of the groups
             for index, group in enumerate(output):
-                if is_anagram(new_string, group[0]) is True:
-                    group_index = index
-            # D: if it's not, start a new group with it - [string]
-            if group_index > -1:
-                output[group_index].append(new_string)
+                if is_anagram(str_hist, str_hists[group[0]]) is True:
+                    output[index].append(new_string)
+                    break
+             # D: if it's not, start a new group with it - [string]
             else:
                 output.append(list([new_string]))
+                str_hists[new_string] = str_hist
         #: E: return all the output as a 2D list
         return output
+        """
+        def alphabetize(strs):
+            '''sort the letters in each string, then as a whole'''
+             # A: sort the letters in each individual string
+            sorted_strs = list()
+            for original_string in strs:
+                str_list = list(original_string)
+                str_list.sort()  # l log (l)
+                sorted_str = ''.join(str_list)
+                sorted_strs.append((sorted_str, original_string)) 
+            # B: sort the whole array of sorted strings
+            sorted_strs.sort()
+            print(sorted_strs)
+            return sorted_strs
+
+        # A: sort the letters in each individual string
+        # B: sort the sorted strings relative to each other, 
+        sorted_strs = alphabetize(strs)
+        # C: see which strings belong together
+        groups = list()
+        idx = 0
+        while idx < len(strs):
+            # find the string to match for this group
+            group_string, original_string = sorted_strs[idx]
+            # start a new group
+            group = [original_string]
+            # see how many strings fall in this group
+            next_idx = idx + 1
+            while next_idx < len(strs):
+                if sorted_strs[next_idx][0] == group_string:
+                    # add the string to the group, 
+                    group.append(sorted_strs[next_idx][1])
+                    # move ahead in the array
+                    next_idx += 1
+                else:
+                    break
+            # update the index
+            idx = next_idx
+            # add the group to the output
+            groups.append(group)
+        # return the groups
+        return groups
+
+
     
 """
 output = [
