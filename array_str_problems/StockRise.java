@@ -27,15 +27,15 @@ public class StockRise {
             if (price < smallestSoFar) {
                 smallestSoFar = price;
             } else {
-                // Case 2: this could be our largest increase so far
+            // Case 2: otherwise this could be our largest increase so far
                 int difference = price - smallestSoFar;
                 // update the answer as appropiate
                 if (difference > largestIncrease) {
                     largestIncrease = difference;
                 }
-                // move on in the prices array
-                index += 1;
             }
+            // move on in the prices array
+            index += 1;
         }
         // C: return the answer
         return largestIncrease;
