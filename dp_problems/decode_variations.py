@@ -13,27 +13,29 @@ def decode_variations(S):
     - none of the inputs have leading zeros
     - the input is a string representing a nonnegative integer
 
+    Time: O(2^n), in the case each subsequent pair of integers 
+                  has two variations (e.g. '262626262626')
+    Space: O(n), b/c in the worst case input that's how many stack frames
+                   we push onto the call stack at any one time
+
     """ 
     def is_valid(string):
         '''returns T/F on whether the 2-digit string is a letter by itself'''
-        if 10 <= int(string) <= 26:
-            print(string, "is valid")
+        if 1 <= int(string) <= 26:
             return True
         return False
     def get_variations(current_string, input_string):
         '''Top-Down DP for finding the number of ways to decode a string'''
         # Base Case - if input if empty
         if len(input_string) == 0:
-            """
-            # return 0 if current_string[-1] == '0' else 1
             # assume we add 1 variations
             adding = 1
             # check if it's appropiate to add 1
             last_token = current_string.split("-")[-1]
-            if current_string[-1] == 0 and not (is_valid(last_token)):
+            if not is_valid(last_token):
+                # if not, then don't increase the num of variations
                 adding = 0
-            return adding"""
-            return 0 if current_string[-1] == '0' else 1
+            return adding
         # Recursive case: check if >= 2 letters
         if len(input_string) >= 1:
             variations = 0
