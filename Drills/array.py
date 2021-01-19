@@ -90,6 +90,49 @@ def merge_sort(array):
     return array
 
 
+def quick_sort(array, low=0, high=None):
+    """
+    Divide and conquer sorting algorithm
+    that is in place and not stable.
+    O(n log n) time and O(log n) space in 
+    the average case
+    """
+    def partition(low, high):
+        # the first element will be the pivot
+        pivot = low
+        # swap elements left and right, based on pivot's value
+        left = pivot + 1
+        right = high
+        while right >= left:
+            # find an element > pivot
+            while left < len(array) and array[left] < array[pivot]:
+                left += 1
+            # find an element < pivot
+            while right > -1 and array[right] > array[pivot]:
+                right -= 1
+            # swap
+            if left < len(array) and right > -1:
+                array[left], array[right] = array[right], array[left]
+            left += 1
+            right -= 1
+        # move pivot into the sorted position
+        if left < len(array) and right > -1:
+            array[pivot], array[left] = array[left], array[pivot]
+        # return the new location of the pivot
+        return left
+    # divide: choose the pivot over a subrange of the array
+    if high is None:
+        # init the subrange over the whole array
+        high = len(array) - 1
+    # conquer: partition elements around that element
+    pivot = partition(low, high)
+    # continue: partition both sides of the (sorted) pivot
+    quick_sort(array, low, pivot - 1)
+    quick_sort(array, pivot + 1, high)
+
+
+
 if __name__ == "__main__":
     array = [-7, 2, 1, 6, 7, -90, 5]
     print(merge_sort(array))
+    print(quick_sort(array))
