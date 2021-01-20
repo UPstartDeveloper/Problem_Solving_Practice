@@ -103,7 +103,7 @@ def quick_sort(array, low=0, high=None):
         # swap elements left and right, based on pivot's value
         left = pivot + 1
         right = high
-        while right >= left:
+        while right > left:
             # find an element > pivot
             while left < len(array) and array[left] < array[pivot]:
                 left += 1
@@ -113,26 +113,34 @@ def quick_sort(array, low=0, high=None):
             # swap
             if left < len(array) and right > -1:
                 array[left], array[right] = array[right], array[left]
+                print(f"Just swapped", array)
             left += 1
             right -= 1
+            print(f"Left is {left} and right is {right}" )
         # move pivot into the sorted position
-        if left < len(array) and right > -1:
-            array[pivot], array[left] = array[left], array[pivot]
+        if left < len(array) and right > 0:
+            array[pivot], array[left - 1] = array[left - 1], array[pivot]
         # return the new location of the pivot
-        return left
-    # divide: choose the pivot over a subrange of the array
+        print(f"Returning {left- 1}")
+        return left - 1
+    # init the subrange over the whole array
     if high is None:
-        # init the subrange over the whole array
+
         high = len(array) - 1
-    # conquer: partition elements around that element
+    # base case case: zero or 1 elements:
+    if high - low < 2:
+        return array
+    # divide & conquer: partition elements around the pivot
     pivot = partition(low, high)
     # continue: partition both sides of the (sorted) pivot
     quick_sort(array, low, pivot - 1)
     quick_sort(array, pivot + 1, high)
+    return array
 
 
 
 if __name__ == "__main__":
-    array = [-7, 2, 1, 6, 7, -90, 5]
-    print(merge_sort(array))
-    print(quick_sort(array))
+    array1 = [-7, 2, 1, 6, 7, -90, 5]
+    array2 = [4, 2, 3, 9, 5, 2]
+    # print(merge_sort(array2))
+    print(quick_sort(array1))
