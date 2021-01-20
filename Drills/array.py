@@ -114,15 +114,13 @@ def quick_sort(array, low=0, high=None):
             if left < len(array) and right > -1:
                 array[left], array[right] = array[right], array[left]
                 print(f"Just swapped", array)
-            left += 1
-            right -= 1
             print(f"Left is {left} and right is {right}" )
         # move pivot into the sorted position
         if left < len(array) and right > 0:
-            array[pivot], array[left - 1] = array[left - 1], array[pivot]
+            array[pivot], array[left] = array[left], array[pivot]
         # return the new location of the pivot
         print(f"Returning {left- 1}")
-        return left - 1
+        return left
     # init the subrange over the whole array
     if high is None:
 
@@ -144,3 +142,4 @@ if __name__ == "__main__":
     array2 = [4, 2, 3, 9, 5, 2]
     # print(merge_sort(array2))
     print(quick_sort(array1))
+    print(quick_sort(array2))
