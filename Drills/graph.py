@@ -34,7 +34,7 @@ class Graph:
         if not self.is_directed:
             vertex2.neighbors[vertex1.id] = vertex1
 
-    def _bfs(self, visit: function):
+    def _bfs(self, visit):
         '''Visit all the nodes in this graph in BFS order'''
         # init a queue
         q = deque()
@@ -59,8 +59,8 @@ class Graph:
             stack = list()
             stack.append(vertex1)
         # pursue all paths from vertex 1 to 2
-        found = False
         if len(stack) > 0:
+            found = False
             # pop from the stack
             vertex = stack.pop()
             if vertex.id == vertex2.id:
@@ -71,10 +71,12 @@ class Graph:
                 # otherwise push the next neighbor onto the stack
                 if found is False and neighbor not in visited:
                     stack.append(neighbor)
-                    found = self.find_path_recursive(vertex1, vertex2, stack)
+                    found = self.find_path_recursive(
+                        vertex1, vertex2, visited, stack
+                    )
                 elif found is True:
                     break
-        return found
+            return found
 
     def is_path(self, vertex1, vertex2):
         # init the return value to False
@@ -83,6 +85,39 @@ class Graph:
         found = self.find_path_recursive(vertex1, vertex2, set())
         # return the answer
         return found
+
+
+if __name__ == "__main__":
+    # TEST CASE
+    vertices = ['A', 'B', 'C', 'D']
+    objs = list()
+    g = Graph()
+    for v in vertices:
+        objs.append(Vertex(v))
+    g.vertices = dict(zip(vertices, objs))
+
+    g.add_edge(
+        g.vertices['A'], 
+        g.vertices['B']
+    )
+    g.add_edge(
+        g.vertices['B'],
+        g.vertices['D']
+        )
+    g.add_edge(
+        g.vertices['A'],
+        g.vertices['D']
+        )
+    g.add_edge(
+        g.vertices['C'],
+        g.vertices['D']
+    )
+    print(g.is_path(
+        g.vertices['A'],
+        g.vertices['C'] 
+    ))
+
+
 
 
     
