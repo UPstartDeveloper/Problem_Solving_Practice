@@ -86,43 +86,136 @@ class Graph:
         # return the answer
         return found
 
+    def is_bipartite(self) -> bool:
+        """
+        This tells us if the graph vertices can be split into 2 groups,
+        such that no two vertices in the same group are connected
+
+        Secret Goal: practice iterative graph BFS
+        Intuition: use BFS
+        Approach:
+        - visit every node
+            - if it has been visited before, check to make sure it's 
+                the opposite color as the one just visited
+                - if it hasn't, return False
+            - if it has not been visited before, assign it the opposite
+                color of the one just visited
+        - return True
+
+        Insights:
+        - cmd + / --> comment highlighted lines in VS Code
+        - even singly linked list w/ an even number of nodes is a 
+            - bipartite graph
+
+        Time: O(V + E)
+        Space: O(V)
+        """
+        def visit(node, last_color, visited):
+            valid = False
+            # - if it has been visited before, check to make sure it's 
+            #     the opposite color as the one just visited
+            opposite_color = (1 if last_color == 0 else 0)
+            if node not in visited:
+                visited[node] = opposite_color
+                print(f"Node {node.id} is {opposite_color}")
+                valid = True
+            # - if it has not been visited before, assign it the opposite
+            #     color of the one just visited
+            else:  # node has been visited before
+                # may not be bipartite, if it was enqueued twice
+                valid = (visited[node] == opposite_color)
+                print(f"Already visited, Node {node.id} is {visited[node]}")
+            return valid, opposite_color
+        # A: init a queue, a dict of visited nodes, and first color
+        color = 0
+        visited = dict()
+        q = deque()
+        # B: enqueue the first node
+        q.append(list(self.vertices.values())[0])
+        # C: visit all the nodes
+        while q:
+            node = q.popleft()
+            valid, color = visit(node, color, visited)
+            # if we fail the bipartite rules, return False
+            if not valid:
+                return False
+            # can continue traversing
+            for neighbor in node.neighbors.values():
+                if neighbor not in visited:  # avoid cycles
+                    q.append(neighbor)
+        return True
+
 
 if __name__ == "__main__":
     # TEST CASE
     vertices = ['A', 'B', 'C', 'D']
     objs = list()
-    g = Graph()
+    g1 = Graph()
     for v in vertices:
         objs.append(Vertex(v))
-    g.vertices = dict(zip(vertices, objs))
+    g1.vertices = dict(zip(vertices, objs))
 
-    g.add_edge(
-        g.vertices['A'], 
-        g.vertices['B']
+    g1.add_edge(
+        g1.vertices['A'], 
+        g1.vertices['B']
     )
-    g.add_edge(
-        g.vertices['B'],
-        g.vertices['D']
+    g1.add_edge(
+        g1.vertices['B'],
+        g1.vertices['D']
         )
-    g.add_edge(
-        g.vertices['A'],
-        g.vertices['D']
+    g1.add_edge(
+        g1.vertices['A'],
+        g1.vertices['D']
         )
-    g.add_edge(
-        g.vertices['C'],
-        g.vertices['D']
+    g1.add_edge(
+        g1.vertices['C'],
+        g1.vertices['D']
     )
-    print(g.is_path(
-        g.vertices['A'],
-        g.vertices['C'] 
-    ))
+    # print(g1.is_path(
+    #     g1.vertices['A'],
+    #     g1.vertices['C'] 
+    # ))
+    # testing is_bipartite on a singly linked list
+    g2 = Graph()
+    objs = [
+        Vertex('A'), Vertex('B'), Vertex('C'), Vertex('D')
+    ]
+    g2.add_vertex(objs[0])
+    g2.add_vertex(objs[1])
+    g2.add_vertex(objs[2])
+    g2.add_vertex(objs[3])
+    g2.add_edge(
+        objs[0],
+        objs[1]
+    )
+    g2.add_edge(
+        objs[1],
+        objs[2]
+    )
+    g2.add_edge(
+        objs[2],
+        objs[3]
+    )
+    print(g2.is_bipartite())
 
-
-
-
-    
-
-
-
-
-    
+    g3 = Graph()
+    objs = [
+        Vertex('A'), Vertex('B'), Vertex('C'), Vertex('D')
+    ]
+    g3.add_vertex(objs[0])
+    g3.add_vertex(objs[1])
+    g3.add_vertex(objs[2])
+    g3.add_edge(
+        objs[0],
+        objs[1]
+    )
+    g3.add_edge(
+        objs[1],
+        objs[2]
+    )
+    g3.add_edge(
+        objs[2],
+        objs[0]
+    )
+    print(objs[2].neighbors)
+    print(g3.is_bipartite())
