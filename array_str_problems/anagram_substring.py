@@ -4,6 +4,7 @@
 # Examples: 
 # 1) Here come dots and lines that helped build America, The Morse Code ->True
 # 2) crowd, word -> True
+# {'c': 1, "r": 1, "o": 1, "w": 1, "d": 1}
 # 3) There is no anagram here, some word -> False
 # 4) There is no anagram here, game -> False
 
@@ -48,7 +49,10 @@ Finding Out Anagrams:
 
 
 def has_anagram_substring(a: str, b: str) -> bool:
-
+    """
+    Time: O((a - b)(b^2))
+    Space: O(b)
+    """
     def make_freq_dist(string: str) -> dict:
         dist = dict()
         for letter in string:
@@ -61,27 +65,27 @@ def has_anagram_substring(a: str, b: str) -> bool:
 
     def is_anagram(sub_a, b) -> bool: 
         # make a freq dist of str_b
-        b_dist = make_freq_dist(b)
+        b_dist = make_freq_dist(b)  # OB
         # make a's freq dist
-        a_dist =  make_freq_dist(sub_a)
+        a_dist =  make_freq_dist(sub_a)  # O(b)
         # compare the freq dist's
-        for letter in b_dist:
-            if letter not in a_dist or a_dist[letter] != b_dist[letter]:
+        for letter in b_dist:  # b iterations--- O(b^2)
+            if letter not in a_dist or a_dist[letter] != b_dist[letter]:  # b iterations
                 return False
         return True
 
     # edge cases:
-    if not a or not b:
+    if not a or not b:  # O(1)
         return False
-    if len(b) > len(a):
+    if len(b) > len(a): # O(1)
         return False
     # compare the freq_dist of b, to that of substrings of a (equal size)
-    start, end = 0, len(b)
-    while start <= len(a) - len(b):
+    start, end = 0, len(b)  # O(1)
+    while start <= len(a) - len(b):  # len(a) - len(b) iterations
         # find the substring of a
-        sub_a  = a[start:end]
+        sub_a  = a[start:end]  # b iterations
         # if it works, return T
-        if is_anagram(sub_a, b): 
+        if is_anagram(sub_a, b):  # O(b^2)
             return True
         # if not, move on to the next substring
         start += 1
