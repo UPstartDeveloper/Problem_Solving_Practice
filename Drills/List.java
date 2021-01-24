@@ -39,7 +39,7 @@ class LinkedList {
     }
 
     // get all the items in the linked list
-    public int[] getAll() {
+    public int[] getAllIterative() {
         ListNode curNode = this.head;
         // get all the items in an ArrayList
         ArrayList<Integer> items = new ArrayList<Integer>();
@@ -57,6 +57,38 @@ class LinkedList {
         }
         // return the array
         return values;
+    }
+
+    public int[] getAllRecursive() {
+        // init an array list
+        ArrayList<Integer> items = new ArrayList<Integer>();
+        // populate the arrayList
+        ListNode curNode = this.head;
+        return this.getAllRecursive(items, curNode);
+    }
+
+    public int[] getAllRecursive(ArrayList<Integer> items, ListNode curNode) {
+        // Base Case: the ArrayList has all the keys
+        if (curNode == null) {
+            // make a new static array
+            int[] values = new int[items.size()];
+            // place all items in the array
+            int index = 0;
+            for (Integer item:items) {
+                values[index] = item;
+                index += 1;
+            }
+            // return the array
+            return values;
+        // Recursive Case: add the next item to the ArrayList
+        } else {
+            // add to the ArrayList from the current list node
+            items.add(curNode.getKey());
+            // update the current list node
+            curNode = curNode.getNext();
+            // on to the next stack frame!
+            return this.getAllRecursive(items, curNode);
+        }
     }
 
     // prepend to the list
