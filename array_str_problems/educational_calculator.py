@@ -28,6 +28,23 @@ int("1,000") = 1000 🚩
 
 Brainstorming:
 
+1. Iterating left to right, no space:
+- init the operator to addition
+- iterate over till you hit the next operator (or go out of bound)
+    - update the result
+    - update the operator
+    - move on, 
+- return the result
+
+
+2. Iterating right to left
+iterate until you hit an operator, 
+    - push the operand and the operator onto a stack
+    - push the last operand on w/ a plus
+
+- pop everything from the stack, compute the result
+- return the value
+
 Intuition:
 - an operand is something that's fenced in by two non-numerical symbols
 
@@ -104,6 +121,38 @@ def calculate(expression, result=0):
         return calculate(expression, result)
 
 
+def calculate_optimal(expression):
+    """
+    # - return the result
+    """
+    # - init the operator to addition
+    is_addition = True
+    # - iterate over till you hit the next operator (or go out of bound)
+    start, end = 0, 0
+    result = 0
+    while start < len(expression):
+        while end < len(expression):
+            if not (expression[end] == "+" or expression[end] == "-"):
+                end += 1
+            else:
+                break
+        # - update the result
+        if not is_addition:
+            result -= int(expression[start:end])
+        else:  # it is addition
+            result += int(expression[start:end])
+        # - update the operator
+        if end < len(expression):
+            is_addition = (expression[end] == "+")
+        # - move on,
+        end += 1 
+        start = end
+    return result
+# calculate("6+9-12") => 3
+# calculate("1+2-3+4-5+6-7") => -2
+# calculate("255") => 255   
+
+
 """
 +9-12
 
@@ -115,6 +164,6 @@ operation = "6+"
 """
 
 if __name__ == "__main__":
-    print(calculate("6+9-12"))  # => 3
-    print(calculate("1+2-3+4-5+6-7"))  # => -2
-    print(calculate("255"))  # => 255
+    print(calculate_optimal("6+9-12"))  # => 3
+    print(calculate_optimal("1+2-3+4-5+6-7"))  # => -2
+    print(calculate_optimal("255"))  # => 255
