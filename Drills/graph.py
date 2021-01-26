@@ -145,6 +145,63 @@ class Graph:
                     q.append(neighbor)
         return True
 
+    def dfs(self):
+        """Return all the vertices in this graph in a set."""
+        
+        def dfs_recursive(node_id, visited):
+            """
+            Once the function is called, 
+            we know it's been pushed onto the call stack.
+
+            Once the function terminates, 
+            we know it has been popped from the stack.
+            """
+            # visit the node (in this stack frame)
+            node_obj = self.vertices[node_id]
+            visited.add(node_id)
+            # push the neighbors to be traversed in future stack frames
+            for neighbor_id in node_obj.neighbors:
+                if neighbor_id not in visited:
+                    dfs_recursive(neighbor_id, visited)
+            return None
+
+        # start from a random node
+        start_node = list(self.vertices.keys())[0]
+        # traverse from that node to fill the whole graph
+        visited = set()
+        dfs_recursive(start_node, visited)
+        # return the set of all nodes
+        return visited
+
+
+    def dfs_iterative(self):
+        """
+        Print the ids of all the
+        Graph vertices in DFS order, iteratively.
+
+        ASSUMPTION: all the vertices are connected
+                    and there are no two vertices with 
+                    the same id
+        """
+        # init a stack and a dict
+        stack = list()
+        visited = set()
+        # choose the first node
+        start_node = list(self.vertices.values())[0]
+        # visit all the nodes
+        stack.append(start_node)
+        while stack:
+            # pop from the stack
+            node = stack.pop()
+            # visit the node
+            visited.add(node.id)
+            for neighbor in node.neighbors.values():
+                # push all of unvisited neighbors onto the stack (prevent cycles)
+                if neighbor.id not in visited:
+                    stack.append(neighbor)
+        # return the set of all nodes
+        return visited
+
 
 if __name__ == "__main__":
     # TEST CASE
