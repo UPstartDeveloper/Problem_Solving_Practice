@@ -202,6 +202,74 @@ class Graph:
         # return the set of all nodes
         return visited
 
+    def dfs_distances(self, start_node_id: str):
+        """
+        Returns a dictionary containing the distance
+        from the starting node to all other nodes in the
+        Graph, using iterative DFS.
+
+        Assumption:
+        - all vertices are unique
+        - all vertices are connected
+
+        """
+        # find the first node
+        if isinstance(start_node_id, str) and start_node_id in self.vertices:
+            # init a stack and a distances dict
+            stack, distances = list(), dict()
+            # push the first node onto the stack
+            start_node = self.vertices[start_node_id]
+            # init the distance travelled so far
+            dist_travelled = 0
+            # visit all the connected nodes
+            stack.append((start_node, dist_travelled))
+            while stack:
+                # pop from the stack
+                node, dist = stack.pop()
+                # "visit" - record its distance
+                distances[node.id] = dist
+                # push all the (unvisited) neighbors onto the stack
+                for neighbor in node.neighbors.values():
+                    if neighbor.id not in distances:
+                        stack.append((neighbor, dist + 1))
+            # return the distances
+            return distances
+        else:  # start node not in graph
+            raise ValueError("Could not find starting node.")
+
+    def contains_cycle(self) -> bool:
+        """
+        Intuition:
+        Use DFS to determine if a graph contains a cycle
+
+        Approach:
+        succeed fast --> if we keep a set of visited nodes,
+                         we can return True right when we 
+                         fail the "not in visited" cond
+        - use iterative DFS
+
+        Assumption:
+        - all the graph nodes are connected
+
+        """
+        # init the stack and a visited set
+        stack, visited = list(), set()
+        # push the first node
+        start_obj = list(self.vertices.values())
+        # visit all the nodes
+        stack.append(start_obj)
+        while stack:
+            node = stack.pop()
+            visited.add(node)
+            for neighbor_obj in node.neighbors.values():
+                # if a node has been seen before, return True
+                if neighbor_obj not in visited:
+                    stack.append(neighbor_obj)
+                else:
+                    return True
+        # return False if no cycles
+        return False
+        
 
 if __name__ == "__main__":
     # TEST CASE
