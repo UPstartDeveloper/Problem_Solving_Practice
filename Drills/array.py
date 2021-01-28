@@ -39,7 +39,28 @@ def binary_search(array, x):
         elif mid_elem > x:  # go left
             high = middle - 1
     # C: if not found, return None
-    return None
+    return -1
+
+
+def binary_search_recursive(array, target, low=None, high=None):
+    if low is None:
+        low, high = 0, len(array) - 1
+    mid_idx = (low + high) // 2
+    middle = array[mid_idx]
+    # Base Case:
+    # target found
+    if middle == target:
+        return mid_idx
+    # target not in array
+    elif low > high:
+        return -1
+    # Recurisive Cases:
+    # middle is <  target
+    elif middle < target:
+        return binary_search_recursive(mid_idx + 1, high)
+    # middle is > target
+    else:
+        return binary_search_recursive(low, mid_idx - 1)
 
 
 def merge_sort(array):
