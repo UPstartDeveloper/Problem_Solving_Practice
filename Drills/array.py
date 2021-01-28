@@ -157,6 +157,71 @@ def quick_sort(array, low=0, high=None):
     return array
 
 
+def insertion_sort(array):
+    """
+    Intuition: 
+    - let's mark the first index in the array as sorted
+    - then iteratively add more and more elements into their sorted
+        position, in the sorted section
+    Approach:
+    # - for every elem after index 0
+    #     - loop backwards through the sorted section
+    #         - if the number before is greater, swap (stop at index 0)
+    #         - if the number before is less/equal, stop early
+
+    [5, 6, -2, 6, 2, 1, 7]
+    [5, -2, 6, 6, 2, 1, 7]
+    [-2, 5, 6, 6, 2, 1, 7]
+
+    Assumption
+    Edge Cases:
+    - array of length <= 1 --> return array
+    - not an array --> ValueError
+    - we don't have all of the same data type in the array --> ValueError
+    """
+
+    def is_consistent(array) -> bool:
+        # TODO: linear pass to ensure all the elements have same data type
+        index = 0
+
+        while index < len(array) - 1:
+            elem, elem_ahead = array[index], array[index + 1]
+            if type(elem) != type(elem_ahead):
+                return False
+            index += 1
+        return True
+
+    if not isinstance(array, list) or not is_consistent(array):
+        raise ValueError(
+            "This array must contain 1 or more elements of the same data type"
+        )
+    elif len(array) > 0:
+        # for every elem after index 0
+        for index in range(1, len(array)):
+            index_before = index - 1
+            # if the number before is greater, swap (stop at index 0)
+            while index_before > -1 and array[index_before] > array[index]:
+                array[index], array[index_before] = (
+                    array[index_before], array[index]
+                )
+                index -= 1
+                index_before -= 1
+    return array
+
+"""
+ 0  1   2  3  4  5  6
+[5, 6, -2, 6, 2, 1, 7]
+[5, -2, 6, 6, 2, 1, 7]
+[-2, 5, 6, 6, 2, 1, 7]
+
+i       ib
+1       0  
+2       1 
+1       0  
+0       -1
+3       2
+4       3
+"""
 
 if __name__ == "__main__":
     array1 = [-7, 2, 1, 6, 7, -90, 5]
@@ -164,3 +229,4 @@ if __name__ == "__main__":
     # print(merge_sort(array2))
     print(quick_sort(array1))
     print(quick_sort(array2))
+    print(insertion_sort([5, 6, -2, 6, 2, 1, 7]))
