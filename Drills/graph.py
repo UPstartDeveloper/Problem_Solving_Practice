@@ -269,6 +269,62 @@ class Graph:
                     return True
         # return False if no cycles
         return False
+
+    # iterative BFS
+    def iterative_bfs(self):
+        '''visit all the nodes in BFS order'''
+        # init a queue to hold the nodes to be visited (prevents cycles)
+        visited = set()
+        q = deque()
+        # enqueue the first node
+        first = list(self.vertices.values())[0]
+        q.append(first)
+        # iterate over the queue
+        while len(q) > 0:
+            # dequeue a node
+            vertex_obj = q.popleft()
+            # visit
+            visited.add(vertex_obj)
+            # enqueue all of its unvisited neighbors
+            for neighbor_obj in vertex_obj.neighbors.values():
+                if neighbor_obj not in visited:
+                    q.append(neighbor_obj)
+        return 
+
+    # iterative DFS
+    def iterative_dfs(self):
+        """ 'visit' - adding to the visited set"""
+        # init a stack and a visited set
+        visited = set()
+        stack = list()
+        # push the first node
+        node = list(self.vertices.values())[0]
+        stack.append(node)
+        # iterate over the stack
+        while len(stack) > 0:
+            # get the node at the top of the stack
+            node = stack.pop()
+            # push the unvisited neigbors
+            for neighbor in node.neighbors.values():
+                if neighbor not in visited:
+                    # this neighbor will be visited in the future
+                    stack.append(neighbor)
+            # visit the node we have currently
+            visited.add(node)
+        return
+
+    # recursive DFS
+    def recursive_dfs(self, visited=None, node=None):
+        # Base Case: find the first node, push it onto the stack
+        if node is None:
+            node = list(self.vertices.values())[0]
+            self.recursive_dfs(visited=set(), node=node)
+        # pop from the stack - visit the node
+        visited.add(node)
+        # push and visit all the unvisited neighbors
+        for neighbor in node.neighbors.values():
+            self.recursive_dfs(visited, neighbor)
+        return 
         
 
 if __name__ == "__main__":
