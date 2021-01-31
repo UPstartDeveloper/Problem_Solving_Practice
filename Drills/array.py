@@ -126,34 +126,36 @@ def quick_sort(array, low=0, high=None):
         right = high
         while right > left:
             # find an element > pivot
-            while left < len(array) and array[left] < array[pivot]:
+            while left < len(array) - 1 and array[left] < array[pivot]:
                 left += 1
             # find an element < pivot
-            while right > -1 and array[right] > array[pivot]:
+            while right > 0 and array[right] > array[pivot]:
                 right -= 1
             # swap
-            if left < len(array) and right > -1:
+            if left < len(array) - 1 and right > 0:
                 array[left], array[right] = array[right], array[left]
-                print(f"Just swapped", array)
-            print(f"Left is {left} and right is {right}" )
+                # print(f"Just swapped", array)
+                # left, right = right, left
+                break
+            # print(f"Left is {left} and right is {right}" )
         # move pivot into the sorted position
         if left < len(array) and right > 0:
             array[pivot], array[left] = array[left], array[pivot]
         # return the new location of the pivot
-        print(f"Returning {left- 1}")
+        # print(f"Returning {left}, array is {array}")
         return left
     # init the subrange over the whole array
     if high is None:
-
         high = len(array) - 1
     # base case case: zero or 1 elements:
     if high - low < 2:
         return array
     # divide & conquer: partition elements around the pivot
     pivot = partition(low, high)
+    print(f"pivot is now {pivot}")
     # continue: partition both sides of the (sorted) pivot
     quick_sort(array, low, pivot - 1)
-    quick_sort(array, pivot + 1, high)
+    quick_sort(array, pivot, high)
     return array
 
 
@@ -229,4 +231,4 @@ if __name__ == "__main__":
     # print(merge_sort(array2))
     print(quick_sort(array1))
     print(quick_sort(array2))
-    print(insertion_sort([5, 6, -2, 6, 2, 1, 7]))
+    # print(insertion_sort([5, 6, -2, 6, 2, 1, 7]))
