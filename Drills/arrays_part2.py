@@ -149,15 +149,15 @@ class Array:
         pivot = (low + high) // 2
         # Conquer - partition the elements about the pivot
         pivot_elem = self.items[pivot]
-        left = 0
-        right = len(self.items) - 1
+        left = low
+        right = high
         while right > left:
-            while left < len(self.items) and self.items[left] < pivot_elem:
+            while left < right and self.items[left] <= pivot_elem:
                 left += 1
-            while right > -1 and self.items[right] > pivot_elem:
+            while right > left and self.items[right] > pivot_elem:
                 right -= 1
             # swap the pointers on the left and right side
-            if 0 < (left, right) < len(self,i):
+            if 0 < left < len(self.items) and 0 < right < len(self.items):
                 self.items[left], self.items[right] = (
                     self.items[right], self.items[left]
                 )
@@ -177,3 +177,48 @@ class Array:
             return self.items
         else:  # use a non-mutative algoritm
             return self._merge_sort()
+
+
+class ArrayStack(Array):
+    '''The top of this stack is the last element'''
+    def __init__(self, items: list):
+        super().__init__(items)
+
+    def peek(self):
+        # guard clause
+        assert len(self.items) > 0, "There are no items in the stack"
+        return self.items[-1]
+
+    def push(self, item):
+        self.append(item)
+
+    def pop(self):
+        assert len(self.items) > 0, "There are no items to pop"
+        return self.items.pop()
+
+
+class ArrayQueue(Array):
+    """The front of the queue is index 0, the back is the last index"""
+
+    def __init__(self, items: list):
+        super().__init__(items)
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def front(self):
+        assert len(self.items) > 0, "There are no items to display."
+        return self.items[0]
+
+    def dequeue(self):
+        assert len(self.items) > 0, "There are no items to dequeue."
+        return self.items.pop(0)
+
+
+if __name__ == "__main__":
+    # Test out the sorting algorithms
+    items = [-7, 6, 4, 2, -7, 5, 3, 1, 2]
+    array = Array(items)
+    print(f"Before sorting: {items}")
+    array.sort()
+    print(f"After Sorting: {items}")
