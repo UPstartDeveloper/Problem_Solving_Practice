@@ -143,6 +143,7 @@ class Array:
 
     def _quick_sort(self,low=0, high=None) -> list:
         '''mutative, divide and conquer sorting algorithm'''
+        # TODO: debug the line that updates the pivot
         if high is None:
             high = len(self.items) - 1
         # Divide the list - choose the middle element as the pivot
