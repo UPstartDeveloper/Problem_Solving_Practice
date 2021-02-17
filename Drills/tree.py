@@ -1,5 +1,15 @@
+from collections import deque
+
+
+class TreeNode:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+
+
 class Tree:
-    def __init__(self, root):
+    def __init__(self, root: TreeNode):
         self.root = root
 
     def in_order_traversal(self, use_iteration=True):
@@ -37,15 +47,69 @@ class Tree:
                         stack.append(top.right)
             # return the result
             return visited
-            
+
         if use_iteration is True:
             return _dfs_iterative()
         return _dfs_recursive(self.root, set())
 
+    def pre_order_traversal(self, use_iteration=True):
+        
+        def _pre_order_iterative():
+            pass
 
-class TreeNode:
-    def __init__(self, key):
-        self.key = key
-        self.left = None
-        self.right = None
+        def _pre_order_recursive(node, visited):
+            # visit the root of this subtree
+            if node is not None:
+                visited.add(node)
+            # traverse the left subtree
+            if node.left is not None:
+                _pre_order_recursive(node.left, visited)
+            # traverse the right subtree
+            if node.right is not None:
+                _pre_order_recursive(node.right, visited)
+            return visited
+            
+        if use_iteration is True:
+            return _pre_order_iterative()
+        return _pre_order_iterative(self.root, set())
 
+    def post_order_traversal(self, use_iteration=True):
+        
+        def _post_order_iterative():
+            pass
+
+        def _post_order_recursive(node, visited):
+            # traverse the left subtree
+            if node.left is not None:
+                _post_order_recursive(node.left, visited)
+            # traverse the right subtree
+            if node.right is not None:
+                _post_order_recursive(node.right, visited)
+            # visit the root of this subtree
+            if node is not None:
+                visited.add(node)
+            return visited
+            
+        if use_iteration is True:
+            return _post_order_iterative()
+        return _post_order_iterative(self.root, set())
+
+    def bfs(self):
+        # init collections
+        q = deque()
+        visited = set()
+        # enqueue the first node
+        if self.root is not None:
+            q.append(self.root)
+            while len(q) > 0:
+                # dequeue a node
+                node = q.popleft()
+                # visit this node
+                visited.add(node)
+                # enqueue the neighbors
+                if node.left is not None:
+                    q.append(node.left)
+                if node.right is not None:
+                    q.append(node.right)
+        # return the visited nodes
+        return visited
