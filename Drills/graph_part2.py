@@ -57,11 +57,35 @@ class Graph:
 
     def dfs(self, iterate=True):
 
-        def _dfs_iterative(self):
-            pass
+        def _dfs_iterative():
+            # init collections
+            stack = list()
+            visited = set()
+            # push the first node onto the stack
+            first = list(self.vertices.keys())[0]
+            stack.append(first)
+            # traverse the graph
+            while len(stack) > 0:
+                # pop from the stack
+                node = stack.pop()
+                # visit this node
+                visited.add(node)
+                # push the unvisited neighbors
+                for neighbor in node.neighbors.values():
+                    if neighbor not in visited:
+                        stack.append(neighbor)
+            # return the visited nodes
+            return visited
 
-        def _dfs_recursive(self):
-            pass
+        def _dfs_recursive(node, visited=set()):
+            # visit the node
+            visited.add(node)
+            # visit the neighbors
+            for neighbor in node.neighbors.values():
+                if neighbor not in visited:
+                    _dfs_recursive(neighbor, visited)
+            # return the visited nodes
+            return visited
             
         if iterate is True:
             return _dfs_iterative()
