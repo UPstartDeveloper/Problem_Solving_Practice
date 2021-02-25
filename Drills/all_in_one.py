@@ -1,5 +1,6 @@
 # ARRAYS
 
+from typing import List
 
 class Array:
     def __init__(self, array):
@@ -105,3 +106,131 @@ class Array:
             sorted.extend([elem for _ in range(count)])
 
         return sorted
+
+# Stacks and Queues
+class ArrayStack(Array):
+    '''top is the last index'''
+
+    def __init__(self, array):
+        super().__init__(array)
+
+    def peek(self):
+        if len(self.items) > 0:
+            return self.items[-1]
+
+    def pop(self):
+        if len(self.items) > 0:
+            return self.items.pop()
+
+    def push(self, item):
+        self.items.append(item)
+
+    
+class ArrayQueue(Array):
+    '''first index of the array is the front of queue'''
+    def __init__(self, array):
+        super().__init__(array)
+
+    def enqueue(self, item: int):
+        self.items.append(item)
+
+    def dequeue(self):
+        if len(self.items) > 0:
+            return self.items.pop(0)
+
+    def front(self):
+        if len(self.items) > 0:
+            return self.items[0]
+
+
+class ListNode:
+    def __init__(self, key):
+        self.key = key
+        self.next = None
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def append(self, item: ListNode):
+        if self.head is None:
+            self.head = self.tail = self.item
+        else:
+            self.tail.next = item
+            self.tail = item
+    
+    def prepend(self, item: ListNode):
+        if self.head is None:
+            self.head = self.tail = item
+        else:
+            item.next = self.head
+            self.head = item
+
+    def length(self):
+        num_nodes = 0
+        runner = self.head
+        while runner is not None:
+            num_nodes += 1
+            runner = runner.next
+        return num_nodes
+
+    def find(self, item: int) -> List[ListNode, ListNode]:
+        '''returns the node with a given item, and the one before it'''
+        prev = None
+        runner = self.head
+
+        while runner.key != item:
+            prev = runner
+            runner = runner.next
+
+        return [runner, prev]
+
+    def delete(self, item):
+        deleted_item, item_before = self.find(self.tail.key)
+        
+        if item_before is not None:
+            item_before.next = deleted_item.next
+        else:   # head is being deleted
+            self.head = self.tail = None
+        
+        # if tail is being deleted
+        if deleted_item == self.tail:
+            self.tail = item_before
+        
+        return deleted_item
+
+    
+class LinkedStack(LinkedList):
+    '''the tail is the top of the stack'''
+    def __init__(self):
+        super().__init__()
+
+    def peek(self):
+        if self.tail is not None:
+            return self.tail.key
+        
+    def push(self, item: int):
+        self.append(ListNode(item))
+
+    def pop(self):
+        if self.tail is not None:
+            self.delete(self.tail.key)
+
+
+class LinkedQueue(LinkedList):
+    '''the head is the front'''
+    def __init__(self):
+        super().__init__()
+
+    def front(self):
+        if self.head is not None:
+            return self.head.key
+
+    def enqueue(self, item):
+        self.append(ListNode(item))
+
+    def dequeue(self):
+        if self.head is not None:
+            self.delete(self.head.item)
