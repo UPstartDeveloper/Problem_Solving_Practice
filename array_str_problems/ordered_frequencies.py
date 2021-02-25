@@ -62,19 +62,57 @@ Edge Cases:
 
 Brainstorm:
 
-1. Naive:
-    # - tokenize the list
-    # - make a dict for all of the type-num_token pairs
-    #     - skip any that end in '!', '?', '.'
-    # sort them as tuples in descending order
-    # return the list
+1. Naive, w/ BCR
+    # 1 tokenize the list - linear
+    # 2 make a dict for all of the type-num_token pairs
+    #     2a skip any that end in '!', '?', '.'
+    # 3 sort them as tuples in descending order
+    # 4 return the list
+    # time - O(n + tlog(t)), where n = len of corpus, t = # of types of words
+    # space: O(t)
+
+2. Representations of the data
+
+"The cat has a big hat."
+{
+    "The": 1,
+    "cat": 1,
+    "has": 1,  ==>  {1: ["The", "cat", "has", a, big,]}
+    "a": 1,
+    "big": 1,
+}
+
+3. Alphabetization - Counting Sort variant, 
+
+1. tokenize the list - n
+2. sort the list of tokens - by alphabetical order - t log (t)
+4. init a list of token spaces - start blank - t
+3. count the frequencies of the words - t
+    - start at the first word
+    - increment a count as long as the next_word == prev_word
+    - when we break, add that tuple to a list (it will end up being a 2D arr)
+        - (if the count is already there, append the type to the list)
+4. create the sorted list by going over the list again in reverse - t
+
+ 0  1   2  3  4   5  6  7  8
+[Fa la la la la, la la la la]
+
+ 0      1   2    3  4   5  6  7       8
+[[], ["Fa"],[], ........... ["la"],   []]
+
+[("la", 7),  ("Fa", 1)]
+
 """
 from typing import List
 
 
 def ordered_frequencies(corpus: str):
     def tokenize(corpus: str) -> List[str]:
-        words = corpus.split()
+        words_with_commas = corpus.split()
+        words = [
+            word[:-1] if word[-1] == "," else word
+            for word in words_with_commas 
+        ]
         return words
 
     PUNCTUATIONS = [".", "?", "!"]
@@ -103,4 +141,5 @@ def ordered_frequencies(corpus: str):
 
 
 if __name__ == "__main__":
-    pass
+    string = "Fa la la, la la la, la la la, la la la, fa la la, la la la, la la la la"
+    print(ordered_frequencies(string))
