@@ -21,7 +21,7 @@ class Array:
             if item == target:
                 return ndx
             else:
-                return self.linear_search_recursive(x, ndx + 1)
+                return self.linear_search_recursive(target, ndx + 1)
         return None
 
     def bin_search_iterative(self, target):
@@ -177,7 +177,7 @@ class LinkedList:
             runner = runner.next
         return num_nodes
 
-    def find(self, item: int) -> List[ListNode, ListNode]:
+    def find(self, item: int) -> List[ListNode]:
         '''returns the node with a given item, and the one before it'''
         prev = None
         runner = self.head
@@ -268,7 +268,7 @@ class Graph:
             v2.add_neighbor(v1)
 
     def bfs(self, use_iteration=True):
-
+        '''Time is O(V + E), space is O(V)'''
         def _bfs_iterative():
             # init collections
             q = deque()
@@ -297,25 +297,25 @@ class Graph:
             elif len(q) == 0 and len(visited) == 0:
                 first = list(self.vertices.values())[0]
                 q.append(first)
-                _bfs_recursive(q, visited)
+                return _bfs_recursive(q, visited)
             # BASE: end the search 
-            elif len(q) == 0:
+            elif len(q) == 0 and len(visited) > 0:
                 return visited
             # RECURSIVE: hit the next node
             else:  # q is not empty
                 node = q.popleft()
                 visited.add(node.id)
-                for neighbor in node.neighbors.value():
+                for neighbor in node.neighbors.values():
                     if neighbor.id not in visited:
                         q.append(neighbor)
-                _bfs_recursive(q, visited)
+                return _bfs_recursive(q, visited)
 
         if use_iteration is True:
             return _bfs_iterative()
         return _bfs_recursive()
 
     def dfs(self, use_iteration=True):
-
+        '''Time is O(V + E), space is O(V)'''
         def _dfs_recursive(node, visited=set()):
             # visit the node
             visited.add(node.id)
@@ -351,3 +351,26 @@ class Graph:
         first = list(self.vertices.values())[0]
         return _dfs_recursive(first)
         
+
+if __name__ == "__main__":
+    ids = ['A', 'B', 'C', 'D', 'E']
+    vertices = [Vertex(identifier) for identifier in ids]
+
+    g = Graph()
+    g.vertices = dict(zip(ids, vertices))
+    """
+    Adding a graph like the following:
+    'A'
+    |
+    'B'------'C'
+    |        |
+    'D'     'E'
+    """
+    g.add_edge(vertices[0], vertices[1])  # A - B
+    g.add_edge(vertices[1], vertices[3])  # B - D
+    g.add_edge(vertices[1], vertices[2])  # B - C
+    g.add_edge(vertices[2], vertices[4])  # C - E
+    print(f"BFS iteratively: {g.bfs()}")
+    print(f"BFS recursively: {g.bfs(use_iteration=False)}")
+    print(f"DFS iteratively: {g.dfs()}")
+    print(f"DFS recursively: {g.dfs(use_iteration=False)}")
