@@ -60,12 +60,28 @@ calculate("1+2-3+4-5+6-7") => -2
 
 expr                operand        operator     result
 "1+2-3+4-5+6-7"         1               +        0, 1
-"+2-3+4-5+6-7"          2               +        1, 3
+"2-3+4-5+6-7"          2               +        1, 3
 "-3+4-5+6-7"            3               -        3, 0
 "+4-5+6-7"              4               +        0, 4
 "-7"                    7               -        5, -2
 ""                    N/A             N/A        -2
 
+3. Using Two Operands Always
+
+# A) init the result to 0 (will always be our first operand)
+# B) init the operator based on if the first char (if not -, then +)
+# C) iterate
+    # get to the next operator sign (or the end)
+    # take the 2nd operand (between operators, or from the beginning if first operation is addition)
+    # do the operation(result, second_operand, operator), update result
+    # update position of first operator
+# D) return result
+
+"1+2-3+4-5+6-7"
+    ^
+r = 1
+o = +
+so = 1
 """
 
 from os import name
@@ -125,6 +141,7 @@ def calculate_optimal(expression):
     """
     # - return the result
     """
+    """
     # - init the operator to addition
     is_addition = True
     # - iterate over till you hit the next operator (or go out of bound)
@@ -148,6 +165,39 @@ def calculate_optimal(expression):
         end += 1 
         start = end
     return result
+    """
+    # A) init the result to 0 (will always be our first operand)
+    result = 0
+    # B) init the operator 
+    first_operator_pos = 0
+    # C) iterate
+    second_operator_pos = first_operator_pos + 1
+    while first_operator_pos < len(expression):
+        # determine the operation we'll be doing
+        is_subtraction = expression[first_operator_pos] == "-"
+        # get to the next operator sign (or the end)
+        while second_operator_pos < len(expression):
+            # move ahead
+            if not (expression[second_operator_pos] == "+" or 
+                    expression[second_operator_pos] == "-"):
+                second_operator_pos += 1
+            else:  # hit the next operator
+                break
+        # take the 2nd operand - from the beginning if first operation is addition
+        if first_operator_pos == 0 and is_subtraction is False:
+            second_operand = int(expression[:second_operator_pos])
+        else:  # (between operators)
+            second_operand = int(expression[first_operator_pos + 1:second_operator_pos])
+        # do the operation(result, second_operand, operator), update result
+        if is_subtraction:
+            result -= second_operand
+        else:  # use additon
+            result += second_operand
+        # update position of first operator, and what it means
+        first_operator_pos = second_operator_pos
+        second_operator_pos += 1
+    # D) return result
+    return result
 # calculate("6+9-12") => 3
 # calculate("1+2-3+4-5+6-7") => -2
 # calculate("255") => 255   
@@ -167,3 +217,4 @@ if __name__ == "__main__":
     print(calculate_optimal("6+9-12"))  # => 3
     print(calculate_optimal("1+2-3+4-5+6-7"))  # => -2
     print(calculate_optimal("255"))  # => 255
+    print(calculate_optimal("-1+2-3+4-5+6-7"))  # => -2
