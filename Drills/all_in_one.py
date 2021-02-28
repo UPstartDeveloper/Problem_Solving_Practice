@@ -1,7 +1,8 @@
-# ARRAYS
-
+from collections import deque
 from typing import List
 
+
+# ARRAYS
 class Array:
     def __init__(self, array):
         self.items = array
@@ -234,3 +235,119 @@ class LinkedQueue(LinkedList):
     def dequeue(self):
         if self.head is not None:
             self.delete(self.head.item)
+
+
+"""GRAPHS"""
+
+
+class Vertex:
+    def __init__(self, id):
+        self.id = id
+        self.neighbors = dict()  # str - Vertex
+
+    def add_neighbor(self, neighbor_obj):
+        self.neighbors[neighbor_obj.id] = neighbor_obj
+
+class Graph:
+    def __init__(self, is_directed=False):
+        self.is_directed = is_directed
+        self.vertices = dict()  # str -> Vertex
+
+    def add_vertex(self, vertex: Vertex):
+        self.vertices[vertex.id] = vertex
+
+    def add_edge(self, v1: Vertex, v2: Vertex):
+        # add the vertices to the graph
+        if v1.id not in self.vertices:
+            self.add_vertex(v1)
+        if v2.id not in self.vertices:
+            self.add_vertex(v2)
+        # add the nodes as neighbors to each other
+        v1.add_neighbor(v2)
+        if self.is_directed is False:
+            v2.add_neighbor(v1)
+
+    def bfs(self, use_iteration=True):
+
+        def _bfs_iterative():
+            # init collections
+            q = deque()
+            visited = set()
+            # enqueue the first node
+            if len(self.vertices) > 0:
+                first = list(self.vertices.values())[0]
+                q.append(first)
+                # traverse the graph   
+                while len(q) > 0: 
+                    # visit the next node
+                    node = q.popleft()
+                    visited.add(node.id)
+                    # enqueue its neighbors
+                    for neighbor in node.neighbors.values():
+                        if neighbor.id not in visited:
+                            q.append(neighbor)
+            # return the nodes
+            return visited
+
+        def _bfs_recursive(q=deque(), visited=set()):
+            # BASE: cannot search the graph
+            if len(self.vertices) == 0:
+                return visited
+            # BASE: start the search
+            elif len(q) == 0 and len(visited) == 0:
+                first = list(self.vertices.values())[0]
+                q.append(first)
+                _bfs_recursive(q, visited)
+            # BASE: end the search 
+            elif len(q) == 0:
+                return visited
+            # RECURSIVE: hit the next node
+            else:  # q is not empty
+                node = q.popleft()
+                visited.add(node.id)
+                for neighbor in node.neighbors.value():
+                    if neighbor.id not in visited:
+                        q.append(neighbor)
+                _bfs_recursive(q, visited)
+
+        if use_iteration is True:
+            return _bfs_iterative()
+        return _bfs_recursive()
+
+    def dfs(self, use_iteration=True):
+
+        def _dfs_recursive(node, visited=set()):
+            # visit the node
+            visited.add(node.id)
+            # push its neighbors onto the call stack
+            for neighbor in node.neighbors.values():
+                if neighbor.id not in visited:
+                    _dfs_recursive(neighbor, visited)
+            # return the nodes
+            return visited
+        
+        def _dfs_iterative():
+            # init collections
+            stack = list()
+            visited = set()
+            if len(self.vertices) > 0:
+                # find the first node
+                first = list(self.vertices.values())[0]
+                stack.append(first)
+                # traverse
+                while len(stack) > 0:
+                    # visit this node
+                    node = stack.pop()
+                    visited.add(node.id)
+                    # push its neighbors onto the stack
+                    for neighbor in node.neighbors.values():
+                        if neighbor.id not in visited:
+                            stack.append(neighbor)
+            # return the nodes
+            return visited
+
+        if use_iteration is True:
+            return _dfs_iterative()
+        first = list(self.vertices.values())[0]
+        return _dfs_recursive(first)
+        
