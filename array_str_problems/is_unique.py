@@ -113,3 +113,11 @@ index     c     p
 
 
 """
+
+
+if __name__ == "__main__":
+    strings = ["cat", "Hello World"]
+    sol = Solution()
+    for string in strings:
+        print(sol.sort_string(string))
+        print(sol.is_unique(string))
