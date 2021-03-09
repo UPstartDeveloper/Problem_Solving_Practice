@@ -68,14 +68,13 @@ class Array:
             while swapper < high:
                 # move lower elements to left side
                 if self.arr[swapper] <= pivot:
-                    # move the tail of the sublist < pivot towards end of arr
+                    # move the other pointer to the last element < pivot
                     lower_side_tail += 1
-                    # swap - throw the lower element "backwards"
+                    # swap - throw the new lower element we've found backwards
                     self.arr[swapper], self.arr[lower_side_tail] = (
                         self.arr[lower_side_tail], self.arr[swapper]
                     )
-                    # lower_side_tail += 1
-                # regardless, increment the swapper, to check the next element
+                # move on to check the next element
                 swapper += 1
             # move the pivot into its sorted position
             self.arr[lower_side_tail + 1], self.arr[high] = (
@@ -89,10 +88,11 @@ class Array:
             high = len(self.arr) - 1
         # Conquer - swap elements about the pivot
         pivot = partition(low,  high)
-        print(f"Array is now: {self.arr}")
         # Combine - recursive the process on the left and right side
-        self.quick_sort(low, pivot - 1)
-        self.quick_sort(pivot + 1, high)
+        if pivot - low >= 2:
+            self.quick_sort(low, pivot - 1)
+        if high - pivot >= 2:
+            self.quick_sort(pivot + 1, high)
 
 
 if __name__ == "__main__":
