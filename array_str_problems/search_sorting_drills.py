@@ -61,27 +61,41 @@ class Array:
         """
 
         def partition(low, high):
-            # pick the middle of the range as the pivot
-            pivot = (low + high) // 2
-            # swap left and right elements into order
-            left, right = low, high
-            while left < right:
-                while left < high and self.arr[left] < self.arr[pivot]:
-                    left += 1
-                while right > left and self.arr[right] > self.arr[pivot]:
-                    right -= 1
-                # swap
-                if left < right:
-                    self.arr[left], self.arr[right] = self.arr[right], self.arr[left]
-                    left, right = right, left
-            # return the pivot inde
-            return pivot
+            # (arbitrarily choose the last element as the pivot)
+            pivot = self.arr[high]
+            # keep two pointers to help find the sorted pos of pivot
+            lower_side_tail, swapper = low - 1, low
+            while swapper < high:
+                # move lower elements to left side
+                if self.arr[swapper] <= pivot:
+                    # move the tail of the sublist < pivot towards end of arr
+                    lower_side_tail += 1
+                    # swap - throw the lower element "backwards"
+                    self.arr[swapper], self.arr[lower_side_tail] = (
+                        self.arr[lower_side_tail], self.arr[swapper]
+                    )
+                    # lower_side_tail += 1
+                # regardless, increment the swapper, to check the next element
+                swapper += 1
+            # move the pivot into its sorted position
+            self.arr[lower_side_tail + 1], self.arr[high] = (
+                self.arr[high], self.arr[lower_side_tail + 1]
+            )
+            # return the pivots sorted index
+            return lower_side_tail + 1
 
         # Divide - pick a pivot
         if high is None:
-            high = len(self.items) - 1
+            high = len(self.arr) - 1
         # Conquer - swap elements about the pivot
         pivot = partition(low,  high)
+        print(f"Array is now: {self.arr}")
         # Combine - recursive the process on the left and right side
-        self.quick_sort(low, pivot)
+        self.quick_sort(low, pivot - 1)
         self.quick_sort(pivot + 1, high)
+
+
+if __name__ == "__main__":
+    array = Array([4, 5, 9, 7, 3, 1, 8])
+    array.quick_sort()
+    print(array.arr)
