@@ -95,7 +95,33 @@ class Array:
             self.quick_sort(pivot + 1, high)
 
 
+def quick_sort_out_of_place(array):
+    """Recursive QuickSort Implementation:
+    - O(nlog(n)) time
+    - O(n) space (out of place)
+    - unstable
+    - pivot = mean of the range (best on normal, numerical distributions)
+    """
+    # Base Case
+    if len(array) < 2:
+        return array
+    # Recurisive Case - choose a pivot
+    pivot = (min(array) + max(array)) // 2
+    # Divide and Conquer - partition by the pivot
+    lower_partition = [val for val in array if val < pivot]
+    middle = [val for val in array if val == pivot]
+    upper_partition = [val for val in array if val > pivot]
+    # combine - recurse on left and right partitions
+    return (
+        quick_sort_out_of_place(lower_partition) + 
+        middle + 
+        quick_sort_out_of_place(upper_partition)
+    )
+
+
 if __name__ == "__main__":
     array = Array([4, 5, 9, 7, 3, 1, 8])
     array.quick_sort()
     print(array.arr)
+    array2 = [6, 4, 5, 6, 7, -3, 8, 1]
+    print(quick_sort_out_of_place(array2))
