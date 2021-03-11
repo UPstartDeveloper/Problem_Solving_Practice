@@ -29,6 +29,83 @@ class Array:
             return _linear_search_iterative()
         return _linear_search_recursive()
 
+    def binary_search(self, target, use_iteration=True):
+        """Assumes the array is already sorted. Returns None if not found.
+        Clarifiying Question:
+        - which should we return if there are duplicates of the same element?
+        Code Traces:
+
+        Rules:
+        using low <= high is fine
+
+        1. 
+            0 1  2  3  4  5  6  7
+        [-5, -5, 6, 7, 7, 8, 9, 10], target = 9 ✅
+         l          m           h
+                       l  m     h
+                            l   h
+         --------------------------
+         l          m           h   target = -5 ✅
+         l    m    h
+         --------------------------
+         l          m           h   target = -7 ✅
+         l    m    h
+      l, h, m
+        --------------------------
+         l          m           h   target = 12 ✅
+                       l  m     h
+                          l,m   h
+                               l,h
+
+        """
+
+        def _binary_search_iterative():
+            '''O(log n) time, constant space'''
+            # init low, high
+            low, high = 0, len(self.arr) - 1
+            # TODO: test if it should be </<=
+            while low <= high:
+                # index the middle
+                mid_ndx = (low + high) // 2
+                mid = self.arr[mid_ndx]
+                # target found
+                if mid == target:
+                    return mid_ndx
+                # go to the left
+                elif target < mid:
+                    high = mid_ndx - 1
+                # go to the right side
+                elif target > mid:
+                    low = mid_ndx + 1
+            # not found
+            return None
+
+        def _binary_search_recursive(low=0, hi=None):
+            '''O(log n) time and space'''
+            # init params
+            if hi is None:
+                hi = len(self.arr) - 1
+            # get the middle
+            mid = (low + hi) // 2
+            mid_elem = self.arr[mid]
+            # found
+            if target == mid_elem:
+                return mid
+            # not found
+            elif low > hi:
+                return None
+            # search the left side
+            elif target < mid_elem:
+                return _binary_search_recursive(low, mid - 1)
+            # search the right side
+            elif target > mid_elem:
+                return _binary_search_recursive(mid + 1, hi)
+            
+ 
+        if use_iteration is True:
+            return _binary_search_iterative()
+        return _binary_search_recursive()
+
     def quick_sort(self, low=0, high=None):
         """
         Divide - pick a pivot
