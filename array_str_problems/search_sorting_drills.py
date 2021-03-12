@@ -171,6 +171,49 @@ class Array:
         if high - pivot >= 2:
             self.quick_sort(pivot + 1, high)
 
+    def _is_sorted(self) -> bool:
+        '''Linear Search to determine if an array is in ascending order.'''
+        index = 0
+        while index < len(self.arr) - 1:
+            elem, elem_after = self.arr[index], self.arr[index + 1]
+            if elem_after < elem:
+                return False
+            index += 1
+        return True
+
+    def bubble_sort(self):
+        """Stable, in-place sorting algoritm that runs in quadratic time 
+        and constant space.
+
+        can only guarantee that one unsorted elem moves into sorted position
+        per each pass ==> O(n^2) time
+        Code Trace:
+         0  1  2  3  4  5  6
+        [1, 3, 4, 5, 7, 8, 9]
+                           i 
+
+        s = 0
+        """
+        # init the number of swaps
+        swaps = -1
+        # we'll break when we can pass over having done no swaps
+        while swaps != 0:
+            swaps_made = 0
+            # iterate over the array
+            index = 0
+            while index < len(self.arr) - 1:
+                # swap out of place elements
+                elem, elem_after = self.arr[index], self.arr[index + 1]
+                if elem_after < elem:
+                    self.arr[index], self.arr[index + 1] = (
+                        elem_after, elem
+                    )
+                    # make sure to keep track of the swaps
+                    swaps_made += 1
+                # move ahead in the array regardless
+                index += 1
+            swaps = swaps_made
+        
 
 def quick_sort_out_of_place(array):
     """Recursive QuickSort Implementation:
