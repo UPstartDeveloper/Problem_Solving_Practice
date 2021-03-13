@@ -213,6 +213,46 @@ class Array:
                 # move ahead in the array regardless
                 index += 1
             swaps = swaps_made
+    
+    def merge_sort(self, array=None):
+        """Stable, out of place, divide and conquer sorting algorithm
+        
+        """
+
+        def merge(sorted_left, sorted_right):
+            ndx_left, ndx_right = 0, 0
+            sorted_array = list()
+            while (ndx_left < len(sorted_left) and 
+                   ndx_right < len(sorted_right)):
+                elem_left, elem_right = (
+                    sorted_left[ndx_left], sorted_right[ndx_right]
+                )
+                if elem_right < elem_left:
+                    sorted_array.append(elem_right)
+                    ndx_right += 1
+                elif elem_left <= elem_right:  # stability!
+                    sorted_array.append(elem_left)
+                    ndx_left += 1
+            if ndx_left < len(sorted_left):
+                sorted_array.extend(sorted_left[ndx_left:])
+            elif ndx_right < len(sorted_right):
+                sorted_array.extend(sorted_right[ndx_right:])
+            return sorted_array
+
+        # Base Cases
+        if array is None:
+            array = self.arr
+        if len(array) < 2:
+            return array
+        # Divide - find the middle of the array
+        middle = len(array) // 2
+        # Conquer the left and right side
+        sorted_left = self.merge_sort(array[:middle])
+        sorted_right = self.merge_sort(array[middle:])
+        # Combine the sorted halves together
+        sorted_array = merge(sorted_left, sorted_right)
+        return sorted_array
+
         
 
 def quick_sort_out_of_place(array):
