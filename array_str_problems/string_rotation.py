@@ -95,11 +95,13 @@ def is_rotation(s1: str, s2: str) -> bool:
         wrap_substring = s1[-1] + s1[0]
         wrap_substring_index = s2.find(wrap_substring)
         print(wrap_substring_index)
-        if wrap_substring_index > -1:
+        # make sure the strings are not equal
+        if wrap_substring_index > -1 and s1 != s2:
             # - then reconstruct the string, pass it to is_substring
             reconstructed_str = (
                 s2[wrap_substring_index + 1:] + s2[:wrap_substring_index + 1]
             )
+            # if the reconstructions == s1, then s2 is a rotation
             is_rotation = isSubstring(s1, reconstructed_str)
     return is_rotation
 
