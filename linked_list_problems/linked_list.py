@@ -37,7 +37,7 @@ class LinkedList:
             prev = current_node
             current_node = current_node.next
         # if it's not the head, then set the .next of the previous node
-        if self.head != current_node:
+        if self.head != current_node:  # current_node is the node to delete
             prev.next = current_node.next
         # if it is the head, move down the head pointer
         elif self.head == current_node and self.head is not None:  
@@ -59,15 +59,31 @@ class LinkedList:
 
         return prev
 
-    def insert(self, steps, new_node):
-        '''Inserts a new node after n steps into the list, if possible.'''
-        if steps <= self.size():
-            current_node = self.head
-            steps_taken = 0
-            while steps_taken < steps:
-                current_node = current_node.next
-                steps_taken += 1
-            next_node = current_node.next
-            current_node.next = new_node
-            new_node.next = next_node
+    def insert(self, new_node, steps):
+        '''Inserts a new node n steps into the list, if possible.'''
+        # validate the input
+        if isinstance(new_node, ListNode):
+            if steps <= self.size(): 
+                # find the node exactly at n steps into the list  
+                prev, current_node = None, self.head
+                steps_taken = 0
+                while steps_taken < steps:
+                    prev = current_node
+                    current_node = current_node.next
+                    steps_taken += 1
+                # check if we are doing a prepend
+                if prev is None:
+                    self.prepend(new_node)
+                # otherwise move the new node into place
+                prev.next = new_node
+                new_node.next = current_node
+            # check if we are doing an append op
+            elif steps == self.size() + 1:
+                self.append(new_node)
+            else:  # err msg for steps 
+                print(f"List of size {self.size()} is too \
+                        small to insert at {steps} steps.")
+        else:  # err msg for new_node
+            print(f"Cannot insert new_node of type {type(new_node)}.\
+                    Pass a ListNode instead.")
     
