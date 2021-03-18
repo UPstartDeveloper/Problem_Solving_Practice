@@ -1,3 +1,5 @@
+import string
+
 """Linked List used for Separate Chaining"""
 class ListNode:
     def __init__(self, val):
@@ -88,15 +90,55 @@ class LinkedList:
             print(f"Cannot insert new_node of type {type(new_node)}.\
                     Pass a ListNode instead.")
 
+    def update(self, current_val, new_val):
+        '''Replaces the value in the first node with current_val.'''
+        node = self.head
+        while node is not None:
+            # replace node val
+            if node.val == current_val:
+                node.val = new_val
+            # regardless, move ahead
+            node = node.next
+
+    def search(self, node_val):
+        '''Returns the node if found having node_val'''
+        node = self.head
+        while node is not None:
+            if node.val == node_val:
+                return node
+            node = node.next
+        return None
+
+    def search_key(self, node_key):
+        """Returns the value if a node has the node_key in its tuple.
+        HashTable-specific (see HashTable.get below).
+        """
+        node = self.head
+        while node is not None:
+            key, value = node.val
+            if node_key == key:
+                return value
+            node = node.next
+        # if not found, return None
+        return None
+
+    def items(self):
+        '''returns a list of the values of each node in the list.'''
+        values = list()
+        node = self.head
+        while node is not None:
+            values.append(node.val)
+            node = node.next
+        return values
+        
 
 """Hash Table Class"""
-import random
 
 
 class HashTable:
 
     LOAD_FACTOR_THRESHOLD = 0.5
-    HASH_FUNC_UPPER_BOUND = 10_000_000_000
+    # HASH_FUNC_UPPER_BOUND = 10_000_000_000
 
     def __init__(self, num_buckets=8):
         """A resizable hash table that uses 
@@ -107,18 +149,19 @@ class HashTable:
         self.buckets = [
             LinkedList() for _ in range(num_buckets)
         ]
+        self.num_entries = 0 
 
-    def _hash(self):
-        hash_value = random.randint(self.HASH_FUNC_UPPER_BOUND)
+    def _hash(self, key):
+        hash_value = hash(key)  # a unique hash for each unique key
         bucket_index = hash_value % len(self.buckets)
         return bucket_index
 
     def _resize_buckets(self):
         # find the current load factor
-        total_entries = sum([chain.length() for chain in self.buckets])
-        load_factor = total_entries / len(self.buckets)
+        load_factor = self.num_entries / len(self.buckets)
         # check if we need to resize
         if load_factor > self.LOAD_FACTOR_THRESHOLD:
+            # print('resizing')
             # dump out all the entries into another list
             entries = self.items()
             # make the bucket array triple in size
@@ -126,21 +169,68 @@ class HashTable:
                 LinkedList() for _ in range(len(self.buckets) * 3)
             ]
             # readd all the entries into the new buckets array
+            self.num_entries = 0
             for key, value in entries:
                 self.set(key, value)
+        # else:
+        #     print('not resizing')
 
     def set(self, key, value):
-        # TODO: add or update entries. If adding, resize afterwards if needed.
-        pass
+        '''Add or update entries in the hash table.'''
+        # A: find the bucket index where the entry belong
+        bucket_index = self._hash(key)
+        # B: go to that chain in the bucket array
+        chain = self.buckets[bucket_index]
+        # C: if found - get the item, then replace it
+        new_val = (key, value)
+        searched_value = chain.search_key(key)
+        if searched_value is not None:
+            current_val = (key, searched_value)
+            chain.update(current_val, new_val)
+        # D: If adding, resize afterwards if needed.
+        else:  # the key was not in the chain already
+            chain.append(ListNode(new_val))
+            self.num_entries += 1
+            self._resize_buckets()
 
     def items(self):
-        # TODO: get a list of all the key-value pairs
-        pass
+        '''get a list of all the key-value pairs'''
+        entries = list()
+        for chain in self.buckets:
+            entries.extend(chain.items())
+        return entries        
 
     def unset(self, key):
-        # TODO: remove a key-value pair
-        pass
+        '''remove a key-value pair'''
+        bucket_index = self._hash(key)
+        chain = self.buckets[bucket_index]
+        value = self.get(key)
+        chain.delete((key, value))
 
     def get(self, key):
-        # TODO: return the value associated with a given key
-        pass
+        '''return the value associated with a given key'''
+        # hash the key
+        bucket_index = self._hash(key)
+        value = self.buckets[bucket_index].search_key(key)
+        return value
+
+
+if __name__ == "__main__":
+    letters = list(string.ascii_letters)
+    numbers = list(range(26))
+    # init HashTable
+    ht = HashTable()
+    # add all the letters and numbers to the HashTable
+    for i in range(26):
+        key = letters[i]
+        value = numbers[i]
+        ht.set(key, value)
+    # see if we can get all the items back - check if it's unordered
+    print(ht.items())
+    # see the distribution of bucket sizes
+    ht_size = 0
+    for chain in ht.buckets:
+        print(chain.size())
+        ht_size += chain.size()
+    # check that the size is calculated correctly
+    print(ht.num_entries, ht_size)
