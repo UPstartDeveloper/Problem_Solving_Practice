@@ -15,13 +15,14 @@ public class StringBuilder {
     public int getCurrentLetterCount() {
         // returns the number of letters in the characters array
         int count = 0;
-        for (int index = 0; index < this.chars.length; i++) {
+        for (int index = 0; index < this.chars.length; index++) {
             if (this.chars[index] != null) {
                 count += 1;
             } else {
-                return count;
+                break;
             }
         }
+        return count;
     }
     public void concatenate(String newChars) {
         // A: calculate the length of the new characters arr

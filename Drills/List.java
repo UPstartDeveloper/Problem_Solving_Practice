@@ -1,4 +1,3 @@
-package Drills;
 import java.util.ArrayList;
 
 class LinkedList {

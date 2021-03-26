@@ -20,7 +20,7 @@ public class Tree {
             BinaryTreeNode frontNode = q.get(0);
             q.remove(0);
             // E: visit the node
-            System.out.println("Visiting Node with Value: " + frontNode.key);
+            System.out.println(frontNode);
             // F: enqueue the node's children
             if (frontNode.left != null) {
                 q.add(frontNode.left);
@@ -28,6 +28,29 @@ public class Tree {
             if (frontNode.right != null) {
                 q.add(frontNode.right);
             }
+        }
+    }
+
+    public void dfsRecursive(BinaryTreeNode node) {
+        // RECURSIVE case
+        if (node != null) {
+            // traverse the left subtree
+            if (node.left != null) {
+                this.dfsRecursive(node.left);
+            }
+            // visit this node
+            System.out.println(node);
+            // traverse the right subtree
+            if (node.right != null) {
+                this.dfsRecursive(node.right);
+            }
+        }
+    }
+
+    public void dfsRecursive() {
+        // BASE case
+        if (this.root != null) {
+            this.dfsRecursive(this.root);
         }
     }
     
@@ -42,8 +65,9 @@ public class Tree {
         node1.right = node3;
         Tree myTree = new Tree(node1);
 
-        // B: test breadth-first search
+        // B: test breadth-first search and depth-first search
         myTree.bfs();
+        myTree.dfsRecursive();
     }
 
 }
@@ -54,5 +78,10 @@ public class BinaryTreeNode {
 
     public BinaryTreeNode(int keyValue) {
         this.key = keyValue;
+    }
+
+    public String toString() {
+        String str = ("Visiting Node with Value: " + this.key);
+        return str;
     }
 }
