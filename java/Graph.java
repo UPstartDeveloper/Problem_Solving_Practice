@@ -106,6 +106,10 @@ public class Graph {
                     "c": v3,
                 }
             }
+
+            q = []
+            visited = {}
+            
         */ 
     }
 }
