@@ -77,6 +77,7 @@ public class Graph {
         g.addEdge(v1, v2);
         g.addEdge(v1, v3);
         g.bfsIterative();
+        g.dfsIterative();
 
         /* 
             v1 = {
@@ -112,6 +113,30 @@ public class Graph {
             
         */ 
     }
+
+    public void dfsIterative() {
+        // A: init collections
+        HashSet<Vertex> visited = new HashSet<Vertex>();
+        ArrayDeque<Vertex> stack = new ArrayDeque<Vertex>();
+        // B: push the first vertex on the stack
+        Vertex first = this.vertices.values().toArray(new Vertex[this.vertices.size()])[0];
+        stack.addLast(first);
+        // C: traverse
+        while (stack.size() > 0) {
+            // D: pop a node
+            Vertex node = stack.removeLast();
+            // E: visit it
+            System.out.println(node);
+            visited.add(node);
+            // F: push the unvisited neighbors onto the stack
+            Vertex[] neighbors = node.neighbors.values().toArray(new Vertex[node.neighbors.size()]);
+            for (Vertex neighbor: neighbors) {
+                if (visited.contains(neighbor) == false) {
+                    stack.addLast(neighbor);
+                }
+            }
+        }
+    }    
 }
 
 public class Vertex {

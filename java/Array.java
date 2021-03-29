@@ -1,6 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.lang.Integer;
 import java.lang.Math;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Hashtable;
 
@@ -79,12 +80,76 @@ public class Array {
         return found;
     }
 
+    public static int[] mergeArrays(int[] left, int[] right) {
+        /* 
+         * m = [3, 4]
+         * lN = 1, rightN = 0
+         *  [3]      [4]
+         * mN = 1;
+         */
+        int leftNdx = 0, rightNdx = 0;
+        int[] merged = new int[left.length + right.length];
+        int mergedNdx = 0;
+        // A: array elems battle positions in the merged arr
+        while (leftNdx < left.length && rightNdx < right.length) {
+            int leftElem = left[leftNdx], rightElem = right[rightNdx];
+
+            if (leftElem <= rightElem) {
+                merged[mergedNdx] = leftElem;
+                leftNdx += 1;
+            } else {
+                merged[mergedNdx] = rightElem;
+                rightNdx += 1;
+            }
+            mergedNdx += 1;
+        }
+        // B: add any left overs
+        while (leftNdx < left.length) {
+            merged[mergedNdx] = left[leftNdx];
+            leftNdx += 1;
+            mergedNdx += 1;
+        }
+        while (rightNdx < right.length) {
+            merged[mergedNdx] = right[rightNdx];
+            rightNdx += 1;
+            mergedNdx += 1;
+        }
+        // c: return the merged array in sorted order
+        return merged;
+    }
+
+    public static int[] mergeSort(int[] numbers) {
+        /*
+         * Divide: find the middle of the array Conquer: sort the left and right
+         * Combine: merge the sorted lists together
+         *            0  1  2  3  4  5
+         * numbers = [1, 3, 4, 4, 5, 6]
+         * midNdx = 6 // 2 = 3
+         * sortedLeft = [1, 3, 4]
+         * sortedRight
+         *                
+         */
+
+        // BASE: small array
+        System.out.println(Arrays.toString(numbers));
+        if (numbers.length < 2) {
+            return numbers;
+        } else {
+        // RECURSIVE: merge sort algo
+            int midNdx = Math.floorDiv(numbers.length, 2);
+            int[] sortedLeft = mergeSort(Arrays.copyOfRange(numbers, 0, midNdx));
+            int[] sortedRight = mergeSort(Arrays.copyOfRange(numbers, midNdx, numbers.length));
+            return mergeArrays(sortedLeft, sortedRight);
+        }
+
+    }
+
     public static void main(String[] args) {
         int[] nums1 = {1, 3, 4, 5, 6, 4};
         int[] nums2 = {1};
         int[] targets = {11, 3};
         System.out.println(twoSum(nums1, targets[0]));
         System.out.println(twoSum(nums2, targets[1]));
-
+        System.out.println(Arrays.toString(mergeSort(nums1)));
     }
 }
