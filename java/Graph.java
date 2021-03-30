@@ -136,7 +136,34 @@ public class Graph {
                 }
             }
         }
-    }    
+    }
+    
+    public void dfsIterativeTwo() {
+        /* Prints each vertex. Assumes all vertices are connected, 
+         * and cycles possible. 
+         */
+        // A: init collections
+        HashSet<Vertex> visited = new HashSet<Vertex>();
+        ArrayDeque<Vertex> stack = new ArrayDeque<Vertex>();
+        // B: get the first vertex
+        Vertex first = this.vertices.values().toArray(new Vertex[this.vertices.size()])[0];
+        stack.addLast(first);
+        // C: traverse
+        while (stack.size() > 0) {
+            // D: pop a node
+            Vertex node = stack.removeLast();
+            // E: visit it
+            System.out.println(node);
+            visited.add(node);
+            // F: push the neighboring nodes
+            Vertex[] neighbors = node.neighbors.values().toArray(new Vertex[node.neighbors.size()]);
+            for (Vertex neighbor: neighbors) {
+                if (visited.contains(neighbor) == false) {
+                    stack.addLast(neighbor);
+                }
+            }
+        }
+    }
 }
 
 public class Vertex {
