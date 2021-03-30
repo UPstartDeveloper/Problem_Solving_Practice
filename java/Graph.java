@@ -3,6 +3,8 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Set;
 
+import jdk.internal.jshell.tool.resources.l10n;
+
 
 public class Graph {
     public boolean isDirected;
@@ -160,6 +162,31 @@ public class Graph {
             for (Vertex neighbor: neighbors) {
                 if (visited.contains(neighbor) == false) {
                     stack.addLast(neighbor);
+                }
+            }
+        }
+    }
+
+    public void bfsIterativeTwo() {
+        /* same assumptions as above */
+        // A: init collections
+        HashSet<Vertex> visited = new HashSet<Vertex>();
+        ArrayDeque<Vertex> q = new ArrayDeque<Vertex>();
+        // B: enquue the first node
+        Vertex[] allNodes = this.vertices.values().toArray(new Vertex[this.vertices.size()]);
+        Vertex first = allNodes[0];
+
+        q.addLast(first);
+        // C: traverse!
+        while (q.size() > 0) {
+            Vertex node = q.removeFirst();
+            System.out.println(node);
+            visited.add(node);
+
+            Vertex[] neighbors = node.neighbors.values().toArray(new Vertex[node.neighbors.size()]);
+            for(Vertex n: neighbors) {
+                if (visited.contains(n) == false) {
+                    q.addLast(n);
                 }
             }
         }
