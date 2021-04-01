@@ -32,6 +32,7 @@ output:
     [2, 1, -1, 1.5, 3], ---> left dominant
     [2, 1, 1.5, -1, 3], 
     [2, 1, 3, -1, 1.5], ---> BFS order
+    [2, 1, 3, 1.5, -1], ---> BFS order2
 ]
 
 
@@ -78,7 +79,7 @@ from typing import List
 
 class BinaryTreeNode:
     def __init__(self, key: int):
-        self.key = 0
+        self.key = key
         self.left, self.right = None, None
 
 
@@ -130,6 +131,20 @@ class Solution:
                 index += 1
 
         def form_perms(all_perms, current_perm, level):
+            """
+            TODO:
+            this method runs, however it leaves out some of the permutations,
+            - this is because all nodes in a level appear any nodes of the next level
+            - really it should be the parent node appears before any of their children
+            - variations in how the children appear can be:
+               1 - left, left subtree, right
+               2 - left, right, left subtree
+               3 - right, left, right subtree
+               4 - right, right subtree, left
+            - currently we only do the #2 and #3
+            - the solution also needs to AVOID duplicates, since we are using an array
+                to store all eventual permutations
+            """
             # A: for any level - grab the level
             level_nodes = nodes[level]
             # B: choose a starting index
@@ -140,22 +155,35 @@ class Solution:
                 # D: if a next level - 
                 if level + 1 < len(nodes):
                     # E: go to the next level
-                    form_perms(current_perm, all_perms, level + 1)
-                    # F: when come back, remove all previously added nodes
-                    current_perm = [val for val in initial_perm]
-                # G: if no next level - add the perm to all_perms
+                    form_perms(all_perms, current_perm, level + 1)
+                # F: if no next level - add the perm to all_perms
                 else:
                     all_perms.append(current_perm)
+                # G: when come back, remove all previously added nodes
+                current_perm = [val for val in initial_perm]
         
         # A: init a list for all permutations
         all_perms = list()
         # B: go about making the permutations
         form_perms(all_perms, current_perm=list(), level=0)
         # C: return the permutations
-        return all_perms
+        return list(all_perms)
 
     def bst_sequences(self, tree: BinaryTree):
         # A: make 2D array of tree node keys
         nodes = tree.to_arrays()
         # B: return permuations
         return self.compute_permutations(nodes)
+
+
+if __name__ == "__main__":
+    # Model the test tree in the comments at the top of script
+    root = BinaryTreeNode(2)
+    tree = BinaryTree(root)
+    tree.root.left = BinaryTreeNode(1)
+    tree.root.right = BinaryTreeNode(3)
+    tree.root.left.left = BinaryTreeNode(-1)
+    tree.root.left.right = BinaryTreeNode(1.5)
+    # test the solution
+    sol = Solution()
+    print(sol.bst_sequences(tree))
