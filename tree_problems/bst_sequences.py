@@ -113,8 +113,46 @@ class BinaryTree:
 
 class Solution:
     def compute_permutations(self, nodes: List[List[int]]) -> List[List[int]]:
-        '''TODO'''
-        pass
+
+        def add_all_nodes(current_perm, level_nodes, starting_pos):
+            """TODO:
+               adds all the nodes from starting index in level_nodes -> current_perm
+               accounts for IndexErrors
+            """
+            index = starting_pos
+            for _ in range(len(level_nodes)):
+                # find the right value for the index
+                if index == len(level_nodes):
+                    index = 0
+                # add the next node to the perm
+                current_perm.append(level_nodes[index])
+                # move on to the next value
+                index += 1
+
+        def form_perms(all_perms, current_perm, level):
+            # A: for any level - grab the level
+            level_nodes = nodes[level]
+            # B: choose a starting index
+            initial_perm = [val for val in current_perm]
+            for starting_index in range(len(level_nodes)):
+                # C: put all the nodes in this level in the perm, going from starting index
+                add_all_nodes(current_perm, level_nodes, starting_index)
+                # D: if a next level - 
+                if level + 1 < len(nodes):
+                    # E: go to the next level
+                    form_perms(current_perm, all_perms, level + 1)
+                    # F: when come back, remove all previously added nodes
+                    current_perm = [val for val in initial_perm]
+                # G: if no next level - add the perm to all_perms
+                else:
+                    all_perms.append(current_perm)
+        
+        # A: init a list for all permutations
+        all_perms = list()
+        # B: go about making the permutations
+        form_perms(all_perms, current_perm=list(), level=0)
+        # C: return the permutations
+        return all_perms
 
     def bst_sequences(self, tree: BinaryTree):
         # A: make 2D array of tree node keys
