@@ -29,10 +29,12 @@ output:
 [
     [2, 3, 1, -1, -1.5], --> going to right subtree, the left subtree (left thn right)
     [2, 3, 1, 1.5, -1], --> going to right subtree, the left subtree (right then left)
-    [2, 1, -1, 1.5, 3], ---> left dominant
-    [2, 1, 1.5, -1, 3], 
     [2, 1, 3, -1, 1.5], ---> BFS order
     [2, 1, 3, 1.5, -1], ---> BFS order2
+    [2, 1, -1,  3, 1.5], ---> adding the right subtree in the middle of adding the left
+    [2, 1, 1.5, 3, -1], ---> 
+    [2, 1, -1, 1.5, 3], ---> left dominant
+    [2, 1, 1.5, -1, 3], 
 ]
 
 
@@ -72,6 +74,11 @@ Approach:
 nodes = [[], [, 3]], level = 1, one_perm = [2, 1, _],  nodes = [[], [1, ]], level = 1, one_perm = [2, 3, _],
             /                                                   \
 nodes = [[], [, ]], level = 1, one_perm = [2, 1, 3],        nodes = [[], [, ]], level = 1, one_perm = [2, 3, 1],    
+
+2. Another BackTracking Approach:
+    1. Add the root node first (as always)
+    2. then we iterate through adding the left subtree,
+        - and also choose different positions for where to start adding the right subtree
 """
 from collections import deque
 from typing import List
@@ -135,6 +142,8 @@ class Solution:
             TODO:
             this method runs, however it leaves out some of the permutations,
             - this is because all nodes in a level appear any nodes of the next level
+                - this is too specific - it regards only the permutations in which the 
+                 the BST stays balanced throughout
             - really it should be the parent node appears before any of their children
             - variations in how the children appear can be:
                1 - left, left subtree, right
