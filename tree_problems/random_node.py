@@ -18,17 +18,19 @@ Clarifications
     - search? yes - for purpose of knowing how to insert
     - complete/full/perfect? no
 2. Size constraints? none
-3. Are the keys in the tree unique? no
+3. Are the keys in the tree unique? no, place duplicate values to right
 4. Can it store any data type? ASSUME only integers
 5. ASSUME we can use random module in Python
 
 Example:
 
-                3
+                5
             /       \
-            7       3
+            3        7
           /   \
-        1      -4
+        1      4
+      /  \
+     -4   2
 
         [1, 7, -4, 3, 3]
 
@@ -60,23 +62,107 @@ class RandomTreeNode:
 
 
 class RandomTree:
-    def __init__(self, root: RandomTreeNode):
-        self.root = root
-        self.size = 1
+    def __init__(self, root=None):
+        self.root = root  # ideally a RandomTreenode obj
+        self.size = 0
+        if self.root is not None:
+            self.size = 1
 
-    def insert(self, node: RandomTreeNode):
-        # TODO: increment self.size
-        pass
+    def insert(self, node_val: int) -> None:
+        # A: validate the input
+        if isinstance(node_val, int) is False:
+            raise ValueError("Could not insert non-integer object")
+        # B: binary search for the right position to place the node
+        parent, node = None, self.root
+        if node is None:  # special case
+            self.root = RandomTreeNode(node_val)
+        else:  # +1 levels in the tree
+            while node is not None:  # go 
+                parent = node
+                # go left
+                if node_val < node.key:
+                    node = node.left
+                # go right
+                else:  # node_val >= node.key
+                    node = node.right
+            # update the node object to be the new node
+            if parent.key > node_val:
+                parent.left = RandomTreeNode(node_val)
+            else:  # parent.key <= node_val
+                parent.right = RandomTreeNode(node_val)
+        # C: increment self.size
+        self.size += 1
+
+    def _find_node(self, node_val):
+        # init the parent and node with the value
+        parent, node = None, self.root
+        # binary search for the node_value in the tree
+        while node is not None and node.key != node_val:
+            # move the parent pointer 
+            parent = node
+            # go right
+            if node.key < node_val:
+                node = node.right
+            # go left
+            elif node.key > node_val:
+                node = node.left
+        # if node not found, raise error
+        if node is None:   
+            raise ValueError("Node could not be found in this tree.")
+        # return what was found
+        return parent, node
 
     def find(self, node_val) -> RandomTreeNode:
-        pass
+        """
+        Finds the first node w/ a key == the given node_val. 
+        If not found, raises ValueError.
+        """
+        # A: Validate the tree
+        if self.root is None:
+            raise RuntimeError("This tree is empty. Cannot be searched.")
+        # B: find the node and its parent
+        parent, node = self._find_node(node_val)
+        # C: return the node, if found
+        return node
 
     def delete(self, node_val) -> RandomTreeNode:
-        # TODO: decrement self.size if node is found
-        # otherwise raise ValueError?
-        # modify the tree
-        pass
+        """
+        Intuition
+            - we know the left subtree needs to take the place of its parent
+            - we know the right subtree needs to go in the right subtree of the left
+        Approach:
+            # A: get the parent of the node, and the node
+            #     - if not found raise a ValueError
+            # B: promote the root of the left subtree to take the deleted nodes place
+            #     - - what if it's the root?
+            #         - then parent will be None
+            #         - so promote via setting self.root attr
+            # C: insert the right subtree into the left subtree
+            # D: decrement self.size if node is found
 
+        """
+        # A: validate the tree
+        if self.size <= 0 or self.root is None:
+            raise ValueError("Cannot delete node from empty tree.")
+        # B: get the parent of the node, and the node
+        parent, node = self._find_node(node_val)
+        # C: promote the root of the left subtree to take the deleted nodes place
+        if node.left is not None:
+            # if the deleted node is the root
+            if parent is None:
+                node.left = self.root
+            else:  # parent is not None
+                if parent.left == node:
+                    parent.left = node.left
+                else:  # parent.right == node
+                    parent.right = node.left
+        # D: re-insert the right subtree into the left subtree
+        if node.right is not None:
+            self.insert(node.right)
+        # E: decrement self.size if node is found
+        self.size -= 1
+        # F: return the deleted node
+        return node
 
     def get_random_node(self) -> RandomTreeNode:
         def _get_rth_node(node_num):
@@ -114,3 +200,14 @@ class RandomTree:
         node_num = random.randrange(1, self.size - 1)
         # C: get the random node
         return _get_rth_node(node_num)
+
+
+if __name__ == "__main__":
+    tree = RandomTree()
+    tree.insert(5)
+    tree.insert(7)
+    tree.insert(6)
+    assert tree.root.key == 5
+    assert tree.root.right.key == 7
+    assert tree.root.right.left.key == 6
+    assert tree.size == 3
