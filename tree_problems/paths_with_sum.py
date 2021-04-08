@@ -75,7 +75,7 @@ class Solution:
         # if we're done w/ all branches, go back up
         """
 
-        def pre_order_dfs(node, ssf, paths_found):
+        def pre_order_dfs_recursive(node, ssf, paths_found):  # n stack frames
             # add the current node to the path
             if node:
                 ssf += node.value
@@ -87,49 +87,56 @@ class Solution:
                 # copy ssf's value, so it's not shared between branches
                 ssf_on_branch = ssf
                 if node.left:
-                    paths_found = pre_order_dfs(node.left, ssf_on_branch, paths_found)
+                    paths_found = pre_order_dfs_recursive(node.left, ssf_on_branch, paths_found)
                 if node.right:
                     # reset the sum before going right, b/c paths can only go down
-                    paths_found = pre_order_dfs(node.right, ssf_on_branch, paths_found)
+                    paths_found = pre_order_dfs_recursive(node.right, ssf_on_branch, paths_found)
             # return the total number of paths
             return paths_found
 
-        """
-        # DFS
-        while stack or current_node:
-            if current_node:  # in in-order traversal, we go left
-                stack.append(current_node)
-                # ssf += current_node.value
-                current_node = current_node.left
-            else:  # gone all the way down the left
-                current_node = stack.pop()
-                # visit - increment the sum_so_far
-                ssf += current_node.value
-                # see if we can increment the paths
-                if ssf == target:
-                    paths_found += 1
-                # go back up
-                if current_node.left == current_node.right == None:
-                    ssf += (-1 * current_node.value)
-                # then, go down the right branch
-                if current_node.right:
-                    stack.append(current_node.right)
-        """
+        def pre_order_dfs_iterative(node, ssf, paths_found):
+            # init a empty stack
+            stack = list()
+            # traverse the tree
+            while len(stack) > 0 or node is not None:
+                # if node is already defined
+                if node:
+                    # "visit"
+                    ssf += node.value
+                    if ssf == target:
+                        paths_found += 1
+                        node = None  # empty this node, so it's not reused
+                    elif ssf < target:
+                        # add the right child if it's there
+                        if node.right is not None:
+                            stack.append((node.right, ssf))
+                        # go down the left branch, if ssf < target
+                        node = node.left
+                # otherwise
+                else:  # node is None
+                    # get the node and ssf at the top of the stack
+                    node, ssf = stack.pop()
+            
+            return paths_found
 
-        return pre_order_dfs(node, 0, 0)
+        return pre_order_dfs_iterative(node, 0, 0)
 
     def paths_with_sum(self, tree: BinaryTree, target: int) -> int:
+        """
+        time: O(n^2)
+        space: O(n^2)
+        """
         # - init a count
         count = 0
         # validate 
         if (tree is not None and tree.root is not None and target != 0):
             # - traverse through all the different paths via BFS
-            q =  deque([tree.root])
-            while len(q) > 0:
+            q =  deque([tree.root])  # O(n) space when the tree is balanced
+            while len(q) > 0:  # n iterations
                 # get the node at front of the queue
                 node = q.popleft()
                 # "visit" DFS through all paths that start at that node
-                count += self.traverse_paths(node, target)
+                count += self.traverse_paths(node, target)  # O(n) time and space
                 # enqueue the next nodes to use as a starting nodes
                 if node.left:
                     q.append(node.left)
