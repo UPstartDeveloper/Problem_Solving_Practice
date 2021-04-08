@@ -36,7 +36,7 @@ Approach:
     # - init a count
     # - traverse through all the different paths 
     #     - find a starting node using a BFS
-    #         - DFS through all paths that start at that node
+    #         - exhaustively DFS through all paths that start at that node
     #         - keep track of sum_so_far (ssf)
     #             - anytime we go up - remove the last added values
     #             - down - add to ssf
@@ -55,7 +55,7 @@ from collections import deque
 
 class BinaryNode:
     def __init__(self, key=None):
-        self.value= key
+        self.value = key
         self.left = self.right = None
 
 
@@ -65,7 +65,7 @@ class BinaryTree:
 
 
 class Solution:
-    def traverse_from_start(node: BinaryNode, target: int) -> int:
+    def traverse_paths(self, node: BinaryNode, target: int) -> int:
         """
         # - anytime we go up - remove the last added values
 
@@ -74,18 +74,32 @@ class Solution:
         # if we hit a leaf, we're done w/ that branch, go back up
         # if we're done w/ all branches, go back up
         """
-        # keep track of sum_so_far (ssf), init num of paths
-        paths_found = 0
-        ssf = 0
-        stack = list()
 
-        current_node = node
+        def pre_order_dfs(node, ssf, paths_found):
+            # add the current node to the path
+            if node:
+                ssf += node.value
+            # adding a path that meets the sum
+            if ssf == target:
+                paths_found += 1
+            # if still < target, continue searching
+            elif ssf < target: 
+                # copy ssf's value, so it's not shared between branches
+                ssf_on_branch = ssf
+                if node.left:
+                    paths_found = pre_order_dfs(node.left, ssf_on_branch, paths_found)
+                if node.right:
+                    # reset the sum before going right, b/c paths can only go down
+                    paths_found = pre_order_dfs(node.right, ssf_on_branch, paths_found)
+            # return the total number of paths
+            return paths_found
 
+        """
         # DFS
         while stack or current_node:
             if current_node:  # in in-order traversal, we go left
                 stack.append(current_node)
-                ssf += current_node.value
+                # ssf += current_node.value
                 current_node = current_node.left
             else:  # gone all the way down the left
                 current_node = stack.pop()
@@ -95,13 +109,14 @@ class Solution:
                 if ssf == target:
                     paths_found += 1
                 # go back up
-                if current_node.left == current_node.right:
+                if current_node.left == current_node.right == None:
                     ssf += (-1 * current_node.value)
                 # then, go down the right branch
                 if current_node.right:
                     stack.append(current_node.right)
+        """
 
-        return paths_found
+        return pre_order_dfs(node, 0, 0)
 
     def paths_with_sum(self, tree: BinaryTree, target: int) -> int:
         # - init a count
@@ -114,7 +129,7 @@ class Solution:
                 # get the node at front of the queue
                 node = q.popleft()
                 # "visit" DFS through all paths that start at that node
-                count += self.traverse_from_start(node, target)
+                count += self.traverse_paths(node, target)
                 # enqueue the next nodes to use as a starting nodes
                 if node.left:
                     q.append(node.left)
@@ -122,3 +137,22 @@ class Solution:
                     q.append(node.right)
         # - return the count
         return count
+
+
+if __name__ == "__main__":
+    # init the tree
+    node1, node2, node3, node4, node5, node6 = (
+        BinaryNode(6),
+        BinaryNode(-5),
+        BinaryNode(8),
+        BinaryNode(5),
+        BinaryNode(4),
+        BinaryNode(-5)
+    )
+    tree = BinaryTree(node1)
+    node1.left = node2; node1.right = node3
+    node3.left = node4; node3.right = node5
+    node4.left = node6
+
+    sol = Solution()
+    print(sol.paths_with_sum(tree, 14))
