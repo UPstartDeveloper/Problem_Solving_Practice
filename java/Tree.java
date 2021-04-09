@@ -7,6 +7,10 @@ public class Tree {
         this.root = root;
     }
 
+    public Tree() { 
+        this.root = null; 
+    }
+
     public void bfs() {
         // A: init a queue
         ArrayList<BinaryTreeNode> q = new ArrayList<BinaryTreeNode>();

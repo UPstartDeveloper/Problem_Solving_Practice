@@ -60,8 +60,10 @@ class NumberoOfIslands {
                             for (int[] directionVector: DIRECTIONS) {
                                 int neighborRow = landRow + directionVector[0];
                                 int neighborCol = landCol + directionVector[1];
+                                // avoid out of bounds errors
                                 if (neighborRow < grid.length && neighborRow > -1) {
                                     if (neighborCol > -1 && neighborCol < grid[0].length) {
+                                        // pushing neighboring land onto the stack
                                         String neighbor = grid[neighborRow][neighborCol];
                                         if (neighbor.equals("1")) {
                                             int[] neighborCoordinates = { neighborRow, neighborCol };
@@ -88,7 +90,6 @@ class NumberoOfIslands {
             {"1","1","0","0","0"},
             {"0","0","0","0","0"}
         };
-
         System.out.println(solution(grid));
     }
 }
