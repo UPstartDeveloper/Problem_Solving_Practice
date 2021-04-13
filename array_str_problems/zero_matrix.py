@@ -148,18 +148,23 @@ def zero_matrix(matrix: List[List[int]]) -> List[List[int]]:
     Improvements: 
     - remember the rows and cols we've already marked for zeroifying:
 
+    TODO: ---> IN PLACE -->
+        1. First pass: edit the cols in top row to be zero, if they contain zero
+                       edit the row vals in left col to be zero, if their rows 
+                            contain zero  
+        2. Second pass: just check the top row and left col
+                        top row: zeroify the col
+                        left col: zeroify the row
+
     """
     # - record locations of all the rows and cols to zeroify
     rows, cols = find_zeroes(matrix)  # MxN iterations
-    # - iterate back over the array
-    # TODO: zeroify the rows
+    # "zeroify" the rows
     for row_ndx in rows:  # M
         zeroify_row(matrix, row_ndx)  # N
-    # TODO: zeroify the columns
-    for col_ndx in cols:  # N
-        zeroify_col(matrix, col_ndx)  # M
-    """for zero_row, zero_col in zero_locations:   # MxN
-        # "zeroify" that row and column 
-        zeroify_row_col(matrix, zero_row, zero_col)  # M + N"""
+    # "zeroify" the columns
+    if len(cols) < len(matrix):
+        for col_ndx in cols:  # N
+            zeroify_col(matrix, col_ndx)  # M
     # - return the output
     return matrix
