@@ -15,7 +15,10 @@ class DoublyLinkedList:
     size
 
     Methods:
-    1) init --> input: head: DoublyLinkedNode, tail: DoublyLinkedNode; output: None
+    1) init --> 
+        input: head: DoublyLinkedNode, 
+        tail: DoublyLinkedNode; 
+        output: None
     2) add_node ---> input: "prepend"; output: None
     3) remove_node --> passes in a node: WATCH OUT for pointers
     4) move_to_front: passes in a node
@@ -59,3 +62,51 @@ class DoublyLinkedList:
         '''ASSUME the node is in the list'''
         self.remove_node(node)
         self.add_node(node)
+
+    def __str__(self):
+        items = list()
+
+        node = self.head.next
+
+        while node != self.tail:
+            items.append(node.value)
+
+        print(f"DLL: {items}")
+
+
+class LRUCache:
+    """
+    Composition of DLL + hashmap
+
+    DLL - quick access to items, large memory cap
+    HM - maps the key to the node objects
+    """
+    def __init__(self, capacity) -> None:
+        # client defines the limit for # items in the cache
+        self.cap = capacity
+        # instantiate the required objects
+        self.lookup_table = dict()
+        self.items = DoublyLinkedList()
+
+    def get(self, key):
+        requested_value = -1  # return -1 if key is not in the cache
+        if key in self.lookup_table:
+            # lookup the node in the table
+            node = self.lookup_table[key]
+            # move the node to the front of the list
+            self.items.move_to_front(node)
+            requested_value = node.value
+        # return the value of the node
+        return requested_value
+
+    def put(self, key, value):
+        # make a new DLL node
+        node = DoublyLinkedList(key, value)
+        # map key -> node
+        self.lookup_table[key] = node
+        # remove the tail (from the table and list) if we reach the cap
+        if self.items.size == self.cap:
+            del self.lookup_table[self.items.tail.key]
+            self.items.pop_tail()
+        # add node to the list
+        self.items.add_node(node)
