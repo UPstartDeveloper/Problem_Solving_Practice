@@ -22,52 +22,40 @@ class DoublyLinkedList:
     5) pop_tail --> removes the tail 
 
     """
-    def __init__(self, head=None, tail=None):
-        self.head, self.tail = head, tail
+    def __init__(self):
+        # using DUMMY NODES
+        self.head, self.tail = DoublyLinkedList(None, "head"), DoublyLinkedList(None, "tail")
         self.head.next = self.tail
         self.tail.prev = self.head
-
+        # init size to NOT include the dummy nodes
         self.size = 0
-        if self.head:
-            self.size += 1
-        
-        if self.tail:
-            self.size += 1
+
 
     def add_node(self, node):
-        '''input: "prepend"; output: None'''
-        if self.head is not None:
-            self.head.prev = node
-        old_head = self.head
-        self.head = node
-        self.head.next = old_head.next
+        '''adds node the front'''
+        # connect the node to its related nodes in the list
+        node.prev = self.head
+        node.next = self.head.next
+        # watch the order - insert the node into the list
+        self.head.next.prev = node
+        self.head.next = node
+        # increase the size
+        self.size += 1
 
     def remove_node(self, node):
-        '''remove the node, and return it'''
-        deleted = self.head
-
-        while deleted is not None:
-            # node found
-            if deleted.value == node.value:
-                # deleting the head
-                if deleted == self.head:
-                    old_head = self.head
-                    self.head = old_head.next
-                    self.head.prev = old_head.prev
-                else:  # not deleting the head
-                    deleted.prev.next = deleted.next
-                    deleted.next.prev = deleted.prev
-                # return the deleted node
-                return deleted
-            # node not found
-            deleted = deleted.next
+        '''ASSUME the node is in the list'''
+        # adjust pointers
+        prev, next = node.prev, node.next
+        prev.next = next
+        next.prev = prev
+        # increase the size
+        self.size -= 1
 
     def pop_tail(self):
-        old_tail = self.tail
-        old_tail.prev.next = old_tail.next
-        self.tail = old_tail.prev
-        return old_tail
+        '''ASSUME the head and tail are not None'''
+        self.remove_node(self.tail)
 
     def move_to_front(self, node):
-        node = self.remove_node(node)
+        '''ASSUME the node is in the list'''
+        self.remove_node(node)
         self.add_node(node)
