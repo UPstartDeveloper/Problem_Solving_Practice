@@ -102,11 +102,11 @@ class LRUCache:
     def put(self, key, value):
         # make a new DLL node
         node = DoublyLinkedList(key, value)
-        # map key -> node
-        self.lookup_table[key] = node
-        # remove the tail (from the table and list) if we reach the cap
+        # remove the tail (from the table and list) if cap is already reached
         if self.items.size == self.cap:
             del self.lookup_table[self.items.tail.key]
             self.items.pop_tail()
+        # map key -> node
+        self.lookup_table[key] = node
         # add node to the list
         self.items.add_node(node)
