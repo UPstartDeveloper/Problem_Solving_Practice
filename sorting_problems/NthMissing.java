@@ -25,15 +25,98 @@
  *             array of values in reverse order, 
  *             array of all duplicates,
  *             no gaps
+ *             n is not positive - assume it's not possible
  */
 
+/** Template for writing Javadoc comments for methods 
+ * 
+ * /**
+ * Short one line description.                           (1)
+ * <p>
+ * Longer description. If there were any, it would be    (2)
+ * here.
+ * <p>
+ * And even more explanations to follow in consecutive
+ * paragraphs separated by HTML paragraph breaks.
+ *
+ * @param  variable Description text text text.          (3)
+ * @return Description text text text.
+ * */
 
-import java.util.Arrays;
+
+import java.lang.Integer;
+import java.util.Arrays;  // builtin sorting, and typecasting to List interface
+import java.util.Collections; // built-in min() and max() functions
 import java.util.HashSet;
 
 
 public class NthMissing {
-    // TODO: implement solution
+    public static int setSolution(int[] nums, int n) {
+        /**  
+         * Finds the nth missing value from unsorted array of integers via a HashSet.
+         * 
+         * For example, when nums = [2, 3, 11, 9] and n = 3, we return 6.
+         * This is b/c we first sort the nums array. Then find the missing values, and sort them.
+         * That gives us the values [4, 5, 6, 7, 8, 10]. Finally, we return the the 3rd value 
+         * from that collection of integers, 6.
+         * 
+         * @param nums the array of unsorted integers.
+         * @param n    the index of the number to return, from the missing values when they are in sorted order. 
+         * 
+         * @return     int is the n-th missing value is found, otherwise null.
+         */
+        /**
+         * Time: O(nums + range); 
+         * Space: O(nums)
+         */
+        // init output
+        int answer = null;
+        // validate input
+        if (nums.length > 0 && n > 0) {
+            // get the min and max
+            Integer[] ints = Arrays.copyOf(nums, nums.length);
+            int min = Collections.min(Arrays.asList(ints));
+            int max = Collections.max(Arrays.asList(ints));
+            // make a set of all values in the array
+            HashSet<Integer> presentNums = new HashSet<Integer>();
+            for (int num: nums) {
+                presentNums.add(num);
+            }
+            // iterate over the missing values
+            int currentVal = min;
+            int missingValues = 0;
+            while (currentVal < max + 1) {
+                // see if the value is there
+                if (presentNums.contains(currentVal) == false) {
+                    missingValues += 1;
+                }
+                // if found, update the answer 
+                if (missingValues == n) {
+                    answer = currentVal;
+                    break;  // and exit the loop
+                }
+                // or move on to the next value
+                currentVal += 1;
+            }
+        }
+        return answer;
+    }
+
+    public static int sortingSolution(int[] nums) {
+        // init output
+        int answer = null;
+
+        // validate input
+
+            // sort the array in place
+
+            // iterate over the array, 
+
+            // if missing found, update the answer
+
+        return answer;
+    }
+    
 
     // TODO: implement main method
 }
