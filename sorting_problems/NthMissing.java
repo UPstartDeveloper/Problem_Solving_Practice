@@ -102,18 +102,29 @@ public class NthMissing {
         return answer;
     }
 
-    public static int sortingSolution(int[] nums) {
+    public static int sortingSolution(int[] nums, int n) {
         // init output
         int answer = null;
-
         // validate input
-
+        if (nums.length > 0 && n > 0) {
             // sort the array in place
-
-            // iterate over the array, 
-
-            // if missing found, update the answer
-
+            Arrays.sort(nums);
+            // iterate over the array 
+            Integer[] ints = Arrays.copyOf(nums, nums.length);
+            int min = Collections.min(Arrays.asList(ints));
+            int max = Collections.max(Arrays.asList(ints));
+            int missing = 0, expected = min;
+            for (int index = 0; index < nums.length; index += 1) {
+                int num = nums[index];
+                // don't find a missing value
+                if (num == expected) expected += 1;
+                // if expected is not found - inch closer to answer
+                else missing += 1;
+                // if missing found, update the answer
+                if (missing == n) return expected;
+            }
+        }
+        // if invalid input, return null
         return answer;
     }
     
