@@ -127,15 +127,22 @@ class MemoryAllocator:
     
     def handle_queries(self, queries: list[list[int]]):
         '''Handles every valid query'''
+        # init output
+        results = list()
         for query in queries:
             # validate the query
             if len(query) == 2:
-                # handle the query
+                # handle the query, store the result
                 arg = query[1] 
                 if query[0] == 0:
-                    self.alloc(arg)
-                else:
-                    self.erase(arg)
+                    result = self.alloc(arg)
+                elif query[0] == 1:
+                    result = self.erase(arg)
+                # add it to the list of results
+                results.append(result)
+        # return output
+        return results
+            
     
 """
 class Solution:
