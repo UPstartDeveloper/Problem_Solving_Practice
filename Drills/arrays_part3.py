@@ -100,9 +100,42 @@ class Array:
                 # move on to next element
                 index += 1
 
+    def mergesort(self, array):
 
-    def mergesort(self):
-        pass
+        def merge(left, right):
+            # init new array
+            merged = list()
+            # battle for the spots in the new array
+            ndx_l, ndx_r = 0, 0
+            while ndx_l < len(left) and ndx_r < len(right):
+                elem_l, elem_r = left[ndx_l], right[ndx_r]
+                # decide the element to go next
+                if elem_l <= elem_r:
+                    merged.append(elem_l)
+                    ndx_l += 1
+                else:
+                    merged.append(elem_r)
+                    ndx_r += 1
+            # add any remaining items
+            if ndx_l < len(left):
+                for elem_l in left[ndx_l]:
+                    merged.append(elem_l)
+            if ndx_r < len(right):
+                for elem_r in right[ndx_r]:
+                    merged.append(elem_r)
+            # return new array
+            return merged
+
+        # Base Case
+        if len(array) >= 2:
+            # Divide - find the middle of the list
+            mid = len(self.arr)  // 2
+            # Conquer - sort the halves of the list
+            sorted_left = self.mergesort(array[:mid])
+            sorted_right = self.mergesort(array[mid:])
+            # Combine - merge the sorted halves
+            array = merge(sorted_left, sorted_right)
+        return array
 
     def quicksort(self, inplace=True):
         pass
