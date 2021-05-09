@@ -95,7 +95,7 @@ class BacktrackingPatterns:
                     ]
                     backtracking_helper(current_perm, all_perms, new_remaining)
                     # reset to before the number was added
-                    current_perm.pop(index)
+                    current_perm.pop(-1)
 
             pass
         # A: init a list for the current permutation
@@ -103,7 +103,90 @@ class BacktrackingPatterns:
         # B: init a list to hold all the permutations
         ap = list()
         # C: exhaust all permutations
-        index = 0
         backtracking_helper(cp, ap, nums)
         # D: return the permutations
         return ap
+
+
+class Vertex:
+    def __init__(self, id):
+        self.id = id
+        self.neighbors = dict()  # id -> Vertex
+
+    def add_neighbor(self, neighbor: "Vertex"):
+        self.neighbors[neighbor.id] = neighbor
+
+    def get_neighbors(self):
+        return list(self.neighbors.values())
+
+
+class Graph:
+    def __init__(self, is_directed=False):
+        self.vertices = dict()  # id --> Vertex
+        self.is_directed = is_directed
+
+    def get_first(self):
+        return list(self.vertices.keys())[0]
+
+    def bfs(self):
+        # init collections 
+        q = deque()
+        visited  = set()
+        # enqueue first Vertex
+        first = self.get_first()
+        q.append(first)
+        # traverse
+        while q:
+            # dequeue a node
+            node = q.popleft()
+            # visit
+            print(f"Visiting: {node.key}")
+            visited.add(node)
+            # enqueue the neighbors
+            for neighbor in node.get_neighbors():
+                if neighbor not in visited:
+                    q.append(neighbor)
+
+    def dfs(self, use_iter=True):
+
+        def _dfs_recursive(node=None, visited=set()):
+            # if using recursion, init first node
+            if node is None:
+                node = self.get_first()
+            # otherwise visit this node
+            print(f"Visiting: {node.id}")
+            visited.add(node)
+            # add the next nodes to traverse (avoid cycles)
+            for neighbor in node.get_neighbors():
+                _dfs_recursive(neighbor, visited)
+
+        def _dfs_iterative():
+            # init collections
+            stack = list()
+            visited = set() 
+            # push first node
+            first = self.get_first()
+            stack.append(first)
+            # traverse the graph!
+            while len(stack) > 0:
+                # pop a node
+                node = stack.pop()
+                # visit it
+                Graph.visit(node)
+                # push the neighboring nodes
+                for neighbor in node.get_neighbors():
+                    if neighbor not in visited:
+                        stack.append(neighbor)
+
+        if use_iter is True:
+            return _dfs_iterative()
+        return _dfs_recursive()
+
+    @classmethod
+    def visit(cls, node):
+        print(f"Visiting: {node.key}")
+
+
+if __name__ == "__main__":
+    bt = BacktrackingPatterns()
+    print(bt.permutations([1, 2, 3, 4]))
