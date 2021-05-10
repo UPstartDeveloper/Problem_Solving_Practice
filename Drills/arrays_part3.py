@@ -76,7 +76,18 @@ class Array:
     # Sorting Algorithms
 
     def sort_insertion(self):
-        pass
+        # insert the elements after the first
+        for index in range(1, len(self.arr)):
+            # insert this next element 
+            element = self.arr[index]
+            while index > 0:
+                prev_index = index - 1
+                prev_elem = self.arr[prev_index]
+                # make swaps as needed
+                if prev_elem > element:
+                    self.arr[prev_index] = element
+                    self.arr[index] = prev_elem
+                index -= 1
 
     def sort_bubble(self):
         # init the number of swaps done on a pass

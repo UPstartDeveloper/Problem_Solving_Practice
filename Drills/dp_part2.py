@@ -41,7 +41,3 @@ def factorial(num):
 
 # How to Apply the Functional Approach:
 factorial = memoize(factorial)
-
-
-
-
