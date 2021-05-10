@@ -63,6 +63,7 @@ from typing import List
 
 
 def volume_of_lakes(island: List[int]):
+    '''Linear time and space solution'''
 
     def find_lake_locations(labels, land_start_index, end_land_index):
         """TODO: add docstring
@@ -79,7 +80,7 @@ def volume_of_lakes(island: List[int]):
                     if label == 1 and next_label == 0:
                         location.append(index)
                     # C: if W before L, that's an ending index (the latter)
-                    if label == 0 and next_label == 1:
+                    elif label == 0 and next_label == 1:
                         location.append(index + 1)
                     # D: append the (start, end) to a list
                     if len(location) == 2:
@@ -121,9 +122,6 @@ def volume_of_lakes(island: List[int]):
                 if height >= land_height:
                     labels[index] = 1
                     land_height = height
-                # water found
-                else:  # height < land_height
-                    labels[index] = 0
                 # move to next index
                 index += 1
         # convert list of labels --> list of enclosing indicies
@@ -150,3 +148,49 @@ def volume_of_lakes(island: List[int]):
     for start, end in lake_locations:
         total += compute_volume(start, end)
     return total
+
+
+"""
+Variable Heap: 
+
+island = 
+ 0  1  2  3  4  5  6  7  8  9  0  1  2  3  4
+                                     v
+[1, 3, 2, 4, 1, 3, 1, 4, 5, 2, 2, 1, 4, 2, 2]
+                         ^           ^      
+v = 0, 1
+    0, 3, 4, 7
+    0, 2, 4, 7
+
+ll = [
+    [1, 3],   <
+    [3, 7],   <
+    [8, 12]   <
+]
+
+t = 0, 1, 8, 15
+
+
+labels =
+ 0  1  2  3  4  5  6  7  8  9  0  1  2  3  4
+    v                                v
+[0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0]
+                                     ^  ^
+[W, L, W, L, W, W, W, L, L, W, W, W, L, W, W]
+
+lsi = 0,      1
+eli = -1, 14, 12
+i = 1
+
+l = [1, 3], [3, 7], [8, 12]
+
+ih = 1
+
+fh = 2
+
+i = 2
+lh = 5
+
+
+
+"""
