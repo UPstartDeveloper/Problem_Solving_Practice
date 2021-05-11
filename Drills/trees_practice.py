@@ -14,6 +14,28 @@ class Node:
         self.val = val
         self.left = self.right = None
 
+    def get_in_order_successor(self):
+        """
+           returns the child w/ the smallest value 
+           in this node's right subtree
+
+           if not there, return -1
+        """
+        if self.val and self.right is not None:
+            successor = self.right
+            while (successor.left is None and successor.right is None) is False:
+                # go into the right subtree
+                if successor.left:
+                    successor = successor.left
+                # go to the leaf in the furthest left
+                elif successor.right:
+                    successor = successor.right
+            # return the leaf
+            return successor
+        # no successor
+        else:
+            return -1
+
 
 class BST:
     def __init__(self, root: Node):
@@ -63,13 +85,6 @@ class BST:
         # increase size of tree
         self.size += 1
 
-    def _in_order_successor(self, node):
-        """TODO: 
-           returns the child w/ the smallest value 
-           in this node's right subtree
-        """
-        pass
-
     def delete_node(self, value):
         """remove a node w/ this value from the tree, 
            modify the tree
@@ -109,16 +124,13 @@ class BST:
                 self.root = grandchild
      
         def delete_node_two_child(parent, deleted, is_left_child):
-            # root is being deleted
-            if parent is None:
-                self.root = self.root.left
-            # TODO: root not being deleted
-            elif is_left_child:
-                parent.left = deleted.left
-            elif is_left_child is False:
-                parent.right = deleted.left
-            # re-insert the right subtree
-            self.add_node(deleted.right)
+            '''rewrite using the in_order_successor'''
+            # get the successor 
+            successor = deleted.get_in_order_successor()
+            # delete the node in the place of the successor - should be a leaf
+            self.delete(successor.val)
+            # place the val of the successor where it belongs 
+            deleted.val = successor.val
 
         # find the node w/ the target value
         parent, deleted = None, self.root
