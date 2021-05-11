@@ -163,12 +163,28 @@ class BST:
             delete_node_two_child(parent, deleted, is_left_child)
         # decrease tree size
         self.size -= 1
-    """
-    // STRETCH CHALLENGE!
-    // takes no values, and will return a 1
-    // for a valid BST and a -1 for a invalid BST
-    validateBST() {
-    """
+    
+    def validate(self) -> bool:
+        '''returns T/F based on if this BST is in sorted order'''
+        if self.root is not None:
+            prev, node = None, self.root
+            # boiler plate DFS in order
+            stack = list()
+            # traverse the tree
+            while node is not None or len(stack) > 0:
+                # go down left subtree
+                if node is not None:
+                    stack.append(node)  # defer the current node
+                    prev = node
+                    node = node.left  
+                else:  # visiting nodes
+                    node = stack.pop()
+                    # TODO: compare prev and node
+                    if prev.val > node.val:
+                        return False
+                    prev = node
+                    node = node.right 
+        return True
 
 
 
