@@ -109,6 +109,8 @@ class BST:
                     parent.right = None
             else: # root is being deleted, and only node
                 self.root = None 
+            # decrease tree size
+            self.size -= 1
 
         def delete_node_one_child(parent, deleted, is_left_child):
             # find the child of the deleted node
@@ -122,13 +124,15 @@ class BST:
                 parent.right = grandchild
             else:  # root is being deleted
                 self.root = grandchild
+            # decrease tree size
+            self.size -= 1
      
         def delete_node_two_child(parent, deleted, is_left_child):
             '''rewrite using the in_order_successor'''
             # get the successor 
             successor = deleted.get_in_order_successor()
             # delete the node in the place of the successor - should be a leaf
-            self.delete(successor.val)
+            self.delete_node(successor.val)
             # place the val of the successor where it belongs 
             deleted.val = successor.val
 
@@ -161,8 +165,6 @@ class BST:
         # two kids
         else: 
             delete_node_two_child(parent, deleted, is_left_child)
-        # decrease tree size
-        self.size -= 1
     
     def validate(self) -> bool:
         '''returns T/F based on if this BST is in sorted order'''
@@ -179,7 +181,7 @@ class BST:
                     node = node.left  
                 else:  # visiting nodes
                     node = stack.pop()
-                    # TODO: compare prev and node
+                    # compare prev and node
                     if prev.val > node.val:
                         return False
                     prev = node
