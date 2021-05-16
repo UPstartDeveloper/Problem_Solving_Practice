@@ -85,3 +85,58 @@ class ArrayList:
         search = search_funcs[is_sorted][use_iteration]
         # search for the target
         return search()
+
+    def bubble_sort(self):
+        is_sorted = False
+        # begin sorting
+        while is_sorted is False:
+            swaps = 0
+            # start 1 pass through the array
+            index = 0
+            while index < len(self.collection) - 1:
+                index_after = index + 1
+                element_before, elem_after = (
+                    self.collection[index],
+                    self.collection[index_after]
+                )
+                # swap as needed
+                if element_before > elem_after:
+                    self.collection[index], self.collection[index_after] = (
+                        elem_after, element_before
+                    )
+                # move on to the next index
+                index += 1
+            # move on to the next pass as needed
+            if swaps == 0:
+                 is_sorted = True
+
+    def insertion_sort(self):
+        if len(self.collection) > 1:
+            # start at the second index
+            for index_to_sort in range(1, len(self.collection)):
+                # move this element into its sorted position
+                while index_to_sort > 0:
+                    index_before = index_to_sort - 1
+                    element_to_sort, element_before = (
+                        self.collection[index_to_sort],
+                        self.collection[index_before]
+                    )
+                    # make a swap
+                    if element_before > element_to_sort:
+                        self.collection[index_to_sort], self.collection[index_before] = (
+                            element_before, element_to_sort
+                        )
+                        # continue moving backwards
+                        index_to_sort -= 1
+                    # otherwise move to next iteration
+                    else:
+                        break
+
+    def merge_sort(self):
+        pass
+
+    def quicksort(self):
+        pass
+
+    def bucket_sort(self):
+        pass
