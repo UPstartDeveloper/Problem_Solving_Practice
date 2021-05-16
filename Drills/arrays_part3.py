@@ -149,7 +149,87 @@ class Array:
         return array
 
     def quicksort(self, inplace=True):
-        pass
+
+        def _quick_sort_internal(low=0, high=None):
+            """
+            This implementation of Quicksort has the following attrs:
+            - Time: O(n log n) - avg case, which depends on if 
+                    the last element (which we choose as 
+                    the pivot) is near the median of 
+                    the subarray we are sorting
+
+                  O(n^2) --> if the pivot is near the min or max
+                             of the subarrays we sort
+
+            - Space: O(log n) for the amount of space needed for the
+                             call stack, given the # of stack frames 
+                             we push
+                   O(n) in the worst case, as the subarrays get smaller
+
+            - Internal --> b/c we mutate the array in place 
+
+            - Recurisively implemented, not just iterative
+
+            - UNSTABLE algorithm
+
+            - This IS a comparision sorting algorithm
+
+            - Mistakes while implementing:
+                1) make sure to recursively call the Quicksort func,
+                    - the partition() should be called once per stack frame,
+                      because we need it to happen as a subroutine
+                      - i.e. it's great that it divides the array for us,
+                            it's just that it's only once we have quicksort
+                            algo recurse do we actually sort the array fully
+                            (b/c it's the larger QS func that actually decides
+                            if we need to continue sorting after partitioning)
+            """
+
+            def partition(low, high) -> int:
+                """
+                returns the pivot index after the element
+                at the end of this subarray
+                defined by low and high is sorted
+                """
+                # choose the last element in the subarray as pivot
+                pivot = self.arr[high]
+                # swap elements less than the pivot into place
+                lower_side_tail, swapper = low - 1, low
+                while swapper < high:
+                    # throwing the smaller elements "behind" the swapper
+                    if self.arr[swapper] < pivot:
+                        lower_side_tail += 1
+                        self.arr[lower_side_tail], self.arr[swapper] = (
+                            self.arr[swapper], self.arr[lower_side_tail]
+                        )
+                    # continue sorting the subarray
+                    swapper += 1
+                # move the pivot element into its sorted position
+                self.arr[lower_side_tail + 1], self.arr[high] = (
+                    pivot, self.arr[lower_side_tail + 1]
+                )
+                # return the new position of the pivot
+                return lower_side_tail + 1
+
+            ############### Driver Code ###############################
+
+            # init the high index as needed
+            if high is None:
+                high = len(self.arr) - 1
+            # Divide: partition the subarray around the pivot
+            pivot = partition(low, high)
+            # Conquer: recurse on the subarrays to left and right of the pivot
+            if pivot - low > 1:
+                _quick_sort_internal(low, pivot - 1)
+            if high - pivot > 1:
+                _quick_sort_internal(pivot + 1, high)
+
+        def _quick_sort_external():
+            pass
+
+        if inplace is True:
+            return _quick_sort_internal()
+        return _quick_sort_external()
 
 
 if __name__ == "__main__":
@@ -168,7 +248,16 @@ if __name__ == "__main__":
     assert array.search_binary(7) == -1  # target not found
 
     # Sorting Tests
+
     ## Bubble Sort
+    # array.arr = items
+    # array.sort_bubble()
+    # assert sorted(items) == array.arr
+
+
+     ## Bubble Sort
     array.arr = items
-    array.sort_bubble()
+    print(f"Items before sorting: {items}")
+    array.quicksort()
+    print(f"Items before sorting: {array.arr}")
     assert sorted(items) == array.arr

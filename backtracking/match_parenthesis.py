@@ -98,10 +98,10 @@ def generate_parentheses(n):
                 return new_permutation
     def generate_permutations(permutation, parentheses_left):
         # base case: added n ()'s
-        if parentheses_left ==  0 and len(permutation) == required_length:
+        if parentheses_left ==  0: # and len(permutation) == required_length:
         # append to the output
             if permutation not in output: 
-                output.append(permutation)
+                output.add(permutation)
             return
         # recursive case:
         while parentheses_left > 0:
@@ -116,7 +116,7 @@ def generate_parentheses(n):
             if parentheses_left == 0:
                 return
     # init the output of all the permutations
-    output = list()
+    output = set()
     if n > 0:
         # save the required length in a global variable
         global required_length
@@ -126,7 +126,7 @@ def generate_parentheses(n):
         n -= 1
         generate_permutations(permutation, n)
     # return all the permutations
-    return output
+    return list(output)
     
 """
 
@@ -155,4 +155,4 @@ n   |   permutation   |     ap      |     np    |   popped?
 """
 
 if __name__ == "__main__":
-    print(generate_parentheses(1))
+    print(generate_parentheses(3))
