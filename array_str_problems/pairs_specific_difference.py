@@ -138,6 +138,14 @@ i != j
   1 - (-2) = 3
   0 - (-2) = 2
   -1 - (-2) = 1
-  
+
+
+2. Sorting - n log n + n --> linearithmic time
+        Ex: [1, 5, 3, 4, 2], k = 2
+            [1, 2, 3, 4, 5]
+             ^     ^
+                   ^     ^
+        a) sort the array
+        b) search for the pairs w/ 2 pointers + count
 
 """
