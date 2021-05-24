@@ -126,33 +126,74 @@ def countLuck(matrix, k):
                                 added += 1
             # 3) if we push more than 1 . at a time, increment waves
             if added > 1:
-                waves += 1  
+                waves += 1 
+                # print(f"Waved at {spot_row, spot_col}") 
     # D: compare waves w/ k
     return is_guess_correct(waves)
 
 
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
-
-    t = int(input().strip())
-
-    for t_itr in range(t):
-        first_multiple_input = input().rstrip().split()
-
-        n = int(first_multiple_input[0])
-
-        m = int(first_multiple_input[1])
-
-        matrix = []
-
-        for _ in range(n):
-            matrix_item = input()
-            matrix.append(matrix_item)
-
-        k = int(input().strip())
-
-        result = countLuck(matrix, k)
-
-        fptr.write(result + '\n')
-
-    fptr.close()
+    test1 = (
+        [
+        ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+        "M.......................................*",
+        ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X."
+        ], 20
+    )
+    test2 = (
+        [
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            "M........................................",
+            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            ".XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            ".XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            ".XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            ".XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            ".XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            ".XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".........................................",
+            "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            ".*......................................."
+        ], 280
+    )
+    test3 = (
+        [
+            "XXXXXXXXXXXXXXXXX",
+            "XXX.XX.XXXXXXXXXX",
+            "XX.*..M.XXXXXXXXX",
+            "XXX.XX.XXXXXXXXXX",
+            "XXXXXXXXXXXXXXXXX"
+        ], 10
+    )
+    print(countLuck(test1[0], test1[1]))
+    print(countLuck(test2[0], test2[1]))
+    print(countLuck(test3[0], test3[1]))
