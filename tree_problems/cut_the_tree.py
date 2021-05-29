@@ -1,4 +1,9 @@
 """
+=====================================================================
+Source: https://www.hackerrank.com/challenges/cut-the-tree/problem
+=====================================================================
+
+"Cut the Tree" Coding Challenge
 tree is UNWEIGHTED
 
 vertices numbered 1 - n
@@ -67,7 +72,6 @@ class TreeNode:
 
     def calculate_sum(self):
         """
-        TODO: TEST this code
         the sum of this node plus all the nodes in its subtrees
         """
         total = 0
@@ -85,6 +89,16 @@ class TreeNode:
                 node = node.right
 
         return total
+
+    def get_parent(self):
+        '''get the highest possible parent of this node'''
+        parent, node = self.parent, self
+
+        while parent is not None:
+            node = parent
+            parent = parent.parent
+
+        return node
 
     def __str__(self):
         return str(self.id)
@@ -109,70 +123,26 @@ class Tree:
         # C: set the tree root
         self.root = self.nodes[0]
 
-    def get_tree_sums(self) -> list:
-        # A: init list to hold sums
-        sums = [0 for _ in range(len(self.nodes))]
-        # B: get the sum of each node, bottom up
-        NUM_NODES = len(self.nodes)
-        for current_id in range(NUM_NODES, 0, -1):
-            node_sum = self.nodes[current_id - 1].calculate_sum()
-            sums[current_id - 1] = node_sum
-        # C: return the sums
-        return sums
-
 
 class Solution:
     def cut_the_tree(self, data: List[int], edges: List[Tuple[int]]):
 
-        def update_diff(node, smallest_diff, tree_sums):
-            # COMBO one
-            # - calc tree sums --> (parent.val + child_1.sum) vs. (child_2.sum)
-            sum1 = node.val
-            if node.left is not None:
-                sum1 += tree_sums[node.left.id - 1]
-            sum2 = 0
-            if node.right is not None:
-                sum2 += tree_sums[node.right.id - 1]
-            # - calc diff
-            diff = abs(sum1 - sum2)
-            # - update the smallest_diff as necessary
-            if diff < smallest_diff:
-                smallest_diff = diff
-                print(f"diff: {diff}, node: {node}, sums: {sum1, sum2}")
-            # COMBO TWO
-            # - calc tree sums --> (parent.val + child_1.sum) vs. (child_2.sum)
-            sum1 = node.val
-            if node.right is not None:
-                sum1 += tree_sums[node.right.id - 1]
-            sum2 = 0
-            if node.left is not None:
-                sum2 += tree_sums[node.left.id - 1]
-            # - calc diff
-            diff = abs(sum1 - sum2)
-            # - update the smallest_diff as necessary
-            if diff < smallest_diff:
-                smallest_diff = diff
-                print(f"diff: {diff}, node: {node}, sums: {sum1, sum2}")
-            return smallest_diff
-
         # A: build the entire tree once - each has an id
         tree = Tree(data, edges)
-        # B: potentially optimize via memoization - pre-compute the tree sums of every subtree, starting from leaves
-        tree_sums = tree.get_tree_sums()
-        # C: init a smallest_diff
+        # B: find the smallest difference by iterating over the list of edges
         smallest_diff = float("inf")
-        # D: "try every combination" again via BFS
-        q = deque([tree.root])
-        while len(q) > 0:
-            # dequeued a node
-            node = q.popleft()
-            # change the diff --- TODO: refactor
-            smallest_diff = update_diff(node, smallest_diff, tree_sums)
-            # enqueue neighbors
-            if node.left is not None:
-                q.append(node.left)
-            if node.right is not None:
-                q.append(node.right)
+        for node_id, child_id in edges:
+            # get the nodes
+            node = tree.nodes[node_id - 1]
+            child = tree.nodes[child_id - 1]
+            # calc diff
+            parent = node.get_parent()
+            sum1 = child.calculate_sum()
+            sum2 = parent.calculate_sum() - sum1
+            diff = abs(sum1 - sum2)
+            # update smallest as appropiate
+            if diff < smallest_diff:
+                smallest_diff = diff 
         # return solution
         return smallest_diff
 
