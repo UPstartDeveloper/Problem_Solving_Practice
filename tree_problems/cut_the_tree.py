@@ -106,12 +106,12 @@ class TreeNode:
 
 class Tree:
     def __init__(self, data: List[int], edges: List[Tuple[int]]):
-        # A: store list of tree nodes
+        # A: store list of tree nodes - O(n)
         self.nodes = list()
-        for id_val in range(1, len(data) + 1):
+        for id_val in range(1, len(data) + 1):  # n iterations
             node = TreeNode(id_val, data[id_val - 1])
             self.nodes.append(node)
-        # B: connect tree nodes
+        # B: connect tree nodes - O(n)
         for edge in edges:
             id1, id2 = edge
             node1, node2 = self.nodes[id1 - 1], self.nodes[id2 - 1]
@@ -125,20 +125,35 @@ class Tree:
 
 
 class Solution:
+    """
+    COMPLEXITY ANALYSIS
+    v = # of nodes
+    e = # of edges (in the Hacker Rank challenge, this is assumed to be n - 1)
+    tree is NOT guaranteed to be complete or full - i.e. may not always be balanced
+    tree is ASSUMED to be binary
+
+    Time: O(n^2), 
+    thing to optimize is repeated work is calculating the tree sums
+
+    Space: O(n)
+    n + e objects for Tree nodes
+    n - largest possible space the stack in a DFS can take up
+
+    """
     def cut_the_tree(self, data: List[int], edges: List[Tuple[int]]):
 
-        # A: build the entire tree once - each has an id
-        tree = Tree(data, edges)
+        # A: build the entire tree once - each has an id - O(n)
+        tree = Tree(data, edges)  # 
         # B: find the smallest difference by iterating over the list of edges
         smallest_diff = float("inf")
-        for node_id, child_id in edges:
+        for node_id, child_id in edges:  # e iterations ---> overall O(n^2)
             # get the nodes
             node = tree.nodes[node_id - 1]
             child = tree.nodes[child_id - 1]
             # calc diff
-            parent = node.get_parent()
-            sum1 = child.calculate_sum()
-            sum2 = parent.calculate_sum() - sum1
+            parent = node.get_parent()  # worst case - O(n); best case - O(log n)
+            sum1 = child.calculate_sum()  # worst case - O(n)
+            sum2 = parent.calculate_sum() - sum1  # worst case - O(n)
             diff = abs(sum1 - sum2)
             # update smallest as appropiate
             if diff < smallest_diff:
