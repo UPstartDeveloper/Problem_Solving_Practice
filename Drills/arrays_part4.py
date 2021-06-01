@@ -132,8 +132,39 @@ class ArrayList:
                     else:
                         break
 
-    def merge_sort(self):
-        pass
+    def merge_sort(self, nums=None):
+
+        def merge(left, right):
+            # A: track pos in both halves
+            index_left, index_right = 0, 0
+            # B: init a third "merged" array
+            merged = list()
+            # C: have each elem "battle" for the pos in the merged array
+            while index_left < len(left) and index_right < len(right):
+                elem_l, elem_r = left[index_left], right[index_right]
+                if elem_l <= elem_r:  # stable sorting
+                    merged.append(elem_l)
+                    index_left += 1
+                else:
+                    merged.append(elem_r)
+                    index_right += 1
+            # D: add any remaining elements
+            pass
+            # E: return the merged list
+            return merged
+
+        # Base Cases:
+        if nums is None:  # need to init the list
+            return self.merge_sort(self.collection)
+        elif len(nums) < 2:  # already sorted list
+            return nums
+        # Divide: find the middle index
+        mid_ndx = len(nums) // 2
+        # Conquer: sort the left side, then the right
+        sorted_left = self.merge_sort(nums[:mid_ndx])
+        sorted_right = self.merge_sort(nums[mid_ndx:])
+        # Combine: merge the sorted halves together
+        return merge(sorted_left, sorted_right)
 
     def quicksort(self):
         pass
