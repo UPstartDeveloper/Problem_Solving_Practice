@@ -186,6 +186,34 @@ class Graph:
     def visit(cls, node):
         print(f"Visiting: {node.key}")
 
+    def classify_connection(self, user1, user2):
+        """
+        Given two vertices in an undirected graph,
+        return whether they are either 1st, 2nd, or 3rd 
+        degree connections (assuming they are connected).
+        """
+        # A: init distances dict
+        distances = dict()
+        # B: init queue
+        q = deque([(user1, 0)])
+        # C: traverse the graph 
+        while len(q) > 0:
+            # dequeue a node
+            user, distance = q.popleft()
+            # put its dist in the dictionary
+            distances[user] = distance
+            # stop if user found
+            if user2 in distances:
+                break
+            # enqueue the neighbors (update the distance)
+            for neighbor in user.neighbors.values():
+                q.append((neighbor, distance + 1))
+        # D: return the msg corresponding to the dist found
+        pass
+
+    def get_second_third_degree(self, user):
+        pass
+
 
 if __name__ == "__main__":
     bt = BacktrackingPatterns()
