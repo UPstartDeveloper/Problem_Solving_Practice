@@ -180,8 +180,9 @@ class ArrayList:
                 if swapped < pivot_val:
                     # swap
                     lower_side_tail += 1
+                    lst = lower_side_tail
                     # TODO: shorten this line
-                    self.collection[swapper], self.collection[lower_side_tail] = (
+                    self.collection[swapper], self.collection[lst] = (
                         self.collection[lower_side_tail], swapped 
                     )
                 # regardless, move ahead to the next element
@@ -203,10 +204,7 @@ class ArrayList:
             # B: CONQUER: partition the list around the pivot
             sorted_pivot = partition(pivot)
             # C: COMBINE: recurse the process on both sides of the pivot
-            print(f"Array after partitioning {self.collection[sorted_pivot]}: {self.collection}")
-            # sort everything low--> pivot
             self.quicksort(low, sorted_pivot - 1)
-            # sort everything pivot + 1 ==> high
             self.quicksort(sorted_pivot + 1, high)
 
     """
