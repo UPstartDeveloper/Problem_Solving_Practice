@@ -166,8 +166,70 @@ class ArrayList:
         # Combine: merge the sorted halves together
         return merge(sorted_left, sorted_right)
 
-    def quicksort(self):
-        pass
+    def quicksort(self, low=0, high=None):
+        """TODO: check edge cases"""
+
+        def partition(pivot):
+            '''Here, we've chosen the last index as the pivot'''
+            lower_side_tail = -1
+            swapper = 0
+            pivot_val = self.collection[pivot]
+            while swapper < pivot:
+                # move all the elements encountered < pivot value, backwards
+                swapped = self.collection[swapper]
+                if swapped < pivot_val:
+                    # swap
+                    lower_side_tail += 1
+                    # TODO: shorten this line
+                    self.collection[swapper], self.collection[lower_side_tail] = (
+                        self.collection[lower_side_tail], swapped 
+                    )
+                # regardless, move ahead to the next element
+                swapper += 1
+            # at the end, move the pivot element into place
+            self.collection[lower_side_tail + 1], self.collection[pivot] = (
+                pivot_val, self.collection[lower_side_tail + 1]
+            )
+            # return new location of the pivot val
+            return lower_side_tail + 1
+
+        # init case:
+        if high is None:
+            return self.quicksort(low=0, high=len(self.collection) - 1)
+        # recursive case
+        elif high - low > 0:
+            # A: DIVIDE: choose a pivot 
+            pivot = high
+            # B: CONQUER: partition the list around the pivot
+            sorted_pivot = partition(pivot)
+            # C: COMBINE: recurse the process on both sides of the pivot
+            print(f"Array after partitioning {self.collection[sorted_pivot]}: {self.collection}")
+            # sort everything low--> pivot
+            self.quicksort(low, sorted_pivot - 1)
+            # sort everything pivot + 1 ==> high
+            self.quicksort(sorted_pivot + 1, high)
+
+    """
+               0  1  2  3  4
+    Example: [-5, 3, 4, 7, 6]
+                        s  pv
+                 lst
+    low     |      high     |      pivot ```` ```````````````pivot          lst         swappper             
+     0      |      None     |       
+     0              4               4   ---> partition    :    4        |   -1              0
+                                                                             0              1
+                                                                             1              2
+                                                                                            3
+                                                                                            4
+    """
 
     def bucket_sort(self):
         pass
+
+
+if __name__ == "__main__":
+    array = [3, -5, 6, 7, 4]
+    arr = ArrayList(array)
+    print("Before sorting: ", arr.collection)
+    arr.quicksort()
+    print("After sorting: ", arr.collection)
