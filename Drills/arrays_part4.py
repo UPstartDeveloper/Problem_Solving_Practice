@@ -221,6 +221,23 @@ class ArrayList:
                                                                                             4
     """
 
+    def counting_sort(self):
+        '''this implementation can handle any combo of pos/neg integers'''
+        # A: calc the min and max
+        minimum = min(self.collection)
+        maximum = max(self.collection)
+        # B: compute a histogram of our array
+        counts = [0 for _ in range(minimum, maximum + 1)]
+        for integer in self.collection:
+            counts[integer - minimum] += 1
+        # C: overwrite our original array the integers are in sorted order
+        collection_pos = 0
+        for number, count in enumerate(counts):
+            for next_pos in range(count):
+                self.collection[collection_pos + next_pos] = number - minimum
+            collection_pos += count
+
+
     def bucket_sort(self):
         pass
 
