@@ -239,7 +239,28 @@ class ArrayList:
 
 
     def bucket_sort(self):
-        pass
+        # A: measure the dist of the integers
+        largest = max(self.collection)
+        # B: split them up into buckets
+        num_buckets = len(self.collection)
+        buckets = [[] for _ in range(num_buckets)]
+        for num in self.collection:
+            percentile = num / (largest + 1)
+            bucket_index = percentile * num_buckets
+            buckets[bucket_index].append(num)
+        # C: sort each bucket
+        for index in range(len(buckets)):
+            nums = buckets[index]
+            nums_obj = ArrayList(nums)
+            nums_obj.quicksort()
+            buckets[index] = nums_obj
+        # D: merge buckets together
+        index = 0
+        while index < len(self.collection):
+            for nums_obj in buckets:
+                for num in nums_obj.collection:
+                    self.collection[index] = num
+                    index += 1
 
 
 if __name__ == "__main__":
