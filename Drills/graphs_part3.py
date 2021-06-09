@@ -211,8 +211,72 @@ class Graph:
         # D: return the msg corresponding to the dist found
         pass
 
-    def get_second_third_degree(self, user):
-        pass
+    def get_second_third_degree(self, origin_user):
+        """Given a vertex in an undirected graph, 
+           find and return all the vertices
+           that are 2 and 3 degrees away.
+
+
+           user = Vertex<'Abby', connections = {}>
+           ||
+           Bobby-------Jasmine
+           |
+           |
+           Zain
+
+           ==> {
+               degrees: [neighbor]
+                2: ["Zain", "Jasmine"],
+                3: []
+               }
+
+            Intuition: BFS
+
+            Approach
+            - do a BFS from the user Vertex
+            - distances dict: mmeasure the degrees
+            - return all 
+            linear time and space complexi
+
+            Edge Cases:
+            1- no 2nd and/or no 3rd degree
+            2- user is not a Vertex - raise ValueError
+
+        """
+
+        def find_neighbors(q):
+            degrees_nodes = dict()
+            visited = set()
+            # B: helper func distances dict: mmeasure the degrees
+            while len(q) > 0:
+                # popping a user
+                degrees_away, user = q.popleft()
+                visited.add(user)
+                # place in the dict
+                if degrees_away in degrees_nodes:
+                    degrees_nodes[degrees_away].append(user)
+                else:  # init the key-value pair
+                    degrees_nodes[degrees_away] = [user]
+                # adding all their neighbors to the queue
+                degrees_away += 1
+                for neighbor in user.neighbors.values():
+                    if neighbor not in visited and degrees_away < 4:
+                        q.append((degrees_away, neighbor))
+            return degree_nodes
+
+        def get_2nd_3rd_degree_connections(degree_nodes):
+            close_neighors = dict()
+            for degree in (2, 3):
+                close_neighors[degree] = degree_nodes[degree]
+            return close_neighors
+
+        # A: do a BFS from the user Vertex
+        q  = deque([(0, origin_user)])
+        # B: find all the neighboring nodes within 3 degrees
+        degree_nodes = find_neighbors(q)
+        # C: return connection in 2nd and 3rd degree
+        return get_2nd_3rd_degree_connections(degree_nodes)
+
 
 
 if __name__ == "__main__":
