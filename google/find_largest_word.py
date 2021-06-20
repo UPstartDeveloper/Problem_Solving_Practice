@@ -65,7 +65,7 @@ Approaches:
         - find all words that are a subsequence - 2 pointers
         - out of that --> find one that has longeest L - linear search
         - Time: D(L) + K(L), where
-            - L = length of longest
+            - L = length of longest word in D
             - D = # of words in dict
             - K = count of words that are a subsequence
 
@@ -73,7 +73,10 @@ Approaches:
         - go over each word
             - decide if subseq or not
             - then right, figure out if that's the longests seen so far
-        - Time: D(L)
+        - Time: D(min(L, S) + L)
+
+
+        
 
     Set:
 
