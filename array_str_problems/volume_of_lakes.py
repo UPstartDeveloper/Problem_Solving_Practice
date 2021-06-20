@@ -92,7 +92,7 @@ def volume_of_lakes(island: List[int]):
     def find_lakes():
         """water == 0; land == 1"""
         labels = [0 for _ in range(len(island))]
-        # start off at first index where land > first index
+        # start off at first index where land > index 0
         land_start_index = 0
         init_height = island[0]
         while land_start_index < len(island):
