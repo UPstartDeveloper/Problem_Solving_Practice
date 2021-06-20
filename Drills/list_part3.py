@@ -1,3 +1,6 @@
+from typing import List
+
+
 class ListNode:
     def __init__(self, val):
         self.val = val
@@ -62,3 +65,11 @@ class LinkedList:
         node = ListNode(new_val)
         node.next = self.head
         self.head = node
+
+
+if __name__ == "__main__":
+    node1 = ListNode("A")
+    node2 = ListNode("B")
+    print(node1 == node2)
+    node2 = node1
+    print(node1 == node2)
