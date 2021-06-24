@@ -95,6 +95,42 @@ def insertion_sort(array):
         insert_index += 1
     # list is sorted
     return array
+
+def quicksort(array, low=0, high=None):
+
+    def partition(array, low, high):
+        '''Chooses a pivot at the last index'''
+        # Init pointers
+        swapper, pivot = low, high
+        lower_side_tail = swapper - 1
+        # move all elements < pivot to the left
+        while swapper < pivot:
+            if array[swapper] < array[pivot]:
+                lower_side_tail += 1
+                array[swapper], array[lower_side_tail] = (
+                    array[lower_side_tail],
+                    array[swapper]
+                )
+            swapper += 1
+        # move the pivot into position
+        array[pivot], array[lower_side_tail + 1] = (
+            array[lower_side_tail + 1], array[pivot]
+        )
+        # return the new position of the pivot
+        return lower_side_tail + 1
+
+    # A: init case:
+    if high is None:
+        high = len(array) - 1
+        return quicksort(array, low, high)
+    # B: Divide: pick a pivot
+    if high - low > 1:
+        # Conquer: partition elements around the pivot
+        pivot = partition(array, low, high)
+        # Combine: recurse the process on both sides:
+        quicksort(array, low, pivot - 1)
+        quicksort(array, pivot + 1, high)
+
     
 
 
