@@ -111,15 +111,101 @@ class BinaryTree:
 
 
 class Vertex:
-    pass
+    def __init__(self, identifier):
+        self.id = identifier
+        self.neigbors = dict()  # id => Vertex obj
 
 
 class Graph:
     def __init__(self, is_directed=False):
-        pass
+        self.is_directed = is_directed
+        self.vertices = dict()
 
     def bfs(self, is_recursive=False):
-        pass
+
+        def _bfs_recursive(queue=None, visited=set()):
+            # base case: no queue
+            if queue is None:
+                q, first = deque(), list(self.vertices.values())[0]
+                if first is not None:
+                    q.append(first)
+            # base case: empty queue
+            elif len(queue) == 0:
+                return visited
+            # recursive: traversal algo
+            else: 
+                # dequeue a node
+                node = queue.popleft()
+                # visit it
+                visited.add(node)
+                # enqueue the neighbor
+                for neighbor in node.neighbors.values():
+                    if neighbor not in visited:
+                        queue.append(neighbor)
+            return _bfs_recursive(queue, visited)
+
+        def _bfs_iterative():
+            # init q w/ first node
+            first, visited = list(self.vertices.values())[0], set()
+            if first is not None:
+                # traverse 
+                q = deque([first])
+                while len(q) > 0:
+                    # dequeue a node
+                    node = q.popleft()
+                    # visit it
+                    visited.add(node)
+                    # enqueue the neighbor
+                    for neighbor in node.neighbors.values():
+                        if neighbor not in visited:
+                            q.append(neighbor)
+            # return result
+            return visited
+    
+        if is_recursive:
+            return _bfs_recursive()
+        return _bfs_iterative()
 
     def dfs(self, is_recursive=False):
-        pass
+        
+        def _dfs_recursive(node=None, visited=None):
+            # base case: no node
+            if node is None and visited is None:
+                first, visited = list(self.vertices.values())[0], set()
+                return _dfs_recursive(first, visited)
+            # base case: end the traversal
+            elif node is None:
+                return visited
+            # recursive: visit a node
+            visited.add(node)
+            for neighbor in node.neighbors.values():
+                if neighbor not in visited:
+                    _dfs_recursive(neighbor, visited)
+
+        def _dfs_iterative():
+            # init stack
+            visited = set()
+            if len(self.vertices) > 0:
+                first, stack = list(self.vertices.values())[0], list()
+                if first is not None:
+                    stack.append(first)
+                # traversal
+                while len(stack) > 0:
+                    # pop a node
+                    node = stack.pop()
+                    # visit it
+                    visited.add(node)
+                    # push all neighbors
+                    for neighbor in node.neighbors.values():
+                        if neighbor not in visited:
+                            stack.append(neighbor)
+            # return results
+            return visited
+        
+        if is_recursive:
+            return _dfs_recursive()
+        return _dfs_iterative()
+
+
+if __name__ == "__main__":
+    pass
