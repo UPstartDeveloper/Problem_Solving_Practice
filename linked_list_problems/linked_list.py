@@ -1,6 +1,6 @@
 class ListNode:
     def __init__(self, val):
-        self.val = val 
+        self.val = val
         self.next = None
 
 
@@ -24,13 +24,13 @@ class LinkedList:
                 current_node = current_node.next
 
             prev.next = node
-    
+
     def prepend(self, node):
         node.next = self.head
         self.head = node
 
     def delete(self, node_val):
-        '''Deletes the first node that has the matching value.'''
+        """Deletes the first node that has the matching value."""
         # find the node with the value
         prev, current_node = None, self.head
         while current_node.val != node_val:
@@ -40,12 +40,12 @@ class LinkedList:
         if self.head != current_node:  # current_node is the node to delete
             prev.next = current_node.next
         # if it is the head, move down the head pointer
-        elif self.head == current_node and self.head is not None:  
+        elif self.head == current_node and self.head is not None:
             self.head = self.head.next
 
     def size(self):
         length = 0
-        node = self.head 
+        node = self.head
         while node is not None:
             node = node.next
             length += 1
@@ -60,11 +60,11 @@ class LinkedList:
         return prev
 
     def insert(self, new_node, steps):
-        '''Inserts a new node n steps into the list, if possible.'''
+        """Inserts a new node n steps into the list, if possible."""
         # validate the input
         if isinstance(new_node, ListNode):
-            if steps <= self.size(): 
-                # find the node exactly at n steps into the list  
+            if steps <= self.size():
+                # find the node exactly at n steps into the list
                 prev, current_node = None, self.head
                 steps_taken = 0
                 while steps_taken < steps:
@@ -80,10 +80,13 @@ class LinkedList:
             # check if we are doing an append op
             elif steps == self.size() + 1:
                 self.append(new_node)
-            else:  # err msg for steps 
-                print(f"List of size {self.size()} is too \
-                        small to insert at {steps} steps.")
+            else:  # err msg for steps
+                print(
+                    f"List of size {self.size()} is too \
+                        small to insert at {steps} steps."
+                )
         else:  # err msg for new_node
-            print(f"Cannot insert new_node of type {type(new_node)}.\
-                    Pass a ListNode instead.")
-    
+            print(
+                f"Cannot insert new_node of type {type(new_node)}.\
+                    Pass a ListNode instead."
+            )

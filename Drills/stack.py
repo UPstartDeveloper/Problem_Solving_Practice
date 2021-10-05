@@ -1,15 +1,15 @@
 class ListNode:
-
     def __init__(self, data) -> None:
         self.data = data
         self.next = None
+
 
 class LinkedStack:
     def __init__(self, top):
         self.top = top
 
     def push(self, node):
-        '''Adds the new node to the top of the stack - PREPEND'''
+        """Adds the new node to the top of the stack - PREPEND"""
         node.next = self.top
         self.top = node
 

@@ -16,7 +16,7 @@ You do not know the length of the linked list
 from typing import Tuple
 
 
-class ListNode: 
+class ListNode:
     def __init__(self, val) -> None:
         self.val = val
         self.next = None
@@ -38,9 +38,9 @@ class Solution:
         return p1, p2
 
     def weave(self, start: ListNode, midpoint: ListNode) -> None:
-        '''insert elements from after the midpoint node, to after the starting node'''
+        """insert elements from after the midpoint node, to after the starting node"""
         while midpoint.next.next is not None:
-            # A: save a pointer for the node after the midpoint-starting node 
+            # A: save a pointer for the node after the midpoint-starting node
             temp = midpoint.next
             # B: update the node after the midpoint-starting node
             midpoint.next = temp.next

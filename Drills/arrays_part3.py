@@ -1,10 +1,8 @@
 class Array:
-
     def __init__(self, items):
         self.arr = items
 
     def search_linear(self, target, use_iter=True):
-
         def _iterative():
             # for each item, check if target found (exit early)
             for index in range(len(self.arr)):
@@ -24,13 +22,13 @@ class Array:
                 return index
             # recursive case
             return _recursive(index + 1)
-    
+
         if use_iter is True:
             return _iterative()
         return _recursive()
 
     def search_binary(self, target, use_iter=True):
-        # ASSUME the array is already sorted 
+        # ASSUME the array is already sorted
         def _iterative():
             # init low and high
             low, high = 0, len(self.arr) - 1
@@ -41,10 +39,10 @@ class Array:
                 # found
                 if mid_elem == target:
                     return mid
-                # go left 
+                # go left
                 elif mid_elem > target:
                     high = mid - 1
-                # go right 
+                # go right
                 elif mid_elem < target:
                     low = mid + 1
             # not found
@@ -54,7 +52,7 @@ class Array:
             # init values
             if high is None:
                 high = len(self.arr) - 1
-            # get middle 
+            # get middle
             mid = (low + high) // 2
             mid_elem = self.arr[mid]
             # base - found
@@ -63,10 +61,10 @@ class Array:
             # base - not found
             elif low > high:
                 return -1
-            # go left 
+            # go left
             elif mid_elem > target:
                 return _recursive(low, mid - 1)
-            # go right 
+            # go right
             return _recursive(mid + 1, high)
 
         if use_iter is True:
@@ -78,7 +76,7 @@ class Array:
     def sort_insertion(self):
         # insert the elements after the first
         for index in range(1, len(self.arr)):
-            # insert this next element 
+            # insert this next element
             element = self.arr[index]
             while index > 0:
                 prev_index = index - 1
@@ -99,10 +97,7 @@ class Array:
             swaps = 0
             while index < len(self.arr) - 1:
                 index_after = index + 1
-                elem, elem_after = (
-                    self.arr[index],
-                    self.arr[index_after]
-                )
+                elem, elem_after = (self.arr[index], self.arr[index_after])
                 # swap
                 if elem_after < elem:
                     self.arr[index] = elem_after
@@ -112,7 +107,6 @@ class Array:
                 index += 1
 
     def mergesort(self, array):
-
         def merge(left, right):
             # init new array
             merged = list()
@@ -140,7 +134,7 @@ class Array:
         # Base Case
         if len(array) >= 2:
             # Divide - find the middle of the list
-            mid = len(self.arr)  // 2
+            mid = len(self.arr) // 2
             # Conquer - sort the halves of the list
             sorted_left = self.mergesort(array[:mid])
             sorted_right = self.mergesort(array[mid:])
@@ -149,24 +143,23 @@ class Array:
         return array
 
     def quicksort(self, inplace=True):
-
         def _quick_sort_internal(low=0, high=None):
             """
             This implementation of Quicksort has the following attrs:
-            - Time: O(n log n) - avg case, which depends on if 
-                    the last element (which we choose as 
-                    the pivot) is near the median of 
+            - Time: O(n log n) - avg case, which depends on if
+                    the last element (which we choose as
+                    the pivot) is near the median of
                     the subarray we are sorting
 
                   O(n^2) --> if the pivot is near the min or max
                              of the subarrays we sort
 
             - Space: O(log n) for the amount of space needed for the
-                             call stack, given the # of stack frames 
+                             call stack, given the # of stack frames
                              we push
                    O(n) in the worst case, as the subarrays get smaller
 
-            - Internal --> b/c we mutate the array in place 
+            - Internal --> b/c we mutate the array in place
 
             - Recurisively implemented, not just iterative
 
@@ -200,13 +193,15 @@ class Array:
                     if self.arr[swapper] < pivot:
                         lower_side_tail += 1
                         self.arr[lower_side_tail], self.arr[swapper] = (
-                            self.arr[swapper], self.arr[lower_side_tail]
+                            self.arr[swapper],
+                            self.arr[lower_side_tail],
                         )
                     # continue sorting the subarray
                     swapper += 1
                 # move the pivot element into its sorted position
                 self.arr[lower_side_tail + 1], self.arr[high] = (
-                    pivot, self.arr[lower_side_tail + 1]
+                    pivot,
+                    self.arr[lower_side_tail + 1],
                 )
                 # return the new position of the pivot
                 return lower_side_tail + 1
@@ -254,8 +249,7 @@ if __name__ == "__main__":
     # array.sort_bubble()
     # assert sorted(items) == array.arr
 
-
-     ## Bubble Sort
+    ## Bubble Sort
     array.arr = items
     print(f"Items before sorting: {items}")
     array.quicksort()

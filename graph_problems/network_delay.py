@@ -12,6 +12,8 @@ Concepts:
 - BFS for the shortest path
 
 """
+
+
 class Vertex:
     def __init__(self, id):
         self.id = id
@@ -25,6 +27,7 @@ class Vertex:
             4: -1
         }
         """
+
     def get_farthest_distance(self, graph) -> int:
         # init a queue
         q = deque()
@@ -32,7 +35,7 @@ class Vertex:
         distances = dict(  # O(N)
             zip(
                 list(graph.vertices.keys()),
-                [float('inf') for _ in range(len(graph.vertices))]
+                [float("inf") for _ in range(len(graph.vertices))],
             )
         )
         visited = set()
@@ -40,7 +43,7 @@ class Vertex:
         q.append((self, 0))
         # BFS the other nodes
         while len(q) > 0:
-            # dequeue a node from the front 
+            # dequeue a node from the front
             vertex, distance_travelled = q.popleft()
             # visit it - add its distance to the distances dict
             if distance_travelled < distances[vertex.id]:
@@ -49,21 +52,23 @@ class Vertex:
             visited.add(vertex.id)
             # enqueue the neighboring nodes (increment the distance so far)
             for neighbor_obj, distance_away in vertex.neighbors.values():
-                if neighbor_obj.id not in visited or (distance_travelled + distance_away < distances[neighbor_obj.id]):
+                if neighbor_obj.id not in visited or (
+                    distance_travelled + distance_away < distances[neighbor_obj.id]
+                ):
                     q.append((neighbor_obj, distance_travelled + distance_away))
         # C: if any dist is -1 --> -1
         distances_overall = set(distances.values())
         max_distance = -1
-        if float('inf') not in distances_overall:
+        if float("inf") not in distances_overall:
             max_distance = max(distances_overall)
         # D: otherwise return the max distance (from the distances dict)
-        return max_distance 
-        
+        return max_distance
+
 
 class Graph:
     def __init__(self):
         self.vertices = dict()  # str - Vertex object
-        
+
     def add_edge(self, v1, v2, length):
         # add both vertices to the graph
         if v1 not in self.vertices:
@@ -74,24 +79,24 @@ class Graph:
         v1_obj, v2_obj = self.vertices[v1], self.vertices[v2]
         # add the edge between the vertices
         v1_obj.neighbors[v2] = (v2_obj, length)
-        
+
 
 class Solution:
     def networkDelayTime(self, times: List[List[int]], N: int, K: int) -> int:
         """
         Input: times = [[2,1,1],[2,3,1],[3,4,1]], N = 4, K = 2
         Output: 2
-        
-        the signal is sent out through all the edges from that node simultaneously 
+
+        the signal is sent out through all the edges from that node simultaneously
         K = source node (it's id)
         N = number of nodes overall
-        
+
         -1 - if the node doesn't have a path to all the others
-        
+
         - if it is, then return the longest path from K
-        
+
         weighted directed graph, which may or may not be connected
-        
+
         questions:
         are there dupes in the input? no
         - however the same vertex may appear more than once
@@ -100,7 +105,7 @@ class Solution:
         # Intuition:
         - first check a path exists from to every other Vertex - find not return -1
         - then return the path that's longest (in terms of time)
-        
+
         # Approach:
         - construct the graph using a custom Graph and Vertex class
         - try to find the length of time between this node K and all others (BFS)
@@ -118,6 +123,8 @@ class Solution:
         if len(network.vertices) == N:  # O(1)
             farthest = src.get_farthest_distance(network)  #
         return farthest  # can be -1 if not a connected graph
+
+
 """
 Big O Analysis:
 

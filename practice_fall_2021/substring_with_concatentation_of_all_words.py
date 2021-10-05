@@ -36,37 +36,34 @@ class Solution:
         2) choice -  words not used yet
         3) constraints - words list
         """
-        
+
         def find_all_occurences(s, c):
             starts, s_index = list(), 0
             while s_index < len(s):
                 # scan for first matching letter
-                if s[s_index:s_index + len(c)] == c:
+                if s[s_index : s_index + len(c)] == c:
                     # scan through to make sure it is a whole substring match
                     starts.append(s_index)
                 # always move to the next letter
                 s_index += 1
             return starts
-        
+
         def permute(choices: List[str], all_perms: set, current: List[str]):
             # Base Case:
             if len(choices) == 0:
-                all_perms.add(''.join(current))
+                all_perms.add("".join(current))
                 return
             # Recursive Case:
             else:
                 for index in range(len(choices)):
                     choice = choices[index]
                     current.append(choice)
-                    new_choices = [
-                        c for i, c in enumerate(choices) 
-                        if i != index
-                    ]
+                    new_choices = [c for i, c in enumerate(choices) if i != index]
                     permute(new_choices, all_perms, current)
                     current.pop()
-                    
+
             return all_perms
-        
+
         # A: form the permuatations of the concatenation
         concatenations = permute(words, set(), [])
         # B: look up each perm
@@ -75,8 +72,7 @@ class Solution:
             indices.extend(find_all_occurences(s, c))
         # C: return the indices
         return indices
-    
-    
+
     """
     words = ["foo","bar"]       all_perms = {},     current = [bar]
                      ^

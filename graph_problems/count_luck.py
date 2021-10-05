@@ -15,10 +15,11 @@ import sys
 #  2. INTEGER k
 #
 
+
 def countLuck(matrix, k):
     """
-    CLARIFICATIONS: 
-    
+    CLARIFICATIONS:
+
     - k = Ron's guess
     - non-empty matrix = str []
     - 1 M = starting point
@@ -27,39 +28,40 @@ def countLuck(matrix, k):
     - GUARANTEED 1 path
     - move LEFT, RIGHT, UP, and DOWN
     - matrix mutable - ASSUME not
-    
+
     Intuition:
     need to count number of times we backtrack (hit a fork),
     then compare it to k once we reach the goal
-    
+
     Approach:
-    
+
     1) iterative DFS, use space to avoid mutation
-    
+
         A: init waves = 0
         B: locate the M
         C: DFS from M (dfs_helper) - init a stack w/ M
             1) iterate until we hit the *, then break
                 2) push all .'s from our spot
-                3) if we push more than 1 . at a time, increment waves   
+                3) if we push more than 1 . at a time, increment waves
             # 1) Base Case: 1 .
             #     - move to that .
-            # 2) Recursive Case: 
+            # 2) Recursive Case:
             #     - increment waves
             #     - push . onto the stack, if found in DIRS
         D: compare waves w/ k
-    
+
     Edge Cases:
     - empty matrix - not possible
-    - multiple paths - not possible     
+    - multiple paths - not possible
     """
+
     def find_start():
         '''TODO: return row and col of "M"'''
         # save the coords of the M
         row_index = 0
         # traverse rows
         while row_index < len(matrix):
-            row = matrix[row_index] 
+            row = matrix[row_index]
             col_index = 0
             # traverse cols
             while col_index < len(row):
@@ -74,16 +76,16 @@ def countLuck(matrix, k):
             row_index += 1
         # M not found
         return (-1, -1)
-    
+
     def is_guess_correct(waves: int) -> str:
-        '''TODO: return whether RON was correct'''
+        """TODO: return whether RON was correct"""
         guess = k
         # correct
         if waves == guess:
             return "Impressed"
         # incorrect
         return "Oops!"
-    
+
     # A: init waves = 0 and directions
     waves = 0
     DIRECTIONS = [
@@ -94,7 +96,7 @@ def countLuck(matrix, k):
         # left
         (0, -1),
         # right
-        (0, 1)
+        (0, 1),
     ]
     # B: locate the M
     start = find_start()
@@ -126,19 +128,20 @@ def countLuck(matrix, k):
                                 added += 1
             # 3) if we push more than 1 . at a time, increment waves
             if added > 1:
-                waves += 1 
-                # print(f"Waved at {spot_row, spot_col}") 
+                waves += 1
+                # print(f"Waved at {spot_row, spot_col}")
     # D: compare waves w/ k
     return is_guess_correct(waves)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test1 = (
         [
-        ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
-        "M.......................................*",
-        ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X."
-        ], 20
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+            "M.......................................*",
+            ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
+        ],
+        20,
     )
     test2 = (
         [
@@ -182,8 +185,9 @@ if __name__ == '__main__':
             ".........................................",
             "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.",
             ".X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.",
-            ".*......................................."
-        ], 280
+            ".*.......................................",
+        ],
+        280,
     )
     test3 = (
         [
@@ -191,8 +195,9 @@ if __name__ == '__main__':
             "XXX.XX.XXXXXXXXXX",
             "XX.*..M.XXXXXXXXX",
             "XXX.XX.XXXXXXXXXX",
-            "XXXXXXXXXXXXXXXXX"
-        ], 10
+            "XXXXXXXXXXXXXXXXX",
+        ],
+        10,
     )
     print(countLuck(test1[0], test1[1]))
     print(countLuck(test2[0], test2[1]))

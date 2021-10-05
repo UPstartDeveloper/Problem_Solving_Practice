@@ -18,6 +18,7 @@ class Memoize:
 
 def memoize(function):
     cache = dict()
+
     def efficient_output(args):
         if args not in cache:
             cache[args] = function(args)

@@ -43,7 +43,6 @@ Idea - use in-place sorting algorithm
 
 
 class Solution:
-
     def sort_string(self, string: str) -> None:
         """
         Test:
@@ -58,13 +57,13 @@ class Solution:
                          0      'a'
 
         Quicksort - nlog n -->
-            Pros: 
+            Pros:
             - unstability is fine
-            - in place 
+            - in place
             Cons:
             - right idea of a pivot, --> risking quadratic runtoime
-        
-        Selection and Bubble 
+
+        Selection and Bubble
 
         TimSort(can't use built-in)
         HeapSort(can't use built-in)
@@ -75,7 +74,7 @@ class Solution:
         for index in range(1, len(string)):
             char = string[index]
             current_loc = index
-            # backwards 
+            # backwards
             for previous_index in range(current_loc - 1, -1, -1):
                 # swap as necessary
                 prev_char = string[previous_index]
@@ -99,6 +98,7 @@ class Solution:
                     return False
         # if not failing, return True
         return True
+
 
 """
  012

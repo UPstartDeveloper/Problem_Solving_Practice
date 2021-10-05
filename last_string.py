@@ -12,6 +12,7 @@ Test Inputs:
 
 """
 
+
 def length_of_last_word(words):
     """
     Returns the length of the last word (a string of lower or uppercase
@@ -23,9 +24,10 @@ def length_of_last_word(words):
     Returns: int
 
     """
+
     def traverse(index, progress):
         """
-        Returns the index of a delimiter (either a space or the end/beginning 
+        Returns the index of a delimiter (either a space or the end/beginning
         of the string).
 
         Parameters:
@@ -49,12 +51,13 @@ def length_of_last_word(words):
             # stop for words with space
             if words[index].isalpha() and words[index + progress] == " ":
                 break
-            else: 
+            else:
                 index += progress
         return index
+
     # useful constants for iteration
-    WORDS_LENGTH  = len(words)
-    STOP_INDEX_NEGATIVE  = -(WORDS_LENGTH)
+    WORDS_LENGTH = len(words)
+    STOP_INDEX_NEGATIVE = -(WORDS_LENGTH)
     # solve for all cases with no space
     if " " not in words:
         return len(words)
@@ -65,18 +68,20 @@ def length_of_last_word(words):
     end = start
     end = traverse(end, 1)
     # index the last word
-    start += WORDS_LENGTH; end += WORDS_LENGTH
-    last_word = words[start:end + 1]
+    start += WORDS_LENGTH
+    end += WORDS_LENGTH
+    last_word = words[start : end + 1]
     # return the length of the substring between the delimiters
     return len(last_word)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # test case 1
-    words = 'World'
+    words = "World"
     print(length_of_last_word(words))
     # test case 2
-    words = 'Hello World'
+    words = "Hello World"
     print(length_of_last_word(words))
     # test case 3
-    words = ' World '
+    words = " World "
     print(length_of_last_word(words))

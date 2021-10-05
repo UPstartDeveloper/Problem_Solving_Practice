@@ -109,16 +109,16 @@ class Game:
     DIRECTIONS = [
         (-1, 0),  # up
         (1, 0),  # down
-        (0, -1), # left
-        (0, 1), # right
+        (0, -1),  # left
+        (0, 1),  # right
         (1, 1),  # bottomm right
-        (1, -1), # bottom left
+        (1, -1),  # bottom left
         (-1, 1),  # up-r
-        (-1 , -1)  # up-l
+        (-1, -1),  # up-l
     ]
 
     def __init__(self):
-        self.answer = [] 
+        self.answer = []
         self.grid = []
         self.mines = self.hidden = 0
 
@@ -129,7 +129,7 @@ class Game:
                 adj_mines = 0
                 for diff_row, col_diff in self.DIRECTIONS:
                     # find the coords of neighbor
-                    nr = neighbor_row = row_index + diff_row 
+                    nr = neighbor_row = row_index + diff_row
                     neighbor_col = col_index + col_diff
                     # check if coords in the grid
                     if 0 <= neighbor_row < len(self.answer):
@@ -146,13 +146,13 @@ class Game:
         for index in range(rows):
             self.answer[index] = [-1 for _ in range(cols)]
         # - Set(Tuples(int)) - generate randommly unique coords of mines should be
-        mine_coords = set() 
+        mine_coords = set()
         for _ in range(mines):
-            row = random.randint(0, len(rows) - 1)  
-            col = random.randint(0, len(cols) - 1) 
+            row = random.randint(0, len(rows) - 1)
+            col = random.randint(0, len(cols) - 1)
             while self.answer[row][col] != -1:
-                row = random.randint(0, len(rows) - 1)  
-                col = random.randint(0, len(cols) - 1) 
+                row = random.randint(0, len(rows) - 1)
+                col = random.randint(0, len(cols) - 1)
             # - place the mines in the coords (9)
             self.answer[row][col] = 9
             mine_coords.add((row, col))
@@ -176,19 +176,19 @@ class Game:
             if square == 0:
                 for diff_row, col_diff in self.DIRECTIONS:
                     # find the coords of neighbor
-                    nr = neighbor_row = row + diff_row 
+                    nr = neighbor_row = row + diff_row
                     nc = neighbor_col = col + col_diff
                     # check if coords in the grid
                     if 0 <= neighbor_row < len(self.answer):
                         if 0 <= neighbor_col < len(self.answer[nr]):
                             neighbor = self.answer[nr][nc]
                             if neighbor == self.HIDDEN_CHAR:
-                                q.append((nr, nc)) 
+                                q.append((nr, nc))
 
     def is_winner(self):
-        '''determine if number of hidden sq/== no. of mines'''
+        """determine if number of hidden sq/== no. of mines"""
         return self.hidden == self.mines
-            
+
     def play_game(self, answer_key, player_matrix):
         while True:
             # TODO: show the board - self.grid
@@ -217,12 +217,12 @@ class Game:
             elif 1 <= unhidden < 8:
                 print("Oooh, be careful! You almost hit a mine!")
         # TODO: show the board - print the updated board back to user one last time
-             
+
     def game_loop(self, rows, cols, mines):
-        '''main function'''
+        """main function"""
         self.mines = mines
         user_response = input("Would you like to start a new game? Enter Y/N")
-        should_continue = (user_response.upper()[0] == 'Y')
+        should_continue = user_response.upper()[0] == "Y"
         while should_continue:
             self.hidden = rows * cols
             # A: constructMatrix - make the matrices for the answer, and player
@@ -231,4 +231,4 @@ class Game:
             self.play_game()
             # C: prompt the user if they want to start/restart a game
             user_response = input("Would you like to start a new game? Enter Y/N")
-            should_continue = (user_response.upper()[0] == 'Y')
+            should_continue = user_response.upper()[0] == "Y"

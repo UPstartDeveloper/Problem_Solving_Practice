@@ -48,11 +48,11 @@ class Solution(object):
         sorted_array = list()
         # store the lengths of both input lists
         nums1_amt, nums2_amt = len(nums1), len(nums2)
-        nums1_index, nums2_index = 0, 0 
+        nums1_index, nums2_index = 0, 0
         # merge the two lists
         while nums1_index < nums1_amt and nums2_index < nums2_amt:
             # get the smallest elements in each list
-            num1, num2 = nums1[nums1_index], nums2[nums2_index] 
+            num1, num2 = nums1[nums1_index], nums2[nums2_index]
             # decide which should go in the merged list next
             if num1 <= num2:
                 # add the number

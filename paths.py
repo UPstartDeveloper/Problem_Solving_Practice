@@ -36,13 +36,16 @@ def get_destination_city(paths):
         if destination not in destinations:  # p iterations
             destinations.append(destination)
     # find the city which is a destination of a path, but the origin of one
-    target_cities = [city for city in destinations if city not in origins]  # c^2 iterations
+    target_cities = [
+        city for city in destinations if city not in origins
+    ]  # c^2 iterations
     # we assume there is only one city in the list
     return target_cities[0]
 
+
 # Idea 2: using a dict
 # Time is still quadratic
-# memory is still linear 
+# memory is still linear
 
 # paths = [   [outlink, inlink]    ] -> city with no outlink
 def get_destination_city(paths):
@@ -63,6 +66,7 @@ def get_destination_city(paths):
     for city in city_outlinks:
         if city_outlinks[city] == 0:
             return city
+
 
 # Idea 3: Using OOP:
 """
@@ -87,16 +91,19 @@ benchmarking).
 
 """
 
+
 class City:
     """
-    For now, all this class will do is 
+    For now, all this class will do is
     store the numbers of inlinks/outlinks that
-    a city has, not the cities those links 
+    a city has, not the cities those links
     come from/go to.
     """
+
     def __init__(self, city_name):
         self.city_name = city_name
         self.inlinks = self.outlinks = 0
+
 
 class Airline:
     def __init__(self):
@@ -107,9 +114,7 @@ class Airline:
         for path in paths:  # p iterations
             # make city objects
             origin, destination = path
-            origin_city, destination_city = (
-                City(origin), City(destination)
-            )
+            origin_city, destination_city = (City(origin), City(destination))
             # increment the inlink/outlink properties
             origin_city.outlinks += 1
             destination_city.inlinks += 1
@@ -121,12 +126,10 @@ class Airline:
             city_outlinks = self.cities[city].outlinks
             if city_outlinks == 0:
                 return city
-    
-    
 
 
-if __name__ == '__main__':
-    paths = [["London","New York"],["New York","Lima"],["Lima","Sao Paulo"]]
+if __name__ == "__main__":
+    paths = [["London", "New York"], ["New York", "Lima"], ["Lima", "Sao Paulo"]]
     print(get_destination_city(paths))
 
 """
@@ -149,4 +152,3 @@ c = # of cities = 2p
 Time:
     The runtime of this function rises linearly in propo
 """
-    

@@ -1,4 +1,4 @@
-'''
+"""
 Given a sorted array,
 find the index of the first and last occurrence
 of a given element.
@@ -18,9 +18,9 @@ If the given element is not found in the array, report that.
 2. iterate over the items in histogram
 
 
-'''
+"""
 
-'''
+"""
 Array a of numbers
 target t
 
@@ -48,7 +48,7 @@ t = -3
 trade-off
 -slow
 - not account for duplicates
-'''
+"""
 
 
 def two_sum(array, target):

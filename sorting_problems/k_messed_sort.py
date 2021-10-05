@@ -17,16 +17,15 @@ def sort_k_messed_array(arr, k):
             for index in range(len(arr) - (k + 1), len(arr)):
                 arr[index] = heappop(window)
     return arr
-  
 
 
 if __name__ == "__main__":
     # Test Cases
-    arr = [1,4,5,2,3,7,8,6,10,9]
+    arr = [1, 4, 5, 2, 3, 7, 8, 6, 10, 9]
     k = 2
     print(sort_k_messed_array(arr, k))
 
-    arr = [6,1,4,11,2,0,3,7,10,5,8,9]
+    arr = [6, 1, 4, 11, 2, 0, 3, 7, 10, 5, 8, 9]
     k = 6
     print(sort_k_messed_array(arr, k))
 

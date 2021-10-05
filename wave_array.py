@@ -2,9 +2,9 @@ def check_window(window):
     first, second, third = window
     print(first, second, third)
     if first <= second >= third or first >= second <= third:
-        return False # no switch needed
-    return True # switch needed, window is not a wave yet
-  
+        return False  # no switch needed
+    return True  # switch needed, window is not a wave yet
+
 
 def switch_order(window, switch_first_two):
     first, second, third = window
@@ -21,7 +21,7 @@ def wave_array(integers):
     # A: sort the array
     integers.sort()
     # alternate switching first two and last two
-    switch_first_two = 0 # zero = True, 1 means False
+    switch_first_two = 0  # zero = True, 1 means False
     # set indicies for overall progress
     end_overall = 3
     # iterate
@@ -30,7 +30,7 @@ def wave_array(integers):
         start, end = 0, 2
         while end < end_overall:
             # index the window
-            window = integers[start:end + 1]
+            window = integers[start : end + 1]
             print(start, end, window)
             # check the window is a valid wave, or switch
             make_switch = check_window(window)
@@ -39,7 +39,7 @@ def wave_array(integers):
                 # get the new order
                 new_order = switch_order(window, switch_first_two)
                 # change it in the original array
-                integers[start:end + 1] = new_order
+                integers[start : end + 1] = new_order
                 switch_first_two ^= 1
             # move on to next window
             print(integers)
@@ -49,5 +49,5 @@ def wave_array(integers):
     return integers
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(wave_array([1, 2, 3, 4]))

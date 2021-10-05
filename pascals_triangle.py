@@ -18,7 +18,6 @@ def pascal_triangle(num_rows):
     return rows
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     rows = 6
     pascal_triangle(rows)
-    

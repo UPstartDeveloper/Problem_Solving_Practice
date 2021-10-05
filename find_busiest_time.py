@@ -1,6 +1,6 @@
 def find_busiest_period(data):
     """
-    [ [1487799425, 14, 1], 
+    [ [1487799425, 14, 1],
         [1487799425, 4,  0],
         [1487799425, 2,  0],
         [1487800378, 10, 1],
@@ -9,32 +9,32 @@ def find_busiest_period(data):
         [1487901013, 1,  0],
         [1487901211, 7,  1],
         [1487901211, 7,  0] ]
-        
+
         - multiple data points can have the same time
         - return the time of one of the data points
-        
+
         - choices for the solution - one of the times
-        
+
         - is the input mutable? no
         - "busiest" - most people in the mall? yes
-        
+
         Idea 1: create a time distribution
-        
+
         map each time --> number of people
         - so the time people enter - do those people count as "being in the mall" at
         that second, or the one after? yes
-        
+
         - so the time people exit - do those people count as "being in the mall" at
         that second, or the one before? no
-        
+
         - what if more than one time share the highest pop>
-        
-    time_total_pop =   
+
+    time_total_pop =
     {
         1487799425: 8
         1487800378, 18
     }
-    
+
     total_people = 18
 
     - can the total number of people ever go negative? no
@@ -72,6 +72,7 @@ def find_busiest_period(data):
             max_time = time
     # C: return the largest time
     return max_time
+
 
 """
     # init the total population

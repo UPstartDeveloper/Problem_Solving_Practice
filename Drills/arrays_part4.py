@@ -1,5 +1,4 @@
 class ArrayList:
-
     def __init__(self, array):
         self.collection = array
 
@@ -20,7 +19,7 @@ class ArrayList:
                     return index
             # not found
             return -1
-    
+
         def _linear_search_recursive(index=0):
             # validate input
             if index < len(self.collection):
@@ -51,14 +50,14 @@ class ArrayList:
                 # or move to the right
                 elif mid_elem < target:
                     low = mid_ndx + 1
-            # not found 
+            # not found
             return -1
 
         def _binary_search_recursive(low=0, high=None):
             # init high
             if high is None:
                 high = len(self.collection) - 1
-            
+
             if low <= high:
                 # locate the middle
                 mid_ndx = (low + high) // 2
@@ -69,8 +68,8 @@ class ArrayList:
                 # go left
                 elif mid_elem > target:
                     return _binary_search_recursive(low, mid_ndx - 1)
-                # go right 
-                else: 
+                # go right
+                else:
                     return _binary_search_recursive(mid_ndx + 1, high)
             # not found
             return -1
@@ -97,18 +96,19 @@ class ArrayList:
                 index_after = index + 1
                 element_before, elem_after = (
                     self.collection[index],
-                    self.collection[index_after]
+                    self.collection[index_after],
                 )
                 # swap as needed
                 if element_before > elem_after:
                     self.collection[index], self.collection[index_after] = (
-                        elem_after, element_before
+                        elem_after,
+                        element_before,
                     )
                 # move on to the next index
                 index += 1
             # move on to the next pass as needed
             if swaps == 0:
-                 is_sorted = True
+                is_sorted = True
 
     def insertion_sort(self):
         if len(self.collection) > 1:
@@ -119,13 +119,14 @@ class ArrayList:
                     index_before = index_to_sort - 1
                     element_to_sort, element_before = (
                         self.collection[index_to_sort],
-                        self.collection[index_before]
+                        self.collection[index_before],
                     )
                     # make a swap
                     if element_before > element_to_sort:
-                        self.collection[index_to_sort], self.collection[index_before] = (
-                            element_before, element_to_sort
-                        )
+                        (
+                            self.collection[index_to_sort],
+                            self.collection[index_before],
+                        ) = (element_before, element_to_sort)
                         # continue moving backwards
                         index_to_sort -= 1
                     # otherwise move to next iteration
@@ -133,7 +134,6 @@ class ArrayList:
                         break
 
     def merge_sort(self, nums=None):
-
         def merge(left, right):
             # A: track pos in both halves
             index_left, index_right = 0, 0
@@ -170,7 +170,7 @@ class ArrayList:
         """TODO: check edge cases"""
 
         def partition(pivot):
-            '''Here, we've chosen the last index as the pivot'''
+            """Here, we've chosen the last index as the pivot"""
             lower_side_tail = -1
             swapper = 0
             pivot_val = self.collection[pivot]
@@ -183,13 +183,15 @@ class ArrayList:
                     lst = lower_side_tail
                     # TODO: shorten this line
                     self.collection[swapper], self.collection[lst] = (
-                        self.collection[lower_side_tail], swapped 
+                        self.collection[lower_side_tail],
+                        swapped,
                     )
                 # regardless, move ahead to the next element
                 swapper += 1
             # at the end, move the pivot element into place
             self.collection[lower_side_tail + 1], self.collection[pivot] = (
-                pivot_val, self.collection[lower_side_tail + 1]
+                pivot_val,
+                self.collection[lower_side_tail + 1],
             )
             # return new location of the pivot val
             return lower_side_tail + 1
@@ -199,7 +201,7 @@ class ArrayList:
             return self.quicksort(low=0, high=len(self.collection) - 1)
         # recursive case
         elif high - low > 0:
-            # A: DIVIDE: choose a pivot 
+            # A: DIVIDE: choose a pivot
             pivot = high
             # B: CONQUER: partition the list around the pivot
             sorted_pivot = partition(pivot)
@@ -222,7 +224,7 @@ class ArrayList:
     """
 
     def counting_sort(self):
-        '''this implementation can handle any combo of pos/neg integers'''
+        """this implementation can handle any combo of pos/neg integers"""
         # A: calc the min and max
         minimum = min(self.collection)
         maximum = max(self.collection)
@@ -236,7 +238,6 @@ class ArrayList:
             for next_pos in range(count):
                 self.collection[collection_pos + next_pos] = number - minimum
             collection_pos += count
-
 
     def bucket_sort(self):
         # A: measure the dist of the integers

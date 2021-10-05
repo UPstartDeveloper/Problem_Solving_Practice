@@ -3,8 +3,9 @@ class Array:
         self.items = items
 
     """Searching Algorithms on Arrays"""
+
     def _linear_search_iterative(self, value):
-        '''O(n) time, O(1) space'''
+        """O(n) time, O(1) space"""
         for index, item in enumerate(self.items):
             if item == value:
                 return index
@@ -12,14 +13,14 @@ class Array:
         return -1
 
     def _linear_search_recursive(self, value, index=0):
-        '''O(n) time and space'''
+        """O(n) time and space"""
         if index < len(self.items):
             # Base Case --> item found
             if self.items[index] == value:
                 return index
             # Recursive Case --> move on to the next item
             return self._linear_searhc_recursive(value, index + 1)
-        # Base Case --> item not found 
+        # Base Case --> item not found
         return -1
 
     def search_linear(self, value, use_iterative=True):
@@ -28,7 +29,7 @@ class Array:
         return self._linear_search_recursive(value)
 
     def _binary_search_iterative(self, target):
-        '''O(log n) time, O(1) space'''
+        """O(log n) time, O(1) space"""
         # init the middle index
         low = 0
         high = len(self.items) - 1
@@ -49,7 +50,7 @@ class Array:
         return -1
 
     def _binary_search_recursive(self, target, low=0, high=None):
-        '''O(log n) space, O(log n) time'''
+        """O(log n) space, O(log n) time"""
         if high is None:
             high = len(self.items) - 1
         mid_ndx = (low + high) // 2
@@ -67,7 +68,7 @@ class Array:
             return self._binary_search_recursive(low, mid_ndx - 1)
 
     def search_binary(self, value, use_iterative=True):
-        '''Values array must be sorted'''
+        """Values array must be sorted"""
         if use_iterative is True:
             return self._binary_search_iterative(value)
         return self._binary_search_recursive(value)
@@ -75,7 +76,7 @@ class Array:
     """Sorting Algorithms on Arrays"""
 
     def _bubble_sort(self) -> None:
-        '''O(n^2) time; O(1) space b/c this is a mutative sorting algorithm'''
+        """O(n^2) time; O(1) space b/c this is a mutative sorting algorithm"""
         # pass over the array
         is_sorted = False
         while is_sorted is False:
@@ -86,7 +87,7 @@ class Array:
                 if next_value < value:
                     self.items[index], self.items[index + 1] = next_value, value
                     swaps += 1
-            is_sorted = (swaps == 0)
+            is_sorted = swaps == 0
 
     def _insertion_sort(self) -> None:
         # insert every element into the "sorted portion"
@@ -99,7 +100,8 @@ class Array:
                 # swap if necessary:
                 if elem_before > insert_elem:
                     self.items[index_before], self.items[current_pos] = (
-                        insert_elem, elem_before
+                        insert_elem,
+                        elem_before,
                     )
                     # update the index where the insertion element is now
                     current_pos = index_before
@@ -126,23 +128,24 @@ class Array:
                 for index in range(index_right, len(right)):
                     sorted.append(right[index])
             # return the array
-            return sorted 
+            return sorted
+
         ##### Driver Code
         if array is None:
             array = self.items
         # Base Case: array is less than 2 elements long
         if len(array) < 2:
-            return array 
+            return array
         # Divide the Array at the middle
         mid = len(array) // 2
         # Conquer - sort both halves
         left = self._merge_sort(array[:mid])
         right = self._merge_sort(array[mid:])
-        # Combine - merge the two halves together 
+        # Combine - merge the two halves together
         return _merge(left, right)
 
-    def _quick_sort(self,low=0, high=None) -> list:
-        '''mutative, divide and conquer sorting algorithm'''
+    def _quick_sort(self, low=0, high=None) -> list:
+        """mutative, divide and conquer sorting algorithm"""
         # TODO: debug the line that updates the pivot
         if high is None:
             high = len(self.items) - 1
@@ -160,7 +163,8 @@ class Array:
             # swap the pointers on the left and right side
             if 0 < left < len(self.items) and 0 < right < len(self.items):
                 self.items[left], self.items[right] = (
-                    self.items[right], self.items[left]
+                    self.items[right],
+                    self.items[left],
                 )
         # Recurse - repeat the process on the left and right sides
         self._quick_sort(low, pivot - 1)
@@ -181,7 +185,8 @@ class Array:
 
 
 class ArrayStack(Array):
-    '''The top of this stack is the last element'''
+    """The top of this stack is the last element"""
+
     def __init__(self, items: list):
         super().__init__(items)
 

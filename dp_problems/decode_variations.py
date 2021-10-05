@@ -3,29 +3,31 @@ def decode_variations(S):
     A letter can be encoded to a number in the following way:
 
     'A' -> '1', 'B' -> '2', 'C' -> '3', ..., 'Z' -> '26'
-    A message is a string of uppercase letters, and it is encoded first using this scheme. 
+    A message is a string of uppercase letters, and it is encoded first using this scheme.
     For example, 'AZB' -> '1262'
 
-    Given a string of digits S from 0-9 representing an encoded message, 
+    Given a string of digits S from 0-9 representing an encoded message,
     return the number of ways to decode it.
 
     Assumptions:
     - none of the inputs have leading zeros
     - the input is a string representing a nonnegative integer
 
-    Time: O(2^n), in the case each subsequent pair of integers 
+    Time: O(2^n), in the case each subsequent pair of integers
                   has two variations (e.g. '262626262626')
     Space: O(n), b/c in the worst case input that's how many stack frames
                    we push onto the call stack at any one time
 
-    """ 
+    """
+
     def is_valid(string):
-        '''returns T/F on whether the 2-digit string is a letter by itself'''
+        """returns T/F on whether the 2-digit string is a letter by itself"""
         if 1 <= int(string) <= 26:
             return True
         return False
+
     def get_variations(current_string, input_string):
-        '''Top-Down DP for finding the number of ways to decode a string'''
+        """Top-Down DP for finding the number of ways to decode a string"""
         # Base Case - if input if empty
         if len(input_string) == 0:
             # assume we add 1 variations
@@ -44,15 +46,16 @@ def decode_variations(S):
                 # if they are valid together
                 if is_valid(input_string[:2]) is True:
                     # call the function again, w/ both of them added
-                    new_string = ''.join([current_string, "-", input_string[:2]])
+                    new_string = "".join([current_string, "-", input_string[:2]])
                     variations += get_variations(new_string, input_string[2:])
             # call the function again w/ just the next
-            new_string = ''.join([current_string, "-", input_string[:1]])
+            new_string = "".join([current_string, "-", input_string[:1]])
             variations += get_variations(new_string, input_string[1:])
             # return the answer for the subproblem
             return variations
-    return get_variations('', S)
-      
+
+    return get_variations("", S)
+
 
 """
   Brainstorming: 
@@ -303,8 +306,8 @@ class Solution {
 
 if __name__ == "__main__":
     # Test Cases
-    assert decode_variations('1') == 1
-    assert decode_variations('10') == 1, f"The answer is {decode_variations('10')}"
-    assert decode_variations('60') == 0
-    assert decode_variations('11') == 2
-    assert decode_variations('1262') == 3
+    assert decode_variations("1") == 1
+    assert decode_variations("10") == 1, f"The answer is {decode_variations('10')}"
+    assert decode_variations("60") == 0
+    assert decode_variations("11") == 2
+    assert decode_variations("1262") == 3

@@ -38,6 +38,7 @@ Identity Property of XOR w/ 0 - returns whatever the second operand is
 
 """
 
+
 def find_unique(nums):
     unique = None
     # iterate over arr
@@ -50,5 +51,5 @@ def find_unique(nums):
 
 
 if __name__ == "__main__":
-    nums = [1,-2,1,-2,3]
+    nums = [1, -2, 1, -2, 3]
     print(find_unique(nums))

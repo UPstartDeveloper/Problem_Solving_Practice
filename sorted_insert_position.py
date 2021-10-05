@@ -2,15 +2,17 @@ import math
 
 
 def find_index(sorted_list, target):
-    '''Finds the index where the target value is expected in a sorted list.'''
+    """Finds the index where the target value is expected in a sorted list."""
+
     def binary_search(low_index, hi_index):
-        '''Searches for a value in a list, throwing away half each call'''
-        # locate the middle index 
-        mid_index = math.ceil((low_index + hi_index)/2)
+        """Searches for a value in a list, throwing away half each call"""
+        # locate the middle index
+        mid_index = math.ceil((low_index + hi_index) / 2)
         # obtain values from all three indices
         low_val, mid_val, high_val = (
-            sorted_list[low_index], sorted_list[mid_index],
-            sorted_list[hi_index]
+            sorted_list[low_index],
+            sorted_list[mid_index],
+            sorted_list[hi_index],
         )
         # Base case: the target value is found
         if mid_val == target:
@@ -29,11 +31,12 @@ def find_index(sorted_list, target):
                 return mid_index + 1
             # otherwise search the larger half of the array
             return binary_search(mid_index + 1, hi_index)
+
     # store the array length
     ARRAY_LENGTH = len(sorted_list)
     # execute binary search on the array
     return binary_search(0, ARRAY_LENGTH - 1)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     print(find_index([1, 3, 5, 6], 5))
-    

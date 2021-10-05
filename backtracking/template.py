@@ -1,14 +1,17 @@
 from typing import List, Set, Optional
 
+
 class BackTracking:
-    '''choices (immutable), goal, constraint'''
+    """choices (immutable), goal, constraint"""
+
     def __init__(self, choices: List[int]):
         self.choices = choices
         self.all_permutations = self.ap = list()
 
-    def __call__(self, choices=None, 
-                 current_perm: Optional[List[int]] = None) -> Set[int]:
-        '''return the set of all permutations, given the choices'''
+    def __call__(
+        self, choices=None, current_perm: Optional[List[int]] = None
+    ) -> Set[int]:
+        """return the set of all permutations, given the choices"""
         # Init case
         if choices is None:
             return self.__call__(self.choices[:], current_perm=list())
@@ -20,8 +23,7 @@ class BackTracking:
         for index in range(len(choices)):
             item = choices[index]
             new_choices = [
-                item for item_index, item in enumerate(choices)
-                if index != item_index
+                item for item_index, item in enumerate(choices) if index != item_index
             ]
             current_perm.append(item)
             self.__call__(new_choices, current_perm)
@@ -34,4 +36,3 @@ if __name__ == "__main__":
     nums = [1, 2, 3]
     bt = BackTracking(nums)
     print(bt())
-

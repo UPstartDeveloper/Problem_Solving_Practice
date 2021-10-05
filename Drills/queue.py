@@ -5,20 +5,19 @@ class ListNode:
 
 
 class LinkedQueue:
-
     def __init__(self, front=None, back=None):
         self.front = front
         self.back = back
 
     def front(self):
-        '''return the value at the front of the queue'''
+        """return the value at the front of the queue"""
         if self.front:
             return self.front.data
         else:
             return None
 
     def enqueue(self, item):
-        '''add an item to the back of the queue'''
+        """add an item to the back of the queue"""
         # if no previous nodes, set both the front and back
         if not self.back:
             self.front = item
@@ -28,7 +27,7 @@ class LinkedQueue:
         self.back = item
 
     def dequeue(self):
-        '''Remove and return the item at the front of the queue'''
+        """Remove and return the item at the front of the queue"""
         old_front = self.front
         if self.front:
             self.front = self.front.next
@@ -37,6 +36,7 @@ class LinkedQueue:
 
 class ArrayQueue:
     """The front is index 0, and the last index is the back"""
+
     def __init__(self):
         self.items = list()
 

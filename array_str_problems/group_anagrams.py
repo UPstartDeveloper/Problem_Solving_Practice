@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         """
@@ -7,33 +8,33 @@ class Solution:
         - each string has at least 1 char
         - string chars are lower case English chars only
         - there is guaranteed to be 0 or more strings
-        
+
         Questions:
         - can there be duplicate strings? no
-        
-        
+
+
         edge case:
         [[]] -> [[]]
         [] -> ValueError
-        
+
         Brainstorm:
-        
+
         test input
         Input: strs = ["eat","tea","tan","ate","nat","bat"]
         Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
-        
+
         Idea 1: Brute force iterate, compare
         # intuition: check if each string falls in a predefined group of anagrams,
                      and if not start a new group of anagrams
         # approach:
-        
+
         # A: init a list for the output
         # B: loop over each string
             # C: check if this string is an anagram with 1 str from all of the other groups
             # D: if it's not, start a new group with it - [string]
         #: E: return all the output as a 2D list
 
-        
+
         """
         """
         Solution 1: O(n^2 * l), where n = # strings and l = length of longest
@@ -78,22 +79,23 @@ class Solution:
         #: E: return all the output as a 2D list
         return output
         """
+
         def alphabetize(strs):
-            '''sort the letters in each string, then as a whole'''
-             # A: sort the letters in each individual string
+            """sort the letters in each string, then as a whole"""
+            # A: sort the letters in each individual string
             sorted_strs = list()
             for original_string in strs:
                 str_list = list(original_string)
                 str_list.sort()  # l log (l)
-                sorted_str = ''.join(str_list)
-                sorted_strs.append((sorted_str, original_string)) 
+                sorted_str = "".join(str_list)
+                sorted_strs.append((sorted_str, original_string))
             # B: sort the whole array of sorted strings
             sorted_strs.sort()
             print(sorted_strs)
             return sorted_strs
 
         # A: sort the letters in each individual string
-        # B: sort the sorted strings relative to each other, 
+        # B: sort the sorted strings relative to each other,
         sorted_strs = alphabetize(strs)
         # C: see which strings belong together
         groups = list()
@@ -107,7 +109,7 @@ class Solution:
             next_idx = idx + 1
             while next_idx < len(strs):
                 if sorted_strs[next_idx][0] == group_string:
-                    # add the string to the group, 
+                    # add the string to the group,
                     group.append(sorted_strs[next_idx][1])
                     # move ahead in the array
                     next_idx += 1
@@ -121,7 +123,6 @@ class Solution:
         return groups
 
 
-    
 """
 output = [
 ["eat", "tea", "ate"],

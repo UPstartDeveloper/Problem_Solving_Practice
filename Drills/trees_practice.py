@@ -16,10 +16,10 @@ class Node:
 
     def get_in_order_successor(self):
         """
-           returns the child w/ the smallest value 
-           in this node's right subtree
+        returns the child w/ the smallest value
+        in this node's right subtree
 
-           if not there, return -1
+        if not there, return -1
         """
         if self.val and self.right is not None:
             successor = self.right
@@ -43,7 +43,7 @@ class BST:
         self.size = 1
 
     def find(self, target: int) -> int:
-        '''return a Node w/ the value, or -1'''
+        """return a Node w/ the value, or -1"""
         if self.root is not None:
             node = self.root
             while node.val != target:
@@ -58,7 +58,7 @@ class BST:
         return -1
 
     def add_node(self, value):
-        '''insert the node into this tree w/ the value in sorted order'''
+        """insert the node into this tree w/ the value in sorted order"""
         # add root node
         if self.root is None:
             self.root = Node(value)
@@ -67,11 +67,11 @@ class BST:
             while cur_node is not None:
                 # update the prev node
                 prev = cur_node
-                # go left 
+                # go left
                 if value > cur_node.val:
                     cur_node = cur_node.right
                 # go right
-                else: # node.val <= cur_node.val
+                else:  # node.val <= cur_node.val
                     cur_node = cur_node.left
             # we've found a position for the new node, see where it is
             is_left_child = True
@@ -86,18 +86,18 @@ class BST:
         self.size += 1
 
     def delete_node(self, value):
-        """remove a node w/ this value from the tree, 
-           modify the tree
+        """remove a node w/ this value from the tree,
+        modify the tree
 
-           q: what to do if the node isn't present?
+        q: what to do if the node isn't present?
 
-           no kids - it's a leaf, just make the parent's pointer None
+        no kids - it's a leaf, just make the parent's pointer None
 
-           one kid - parent the kid to the parent of the deleted node
+        one kid - parent the kid to the parent of the deleted node
 
-           two kids - promote left subtree,
-                      go to the bottom of the left subtree
-                      parent right subtree to the bottom of the left subtree
+        two kids - promote left subtree,
+                   go to the bottom of the left subtree
+                   parent right subtree to the bottom of the left subtree
         """
 
         def delete_leaf(parent, deleted, is_left_child):
@@ -107,8 +107,8 @@ class BST:
                     parent.left = None
                 else:  # the deleted node is in the right subtree
                     parent.right = None
-            else: # root is being deleted, and only node
-                self.root = None 
+            else:  # root is being deleted, and only node
+                self.root = None
             # decrease tree size
             self.size -= 1
 
@@ -126,14 +126,14 @@ class BST:
                 self.root = grandchild
             # decrease tree size
             self.size -= 1
-     
+
         def delete_node_two_child(parent, deleted, is_left_child):
-            '''rewrite using the in_order_successor'''
-            # get the successor 
+            """rewrite using the in_order_successor"""
+            # get the successor
             successor = deleted.get_in_order_successor()
             # delete the node in the place of the successor - should be a leaf
             self.delete_node(successor.val)
-            # place the val of the successor where it belongs 
+            # place the val of the successor where it belongs
             deleted.val = successor.val
 
         # find the node w/ the target value
@@ -163,11 +163,11 @@ class BST:
         elif deleted.left is None or deleted.right is None:
             delete_node_one_child(parent, deleted, is_left_child)
         # two kids
-        else: 
+        else:
             delete_node_two_child(parent, deleted, is_left_child)
-    
+
     def validate(self) -> bool:
-        '''returns T/F based on if this BST is in sorted order'''
+        """returns T/F based on if this BST is in sorted order"""
         if self.root is not None:
             prev, node = None, self.root
             # boiler plate DFS in order
@@ -178,16 +178,12 @@ class BST:
                 if node is not None:
                     stack.append(node)  # defer the current node
                     prev = node
-                    node = node.left  
+                    node = node.left
                 else:  # visiting nodes
                     node = stack.pop()
                     # compare prev and node
                     if prev.val > node.val:
                         return False
                     prev = node
-                    node = node.right 
+                    node = node.right
         return True
-
-
-
-    

@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class TreeNode:
     def __init__(self, key: str) -> None:
         self.key = key
@@ -11,7 +12,7 @@ class Tree:
         self.root = root
 
     def bfs_iterative(self, visit: function) -> None:
-        '''Assumes root is not None'''
+        """Assumes root is not None"""
         # A: init queue
         q = deque([self.root])
         # B: bfs the tree
@@ -25,7 +26,7 @@ class Tree:
         pass
 
     def bfs_recursive(self, visit: function, q=None) -> None:
-        '''Assumes root is not None'''
+        """Assumes root is not None"""
         # Base Cases
         if q is None:
             # A: init queue
@@ -40,11 +41,10 @@ class Tree:
             for child in [node.left, node.right]:
                 if child is not None:
                     q.append(child)
-        
-        return self.bfs_recursive(visit, q)
-            
-    def dfs_inorder(self, use_iteration=True) -> set:
 
+        return self.bfs_recursive(visit, q)
+
+    def dfs_inorder(self, use_iteration=True) -> set:
         def _dfs_iterative(visit: function) -> None:
             # A: init stack
             if self.root is not None:
@@ -60,7 +60,7 @@ class Tree:
                         visit(node)
                         node = node.right
             # C: finish the search
-            return 
+            return
 
         def _dfs_recursive(visit: function, node=None):
             # A: init the search
@@ -81,5 +81,3 @@ class Tree:
         if use_iteration is True:
             return _dfs_iterative(visited.add)
         return _dfs_recursive(visited.add)
-
-

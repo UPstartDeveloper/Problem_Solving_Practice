@@ -55,20 +55,22 @@ def generate_parentheses(n):
     # Assume n > 1
     """
     global output
+
     def add_adj(permutation, parentheses_left):  # '()'
         # find the last ')' char
         for index_char in range(len(permutation) - 1, -1, -1):
             char = permutation[index_char]
-            if char == ')':
+            if char == ")":
                 # add the new '()' next to it
-                new_permutation = ''.join([
-                    permutation[:index_char + 1], '()', permutation[index_char + 1:]
-                ])
+                new_permutation = "".join(
+                    [permutation[: index_char + 1], "()", permutation[index_char + 1 :]]
+                )
                 generate_permutations(new_permutation, parentheses_left - 1)
                 # return new_permutation
+
     def add_nested(permutation):
         # find the index of the last ')' char
-        # '(())' 
+        # '(())'
         # ic = 3
         # last_closer_index = 3
         # c = 2
@@ -76,13 +78,13 @@ def generate_parentheses(n):
         # oi = 0
         for index_char in range(len(permutation) - 1, -1, -1):
             char = permutation[index_char]
-            if char == ')':
+            if char == ")":
                 last_closer_index = index_char
                 # while the index of the matching opener
                 closers = 1
                 closers_index = index_char - 1
                 while closers_index > 0:
-                    if permutation[closers_index] == ')':
+                    if permutation[closers_index] == ")":
                         closers += 1
                         closers_index -= 1
                     else:
@@ -91,16 +93,18 @@ def generate_parentheses(n):
                 opening_index = last_closer_index - (2 * closers) + 1
                 # wrap the () in a new pair of parentheses
                 new_permutation = (
-                    permutation[:opening_index] + '(' + 
-                    permutation[opening_index:last_closer_index + 1]
+                    permutation[:opening_index]
+                    + "("
+                    + permutation[opening_index : last_closer_index + 1]
                 )
-                new_permutation += ')'
+                new_permutation += ")"
                 return new_permutation
+
     def generate_permutations(permutation, parentheses_left):
         # base case: added n ()'s
-        if parentheses_left ==  0: # and len(permutation) == required_length:
-        # append to the output
-            if permutation not in output: 
+        if parentheses_left == 0:  # and len(permutation) == required_length:
+            # append to the output
+            if permutation not in output:
                 output.add(permutation)
             return
         # recursive case:
@@ -115,6 +119,7 @@ def generate_parentheses(n):
             parentheses_left -= 1
             if parentheses_left == 0:
                 return
+
     # init the output of all the permutations
     output = set()
     if n > 0:
@@ -127,7 +132,8 @@ def generate_parentheses(n):
         generate_permutations(permutation, n)
     # return all the permutations
     return list(output)
-    
+
+
 """
 
 output = [

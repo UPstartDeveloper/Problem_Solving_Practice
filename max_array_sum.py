@@ -21,6 +21,7 @@ def maxSubsetSum(arr):
             if elem > 0:
                 max_sum += elem
         return max_sum
+
     # A: count number of nonegative integers
     positives = 0
     for elem in arr:
@@ -40,10 +41,10 @@ def maxSubsetSum(arr):
         return max_sum_odd
     # Cd: return the higher of the two
     return max_sum_even
-    
 
-if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+if __name__ == "__main__":
+    fptr = open(os.environ["OUTPUT_PATH"], "w")
 
     n = int(input())
 
@@ -51,6 +52,6 @@ if __name__ == '__main__':
 
     res = maxSubsetSum(arr)
 
-    fptr.write(str(res) + '\n')
+    fptr.write(str(res) + "\n")
 
     fptr.close()

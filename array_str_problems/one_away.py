@@ -80,7 +80,7 @@ class Solution:
         return count >= len(str1) - 1
 
     def is_close_different_size(self, str1: List[str], str2: List[str]) -> bool:
-        """in this step it's ok to modify the length of strings, 
+        """in this step it's ok to modify the length of strings,
         (b/c we're adding or removing), so we first need to make sure
         the string characters we do have are in some sort of order
         """
@@ -97,7 +97,7 @@ class Solution:
             elif index == len(str2):
                 break
         # check if we could make the strings equal
-        return (count == shorter_length)
+        return count == shorter_length
 
     def is_close(self, str1, str2) -> bool:
         """
@@ -109,14 +109,20 @@ class Solution:
         if abs(len(str1) - len(str2)) <= 1:
             # put strings into lists
             str1_list, str2_list = list(str1), list(str2)
-            
-            if (   
+
+            if (
                 # check for one edit away on equally-sized strings
-                (len(str1) == len(str2) and 
-                 self.is_close_equal_size(str1_list, str2_list)) or 
+                (
+                    len(str1) == len(str2)
+                    and self.is_close_equal_size(str1_list, str2_list)
+                )
+                or
                 # check for one edit away on strings 1 char away in sizes
-                (len(str1) != len(str2) and 
-                 self.is_close_different_size(str1_list, str2_list))):
+                (
+                    len(str1) != len(str2)
+                    and self.is_close_different_size(str1_list, str2_list)
+                )
+            ):
                 is_close = True
         return is_close
 
@@ -128,11 +134,11 @@ if __name__ == "__main__":
         ("", ""),
         # true - different size
         ("pale", "pales"),
-         # false - same size
+        # false - same size
         ("bake", "pale"),
-        # false - different size  
-        ("tac", "cat"), 
-        ("Spider-Man", "Batman")
+        # false - different size
+        ("tac", "cat"),
+        ("Spider-Man", "Batman"),
     ]
 
     sol = Solution()

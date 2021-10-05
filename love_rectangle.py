@@ -41,7 +41,7 @@ the bottm_y or left_x
 
 
 def make_set(start_coordinate, length):
-    '''Compute the set the coordinate values a rectangles takes on an axis.'''
+    """Compute the set the coordinate values a rectangles takes on an axis."""
     end_coordinate = start_coordinate + length
     return set(range(start_coordinate, end_coordinate + 1))
 
@@ -65,28 +65,29 @@ Idea 2: using iteration
 
 
 def rectangle_love(rect1, rect2):
-    '''Computes the overlap between two rectangles in the Cartesian plane.'''
+    """Computes the overlap between two rectangles in the Cartesian plane."""
+
     def access_edge(rect, start, length):
         """Return the starting coordinate value, and length of the rectangle
-           occupies on some axis.
+        occupies on some axis.
 
         """
         return rect[start], rect[length]
 
     def find_axis_overlap(axis):
-        '''Compute the location of two rectangles' overlap on an axis.'''
+        """Compute the location of two rectangles' overlap on an axis."""
         # determine the axis we are traversing
-        if axis == 'x':
-            start, length = 'left_x', 'width'
-        elif axis == 'y':
-            start, length = 'bottom_y', 'height'
+        if axis == "x":
+            start, length = "left_x", "width"
+        elif axis == "y":
+            start, length = "bottom_y", "height"
         # obtain values from each rectangle for this axis
         rect1_start, rect1_length = access_edge(rect1, start, length)
         rect2_start, rect2_length = access_edge(rect2, start, length)
         # calculate the final coordinate values for both rectangles on the axis
         rect1_final, rect2_final = (
             rect1_start + rect1_length + 1,
-            rect2_start + rect2_length + 1
+            rect2_start + rect2_length + 1,
         )
         # make a range of the second rectangles coordinate values
         rect2_range = list(range(rect2_start, rect2_final))
@@ -108,16 +109,16 @@ def rectangle_love(rect1, rect2):
         return rect1_coordinate, intersected_length
 
     # putting it all together - X-axis overlap
-    x_overlap_start, x_overlap_length = find_axis_overlap('x')
-    y_overlap_start, y_overlap_length = find_axis_overlap('y')
+    x_overlap_start, x_overlap_length = find_axis_overlap("x")
+    y_overlap_start, y_overlap_length = find_axis_overlap("y")
     # build the dictionary
     return {
-        'left_x': x_overlap_start,
-        'bottom_y': y_overlap_start,
-        'width': x_overlap_length,
-        'height': y_overlap_length
+        "left_x": x_overlap_start,
+        "bottom_y": y_overlap_start,
+        "width": x_overlap_length,
+        "height": y_overlap_length,
     }
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass

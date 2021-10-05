@@ -2,26 +2,31 @@ from collections import deque
 
 
 def get_number_of_islands(binaryMatrix):
-  def is_land(current_row, current_col):
-    # get the current vertex at this position
-    vertex = binaryMatrix[current_row][current_col]
-    # if it's zero, return False
-    return vertex == 1
-  def get_available_neighbors(current_row, current_col):
-    # init list of neighbors
-    neighbors = list()
-    # check each position in the 4 directions
-    for direction in directions:
-      direction_x, direction_y = direction
-      # calculate the indices of the neighbor
-      neighbor_row = current_row + direction_x  # 0
-      neighbor_col = current_col + direction_y  # 2
-      # validate it
-      if ((neighbor_row, neighbor_col) not in visited and 
-           0 <= neighbor_row < NUM_ROWS and 0 <= neighbor_col < NUM_COLS):
-        neighbors.append((neighbor_row, neighbor_col))
-    return neighbors
-  """
+    def is_land(current_row, current_col):
+        # get the current vertex at this position
+        vertex = binaryMatrix[current_row][current_col]
+        # if it's zero, return False
+        return vertex == 1
+
+    def get_available_neighbors(current_row, current_col):
+        # init list of neighbors
+        neighbors = list()
+        # check each position in the 4 directions
+        for direction in directions:
+            direction_x, direction_y = direction
+            # calculate the indices of the neighbor
+            neighbor_row = current_row + direction_x  # 0
+            neighbor_col = current_col + direction_y  # 2
+            # validate it
+            if (
+                (neighbor_row, neighbor_col) not in visited
+                and 0 <= neighbor_row < NUM_ROWS
+                and 0 <= neighbor_col < NUM_COLS
+            ):
+                neighbors.append((neighbor_row, neighbor_col))
+        return neighbors
+
+    """
   - is it always a square matrix? no
   - diagonal connection - does NOT mean that the 1's are part of the same island
   - types: given 2D array, return int
@@ -83,59 +88,60 @@ def get_number_of_islands(binaryMatrix):
     current_row = 0, current_col = 3
     
   
-  """ # your code goes here
-  # A: getting the data structures
-  # init a queue, for the vertices to visit next
-  next_vertices = deque()
-  
-  # init a set: visited - to keep track of the vertices we've already seen
-  visited = set()
-  # init a count = 0 - num of components that we have 
-  islands = 0
-  # B: traverse the matrix
-  # define directions
-  NUM_ROWS = len(binaryMatrix)
-  NUM_COLS = 0
-  # update number of columns - overcome the assumption of >= 1 rows
-  if NUM_ROWS > 0:
-    NUM_COLS = len(binaryMatrix[0])
-  current_row, current_col = 0, 0
-  RIGHT, LEFT, UP, DOWN = (
-    (0, 1),
-    (0, -1),
-    (-1, 0),
-    (1, 0)
-  )
-  directions = [RIGHT, LEFT, UP, DOWN]
-  # - on every element, start by adding its indices to the set of visited
-  while current_row < NUM_ROWS: 
-    while current_col < NUM_COLS:
-      # if it's not, just move on
-      if (current_row, current_col) not in visited and is_land(current_row, current_col) is True:
-        # get_available_neighbors
-        neighbors = get_available_neighbors(current_row, current_col)
-        # enqueue those neighbors
-        for neighbor in neighbors:
-          next_vertices.append(neighbor)
-        # while the queue's not empty
-        while next_vertices:
-          # dequeue the next vertex
-          next_vertex = next_vertices.popleft()
-          next_row, next_col = next_vertex
-          if (next_row, next_col) not in visited and is_land(next_row, next_col) is True:
-            neighbors = get_available_neighbors(next_row, next_col)
-            # enqueue those neighbors
-            for neighbor in neighbors:
-              next_vertices.append(neighbor)
-          visited.add(next_vertex)
-        islands += 1 
-      # mark the current position as being visited
-      visited.add((current_row, current_col))   
-      # increment the col no matter what
-      current_col += 1   
-    current_col = 0
-    current_row += 1
-  return islands
+  """  # your code goes here
+    # A: getting the data structures
+    # init a queue, for the vertices to visit next
+    next_vertices = deque()
+
+    # init a set: visited - to keep track of the vertices we've already seen
+    visited = set()
+    # init a count = 0 - num of components that we have
+    islands = 0
+    # B: traverse the matrix
+    # define directions
+    NUM_ROWS = len(binaryMatrix)
+    NUM_COLS = 0
+    # update number of columns - overcome the assumption of >= 1 rows
+    if NUM_ROWS > 0:
+        NUM_COLS = len(binaryMatrix[0])
+    current_row, current_col = 0, 0
+    RIGHT, LEFT, UP, DOWN = ((0, 1), (0, -1), (-1, 0), (1, 0))
+    directions = [RIGHT, LEFT, UP, DOWN]
+    # - on every element, start by adding its indices to the set of visited
+    while current_row < NUM_ROWS:
+        while current_col < NUM_COLS:
+            # if it's not, just move on
+            if (current_row, current_col) not in visited and is_land(
+                current_row, current_col
+            ) is True:
+                # get_available_neighbors
+                neighbors = get_available_neighbors(current_row, current_col)
+                # enqueue those neighbors
+                for neighbor in neighbors:
+                    next_vertices.append(neighbor)
+                # while the queue's not empty
+                while next_vertices:
+                    # dequeue the next vertex
+                    next_vertex = next_vertices.popleft()
+                    next_row, next_col = next_vertex
+                    if (next_row, next_col) not in visited and is_land(
+                        next_row, next_col
+                    ) is True:
+                        neighbors = get_available_neighbors(next_row, next_col)
+                        # enqueue those neighbors
+                        for neighbor in neighbors:
+                            next_vertices.append(neighbor)
+                    visited.add(next_vertex)
+                islands += 1
+            # mark the current position as being visited
+            visited.add((current_row, current_col))
+            # increment the col no matter what
+            current_col += 1
+        current_col = 0
+        current_row += 1
+    return islands
+
+
 """
 current_vertix = binaryMatrix[current_row][current_col]
 if it's a zero - move on

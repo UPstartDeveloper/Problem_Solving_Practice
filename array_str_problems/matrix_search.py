@@ -32,57 +32,57 @@ O(log m + log n) = O(log(m*n))
 """
 import math
 
+
 def matrix_search(matrix, target):
-  # store a variable for the last column
-  last_col = len(matrix[0]) - 1
-  def find_row(lo_row, hi_row):
-    '''Finds the row in which the target most likely expected to be in'''
-    # compare the value in the middle row to the value
-    mid_row_index = int((lo_row + hi_row) / 2)
-    print(mid_row_index)
-    mid_row_first, mid_row_last = (
-      matrix[mid_row_index][0],
-      matrix[mid_row_index][last_col]
-    )
-    # if found, return the index of the row
-    if mid_row_first <= target <= mid_row_last or lo_row == hi_row:
-      return mid_row_index
-    # if target less than middle row, 
-    elif target < mid_row_first:
-      # search the lower half of the column
-      return find_row(lo_row, mid_row_index - 1)
-    # if target greater
-    elif target > mid_row_last:
-      # search the larger half of the column
-      return find_row(mid_row_index + 1, hi_row)
-  def search_row(low, hi, row):
-    '''Finds the element in the row (and returns 1), or returns 0.'''
-    # find the value in the middle
-    mid_index = int((low + hi) // 2)
-    middle = row[mid_index]
-    # if equal, then return 1
-    if target == middle:
-      return 1
-     # if not found, return 0
-    elif low == hi:
-      return 0
-    # if less than, search the lower half of the row 
-    elif target < middle:
-      return search_row(low, mid_index - 1, row)
-    # if greater than, search the larger half of the row 
-    elif target > middle:
-      return search_row(mid_index + 1, hi, row)
-  # search the first column for the target
-  row_expected_index = find_row(0, len(matrix) - 1)
-  # get the row to search
-  expected_row = matrix[row_expected_index]
-  # search the row
-  return search_row(0, last_col, expected_row)
+    # store a variable for the last column
+    last_col = len(matrix[0]) - 1
+
+    def find_row(lo_row, hi_row):
+        """Finds the row in which the target most likely expected to be in"""
+        # compare the value in the middle row to the value
+        mid_row_index = int((lo_row + hi_row) / 2)
+        print(mid_row_index)
+        mid_row_first, mid_row_last = (
+            matrix[mid_row_index][0],
+            matrix[mid_row_index][last_col],
+        )
+        # if found, return the index of the row
+        if mid_row_first <= target <= mid_row_last or lo_row == hi_row:
+            return mid_row_index
+        # if target less than middle row,
+        elif target < mid_row_first:
+            # search the lower half of the column
+            return find_row(lo_row, mid_row_index - 1)
+        # if target greater
+        elif target > mid_row_last:
+            # search the larger half of the column
+            return find_row(mid_row_index + 1, hi_row)
+
+    def search_row(low, hi, row):
+        """Finds the element in the row (and returns 1), or returns 0."""
+        # find the value in the middle
+        mid_index = int((low + hi) // 2)
+        middle = row[mid_index]
+        # if equal, then return 1
+        if target == middle:
+            return 1
+        # if not found, return 0
+        elif low == hi:
+            return 0
+        # if less than, search the lower half of the row
+        elif target < middle:
+            return search_row(low, mid_index - 1, row)
+        # if greater than, search the larger half of the row
+        elif target > middle:
+            return search_row(mid_index + 1, hi, row)
+
+    # search the first column for the target
+    row_expected_index = find_row(0, len(matrix) - 1)
+    # get the row to search
+    expected_row = matrix[row_expected_index]
+    # search the row
+    return search_row(0, last_col, expected_row)
 
 
-if __name__ == '__main__':
-  print(matrix_search([
-    [1,   3,  5,  7],
-    [10, 11, 16, 20],
-    [23, 30, 34, 50]
-  ], 11))
+if __name__ == "__main__":
+    print(matrix_search([[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]], 11))

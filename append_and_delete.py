@@ -1,12 +1,12 @@
-'''Problem found on Hacker Rank:
+"""Problem found on Hacker Rank:
     https://www.hackerrank.com/challenges/append-and-delete/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign&h_r=next-challenge&h_v=zen
-'''
+"""
 
 
 def appendAndDelete(s, t, k):
     # make preliminary check
     if s == t:
-        return 'Yes'
+        return "Yes"
     # make the strings into lists, so they easier to work with
     s = list(s)
     t = list(t)
@@ -15,7 +15,7 @@ def appendAndDelete(s, t, k):
     target_length = len(t)
     diff_length = target_length - input_length
     if (diff_length > 0) and (diff_length < k):
-        print('')
+        print("")
     else:
         # iterate over strings to see how much of a common prefix they share
         index = 0
@@ -27,7 +27,7 @@ def appendAndDelete(s, t, k):
         # delete letters in s from this index onwards
         for i in range(index, len(s)):
             if k > 0 and i < len(s):
-                s[i] = ''
+                s[i] = ""
                 # print(s, i)
                 k -= 1
         # append letters to s from t, also starting at this index
@@ -37,21 +37,21 @@ def appendAndDelete(s, t, k):
                 s.append(t[i])
                 k -= 1
         # see if the strings are equal now, and make decision
-        s = ''.join(s)
-        t = ''.join(t)
-        print(f'S: {s}')
-        print(f't: {t}')
-        print(f'k: {k}')
+        s = "".join(s)
+        t = "".join(t)
+        print(f"S: {s}")
+        print(f"t: {t}")
+        print(f"k: {k}")
         if s == t and k == 0:
-            return 'Yes'
+            return "Yes"
         else:
-            return 'No'
+            return "No"
 
 
-if __name__ == '__main__':
-    s = 'aaaaaaaaaa'
+if __name__ == "__main__":
+    s = "aaaaaaaaaa"
 
-    t = 'aaa'
+    t = "aaa"
 
     k = 7
 

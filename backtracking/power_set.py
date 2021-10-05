@@ -63,11 +63,12 @@ Subset = { _ , _ , _}
 
 
 def power_set(values):
-    '''Return all the set of all subsets of a set.'''
+    """Return all the set of all subsets of a set."""
     # A: init the set for the return value
     subsets = list()
+
     def size_subsets(size, current, values):
-        '''Finds all subsets of a given size in a set.'''
+        """Finds all subsets of a given size in a set."""
         # Base Case: the current subset is full
         if len(current) == size:
             # add the current subset to the output (if not already there)
@@ -80,13 +81,14 @@ def power_set(values):
             for _ in range(len(values)):
                 new_item = values.pop()
                 print(f"Current and new item: {current, new_item}")
-                 # add one more value to the current subset
+                # add one more value to the current subset
                 current.append(new_item)
                 size_subsets(size, current, {v for v in values})
                 print(f"Values left: {values}")
                 # remove one of the elements, so we reach all possibilities
                 current.pop()
         return None
+
     # B: iterate over all possible sizes
     for size in range(1, len(values) + 1):
         # add the subsets of the given size to the output

@@ -72,31 +72,37 @@ def single_number(nums):
 
 # This model solution is from Prof. Narayan, at Cal State Monterey Bay
 
+
 class Trinary:
     def __init__(self):
         self.bits = [0 for i in range(32)]
-        print(f'Initialized Tri: {self.bits}')
+        print(f"Initialized Tri: {self.bits}")
+
     def xor(self, num):
         for i in range(32):
             bit = 1 << i
             if num & bit:
-                print(f'Num: {num} and mask: {bit}')
+                print(f"Num: {num} and mask: {bit}")
                 # when a bit occurs any multiple of three times, it will roll back to 0
                 self.bits[i] = self.bits[i] + 1 if self.bits[i] + 1 <= 2 else 0
-                print(f'Bits changed => {self.bits}')
+                print(f"Bits changed => {self.bits}")
+
     def value(self):
         num = 0
         for i in range(32):
             if self.bits[i] == 1:
-                num += 2**(i)
-                print(f'Num changed: {num}')
+                num += 2 ** (i)
+                print(f"Num changed: {num}")
         return num
+
 
 def single_number(nums):
     tri = Trinary()
     for num in nums:
         tri.xor(num)
     return tri.value()
+
+
 """
 
 def single_number(nums):
@@ -132,7 +138,6 @@ if __name__ == "__main__":
     single_number(big_array)
 """
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     nums = [3, 3, 3, 10]
     single_number(nums)
-    

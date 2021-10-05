@@ -22,10 +22,9 @@ def total(basket):
                 other_order = book_orders[j]
                 # print(book_orders)
                 # if this order has no unique values versus another order
-                if (len(order - other_order) == 0 and not
-                        len(order) >= len(other_order)):
-                    print(f'Order: {order}')
-                    print(f'Other order: {other_order}')
+                if len(order - other_order) == 0 and not len(order) >= len(other_order):
+                    print(f"Order: {order}")
+                    print(f"Other order: {other_order}")
                     # transfer of book between orders
                     unique_books = other_order - order
                     book_to_give = unique_books.pop()
@@ -34,22 +33,15 @@ def total(basket):
                     # reassign into the book_orders array
                     print(i, j)
                     book_orders[i], book_orders[j] = order, other_order
-                    '''del book_orders[i + 1]
+                    """del book_orders[i + 1]
                     if i < j:
                         del book_orders[j]
                     else:
                         del book_orders[j + 1]
-                    print(book_orders)'''
+                    print(book_orders)"""
     # use the lengths of each set to calculate discount percentage
     cost_one_book = 8
-    order_discounts = {
-        0: 0,
-        1: 0,
-        2: .05,
-        3: .10,
-        4: .20,
-        5: .25
-    }
+    order_discounts = {0: 0, 1: 0, 2: 0.05, 3: 0.10, 4: 0.20, 5: 0.25}
     # calculate subtotal
     total_cost = 0
     for i in range(len(book_orders)):

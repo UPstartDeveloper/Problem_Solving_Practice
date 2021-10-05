@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class BinaryTreeNode:
     def __init__(self, key: int):
         self.key = key
@@ -41,13 +42,13 @@ class BinaryTree:
                     if neighbor is not None:
                         queue.append(neighbor)
             return _bfs_recursive(visited, q)
-        
+
         if is_recursive:
             return _bfs_recursive()
         return _bfs_iterative()
 
     def dfs(self, type, is_recursive: bool):
-        ### DFS HELPER FUNCTIONS 
+        ### DFS HELPER FUNCTIONS
         def _in_order_recursive(node=None, visited=None):
             if visited is None:
                 visited = set()
@@ -65,7 +66,7 @@ class BinaryTree:
                 if node:
                     stack.append(node)
                     node = node.left
-                elif len(stack) > 0: # node is None
+                elif len(stack) > 0:  # node is None
                     node = stack.pop()
                     visited.add(node)
                     node = node.right
@@ -99,12 +100,12 @@ class BinaryTree:
         def _post_order_iterative():
             pass
 
-        #### DRIVER 
+        #### DRIVER
         # recursive version of the algo goes in index 1, iterative in 0
         functions = {
-            'in_order': [_in_order_iterative, _in_order_recursive],
-            'pre_order': [_pre_order_iterative, _pre_order_recursive],
-            'post_order': [_post_order_iterative, _post_order_recursive]
+            "in_order": [_in_order_iterative, _in_order_recursive],
+            "pre_order": [_pre_order_iterative, _pre_order_recursive],
+            "post_order": [_post_order_iterative, _post_order_recursive],
         }
         # run the algorithm
         return functions[type][int(is_recursive)]()
@@ -122,7 +123,6 @@ class Graph:
         self.vertices = dict()
 
     def bfs(self, is_recursive=False):
-
         def _bfs_recursive(queue=None, visited=set()):
             # base case: no queue
             if queue is None:
@@ -133,7 +133,7 @@ class Graph:
             elif len(queue) == 0:
                 return visited
             # recursive: traversal algo
-            else: 
+            else:
                 # dequeue a node
                 node = queue.popleft()
                 # visit it
@@ -148,7 +148,7 @@ class Graph:
             # init q w/ first node
             first, visited = list(self.vertices.values())[0], set()
             if first is not None:
-                # traverse 
+                # traverse
                 q = deque([first])
                 while len(q) > 0:
                     # dequeue a node
@@ -161,13 +161,12 @@ class Graph:
                             q.append(neighbor)
             # return result
             return visited
-    
+
         if is_recursive:
             return _bfs_recursive()
         return _bfs_iterative()
 
     def dfs(self, is_recursive=False):
-        
         def _dfs_recursive(node=None, visited=None):
             # base case: no node
             if node is None and visited is None:
@@ -201,7 +200,7 @@ class Graph:
                             stack.append(neighbor)
             # return results
             return visited
-        
+
         if is_recursive:
             return _dfs_recursive()
         return _dfs_iterative()

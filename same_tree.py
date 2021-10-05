@@ -7,7 +7,7 @@
 class Solution:
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
         def collect_items(node, items):
-            '''Performs a pre-order traversal on a binary tree'''
+            """Performs a pre-order traversal on a binary tree"""
             # visit the node
             if node is None:
                 items.append(node)
@@ -17,16 +17,17 @@ class Solution:
                 collect_items(node.left, items)
                 # traverse the right subtree, if it exists
                 collect_items(node.right, items)
-            
+
         # collect items from first tree
         tree1 = list()
         collect_items(p, tree1)
         # collect items from second tree
         tree2 = list()
         collect_items(q, tree2)
-        # compare 
+        # compare
         return tree1 == tree2
-    
+
+
 """
 tree1
 [1, 2, None, None, 3, None, None]

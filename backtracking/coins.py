@@ -87,17 +87,18 @@ class Solution:
         10: 25,
         25: 1,
     }"""
+
     multipliers = [1, 5, 10, 25]
 
     coins = list()
 
     def make_change(self, n: int) -> bool:
-        '''returns if we have the right number of coins to make n cents.'''
+        """returns if we have the right number of coins to make n cents."""
         change = (
-            (1 * self.coins[0]) + 
-            (5 * self.coins[1]) + 
-            (10 * self.coins[2]) + 
-            (25 * self.coins[3])
+            (1 * self.coins[0])
+            + (5 * self.coins[1])
+            + (10 * self.coins[2])
+            + (25 * self.coins[3])
         )
         return change == n
 
@@ -123,11 +124,11 @@ class Solution:
             upper = remainder // multiplier
             original_remainder = remainder
             # check that the multiplier is useful in making combos
-            if upper > 0:  
+            if upper > 0:
                 # iterate down from the upper bound
                 for coefficient in range(upper, -1, -1):
                     # decrement the n (update the remainder)
-                    remainder -= (coefficient * multiplier)
+                    remainder -= coefficient * multiplier
                     # try to see how we can combine w/ other multipliers
                     next_multiplier = multiplier_index + 1
                     self.get_coin_combinations(n, remainder, next_multiplier)
@@ -155,14 +156,17 @@ class Solution:
                     for twenty_five_coef in range(two_five_bound + 1):
                         # sum the variables
                         summation = (
-                            (one_coef * 1) + (five_coef * 5) +
-                            (ten_coef * 10) + (twenty_five_coef * 25)
+                            (one_coef * 1)
+                            + (five_coef * 5)
+                            + (ten_coef * 10)
+                            + (twenty_five_coef * 25)
                         )
                         # see if it fits
                         if summation == n:
                             combos += 1
         # C: return the answer
         return combos
+
 
 if __name__ == "__main__":
     n = 1250
@@ -182,5 +186,3 @@ if __name__ == "__main__":
 1      12      12      1       0    12
 sf     n       r       m       c    u
 """
-
-

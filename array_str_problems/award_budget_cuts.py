@@ -1,6 +1,6 @@
 def find_grants_cap(grantsArray, newBudget):
     """
-    hey how u doin 
+    hey how u doin
 
     let me try to join again
 
@@ -12,7 +12,7 @@ def find_grants_cap(grantsArray, newBudget):
     grants > cap ===> grant = cap
     grants <= cap ===> no change
 
-    find cap 
+    find cap
     optimize for the minimal impacted_grants
 
     return cap
@@ -32,9 +32,9 @@ def find_grants_cap(grantsArray, newBudget):
     b: Difference
         1272
         -190
-        
-        
-    C: 
+
+
+    C:
     upper bound for cap
     newBudget / N =  190 / 5 = 38
     lower bound = min(grantsArray)
@@ -161,9 +161,9 @@ def find_grants_cap(grantsArray, newBudget):
     index = 0
     while index < len(grantsArray) - 1:
         grant = grantsArray[index]
-        surplus -= (index+1) * (grant - grantsArray[index + 1])
+        surplus -= (index + 1) * (grant - grantsArray[index + 1])
         print(f"Surplus is now: {surplus}, grant is {grant}")
-        if (surplus <= 0):
+        if surplus <= 0:
             break
         index += 1
     grants_affected = index + 1
@@ -174,8 +174,8 @@ def find_grants_cap(grantsArray, newBudget):
 
 
 if __name__ == "__main__":
-    grantsArray, newBudget = [2,100,50,120,167], 400
+    grantsArray, newBudget = [2, 100, 50, 120, 167], 400
     print(find_grants_cap(grantsArray, newBudget))
 
-    grantsArray, newBudget = [2,100,50,120,1000], 190
+    grantsArray, newBudget = [2, 100, 50, 120, 1000], 190
     print(find_grants_cap(grantsArray, newBudget))

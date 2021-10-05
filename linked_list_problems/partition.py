@@ -77,6 +77,7 @@ def sum_lists(listA: ListNode, listB: ListNode):
     Time: O(a + b + max(a, b))
     Space: O(max(a, b))
     """
+
     def decode(list_head: ListNode):
         # init decoded value to zero
         decoded = 0
@@ -102,7 +103,7 @@ def sum_lists(listA: ListNode, listB: ListNode):
             # ii. go % / // by 10, while sum > 0
             head_node, current_node = None, None
             # flag tells us if we want to put a negative at the end
-            is_negative = (sum_value < 0)
+            is_negative = sum_value < 0
             length = 0
             while abs(sum_value) > 0:
                 next_node_val = abs(sum_value % 10)
@@ -119,7 +120,7 @@ def sum_lists(listA: ListNode, listB: ListNode):
             # if it is negative, modify the last node
             if is_negative is True:
                 current_node.val = -1 * current_node.val
-        return head_node     
+        return head_node
 
     # A: make a float value from each list
     num_listA, num_listB = decode(listA), decode(listB)  # O(a + b)

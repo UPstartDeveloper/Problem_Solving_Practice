@@ -4,14 +4,14 @@ class Solution:
         unsorted array
         pos and neg
         answer must be POSITIVE Int
-        
+
         start in the range 1.... positive inf?
-        
+
         32-bit ints
-        
-        ASSUME 
+
+        ASSUME
         size of array fits in memory
-        
+
         Hints:
         - Think about how you would solve the problem in non-constant space. Can you apply that logic to the existing space?
         - We don't care about duplicates or non-positive integers
@@ -19,16 +19,16 @@ class Solution:
 
         Intution:
         linear search for smallest missing pos int
-        
+
         Approach:
-        
+
         1. DIY: --> n * p (p = # of positive nums already presrnt)
             checking which positive nums I have in the array --> helps us find the smallest missing
             A: find the range of nums ---> min, max
             B: if min > 1 --> return 1
             C: iterate over all the positive nums (1, 2, 3...)
                 D: nested, check for that positve
-                
+
         2. Set --> Linear in Time, Linear Spacw
             A: find the min and max
             B: if min > 1 --> return 1
@@ -41,15 +41,15 @@ class Solution:
             [ 0    1.    2   ]
 
             <0 ----1------2-----3 -->
-        
+
         3. Sort the Array --> n log n
             A: sort the array
             B: traverse the array
             C: return the first val != index + 1
          0  1. 2.  3
         [0, 1, 2]
-        
-        
+
+
         4. Size
         - range of values -- [low, high]
         B: if min > 1 --> return 1
@@ -58,8 +58,8 @@ class Solution:
         no empty array
         duplicates - not bad (always)
         smallest positivie is outide ---> outside the array
-        
-        
+
+
         """
         """
         # A: find the min and max
@@ -96,6 +96,3 @@ class Solution:
             return max(nums) + 1
         # otherwise, the answer may be the bottom of the sub range
         return sub[0]
-    
-        
-        

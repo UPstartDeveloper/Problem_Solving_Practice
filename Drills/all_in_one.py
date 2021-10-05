@@ -6,16 +6,18 @@ from typing import List
 class Array:
     def __init__(self, array):
         self.items = array
-    '''Search Algorithms'''
+
+    """Search Algorithms"""
+
     def linear_search(self, target):
-        '''linear time, constant space'''
+        """linear time, constant space"""
         for ndx, item in enumerate(self.items):
             if target == item:
                 return ndx
         return None
 
     def linear_search_recursive(self, target, ndx=0):
-        '''linear time and space'''
+        """linear time and space"""
         if ndx < len(self.items):
             item = self.items[ndx]
             if item == target:
@@ -26,7 +28,7 @@ class Array:
 
     def bin_search_iterative(self, target):
         """self.items is assumed to be sorted in ascending order.
-           logarithmic time, constant space"""
+        logarithmic time, constant space"""
         lo = 0
         hi = len(self.items) - 1
 
@@ -40,7 +42,7 @@ class Array:
                 hi = mid - 1
             elif target > mid_elem:
                 low = mid + 1
-        # not found 
+        # not found
         return None
 
     def bin_search_recursive(self, target, lo=0, hi=None):
@@ -59,14 +61,14 @@ class Array:
         elif target > mid_elem:
             return self.bin_search_recursive(mid + 1, hi)
 
-    '''Sorting Algorithms'''
+    """Sorting Algorithms"""
 
     def insertion_sort(self) -> None:
         """this method is mutative - stable, internal, quadratic time, constant space
         - good for when you need something stable, you know the data can fit into RAM
         - and when you know it might be nearly sorted already
         """
-        # first ndx is already sorted 
+        # first ndx is already sorted
         for index in range(1, len(self.items)):
             # grab the element at the current index
             to_insert = self.items[index]
@@ -74,24 +76,25 @@ class Array:
             # insert it into the proper position in the sorted part
             for index_before in range(index, -1, -1):
                 elem_before = self.items[index_before]
-                # swap if necessary 
+                # swap if necessary
                 if elem_before > to_insert:
                     self.items[index_before], self.items[to_insert_index] = (
-                        to_insert, elem_before
+                        to_insert,
+                        elem_before,
                     )
                     # update the index where the elem to insert is
                     to_insert_index = index_before
 
     def merge_sort(self):
-        '''out of place, loglinear time'''
+        """out of place, loglinear time"""
         pass
 
     def counting_sort(self):
-        '''linear time (n + k, where k is the difference between min and max),
+        """linear time (n + k, where k is the difference between min and max),
         out of place, works only with integer values
         - good for when you know beforehand the values are in a certain range
         - and that the dataset is not sparse (e.g. human ages in the Census data)
-        '''
+        """
 
         min_elem = min(self.items)
         max_elem = max(self.items)
@@ -108,9 +111,10 @@ class Array:
 
         return sorted
 
+
 # Stacks and Queues
 class ArrayStack(Array):
-    '''top is the last index'''
+    """top is the last index"""
 
     def __init__(self, array):
         super().__init__(array)
@@ -126,9 +130,10 @@ class ArrayStack(Array):
     def push(self, item):
         self.items.append(item)
 
-    
+
 class ArrayQueue(Array):
-    '''first index of the array is the front of queue'''
+    """first index of the array is the front of queue"""
+
     def __init__(self, array):
         super().__init__(array)
 
@@ -161,7 +166,7 @@ class LinkedList:
         else:
             self.tail.next = item
             self.tail = item
-    
+
     def prepend(self, item: ListNode):
         if self.head is None:
             self.head = self.tail = item
@@ -178,7 +183,7 @@ class LinkedList:
         return num_nodes
 
     def find(self, item: int) -> List[ListNode]:
-        '''returns the node with a given item, and the one before it'''
+        """returns the node with a given item, and the one before it"""
         prev = None
         runner = self.head
 
@@ -190,28 +195,29 @@ class LinkedList:
 
     def delete(self, item):
         deleted_item, item_before = self.find(self.tail.key)
-        
+
         if item_before is not None:
             item_before.next = deleted_item.next
-        else:   # head is being deleted
+        else:  # head is being deleted
             self.head = self.tail = None
-        
+
         # if tail is being deleted
         if deleted_item == self.tail:
             self.tail = item_before
-        
+
         return deleted_item
 
-    
+
 class LinkedStack(LinkedList):
-    '''the tail is the top of the stack'''
+    """the tail is the top of the stack"""
+
     def __init__(self):
         super().__init__()
 
     def peek(self):
         if self.tail is not None:
             return self.tail.key
-        
+
     def push(self, item: int):
         self.append(ListNode(item))
 
@@ -221,7 +227,8 @@ class LinkedStack(LinkedList):
 
 
 class LinkedQueue(LinkedList):
-    '''the head is the front'''
+    """the head is the front"""
+
     def __init__(self):
         super().__init__()
 
@@ -248,6 +255,7 @@ class Vertex:
     def add_neighbor(self, neighbor_obj):
         self.neighbors[neighbor_obj.id] = neighbor_obj
 
+
 class Graph:
     def __init__(self, is_directed=False):
         self.is_directed = is_directed
@@ -268,7 +276,8 @@ class Graph:
             v2.add_neighbor(v1)
 
     def bfs(self, use_iteration=True):
-        '''Time is O(V + E), space is O(V)'''
+        """Time is O(V + E), space is O(V)"""
+
         def _bfs_iterative():
             # init collections
             q = deque()
@@ -277,8 +286,8 @@ class Graph:
             if len(self.vertices) > 0:
                 first = list(self.vertices.values())[0]
                 q.append(first)
-                # traverse the graph   
-                while len(q) > 0: 
+                # traverse the graph
+                while len(q) > 0:
                     # visit the next node
                     node = q.popleft()
                     visited.add(node.id)
@@ -298,7 +307,7 @@ class Graph:
                 first = list(self.vertices.values())[0]
                 q.append(first)
                 return _bfs_recursive(q, visited)
-            # BASE: end the search 
+            # BASE: end the search
             elif len(q) == 0 and len(visited) > 0:
                 return visited
             # RECURSIVE: hit the next node
@@ -315,7 +324,8 @@ class Graph:
         return _bfs_recursive()
 
     def dfs(self, use_iteration=True):
-        '''Time is O(V + E), space is O(V)'''
+        """Time is O(V + E), space is O(V)"""
+
         def _dfs_recursive(node, visited=set()):
             # visit the node
             visited.add(node.id)
@@ -325,7 +335,7 @@ class Graph:
                     _dfs_recursive(neighbor, visited)
             # return the nodes
             return visited
-        
+
         def _dfs_iterative():
             # init collections
             stack = list()
@@ -350,10 +360,10 @@ class Graph:
             return _dfs_iterative()
         first = list(self.vertices.values())[0]
         return _dfs_recursive(first)
-        
+
 
 if __name__ == "__main__":
-    ids = ['A', 'B', 'C', 'D', 'E']
+    ids = ["A", "B", "C", "D", "E"]
     vertices = [Vertex(identifier) for identifier in ids]
 
     g = Graph()

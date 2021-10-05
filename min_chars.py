@@ -1,4 +1,4 @@
-import math 
+import math
 
 
 def minimum_characters(phrase):
@@ -15,29 +15,28 @@ def minimum_characters(phrase):
         while left > -1 and right < len(phrase):
             # D: check letters from left and right
             if phrase[left] == phrase[right]:
-                print(f'Letters {phrase[left]} at {left} = {phrase[right]} at {right}')
+                print(f"Letters {phrase[left]} at {left} = {phrase[right]} at {right}")
                 # move left and right
                 left -= 1
                 right += 1
                 print(left, right)
-            else: # letters don't match
+            else:  # letters don't match
                 # move midpoint left and start over
                 midpoint -= 1
                 break
         # if there are index errors
         if left == -1 or right == len(phrase):
-              if left == -1:
-                # add length of remaining chars on right  
-                right_length = len(phrase[right:]) 
+            if left == -1:
+                # add length of remaining chars on right
+                right_length = len(phrase[right:])
                 min_chars += right_length
-              elif right == len(phrase):
-                  # add length of remaining chars on left
-                  left_length = len(phrase[:left])
-                  min_chars += left_length
-              # break out of the outer loop
-              break
+            elif right == len(phrase):
+                # add length of remaining chars on left
+                left_length = len(phrase[:left])
+                min_chars += left_length
+            # break out of the outer loop
+            break
     return min_chars
-
 
 
 """
@@ -104,8 +103,8 @@ left_is_longer = True
 
 
 """
-    
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Case 1: "DDFGFDDD" PASSEd
     # Case 2: "ABC" PASSED
     # Case 3: "AACECAAAA" PASSED

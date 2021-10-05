@@ -93,7 +93,6 @@ Helpful Hint from LeetCode (credit to @aakarshmadhavan):
 
 
 class MinStack:
-
     def __init__(self):
         """
         initialize the data structure. Using dynamic arrays.
@@ -104,20 +103,20 @@ class MinStack:
         Adds O(n) space, and alls all methods to run in O(1) time.
         """
         self.stack = list()
-        self.min = float('inf')
+        self.min = float("inf")
         self.min_nums = list()
 
     def push(self, x: int) -> None:
-        '''Add the new node the stack, and update the minimum.'''
+        """Add the new node the stack, and update the minimum."""
         # add the new number to the stack
         self.stack.append(x)
         # add the new number to the list of min nums
         if x < self.min:
             self.min = x
         self.min_nums.append(self.min)
-        
+
     def pop(self) -> None:
-        '''Removes and returns the top node in the stack.'''
+        """Removes and returns the top node in the stack."""
         # remove the top elements on both arrays
         removed = self.stack.pop()
         self.min_nums.pop()
@@ -126,21 +125,22 @@ class MinStack:
         if len(self.min_nums) > 0:
             self.min = self.min_nums[-1]
         else:  # assume no client will call min if no items in the stack
-            self.min = float('inf')
+            self.min = float("inf")
         # return the removed item
         return removed
 
     def top(self) -> int:
-        '''return the top of the stack'''
+        """return the top of the stack"""
         return self.stack[-1]
 
     def get_min(self) -> int:
-        '''get the min number property'''
+        """get the min number property"""
         return self.min
 
     def is_empty(self):
-        '''Returns a boolean for there being 0 elements in the stack.'''
+        """Returns a boolean for there being 0 elements in the stack."""
         return len(self.stack) == 0
+
 
 if __name__ == "__main__":
     # driver code from LeetCode

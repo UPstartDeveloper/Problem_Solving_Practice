@@ -3,6 +3,7 @@ def longest_anagram(string, dictionary):
     string_set = set(list(string))
     # useful constant for iterating
     STRING_LENGTH = len(string)
+
     def make_histogram(dict_word):
         # use a Python dict() type to map char types --> # tokens
         histogram = dict()
@@ -14,8 +15,9 @@ def longest_anagram(string, dictionary):
             else:
                 histogram[character] += 1
         return histogram
+
     def is_anagram(dict_word):
-        '''Returns if the word in the dict is an anagram.'''
+        """Returns if the word in the dict is an anagram."""
         word_hist = make_histogram(dict_word)
         # determine if characters in the word are a subset of the string
         word_set = set(word_hist.keys())
@@ -29,7 +31,8 @@ def longest_anagram(string, dictionary):
                     return False
             return True
         return False
-    # make histogram of the string 
+
+    # make histogram of the string
     string_hist = make_histogram(string)
     # iterate over the dictionary words
     for word in dictionary:
@@ -42,9 +45,9 @@ def longest_anagram(string, dictionary):
     return longest_anagram
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     string = "batman"
-    dictionary =  ["bat", "aman", "antman"]
+    dictionary = ["bat", "aman", "antman"]
     print(longest_anagram(string, dictionary))
 """
 Idea 1:
@@ -62,8 +65,7 @@ s = length of input string
 d = # of strings in the dict
 a = # total letters of strings in dict
 """
-    
-      
+
 
 """
 Idea 1:

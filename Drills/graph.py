@@ -2,10 +2,11 @@ from collections import deque
 
 
 class Vertex:
-    """Each vertiex knows its id, and can lookup all its neighbors by 
-       their id.
-    
+    """Each vertiex knows its id, and can lookup all its neighbors by
+    their id.
+
     """
+
     def __init__(self, id: str):
         self.id = id
         self.neighbors = dict()  # maps id --> Vertex obj
@@ -16,10 +17,11 @@ class Vertex:
 
 class Graph:
     """Representation of the Graph ADT as an adjacency matrix
-       We have a dict of all the vertices, and all the vertices
-       individually have a dict of all their neighbors.
+    We have a dict of all the vertices, and all the vertices
+    individually have a dict of all their neighbors.
 
     """
+
     def __init__(self, is_directed=False):
         self.is_directed = is_directed  # T - one way graph, and vice versa
         self.vertices = dict()
@@ -35,7 +37,7 @@ class Graph:
             vertex2.neighbors[vertex1.id] = vertex1
 
     def _bfs(self, visit):
-        '''Visit all the nodes in this graph in BFS order'''
+        """Visit all the nodes in this graph in BFS order"""
         # init a queue
         q = deque()
         # enqueue the first vertex
@@ -71,9 +73,7 @@ class Graph:
                 # otherwise push the next neighbor onto the stack
                 if found is False and neighbor not in visited:
                     stack.append(neighbor)
-                    found = self.find_path_recursive(
-                        vertex1, vertex2, visited, stack
-                    )
+                    found = self.find_path_recursive(vertex1, vertex2, visited, stack)
                 elif found is True:
                     break
             return found
@@ -95,7 +95,7 @@ class Graph:
         Intuition: use BFS
         Approach:
         - visit every node
-            - if it has been visited before, check to make sure it's 
+            - if it has been visited before, check to make sure it's
                 the opposite color as the one just visited
                 - if it hasn't, return False
             - if it has not been visited before, assign it the opposite
@@ -104,17 +104,18 @@ class Graph:
 
         Insights:
         - cmd + / --> comment highlighted lines in VS Code
-        - even singly linked list w/ an even number of nodes is a 
+        - even singly linked list w/ an even number of nodes is a
             - bipartite graph
 
         Time: O(V + E)
         Space: O(V)
         """
+
         def visit(node, last_color, visited):
             valid = False
-            # - if it has been visited before, check to make sure it's 
+            # - if it has been visited before, check to make sure it's
             #     the opposite color as the one just visited
-            opposite_color = (1 if last_color == 0 else 0)
+            opposite_color = 1 if last_color == 0 else 0
             if node not in visited:
                 visited[node] = opposite_color
                 print(f"Node {node.id} is {opposite_color}")
@@ -123,9 +124,10 @@ class Graph:
             #     color of the one just visited
             else:  # node has been visited before
                 # may not be bipartite, if it was enqueued twice
-                valid = (visited[node] == opposite_color)
+                valid = visited[node] == opposite_color
                 print(f"Already visited, Node {node.id} is {visited[node]}")
             return valid, opposite_color
+
         # A: init a queue, a dict of visited nodes, and first color
         color = 0
         visited = dict()
@@ -147,13 +149,13 @@ class Graph:
 
     def dfs(self):
         """Return all the vertices in this graph in a set."""
-        
+
         def dfs_recursive(node_id, visited):
             """
-            Once the function is called, 
+            Once the function is called,
             we know it's been pushed onto the call stack.
 
-            Once the function terminates, 
+            Once the function terminates,
             we know it has been popped from the stack.
             """
             # visit the node (in this stack frame)
@@ -173,14 +175,13 @@ class Graph:
         # return the set of all nodes
         return visited
 
-
     def dfs_iterative(self):
         """
         Print the ids of all the
         Graph vertices in DFS order, iteratively.
 
         ASSUMPTION: all the vertices are connected
-                    and there are no two vertices with 
+                    and there are no two vertices with
                     the same id
         """
         # init a stack and a dict
@@ -244,7 +245,7 @@ class Graph:
 
         Approach:
         succeed fast --> if we keep a set of visited nodes,
-                         we can return True right when we 
+                         we can return True right when we
                          fail the "not in visited" cond
         - use iterative DFS
 
@@ -272,7 +273,7 @@ class Graph:
 
     # iterative BFS
     def iterative_bfs(self):
-        '''visit all the nodes in BFS order'''
+        """visit all the nodes in BFS order"""
         # init a queue to hold the nodes to be visited (prevents cycles)
         visited = set()
         q = deque()
@@ -289,11 +290,11 @@ class Graph:
             for neighbor_obj in vertex_obj.neighbors.values():
                 if neighbor_obj not in visited:
                     q.append(neighbor_obj)
-        return 
+        return
 
     # iterative DFS
     def iterative_dfs(self):
-        """ 'visit' - adding to the visited set"""
+        """'visit' - adding to the visited set"""
         # init a stack and a visited set
         visited = set()
         stack = list()
@@ -324,79 +325,45 @@ class Graph:
         # push and visit all the unvisited neighbors
         for neighbor in node.neighbors.values():
             self.recursive_dfs(visited, neighbor)
-        return 
-        
+        return
+
 
 if __name__ == "__main__":
     # TEST CASE
-    vertices = ['A', 'B', 'C', 'D']
+    vertices = ["A", "B", "C", "D"]
     objs = list()
     g1 = Graph()
     for v in vertices:
         objs.append(Vertex(v))
     g1.vertices = dict(zip(vertices, objs))
 
-    g1.add_edge(
-        g1.vertices['A'], 
-        g1.vertices['B']
-    )
-    g1.add_edge(
-        g1.vertices['B'],
-        g1.vertices['D']
-        )
-    g1.add_edge(
-        g1.vertices['A'],
-        g1.vertices['D']
-        )
-    g1.add_edge(
-        g1.vertices['C'],
-        g1.vertices['D']
-    )
+    g1.add_edge(g1.vertices["A"], g1.vertices["B"])
+    g1.add_edge(g1.vertices["B"], g1.vertices["D"])
+    g1.add_edge(g1.vertices["A"], g1.vertices["D"])
+    g1.add_edge(g1.vertices["C"], g1.vertices["D"])
     # print(g1.is_path(
     #     g1.vertices['A'],
-    #     g1.vertices['C'] 
+    #     g1.vertices['C']
     # ))
     # testing is_bipartite on a singly linked list
     g2 = Graph()
-    objs = [
-        Vertex('A'), Vertex('B'), Vertex('C'), Vertex('D')
-    ]
+    objs = [Vertex("A"), Vertex("B"), Vertex("C"), Vertex("D")]
     g2.add_vertex(objs[0])
     g2.add_vertex(objs[1])
     g2.add_vertex(objs[2])
     g2.add_vertex(objs[3])
-    g2.add_edge(
-        objs[0],
-        objs[1]
-    )
-    g2.add_edge(
-        objs[1],
-        objs[2]
-    )
-    g2.add_edge(
-        objs[2],
-        objs[3]
-    )
+    g2.add_edge(objs[0], objs[1])
+    g2.add_edge(objs[1], objs[2])
+    g2.add_edge(objs[2], objs[3])
     print(g2.is_bipartite())
 
     g3 = Graph()
-    objs = [
-        Vertex('A'), Vertex('B'), Vertex('C'), Vertex('D')
-    ]
+    objs = [Vertex("A"), Vertex("B"), Vertex("C"), Vertex("D")]
     g3.add_vertex(objs[0])
     g3.add_vertex(objs[1])
     g3.add_vertex(objs[2])
-    g3.add_edge(
-        objs[0],
-        objs[1]
-    )
-    g3.add_edge(
-        objs[1],
-        objs[2]
-    )
-    g3.add_edge(
-        objs[2],
-        objs[0]
-    )
+    g3.add_edge(objs[0], objs[1])
+    g3.add_edge(objs[1], objs[2])
+    g3.add_edge(objs[2], objs[0])
     print(objs[2].neighbors)
     print(g3.is_bipartite())

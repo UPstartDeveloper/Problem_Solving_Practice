@@ -113,12 +113,12 @@ def zero_matrix(matrix: List[List[int]]) -> List[List[int]]:
     [
            0  1  2  3  4  5   6
       > 0 [0, 0 ,0, 0, 0, 0, 0],
-      > 1 [0, 8, 0, 6, 0, 2,  4], 
+      > 1 [0, 8, 0, 6, 0, 2,  4],
       > 2 [0, 5, 3, 6, 7, 3, -3]
     ]
 
     locations = [
-        (0, 0), (1, 2), (1, 4), 
+        (0, 0), (1, 2), (1, 4),
     ]
 
     ROW_LENGTH = 7
@@ -131,7 +131,7 @@ def zero_matrix(matrix: List[List[int]]) -> List[List[int]]:
                                         5       1
                                         6      -5
 
-    zrndx       cndx            zcndx    
+    zrndx       cndx            zcndx
     0           0                0
                 1
                 2
@@ -145,13 +145,13 @@ def zero_matrix(matrix: List[List[int]]) -> List[List[int]]:
     Space: O(M + N)
 
 
-    Improvements: 
+    Improvements:
     - remember the rows and cols we've already marked for zeroifying:
 
     TODO: ---> IN PLACE -->
         1. First pass: edit the cols in top row to be zero, if they contain zero
-                       edit the row vals in left col to be zero, if their rows 
-                            contain zero  
+                       edit the row vals in left col to be zero, if their rows
+                            contain zero
         2. Second pass: just check the top row and left col
                         top row: zeroify the col
                         left col: zeroify the row

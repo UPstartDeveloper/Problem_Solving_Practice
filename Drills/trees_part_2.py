@@ -13,7 +13,6 @@ class BinaryTree:
         self.root = root
 
     def bfs(self, use_iteration=True) -> None:
-
         def _bfs_iterative():
             # init collections
             q = deque()
@@ -48,8 +47,7 @@ class BinaryTree:
             return _bfs_iterative()
         return _bfs_recursive()
 
-    def dfs(self, use_iteration=True, mode='in-order') -> None:
-
+    def dfs(self, use_iteration=True, mode="in-order") -> None:
         def _dfs_iterative_setup():
             stack, visited = list(), set()
             if self.root is not None:
@@ -57,7 +55,7 @@ class BinaryTree:
             return stack, visited
 
         def _dfs_iterative_in_order():
-            '''due to the use of a set - time is O(n), space is O(n)'''
+            """due to the use of a set - time is O(n), space is O(n)"""
             # init collections - root is already on the stack if present
             stack, visited = _dfs_iterative_setup()
             # traverse the tree
@@ -77,7 +75,7 @@ class BinaryTree:
                     stack.append(top.right)
 
         def _dfs_iterative_pre_order():
-            '''due to the use of a set - time is O(n), space is O(n)'''
+            """due to the use of a set - time is O(n), space is O(n)"""
             # init collections - root is already on the stack if present
             stack, visited = _dfs_iterative_setup()
             # traverse the tree
@@ -93,9 +91,9 @@ class BinaryTree:
                 # push the first right child
                 if top.right is not None and top.right not in visited:
                     stack.append(top.right)
-        
+
         def _dfs_iterative_post_order():
-            '''due to the use of a set - time is O(n), space is O(n)'''
+            """due to the use of a set - time is O(n), space is O(n)"""
             # init collections - root is already on the stack if present
             stack, visited = _dfs_iterative_setup()
             # traverse the tree
@@ -120,17 +118,17 @@ class BinaryTree:
                 else:  # get already visited node, or root off the stack
                     top = stack.pop()
                 if top not in visited:
-                    print(f"Visiting: {top.key}") 
+                    print(f"Visiting: {top.key}")
                     visited.add(top)
 
         def _dfs_recursive_in_order(node=self.root):
-            if node is not None: 
+            if node is not None:
                 if node.left is not None:
                     _dfs_recursive_in_order(node.left)
                 print(f"Visiting: {node.key}")
                 if node.right is not None:
                     _dfs_recursive_in_order(node.right)
-        
+
         if use_iteration is True:
             # TODO: use a switch statement:
             pass

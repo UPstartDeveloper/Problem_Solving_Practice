@@ -2,14 +2,15 @@ class Solution:
     """
     Problem:
 
-    Given a string and an integer k, 
-    you need to reverse the first k characters for every 2k characters 
-    counting from the start of the string. 
-    
-    If there are less than k characters left, reverse all of them. 
-    If there are less than 2k but greater than or equal to k characters, 
+    Given a string and an integer k,
+    you need to reverse the first k characters for every 2k characters
+    counting from the start of the string.
+
+    If there are less than k characters left, reverse all of them.
+    If there are less than 2k but greater than or equal to k characters,
     then reverse the first k characters and left the other as original.
     """
+
     def reverseStr(self, s: str, k: int) -> str:
         """
         Reverse At 2k intervals - len(s) > 2k
@@ -17,35 +18,35 @@ class Solution:
                     ^   ^
                     0123456
         reverse the first 2 char, for every 4 from the start
-        
+
         Output: "bacdfeg"
-        
-        
+
+
         Reversing all the chars in the string
         len(s) < k
          abcdefg", k = 10
-        
+
         Reverse Once:
         k <= len(s) < 2k
         abcdefg", k = 4 ---> gfedcba?
-            ^    
-        
+            ^
+
         Insights:
         - need to do a reverse() at least 1
-        
-        Clarifying questions: 
+
+        Clarifying questions:
         - input is mutable? yes
-        - lower case English letters only 
+        - lower case English letters only
         - no empty strings
-        
+
         Intuition:
         - loop over the string (iterations)
-        
+
         Approach:
         - reverse(int starting index, k) - helper function to do one reversal
         # init a count for num_reversals
         # iterate over the string
-            # do a reversal 
+            # do a reversal
                 # check if it's goes beyond the edge
                 # if it's the first, then do it anyway
                 # if it's not the first, don't do it
@@ -57,15 +58,15 @@ class Solution:
         0123456
         abcdefg, k = 2
         bacdfeg
-        
+
         nr = 0, 1, 2
         str_index = 0, 4, 6, 8
         reverse[0:2]
         reverse[4:6]
-        
+
         bacdefg
         ^      ^
-        
+
         """
         # ---------- Helper ----------------------------------------
         def reverse(start, s):
@@ -82,7 +83,8 @@ class Solution:
                 # C: increment start, decrement end
                 start += 1
                 end -= 1
-            return 
+            return
+
         # --------- Driver ----------------------------------------
         # init a count for num_reversals
         num_reversals = 0
@@ -90,17 +92,18 @@ class Solution:
         s = list(s)
         # iterate over the string
         while str_idx < len(s):  # ceil(s / k) iterations - goes from 1 - s iterations
-                                 #                                  lots  less time in rever
-                                 #                                   of
-                                 #                                 reverse()
+            #                                  lots  less time in rever
+            #                                   of
+            #                                 reverse()
             reverse(str_idx, s)  #                                         O(s)
             # move the index up 2k indices
-            str_idx += (2 * k)
+            str_idx += 2 * k
             # increment the number of reversals
             num_reversals += 1
         # return the string
-        return ''.join(s)  # s iterations
-    
+        return "".join(s)  # s iterations
+
+
 """
             0123456
 Input: s = "bacdfeg", k = 2
@@ -140,5 +143,3 @@ each reverse = 10
             5000
 
 """
-        
-        

@@ -1,36 +1,37 @@
 from collections import deque
 from typing import List
 
+
 class Graph:
     def __init__(self, is_directed=False):
         self.verticies = dict()
         self.is_directed = is_directed
 
-    def add_node(self,node: str) -> None:
+    def add_node(self, node: str) -> None:
 
         self.verticies[node] = list()
 
-    def add_edge(self,node_a: str,node_b: str) -> None:
+    def add_edge(self, node_a: str, node_b: str) -> None:
         self.verticies[node_a].append(node_b)
         # if the graph is undirected, the edge must be stored twice
         if self.is_directed is False:
             # go from the other direction this time
             self.verticies[node_b].append(node_a)
-      
+
     def subgraph(self, start: str) -> List[str]:
-        """Return all vertices in the set of connected components 
-          in which the starting vertex is located
-                  front               back
-          queue = [                   ]
-                    0                   last index
-                
-            enqueue - deque.popleft()
-            dequeue - deque.append()
+        """Return all vertices in the set of connected components
+        in which the starting vertex is located
+                front               back
+        queue = [                   ]
+                  0                   last index
+
+          enqueue - deque.popleft()
+          dequeue - deque.append()
         """
         # Init a queue to hold the nodes to visit next
-        queue = deque() # O(`)
+        queue = deque()  # O(`)
         # enqueue the starting node
-        queue.append(start) # O(1)
+        queue.append(start)  # O(1)
         # init the return value
         connected_comp = set()  # O(1)
         # perform the BFS
@@ -46,12 +47,12 @@ class Graph:
             neighbors = self.verticies[vertex]
             for neighbor in neighbors:
                 # prevent unnecessary iteration
-                if neighbor not in queue and neighbor not in connected_comp: 
+                if neighbor not in queue and neighbor not in connected_comp:
                     queue.append(neighbor)
-           # convert connected_comp to a list, and return 
-          # connected_comp = list(connected_comp) # O(v)
+        # convert connected_comp to a list, and return
+        # connected_comp = list(connected_comp) # O(v)
         return connected_comp
-    
+
     def does_path_exist(self, source: str, target: str) -> bool:
         """Use DFS to find out if there is a path between two vertices.
 
@@ -75,17 +76,17 @@ class Graph:
             visited.add(node)
             # check if it's the node we're looking for
             if node == target:
-                return True 
+                return True
             # otherwise push each of the neighboring nodes we haven't seen yet
             path_found = False
             for next_node in self.verticies[node]:
                 if next_node not in visited:
-                  next_nodes.append(next_node)
-                  # search again
-                  path_found = search()
+                    next_nodes.append(next_node)
+                    # search again
+                    path_found = search()
             # if it's never found, return False
             return path_found
-  
+
         # find the root (don't assume it's in the graph)
         if source in self.verticies:
             # start our search
@@ -94,18 +95,18 @@ class Graph:
             return search()
         # return an error
         raise KeyError(f"Vertex {source} is not in the graph.")
-      
+
 
 if __name__ == "__main__":
     graph = Graph()
 
-    graph.add_node('A')
-    graph.add_node('B')
-    graph.add_node('C')
-    graph.add_node('D')
-    graph.add_node('E')
-    graph.add_node('F')
-    graph.add_node('Z')
+    graph.add_node("A")
+    graph.add_node("B")
+    graph.add_node("C")
+    graph.add_node("D")
+    graph.add_node("E")
+    graph.add_node("F")
+    graph.add_node("Z")
 
     """
     {
@@ -124,11 +125,11 @@ if __name__ == "__main__":
     }
     """
 
-    graph.add_edge('A', 'B')
-    graph.add_edge('A', 'C')
-    graph.add_edge('A', 'D')
-    graph.add_edge('C', 'E')
-    graph.add_edge('E', 'F')
-    graph.add_edge('D', 'B')
+    graph.add_edge("A", "B")
+    graph.add_edge("A", "C")
+    graph.add_edge("A", "D")
+    graph.add_edge("C", "E")
+    graph.add_edge("E", "F")
+    graph.add_edge("D", "B")
 
-    print(graph.does_path_exist('A', 'E'))
+    print(graph.does_path_exist("A", "E"))

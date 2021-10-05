@@ -82,12 +82,7 @@ class PackageNode:
 class BuildTree:
     def __init__(self, projects, dependencies):
         # self.root = None
-        self.packages = dict(
-            zip(
-                projects,
-                [PackageNode(p) for p in projects] 
-            )
-        )
+        self.packages = dict(zip(projects, [PackageNode(p) for p in projects]))
         self.add_dependencies(dependencies)
 
     def add_dependencies(self, dependencies):
@@ -96,7 +91,7 @@ class BuildTree:
             # get the project and dependency
             project, dependency = (
                 self.packages[project_str],
-                self.packages[dependency_str]
+                self.packages[dependency_str],
             )
             # add project as child of dependency
             dependency.users.append(project)
@@ -108,8 +103,10 @@ class BuildTree:
             if len(package.dependencies) == 0 and package not in visited:
                 return package
         else:
-            raise ValueError("Couldn't resolve build order, \
-                            most likely due to a cyclical dependency.")
+            raise ValueError(
+                "Couldn't resolve build order, \
+                            most likely due to a cyclical dependency."
+            )
 
     def _bfs_connected_components(self, visited, output, q, root) -> None:
         # enqueue the first node

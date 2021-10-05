@@ -8,18 +8,19 @@ def is_Toeplitz(arr):
         row_index += 1
         col_index += 1
         while row_index < len(arr) and col_index < len(arr[0]):
-        # check each succsssive elemem == first elem
+            # check each succsssive elemem == first elem
             next_elem = arr[row_index][col_index]
             if next_elem == first:
                 row_index += 1
-                col_index += 1 
+                col_index += 1
             # if not - --> F
-            else: 
+            else:
                 return False
         # if we exit the matrix --> T
         return True
+
     # ------ rest of the function -------
-    
+
     if len(arr) > 0:  # [[]]
         # A: iterate over the first row
         if len(arr[0]) > 0:

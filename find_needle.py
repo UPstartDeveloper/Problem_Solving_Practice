@@ -77,14 +77,15 @@ def strStr(haystack, needle):
     return -1
     """
 
+
 def strStr(haystack, needle):
     # early exit
-    if needle == '':
+    if needle == "":
         return 0
     # iterate backwards through the haystack
     for hs_idx in range(len(haystack) - len(needle), 0, -1):  # h - n iteration
         # compare the substring of haystack to needle
-        if haystack[hs_idx:hs_idx+len(needle)] == needle:  # n iterations
+        if haystack[hs_idx : hs_idx + len(needle)] == needle:  # n iterations
             return hs_idx
     # match not found
     return -1
@@ -93,7 +94,7 @@ def strStr(haystack, needle):
     # Space: O(n)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(strStr("aaaaaaaaaaa", "aaaaaaaaaab"))
 """
      0   1   2  3  4 

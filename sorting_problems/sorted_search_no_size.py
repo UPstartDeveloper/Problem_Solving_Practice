@@ -94,18 +94,18 @@ search for 10:
 class Listy:
     def __init__(self, arr):
         self.nums = arr
-    
+
     def element_at(self, i):
         if 0 <= i < len(self.nums):
             return self.nums[i]
-        else: 
+        else:
             return -1
-    
+
     def length(self):
-        '''Return the length of self.nums. No built-ins!
+        """Return the length of self.nums. No built-ins!
          0  1  2   3
         [5, 3, 3] -1
-        '''
+        """
         # A: init 2 pointers
         slow, fast = 0, 1
         # B: find where the second "falls off" the listy
@@ -122,9 +122,8 @@ class Listy:
 
 
 class Solution:
-
     def sorted_arr_no_size_naive(listy, x):
-        '''Performs linear search search for x in listy.'''
+        """Performs linear search search for x in listy."""
         # A: init index at 0
         index = 0
         # B: iterate through indices of the Listy
@@ -141,7 +140,8 @@ class Solution:
         return answer
 
     def sorted_arr_no_size_binary_search(listy, x):
-        '''Performs modified binary search for the index of x.'''
+        """Performs modified binary search for the index of x."""
+
         def binary_search(low, high, target):
             # A: compare the elem at middle with target (x)
             while low <= high:
@@ -159,13 +159,11 @@ class Solution:
                     low = middle + 1
             # C: return -1 if it can't be found
             return -1
+
         # A: find out the length of listy in n / 2 iterations
         high_idx = listy.length() - 1
         # B: binary search from there
         return binary_search(0, high_idx, x)
-
-
-
 
 
 """
@@ -191,12 +189,7 @@ x = 3
 
 
 if __name__ == "__main__":
-    inputs = [
-        (0, -1), 
-        (3, 1), 
-        (2, -1), 
-        (10, -1)
-    ]
+    inputs = [(0, -1), (3, 1), (2, -1), (10, -1)]
     array = Listy([1, 3, 3, 3, 5, 7, 8, 9, 9])
     # check if we get the right answer for each text input
     sol = Solution

@@ -31,7 +31,7 @@ histogram.items() => [
 
 
 def build_histogram(text):
-    '''Builds a distribution of the word types and numbers of word tokens.'''
+    """Builds a distribution of the word types and numbers of word tokens."""
     histogram = {}
     words = text.split()
     # make a distribution of word types and count of tokens
@@ -45,7 +45,7 @@ def build_histogram(text):
 
 
 def find_min_and_its_index(largest_pairs):
-    '''Linear search for the minimum word-count pair.'''
+    """Linear search for the minimum word-count pair."""
     current_min_index, current_min = 0, largest_pairs[0][1]
     for i in range(1, len(largest_pairs)):
         next_count = largest_pairs[i][1]
@@ -58,8 +58,8 @@ def find_min_and_its_index(largest_pairs):
 
 def find_largest(word_counts, count):
     """Iterates over a list of tuples, i.e. [('word': count_num)], and returns
-       the subset of tuples with the largest counts, size count elements.
-       Return value is given in decreasing sorted order.
+    the subset of tuples with the largest counts, size count elements.
+    Return value is given in decreasing sorted order.
 
     """
     # start by pre-loading the first pairs in the list, for as many as count
@@ -74,14 +74,13 @@ def find_largest(word_counts, count):
         # replace the current minimum in largest pairs, if necessary
         if next_count > current_min:
             largest_pairs[current_min_index] = next_pair
-            current_min_index, current_min = (
-                find_min_and_its_index(largest_pairs))
+            current_min_index, current_min = find_min_and_its_index(largest_pairs)
     return largest_pairs
 
 
 def insertion_sort(items):
     """Sort given items by taking first unsorted item, inserting it in sorted
-       order in front of items, and repeating until all items are in order.
+    order in front of items, and repeating until all items are in order.
 
     """
     # make sure list is not so small it already counts as sorted
@@ -91,8 +90,7 @@ def insertion_sort(items):
         while next_index < len(items):
             # figure out the index where the insertion must occur
             insert_at = next_index
-            while insert_at >= 1 and (
-                  items[next_index][1] >= items[insert_at - 1][1]):
+            while insert_at >= 1 and (items[next_index][1] >= items[insert_at - 1][1]):
                 insert_at -= 1
             # perform the swap
             insert_item = items.pop(next_index)
@@ -103,10 +101,10 @@ def insertion_sort(items):
 
 def get_frequent_words(text, count):
     """A variation of the n-choose-k problem, which also involves sorting.
-       Assumptions:
-        1) the text contains alphabetic characters, with spaces in between
-        2) Each word type has a distinct number of tokens associated with it
-        3) word types are case insensitive, i.e. "one" = "One"
+    Assumptions:
+     1) the text contains alphabetic characters, with spaces in between
+     2) Each word type has a distinct number of tokens associated with it
+     3) word types are case insensitive, i.e. "one" = "One"
 
     """
     # build a distribution using a hashtable data type
@@ -122,7 +120,7 @@ def get_frequent_words(text, count):
     return largest_words
 
 
-if __name__ == '__main__':
-    text = 'One fish two fish red fish blue fish'
+if __name__ == "__main__":
+    text = "One fish two fish red fish blue fish"
     count = 3  # expected k <= number of word types
     print(get_frequent_words(text, count))

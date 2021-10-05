@@ -4,11 +4,11 @@ def meeting_planner(slotsA, slotsB, dur):
                             ^
             slotsB = [[0, 15],  [20, 50],[60, 70]]
                                 ^
-            
+
             dur = 8
-            
+
     output: [60, 68]
-    
+
     Intuitition: timelines
 
 
@@ -16,13 +16,13 @@ def meeting_planner(slotsA, slotsB, dur):
     B 0------------------------------------------------>
             10----50    60-------120    140-------210
     A 0------------------------------------------------>
-    
+
     -
-    
+
     Approach:
     ===============
 
-    iterate over both 
+    iterate over both
     - take 2 intervals
         - try and find a meetig - if [x, y] return early
     - else:
@@ -43,33 +43,33 @@ def meeting_planner(slotsA, slotsB, dur):
 
 
     ========================= Quadratic =================
-    
+
     meeting_times = []
-    
+
     time = 0
-    
+
     iterating over person B's time - whoever has less avaliable spots
-    
+
         find overlap with the other person
         - if there is an overlap
             - try and find time - if [x, y] return early
         - else:
             - keep iterating
-        
-        
+
+
         - how to tell if two meeting intervals overlap:
             -int1 = [0, 15]
                     11, 15
                     11, 70
-            - int2 = [10, 50] 
-                    
+            - int2 = [10, 50]
+
             if start_time2 < end_time1 < end_time2:
             - True
             elif  if start_time2 < start1 < end_time2:
             - True
             else
             return False
-            
+
         - try and find meeting between 2 intervals:
             [0, 15], [10, 50], dur = 8
         - find the greater of the two start times
@@ -77,14 +77,14 @@ def meeting_planner(slotsA, slotsB, dur):
         - check if that ending time works for both
             - if it does, return both those [10, 18]
             - else - return empty []
-        
-    
+
+
     Brute Force:
     find the largest time value
     iterate from 0 -> largest - dur
         - see if the [start, start + dur] works for both
-        
-        
+
+
     helper
     fits(schedule, meeting)
         if start_time2 < end_time1 < end_time2:
@@ -93,7 +93,8 @@ def meeting_planner(slotsA, slotsB, dur):
             - True
             else
             return False
-    """ 
+    """
+
     def find_next_intervals(index1, index2):
         start1, end1 = slotsA[index1]
         start2, end2 = slotsB[index2]
@@ -115,7 +116,7 @@ def meeting_planner(slotsA, slotsB, dur):
                     # move the other index ahead
                     index1 += 1
         return index1, index2
-  
+
     def have_overlap(interval1, interval2, dur):
         """
         Determines if two time intervals have any overlap
@@ -138,7 +139,7 @@ def meeting_planner(slotsA, slotsB, dur):
                 meeting_times = [start1, end]
         # otherwise there is no overlap
         return meeting_times
-  
+
     # A: iterate over both schedules
     index1, index2 = 0, 0
     # B: find where the meeting can occur
@@ -155,9 +156,8 @@ def meeting_planner(slotsA, slotsB, dur):
         # if not find the indices for the next iteration
         index1, index2 = find_next_intervals(index1, index2)
     # return the lack of a meeting
-    return meeting  
+    return meeting
 
-    
     """ 
     def find_earlier_end(slotsA, slotsB):
         # find both ending times

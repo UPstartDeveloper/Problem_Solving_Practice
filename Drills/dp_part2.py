@@ -1,5 +1,6 @@
 class Memoize:
-    '''OO way to implement top down DP.'''
+    """OO way to implement top down DP."""
+
     def __init__(self, func):
         self.func = func
         self.cache = dict()
@@ -13,7 +14,7 @@ class Memoize:
 # How to Apply the OO way to a function outside the class
 @Memoize
 def fib(num):
-    '''recursive function is O(n!) w/o dp.'''
+    """recursive function is O(n!) w/o dp."""
     if num == 0 or num == 1:
         return num
     elif num > 1:
@@ -21,7 +22,7 @@ def fib(num):
 
 
 def memoize(func):
-    '''functional way to implement top down DP.'''
+    """functional way to implement top down DP."""
     cache = dict()
 
     def use_cache(args):
@@ -33,7 +34,7 @@ def memoize(func):
 
 
 def factorial(num):
-    '''Another recursive function'''
+    """Another recursive function"""
     if num == 0 or num == 1:
         return 1
     return num * factorial(num - 1)

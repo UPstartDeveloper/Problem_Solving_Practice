@@ -37,16 +37,18 @@ Approach:
 """
 from typing import List
 
-class Solution:
 
+class Solution:
     def is_word_square(self, words: List[str]) -> bool:
         # A: for all words in sq:
         for index in range(len(words)):
             # B: can use two pointers to determine if a word is in same pos, H/V
             word_row = words[index]  # read horizontally
-            word_col = ''.join([  # read vertically 
-                words[col_index][index] for col_index in range(len(words))
-            ])
+            word_col = "".join(
+                [  # read vertically
+                    words[col_index][index] for col_index in range(len(words))
+                ]
+            )
             if word_row != word_col:
                 return False
         # C: all words H/V same
@@ -54,14 +56,14 @@ class Solution:
 
     def get_all_word_squares(self, words: List[str]) -> List[List[str]]:
         """
-        2. given an arbitrary list of words, 
-        return all the possible word squares it contains. 
+        2. given an arbitrary list of words,
+        return all the possible word squares it contains.
         (Reordering is allowed).
 
         Example:
         In: [AREA, BALL, DEAR, LADY, LEAD, YARD]
         Out: [
-            (BALL, AREA, LEAD, LADY), 
+            (BALL, AREA, LEAD, LADY),
             (LADY, AREA, DEAR, YARD)
         ]
 
@@ -85,17 +87,17 @@ class Solution:
                 E: return all word squares found
 
         Edge Cases:
-        1. 
+        1.
         """
+
         def get_square_length(words):
-            """TODO:Use the length of the words - 
+            """TODO:Use the length of the words -
             assume they all have same length"""
             return len(words[0])
 
         def form_all_squares(current_perm, sq_length, found, words):
-            """
-            """
-            # Base 
+            """ """
+            # Base
             if len(current_perm) == sq_length:
                 # C: test if it's a word sq.
                 if self.is_word_square(current_perm) is True:
@@ -107,14 +109,11 @@ class Solution:
                     word = words[index]
                     current_perm.append(word)
                     remaining_words = [
-                        rem_word for rem_index, rem_word in 
-                        enumerate(words) if index != rem_index
+                        rem_word
+                        for rem_index, rem_word in enumerate(words)
+                        if index != rem_index
                     ]
-                    form_all_squares(
-                        current_perm, 
-                        sq_length, found, 
-                        remaining_words
-                    )
+                    form_all_squares(current_perm, sq_length, found, remaining_words)
                     current_perm.pop()
 
         # A: figure out what # of words to put in a square --> lengh of word

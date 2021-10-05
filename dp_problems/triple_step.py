@@ -60,16 +60,16 @@ add to our sum.
 
 def triple_step(steps):
     # Base Cases: init a list to store the amt of ways to the top of stairs
-    num_paths  = [1, 1, 2]
+    num_paths = [1, 1, 2]
 
     # Recursive Case: find the num of ways to climb the given number of steps
     if steps > 2:
         for num_steps in range(3, steps + 1):
             # compute the answer for this subproblem
             num_ways_to_top = (
-                num_paths[num_steps - 3] +
-                num_paths[num_steps - 2] +
-                num_paths[num_steps - 1]
+                num_paths[num_steps - 3]
+                + num_paths[num_steps - 2]
+                + num_paths[num_steps - 1]
             )
             # add this answer to the dp table
             num_paths.append(num_ways_to_top)

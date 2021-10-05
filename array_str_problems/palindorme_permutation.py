@@ -40,7 +40,7 @@ edge case: empty string ---> F, non-alphabetical char --> disregard
 
 def is_palindrome_permutation(string: str) -> bool:
     def make_frequency_distribution(string: str) -> dict:
-        '''Maps each type of char to its tokens'''
+        """Maps each type of char to its tokens"""
         histogram = dict()
         for char in string:
             if char.isalpha() is True:
@@ -52,6 +52,7 @@ def is_palindrome_permutation(string: str) -> bool:
                 else:  # we've seen char before
                     histogram[char] += 1
         return histogram
+
     def could_be_palindrome(non_spaces, histogram):
         # set the allowed number of types that can have an odd # of tokens
         allowed_odd_types = 0
@@ -62,10 +63,11 @@ def is_palindrome_permutation(string: str) -> bool:
         for type, token in histogram.items():
             if token % 2 > 0:
                 odd_types += 1
-            # exit early 
+            # exit early
             if odd_types > allowed_odd_types:
                 return False
         return True
+
     # init the return value
     is_permutation = False
     # Edge Case: empty string ==> False
@@ -74,7 +76,7 @@ def is_palindrome_permutation(string: str) -> bool:
         histogram = make_frequency_distribution(string)  # O(n) t/s
         # B: get the length of all non-space chars in the string
         non_spaces = len([char for char in string if char != " "])  # O(n) t/s
-        # C: based on length and histogram, determine the return value 
+        # C: based on length and histogram, determine the return value
         is_permutation = could_be_palindrome(non_spaces, histogram)  # O(n) t
     return is_permutation
 

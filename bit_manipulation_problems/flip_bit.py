@@ -82,7 +82,7 @@ Approach (after special cases):
 
 class Solution:
     def flip_bit(self, num: int) -> int:
-        '''O(log(n)) time and space'''
+        """O(log(n)) time and space"""
         # validations/special cases:
         if isinstance(num, int) is False:
             raise ValueError("Please provide an integer value.")

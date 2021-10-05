@@ -18,7 +18,6 @@ class LinkedList:
         elif tail is None:
             self.tail = self.head
 
-
     def _find_prev_and_node(self, val):
         prev, node = None, self.head
 
@@ -34,12 +33,12 @@ class LinkedList:
 
     def find(self, value):
         prev, node = self._find_prev_and_node(value)
-        # found 
+        # found
         if node is not None:
             return node
         # not found
         return -1
-    
+
     def append(self, value):
         if self.head is None:
             self.prepend(value)

@@ -1,4 +1,4 @@
-'''
+"""
 Given a sorted array, find the index of the first and last
 occurrence of a given element. If the given element is not found in the array, report that.
 
@@ -24,7 +24,7 @@ distribution =
 
 index 1
 num   2
-'''
+"""
 
 
 def find_indices(array, element):
@@ -43,5 +43,5 @@ def find_indices(array, element):
         return "Element not in list."
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(find_indices([2, 2, 5, 6], 2))

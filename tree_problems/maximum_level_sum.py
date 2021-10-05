@@ -58,6 +58,7 @@ class Solution:
                     enqueue all the (non-None) children of the nodes in the level array
                     remove all the nodes in level array
         """
+
         def get_level_sums(root):
             # A: init the level_sums array
             level_sums = list()  # O(1)
@@ -76,22 +77,22 @@ class Solution:
                 if len(q) == 0:  # O(1)
                     # init the level sum
                     level_sum = 0  # O(1)
-                    # enqueue all the (non-None) children 
+                    # enqueue all the (non-None) children
                     index = 0  # O(1)
                     while index < len(level):  # O(log n)
                         node = level[index]  # O(1)
                         if node.left is not None:  # O(1)
-                            q.append(node.left)  # O(1) 
+                            q.append(node.left)  # O(1)
                         if node.right is not None:  # O(1)
                             q.append(node.right)  # O(1)
                         index += 1  # O(1)
-                        level_sum += node.val # O(1)
+                        level_sum += node.val  # O(1)
                     # empty out the level array
                     level = list()  # O(1)
                     # put the new level_sum in the sums array
                     level_sums.append(level_sum)  # O(1)
             return level_sums
-        
+
         def get_max_level(level_sums):
             # find the max
             maximum = max(level_sums)
@@ -99,7 +100,7 @@ class Solution:
             index = level_sums.index(maximum)
             # return it (add 1)
             return index + 1
-                
+
         # A: find the sum at each level
         # B: map that sum to the level itself
         level_sums = get_level_sums(root)  # O(n) time, O(log n) space
@@ -110,4 +111,3 @@ class Solution:
 
 # Time: O(n)
 # Space: O(log n)
-        

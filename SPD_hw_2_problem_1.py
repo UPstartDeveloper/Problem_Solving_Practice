@@ -19,7 +19,7 @@ Explanation: 342 + 465 = 807.""
 
 """
 
-'''
+"""
 1. Restate the problem:
 Oh okay, so the the digits in each linked list need to be first reversed,
 so that I know the value they really represent?
@@ -120,7 +120,7 @@ encode(sum):
 
 Did that make sense so far? ok then, let's jump into the code!
 
-'''
+"""
 
 
 class Node(object):
@@ -139,9 +139,9 @@ class LinkedList(object):
                 self.append(item)
 
     def __str__(self):
-        '''Returns a string representation of the list nodes in order.'''
+        """Returns a string representation of the list nodes in order."""
         # init return string
-        repr = ''
+        repr = ""
         # traverse over nodes to build the string
         node = self.head
         while node is not Node:
@@ -155,7 +155,7 @@ class LinkedList(object):
         return repr
 
     def append(self, item):
-        '''Adds a new item to the list.'''
+        """Adds a new item to the list."""
         # construct a new Node
         node = Node(item)
         # add it to the linkedlist (as the head no previous)
@@ -174,7 +174,7 @@ class LinkedList(object):
         self.size += 1
 
     def prepend(self, item):
-        '''Adds an item at the front of a linked list.'''
+        """Adds an item at the front of a linked list."""
         node = Node(item)  # make a new Node
         self.size += 1  # increment size of the list
         current_head = self.head  # save memory address of where head is now
@@ -183,7 +183,7 @@ class LinkedList(object):
 
     def decode(self):
         """Return the decimal value corresponding to the sequence of ints in
-           this list.
+        this list.
 
         """
         # init return value
@@ -202,8 +202,8 @@ class LinkedList(object):
 
     def delete(self, item):
         """Delete a node with the given item, or raise ValueError if not found.
-           Implementation left blank for now, because not needed to solve this
-           problem.
+        Implementation left blank for now, because not needed to solve this
+        problem.
 
         """
         pass
@@ -211,23 +211,23 @@ class LinkedList(object):
 
 def encode(value):
     """Return the linkedlist representation of a nonegative decimal integer.
-       To implement this number, we need to slice off each integer, make a node
-       for it, and insert it into the list somewhere.
+    To implement this number, we need to slice off each integer, make a node
+    for it, and insert it into the list somewhere.
 
-       I see two ways of going about this:
-       1. Left to right: We start by grabbing digits from the highest place
-       value, then prepend each of them the linkedlist.
+    I see two ways of going about this:
+    1. Left to right: We start by grabbing digits from the highest place
+    value, then prepend each of them the linkedlist.
 
-       2. Right to left: We grab digits from the lowest place value, then
-       append them to the list.
+    2. Right to left: We grab digits from the lowest place value, then
+    append them to the list.
 
-       In terms of tradeoffs, neither approach has any clear benefit over the
-       other. Both of these approaches scale in O(n) time, where n is the
-       number of digits in the value.
+    In terms of tradeoffs, neither approach has any clear benefit over the
+    other. Both of these approaches scale in O(n) time, where n is the
+    number of digits in the value.
 
-       But since I'm left handed, I'll go with the first approach,
-       because it seems more familiar to write from L to R for me:
-       Google "cognitivie ease" if interested in learning more :)
+    But since I'm left handed, I'll go with the first approach,
+    because it seems more familiar to write from L to R for me:
+    Google "cognitivie ease" if interested in learning more :)
 
     """
     # to figure out the place value of the front digit, I will begin by
@@ -243,7 +243,7 @@ def encode(value):
     # next step: adding nodes to the list
     while decimal > 0:
         # we take each integer off from the value
-        next_digit = decimal // (10**places)
+        next_digit = decimal // (10 ** places)
         # prepend to the list
         ll.prepend(Node(next_digit))
         # decrement places for the next iteration
@@ -252,16 +252,16 @@ def encode(value):
     return ll
 
 
-'''
+"""
 To the interviewer:
 If this looks like a lot, don't worry my friend - I agree with you!
 I acknowledge if this concerns you, and will be sure to test this at the end,
 so we can see if it actually works or not.
-'''
+"""
 
 
 def combine_linked_lists(list1, list2):
-    '''Provide solution for the overall problem (see top).'''
+    """Provide solution for the overall problem (see top)."""
     # decode the lists
     value1 = list1.decode()
     value2 = list2.decode()
@@ -271,12 +271,12 @@ def combine_linked_lists(list1, list2):
     return encode(sum)
 
 
-'''
+"""
 To the interviewer:
 Whew, that was a lot of work - and all for just 4 lines of code at the end!
 Ok, now I test this with the input you provided, and of course I'm sure we
 can find some ways to improve it...
-'''
+"""
 
 if __name__ == "__main__":
     # Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
@@ -288,7 +288,7 @@ if __name__ == "__main__":
     list3 = combine_linked_lists(list1, list2)
     print(list3)
 
-'''
+"""
 To the interviewer:
 Discuss tradeoffs/Suggest improvements
 Oh that's weird! I am not sure why it's not working - I'm sure it's just a
@@ -318,4 +318,4 @@ apps need to be high performance if they're going to compete!
 
 That's all I got for now. What do you think?
 
-'''
+"""

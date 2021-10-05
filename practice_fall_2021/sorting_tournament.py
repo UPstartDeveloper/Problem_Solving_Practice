@@ -1,5 +1,6 @@
 from typing import List
 
+
 def bubble_sort(nums) -> List[int]:
     """Sorts numbers from in ascending order.
     It is:
@@ -42,7 +43,7 @@ if __name__ == "__main__":
         # 3) Reversed order
         ([8, 7, 6, 5, 4, 3, -1], [-1, 3, 4, 5, 6, 7, 8]),
         # 4) Few Unique order
-        ([2, 2, 2, 45, 5, 5, 1], [1, 2, 2, 2, 5, 5, 45])
+        ([2, 2, 2, 45, 5, 5, 1], [1, 2, 2, 2, 5, 5, 45]),
     ]
 
     #### TODO: test out your algorithms on the test cases!

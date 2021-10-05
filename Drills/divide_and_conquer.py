@@ -11,7 +11,7 @@ def binary_search_iterative(array, target):
             return mid_ndx
         # go left if the middle is too big
         elif middle > target:
-            high = mid_ndx - 1 
+            high = mid_ndx - 1
         # go right otherwise
         else:
             low = mid_ndx + 1
@@ -20,14 +20,13 @@ def binary_search_iterative(array, target):
 
 
 def binary_search_use_recursion(array, target):
-    
     def binary_search_recursive(low, high):
         # Search
         if low <= high:
-            # find the middle 
+            # find the middle
             mid_ndx = (low + high) // 2
             middle = array[mid_ndx]
-            # found 
+            # found
             if target == middle:
                 return mid_ndx
             # go left
@@ -45,7 +44,8 @@ def binary_search_use_recursion(array, target):
 
 
 class BinaryNode:
-    '''smaller than or equal items go to left, greater goes right'''
+    """smaller than or equal items go to left, greater goes right"""
+
     def __init__(self, key: int):
         self.key = key
         self.left = self.right = None
@@ -55,14 +55,14 @@ class BinaryNode:
         while node and node.left:
             node = node.left
         return node
-    
+
 
 class BST:
     def __init__(self, root: BinaryNode):
         self.root = root
 
     def _find(self, item: int) -> BinaryNode:
-        '''TODO: use 2 pointers'''
+        """TODO: use 2 pointers"""
         parent, node = None, self.root
         while node is not None and node.key != item:
             parent = node
@@ -73,7 +73,7 @@ class BST:
         return parent, node
 
     def search(self, integer) -> BinaryNode:
-        '''Return the BinaryNode obj, or None'''
+        """Return the BinaryNode obj, or None"""
         parent, node = self._find(integer)
         return node
 
@@ -95,3 +95,4 @@ class BST:
         # if no kids --> rm the connection from parent
         # if 1 kid --> modify parent to point to grandchild
         # if 2 kids --> find inorder successor, delete it, overwrite the node being deleted to have its value
+        pass

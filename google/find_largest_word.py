@@ -87,7 +87,6 @@ from typing import List
 
 
 class SolutionForLists:
-
     def is_subsequence(self, original, word):
         """
         able
@@ -97,7 +96,7 @@ class SolutionForLists:
         r = F
         """
         result = False
-        # see if all the letters in word, also appear in original 
+        # see if all the letters in word, also appear in original
         index_word, index_org = 0, 0
         while index_word < len(word) and index_org < len(original):
             # if letters same
@@ -106,9 +105,8 @@ class SolutionForLists:
             index_org += 1
         # if reached end of word, then it is a subseqence
         if index_word == len(word):
-            result  = True
+            result = True
         return result
-
 
     def find_longest_word(self, original: str, dictionary: List[str]) -> str:
         answer = ""
@@ -138,14 +136,8 @@ answer      ll
 ""          0      
 ""      
 """
-S = "abppplee" 
-D = {
-    "able",     
-    "ale", 
-    "apple",
-    "bale", 
-    "kangaroo"  
-}
+S = "abppplee"
+D = {"able", "ale", "apple", "bale", "kangaroo"}
 
 sol = SolutionForLists()
 print(sol.find_longest_word(S, D))

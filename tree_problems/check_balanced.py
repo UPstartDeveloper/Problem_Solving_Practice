@@ -57,12 +57,13 @@ A: at each node
 
 """
 
+
 class TreeNode:
     def __init__(self, key):
         self.key = key
         self.left = None
         self.right = None
-    
+
     def is_balanced(self):
         if self.left is not None:
             # validate the left subtree, and get the height of the left subtree
@@ -76,8 +77,8 @@ class TreeNode:
             right_height, right_balanced = 0, True
         # compare the heights (validate this root)
         self_height = 1 + max(left_height, right_height)
-        self_balanced = (abs(left_height - right_height) <= 1)
-        # return the height and balance 
+        self_balanced = abs(left_height - right_height) <= 1
+        # return the height and balance
         return self_height, self_balanced
 
 
@@ -88,5 +89,3 @@ class Tree:
     def is_balanced(self) -> bool:
         root_height, root_balanced = self.root.is_balanced()
         return root_balanced
-
-    

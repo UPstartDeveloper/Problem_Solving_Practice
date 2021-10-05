@@ -1,9 +1,9 @@
 def color_sort(nums):
     """Implements the Counting Sort algorithm.
-       
-       :type nums: List[int]
-       :rtype: None
-    
+
+    :type nums: List[int]
+    :rtype: None
+
     """
     # populate an array of the counts of each color
     counts = [0 for _ in range(3)]
@@ -20,11 +20,11 @@ def color_sort(nums):
     return None
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     nums = [0, 1, 0, 1, 2, 1]
     color_sort(nums)
     print(nums)  # --> [0, 0, 1, 1, 1, 2]
-    
+
 """
 Variable Table
 

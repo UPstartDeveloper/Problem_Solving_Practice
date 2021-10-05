@@ -70,7 +70,8 @@ Pros:
 
 
 class QueueNode:
-    '''Regular to a node in a regular singly linked list.'''
+    """Regular to a node in a regular singly linked list."""
+
     def __init__(self, val):
         self.val = val
         self.next = None
@@ -85,10 +86,10 @@ class MyQueue:
             return self.top.val
 
     def enqueue(self, node: QueueNode):
-        # TODO: test cases for all 3 scenarios; and refactor 
+        # TODO: test cases for all 3 scenarios; and refactor
         # no current head
         if not self.top:
-            self.top = node  
+            self.top = node
         # no current tail
         elif not self.back:
             self.back = node

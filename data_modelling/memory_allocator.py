@@ -119,21 +119,21 @@ class MemoryAllocator:
         if ID not in self.register:
             return -1
         # ID found
-        
+
         # erase operations
         erased = 0
         # return no. deleted blocks (i.e. deleted during execution)
         return erased if erased > 0 else -1
-    
+
     def handle_queries(self, queries: list[list[int]]):
-        '''Handles every valid query'''
+        """Handles every valid query"""
         # init output
         results = list()
         for query in queries:
             # validate the query
             if len(query) == 2:
                 # handle the query, store the result
-                arg = query[1] 
+                arg = query[1]
                 if query[0] == 0:
                     result = self.alloc(arg)
                 elif query[0] == 1:
@@ -142,8 +142,8 @@ class MemoryAllocator:
                 results.append(result)
         # return output
         return results
-            
-    
+
+
 """
 class Solution:
 

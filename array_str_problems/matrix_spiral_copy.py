@@ -19,20 +19,18 @@ def spiral_copy(inputMatrix):
                         |
                         |
                         v
-                        
-                    
+
+
     """
     # define direction that the snake goes in, and its limits
-    RIGHT, DOWN, LEFT, UP = (
-        (0, 1), (1, 0), (0, -1), (-1, 0)
-    )
+    RIGHT, DOWN, LEFT, UP = ((0, 1), (1, 0), (0, -1), (-1, 0))
     # numbers for the rows and columns we have yet to traverse
     col_limit = len(inputMatrix[0]) - 1  # 4, 3, 2  # O(c)
     row_limit = len(inputMatrix) - 1  # 4 3   O(r)
     current_limit = (0, col_limit)
-    # start at top 
+    # start at top
     current_position = (0, 0)
-    # init direction the snake travels 
+    # init direction the snake travels
     direction = RIGHT
     # init return list
     elements = list()  # []   int[] ouput = new int[]
@@ -55,35 +53,23 @@ def spiral_copy(inputMatrix):
             if direction == RIGHT:
                 # change the direction
                 direction = DOWN
-                # change the limit 
-                current_limit = (
-                    current_limit_row + row_limit , 
-                    current_limit_col
-                )
+                # change the limit
+                current_limit = (current_limit_row + row_limit, current_limit_col)
             elif direction == DOWN:
                 # change the direction
                 direction = LEFT
                 # change the limit
-                current_limit = (
-                    current_limit_row, 
-                    current_limit_col  - col_limit
-                )
+                current_limit = (current_limit_row, current_limit_col - col_limit)
             elif direction == LEFT:
                 # change the direction
                 direction = UP
                 # change the limit
-                current_limit = (
-                    current_limit_row - row_limit, 
-                    current_limit_col
-                )
+                current_limit = (current_limit_row - row_limit, current_limit_col)
             elif direction == UP:
                 # change the direction
                 direction = RIGHT
                 # change the limit
-                current_limit = (
-                    current_limit_row, 
-                    current_limit_col + col_limit
-                )
+                current_limit = (current_limit_row, current_limit_col + col_limit)
             # if we moved from a horizontal to a vertical direction
             if direction == DOWN or direction == UP:
                 # remove the row just traversed, from the constraints of our box
@@ -95,11 +81,9 @@ def spiral_copy(inputMatrix):
         # resolve the direction vector into its individual components
         change_in_row, change_in_col = direction
         # change the position, move one step in the direction we're currently in
-        current_position = (
-            row_position + change_in_row,
-            col_position + change_in_col
-        )
+        current_position = (row_position + change_in_row, col_position + change_in_col)
     return elements
+
 
 """
 current_limit

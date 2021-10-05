@@ -96,14 +96,14 @@ def calculate(expression, result=0):
         operators_seen = 0
         threshold = 1
         if not expression[0].isnumeric():
-            end_of_op = 1 
+            end_of_op = 1
         while operators_seen < threshold and end_of_op < len(expression):
             if expression[end_of_op] == "+" or expression[end_of_op] == "-":
                 operators_seen += 1
             end_of_op += 1
-        # split the expression 
-        operation  = expression[:end_of_op - 1]
-        expression = expression[end_of_op - 1:]
+        # split the expression
+        operation = expression[: end_of_op - 1]
+        expression = expression[end_of_op - 1 :]
         # update the expression
         if operation[0] == "-":
             is_addition = False
@@ -116,6 +116,7 @@ def calculate(expression, result=0):
         else:
             operand = int(operation[1:])
         return operand, is_addition, expression
+
     # Base Case: no more expression
     if result == 0:
         expression = expression.replace(",", "_")
@@ -123,12 +124,10 @@ def calculate(expression, result=0):
         # return the result
         return result
     # Recursive Case:
-    else:  
+    else:
         print(result)
         # pick up the next operand
-        operand, is_addition, expression = (
-            define_operation(expression)
-        )
+        operand, is_addition, expression = define_operation(expression)
         # updates the overall result (default is +)
         if is_addition:
             result = result + operand
@@ -168,7 +167,7 @@ def calculate_optimal(expression):
     """
     # A) init the result to 0 (will always be our first operand)
     result = 0
-    # B) init the operator 
+    # B) init the operator
     first_operator_pos = 0
     # C) iterate
     second_operator_pos = first_operator_pos + 1
@@ -178,8 +177,10 @@ def calculate_optimal(expression):
         # get to the next operator sign (or the end)
         while second_operator_pos < len(expression):
             # move ahead
-            if not (expression[second_operator_pos] == "+" or 
-                    expression[second_operator_pos] == "-"):
+            if not (
+                expression[second_operator_pos] == "+"
+                or expression[second_operator_pos] == "-"
+            ):
                 second_operator_pos += 1
             else:  # hit the next operator
                 break
@@ -187,7 +188,9 @@ def calculate_optimal(expression):
         if first_operator_pos == 0 and is_subtraction is False:
             second_operand = int(expression[:second_operator_pos])
         else:  # (between operators)
-            second_operand = int(expression[first_operator_pos + 1:second_operator_pos])
+            second_operand = int(
+                expression[first_operator_pos + 1 : second_operator_pos]
+            )
         # do the operation(result, second_operand, operator), update result
         if is_subtraction:
             result -= second_operand
@@ -198,9 +201,11 @@ def calculate_optimal(expression):
         second_operator_pos += 1
     # D) return result
     return result
+
+
 # calculate("6+9-12") => 3
 # calculate("1+2-3+4-5+6-7") => -2
-# calculate("255") => 255   
+# calculate("255") => 255
 
 
 """

@@ -81,13 +81,13 @@ def is_rotation(s1: str, s2: str) -> bool:
                 return False
 
         return True
-        
+
     def is_permutation(s1, s2):
         # A: make 2 dict of the char dist
         char_dist1, char_dist2 = freq_dist(s1), freq_dist(s2)
         # B: compare the dicts
         return is_equal(char_dist1, char_dist2)
-    
+
     # validate the input, then check if it's a permutation
     is_rotation = False
     if (s1 and s2) and is_permutation(s1, s2):
@@ -99,7 +99,7 @@ def is_rotation(s1: str, s2: str) -> bool:
         if wrap_substring_index > -1 and s1 != s2:
             # - then reconstruct the string, pass it to is_substring
             reconstructed_str = (
-                s2[wrap_substring_index + 1:] + s2[:wrap_substring_index + 1]
+                s2[wrap_substring_index + 1 :] + s2[: wrap_substring_index + 1]
             )
             # if the reconstructions == s1, then s2 is a rotation
             is_rotation = isSubstring(s1, reconstructed_str)

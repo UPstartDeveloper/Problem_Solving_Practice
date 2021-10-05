@@ -26,7 +26,10 @@ def rotate_out_of_place(matrix):
     new_matrix = [[0 for i in range(NUMCOLS)] for j in range(NUMROWS)]
     # populate the cols in the new matrix, with rows from the original
     for index_row, row in enumerate(matrix):
-        for index_col, value, in enumerate(row):
+        for (
+            index_col,
+            value,
+        ) in enumerate(row):
             # calculate the shared column
             new_col = NUMROWS - (index_row + 1)
             # calculating the new row
@@ -36,12 +39,13 @@ def rotate_out_of_place(matrix):
     matrix = new_matrix
     return matrix
 
+
 # In-place solution
 def rotate_inplace(matrix):
     """Performs the same task as above, in constant space complexity.
-       
-       :type matrix: List[List[int]]
-       :rtype: None
+
+    :type matrix: List[List[int]]
+    :rtype: None
 
     """
     # useful constants
@@ -51,12 +55,13 @@ def rotate_inplace(matrix):
     while row_index_start < row_index_end:
         # swap rows around the middle row, or until the indicies overlap
         matrix[row_index_start], matrix[row_index_end] = (
-            matrix[row_index_end], matrix[row_index_start]
+            matrix[row_index_end],
+            matrix[row_index_start],
         )
         # move the indices
         row_index_start += 1
         row_index_end -= 1
-    # B: Swap elements along the left-right, up-down diagonal 
+    # B: Swap elements along the left-right, up-down diagonal
     for diagonal_index in range(NUM_ROWS):
         # index the elements to swap around the diagonal element
         for swap_elem in range(diagonal_index + 1):
@@ -70,7 +75,6 @@ def rotate_inplace(matrix):
     return None
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     print(rotate_inplace(matrix))
-    

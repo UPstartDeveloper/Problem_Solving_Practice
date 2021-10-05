@@ -17,16 +17,10 @@ def get_indices_of_item_wights(arr, limit):
         # if it matches
         if possible_answer == limit:
             if lo_elem != hi_elem:
-                answer = [
-                    elem_indices[hi_elem][-1],
-                    elem_indices[lo_elem][-1]
-                ]
+                answer = [elem_indices[hi_elem][-1], elem_indices[lo_elem][-1]]
             else:
                 # get the indices of both nums
-                answer = [
-                    elem_indices[lo_elem][-1],
-                    elem_indices[lo_elem][-2]
-                ]
+                answer = [elem_indices[lo_elem][-1], elem_indices[lo_elem][-2]]
             return sorted(answer, reverse=True)
         # else, move the indices
         elif possible_answer < limit:
@@ -34,8 +28,8 @@ def get_indices_of_item_wights(arr, limit):
         else:  # possible_ans > limit
             hi -= 1
     return []
-   
-  
+
+
 """
 arr = [4, 6, 10, 15,15, 16],  lim = 21
           ^       ^

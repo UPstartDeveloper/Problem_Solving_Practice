@@ -1,14 +1,14 @@
-'''
+"""
 Given an array a, write a function that executes n left rotations on the array.
 E.g. [1,2,3,4,5] => [2,3,4,5,1]
 Restate the question
 Ask clarifying questions
 State your assumptions
 Brainstorm solutions
-'''
+"""
 
 
-'''
+"""
 So if I understand the problem,
 a left rotation is basically taking whichever list element is at the front,
 moving it to the end,
@@ -44,8 +44,8 @@ for a certain number of repetitions (for i in range(n))
 ...
 for data structures, I could use a queue!
 
-'''
-'''
+"""
+"""
 Write a function that takes two lists named a and b, and returns a list
 of common values that are in both lists.
 
@@ -69,4 +69,4 @@ a_len = len(a)
 
 if a_len < b_len:
 else:
-'''
+"""

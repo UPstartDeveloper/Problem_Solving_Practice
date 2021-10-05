@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class Vertex:
     def __init__(self, id: str) -> None:
         self.id = id
@@ -8,7 +9,7 @@ class Vertex:
     def __str__(self):
         return f"Vertex {self.id}"
 
-    
+
 class Graph:
     def __init__(self, is_directed=False):
         self.is_directed = is_directed
@@ -27,7 +28,6 @@ class Graph:
             vertex2.neighbors[vertex1.id] = vertex1
 
     def bfs(self, is_recursive=False):
-
         def _bfs_recursive(q=None, visited=set()):
             # base cases
             if q is None:
@@ -72,7 +72,6 @@ class Graph:
         return _bfs_iterative()
 
     def dfs(self, is_recursive=False):
-
         def _dfs_recursive(node=None, visited=None):
             "TODO: test this"
             # init the DFS
@@ -113,10 +112,7 @@ class Graph:
 
 if __name__ == "__main__":
     # A: set up the graph
-    v = vertices = [
-        Vertex(identifier) for identifier in 
-        ["A", "B", "C", "D", "E", "F"]
-    ]
+    v = vertices = [Vertex(identifier) for identifier in ["A", "B", "C", "D", "E", "F"]]
     g = Graph()
     g.add_edge(v[0], v[5])
     g.add_edge(v[0], v[1])
@@ -131,4 +127,3 @@ if __name__ == "__main__":
     # C: Compare output of iter/rec DFS
     # g.dfs(is_recursive=True)
     g.dfs(is_recursive=False)
-

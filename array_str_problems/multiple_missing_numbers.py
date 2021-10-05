@@ -77,9 +77,7 @@ class Solution:
                 range.append(str(max_value))
             output.append(range)
         # add the ranges to the output (as a string)
-        return ",".join(
-            ["-".join(range) for range in output]
-        )
+        return ",".join(["-".join(range) for range in output])
 
 
 if __name__ == "__main__":

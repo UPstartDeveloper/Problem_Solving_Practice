@@ -54,26 +54,27 @@ def longest_palindrome(input_string):
             return palindrome
     """
 
+
 def longest_palindrome(input_string):
     # A: init a dict to keep track of the lengths of palindromes
     len_palindromes = dict()
+
     def is_palindrome(substring):
-        print(f'Checking if {substring} is a palindrome')
+        print(f"Checking if {substring} is a palindrome")
         midpoint = int(len(substring) / 2)
         LENGTH = len(substring)
         # early exit:
         if LENGTH < 2:
             return True
         for i in range(midpoint):
-            front, back = (
-                substring[i], substring[LENGTH - (i + 1)]
-            )
+            front, back = (substring[i], substring[LENGTH - (i + 1)])
             if front != back:
                 return False
         return True
+
     def add_palindromes(start_index, end_index):
         # check if the substring is a palindrome
-        substring = input_string[start_index:end_index + 1]
+        substring = input_string[start_index : end_index + 1]
         # check if we need another palindrome
         longest_pal_len = 0
         # determine if there's a palindrome length > remaining substr's
@@ -88,7 +89,7 @@ def longest_palindrome(input_string):
         # if it is, add it to the dict
         if is_pal is True:
             pal_length = len(substring)
-            # entry_index = 
+            # entry_index =
             entry = (start_index, substring)
             # add as a new entry
             if pal_length not in len_palindromes:
@@ -107,9 +108,10 @@ def longest_palindrome(input_string):
             add_palindromes(start_index, end_index - 1)
             # and also try moving both indicies in
             # add_palindromes(start_index + 1, end_index - 1)
+
     # for strings with words and spaces in between, split into muliple words
     for word in input_string.split():
-        # iterate from both ends of the input_string towards the center 
+        # iterate from both ends of the input_string towards the center
         start_index = input_string.index(word)
         end_index = start_index + len(word)
         # B: get all the palindromes
@@ -127,15 +129,15 @@ def longest_palindrome(input_string):
     return input_string
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Test Case 1
     # print(longest_palindrome("cbbd"))
     # Test Case 2
     # print(longest_palindrome("babad"))
     # print(longest_palindrome("bbbbbbbbbbbbbbbbbbbbbfbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"))
     # print(longest_palindrome(" racecar "))
-    # print(longest_palindrome("i want to be a racecar driver"))   
-    print(longest_palindrome("abba is babaabab")) 
+    # print(longest_palindrome("i want to be a racecar driver"))
+    print(longest_palindrome("abba is babaabab"))
 
 """
 Going Further:

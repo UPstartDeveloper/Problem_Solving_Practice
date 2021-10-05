@@ -1,4 +1,4 @@
-'''
+"""
 Given the head of a listNode, and a value,
 remove every node in that linked list, that has the value
 
@@ -15,10 +15,10 @@ delete:
     1. previous node's .next and pointing it to the .next of the node being deleted
 
 
-'''
+"""
 
 
-'''
+"""
 1->2->3->4->5->6, val = 6
 [1->, 2->, 3->, 4]
 Var           Value
@@ -32,20 +32,22 @@ i              4
 
 current initially head
 
-'''
+"""
+
 
 class ListNode(object):
     def __init__(self, val):
         """Initialize this node with the given data."""
         self.val = val
         self.next = None
+
     def __repr__(self):
         """Return a string representation of this node."""
-        return 'Node({!r})'.format(self.val)
+        return "Node({!r})".format(self.val)
 
 
 def remove(head, val):
-    '''Time Complexity - O(n), Space - O(n - d)'''
+    """Time Complexity - O(n), Space - O(n - d)"""
     # init a queue - O(1)
     queue = list()
     # traversal of all the listnode -  O(n)
@@ -68,6 +70,7 @@ def remove(head, val):
         head = queue[0]
     return head
 
+
 # n + n --> O(n)
 
 """
@@ -88,5 +91,3 @@ if __name__ == '__main__':
 """
 
 """August 14, 2020"""
-
-

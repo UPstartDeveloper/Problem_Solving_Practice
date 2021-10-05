@@ -50,7 +50,7 @@ def urlify(string, true_length):
     ENCODING = "%20"
     # B: init array of chars for the new string
     new_str_chars = list()
-    index = 0 
+    index = 0
     # get all the leading spaces
     while index < len(string):
         if string[index] == " ":
@@ -72,7 +72,8 @@ def urlify(string, true_length):
         if length_seen == true_length:
             break
     # C: form the new string and return
-    return ''.join(new_str_chars)
+    return "".join(new_str_chars)
+
 
 """
 Input:    0123456789012
@@ -96,4 +97,3 @@ if __name__ == "__main__":
     input = "Mr John Smith "
     tl = 13
     print(urlify(input, tl))
-    

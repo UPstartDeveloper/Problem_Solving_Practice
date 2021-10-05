@@ -1,5 +1,5 @@
 def find_array_quadruplet_naive(arr, s):
-    '''Returns a quadtuple of elements in arr, that sum to s, in sorted order.'''
+    """Returns a quadtuple of elements in arr, that sum to s, in sorted order."""
     solution = []
     arr.sort()  # n log n
     for i in range(len(arr)):
@@ -12,7 +12,8 @@ def find_array_quadruplet_naive(arr, s):
                                 p1, p2, p3, p4 = (arr[i], arr[j], arr[k], arr[l])
                             if (p1 + p2 + p3 + p4) == s:
                                 return sorted([p1, p2, p3, p4])
-    return solution 
+    return solution
+
 
 def find_array_quadruplet_quadratic(arr, s):
     # how do I find the two sum? --> two pointers
@@ -42,22 +43,15 @@ def find_array_quadruplet_quadratic(arr, s):
                 third_addend = arr[index_third_addend]
                 fourth_addend = arr[index_fourth_addend]
                 # try adding the four addends together
-                summation = (
-                    first_addend + second_addend + third_addend + fourth_addend
-                )
+                summation = first_addend + second_addend + third_addend + fourth_addend
                 if summation == s:
-                    return [
-                        first_addend,
-                        second_addend,
-                        third_addend,
-                        fourth_addend
-                    ]
+                    return [first_addend, second_addend, third_addend, fourth_addend]
                 elif summation > s:
                     index_fourth_addend -= 1
                 elif summation < s:
                     index_third_addend += 1
             # move ahead the second index
-            index_second_addend += 1 
+            index_second_addend += 1
         # iterate to the next possible index to find a solution
         index_first_addend += 1
     return list()

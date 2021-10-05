@@ -54,29 +54,30 @@ Edge Cases:
 
 """
 
+
 class Solution:
     def __init__(self, nums):
         self.nums = nums
 
     def init_flag(self) -> int:
-            '''
-            Look for the first value that's less/greater 
-            than the beginning of the array
-            '''
-            # init to 1 (True value)
-            should_be_less = 1
-            # check to make sure the next element is not actuallly greater
-            index = 1
-            while index < len(self.nums):
-                next_elem = self.nums[index]
-                if next_elem > self.nums[index - 1]:
-                    should_be_less = 0
-                    break
-                elif next_elem < self.nums[index - 1]:
-                    break
-                else:  # next_elem == self.nums[index - 1]:
-                    index += 1
-            return should_be_less
+        """
+        Look for the first value that's less/greater
+        than the beginning of the array
+        """
+        # init to 1 (True value)
+        should_be_less = 1
+        # check to make sure the next element is not actuallly greater
+        index = 1
+        while index < len(self.nums):
+            next_elem = self.nums[index]
+            if next_elem > self.nums[index - 1]:
+                should_be_less = 0
+                break
+            elif next_elem < self.nums[index - 1]:
+                break
+            else:  # next_elem == self.nums[index - 1]:
+                index += 1
+        return should_be_less
 
     def is_sorted(self):
         # A: init the bool flag
@@ -87,18 +88,18 @@ class Solution:
             next_elem = self.nums[index]
             prev_elem = self.nums[index - 1]
             # if not met, return False
-            if (should_be_less is False and next_elem <= prev_elem):
+            if should_be_less is False and next_elem <= prev_elem:
                 return False
-            if (should_be_less is True and next_elem >= prev_elem):
+            if should_be_less is True and next_elem >= prev_elem:
                 return False
             index += 1
         # C: if all is well, return True
         return True
 
-    def sort_peaks_and_valleys(self):     
+    def sort_peaks_and_valleys(self):
         def swap(next, prev) -> None:
             self.nums[next], self.nums[prev] = self.nums[prev], self.nums[next]
-        
+
         # A: sort elements until we're in order
         is_sorted = False
         while is_sorted is False:
@@ -110,28 +111,25 @@ class Solution:
             while index < len(self.nums):
                 next_elem, prev_elem = self.nums[index], self.nums[index - 1]
                 # otherwise if it doesn't meet the condition
-                if (should_be_less == 0 and next_elem < prev_elem):
+                if should_be_less == 0 and next_elem < prev_elem:
                     # swap this element and its next neighbor,
                     swap(index, index - 1)
                     swaps += 1
-                elif (should_be_less == 1 and next_elem > prev_elem):
-                    # swap this element and its next neighbor, 
+                elif should_be_less == 1 and next_elem > prev_elem:
+                    # swap this element and its next neighbor,
                     swap(index, index - 1)
                     swaps += 1
                 # regardless, flip the flag for the next iteration
                 index += 1
                 should_be_less = 0 if 1 == should_be_less else 1
-                print(self.nums, index,  should_be_less)
+                print(self.nums, index, should_be_less)
             # judge if we're sorted
-            is_sorted = (swaps == 0)
+            is_sorted = swaps == 0
         return None
 
 
 if __name__ == "__main__":
-    nums = [
-        [5, 3, 1, 2, 3],
-        [7,7,7,7,77,17,7,7]
-    ]
+    nums = [[5, 3, 1, 2, 3], [7, 7, 7, 7, 77, 17, 7, 7]]
     for arr in nums:
         sol = Solution(arr)
         print(f"Nums before: {sol.nums}")

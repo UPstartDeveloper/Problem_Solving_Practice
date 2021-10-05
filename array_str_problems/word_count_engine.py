@@ -1,4 +1,4 @@
-# Connal 
+# Connal
 # Zain
 
 
@@ -18,10 +18,10 @@ def word_count_engine(document):
         if word in type_tokens:
             # increment the key-value pair
             type_tokens[word] += 1
-        else: 
+        else:
             # init the key-value pair
             type_tokens[word] = 1
-            # make an array of just the unique words, 
+            # make an array of just the unique words,
             unique_words.append(word)
     # C: bucket sort by the token count
     word_buckets = [list() for _ in range(len(words))]
@@ -35,7 +35,7 @@ def word_count_engine(document):
     for index in range(len(word_buckets) - 1, -1, -1):
         word_list = word_buckets[index]
         if len(word_list) > 0:
-            # for each word type, 
+            # for each word type,
             for word in word_list:
                 # add a 2D array to the return list w/ the count
                 word_count_as_strs = [word, str(type_tokens[word])]
@@ -163,4 +163,3 @@ output: [ ["practice", "3"], ["perfect", "2"],
   [output] array.array.string
   
   """
-

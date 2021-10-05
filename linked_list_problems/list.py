@@ -13,8 +13,9 @@ class LinkedList:
     Doubly Linked List
         - recommended to have head and tail (w/ null pointers on side)
         - recommended  if want to design a deque
-    
+
     """
+
     def __init__(self):
         pass
 

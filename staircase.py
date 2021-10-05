@@ -4,16 +4,16 @@
 
 def staircase(num_steps):
     """Given an integer number of num_steps, return a right aligned staircase
-       of those characters.
+    of those characters.
 
-       Parameters:
-       num_steps(int): a value representing the number of steps there are in
-                      the staircase. This will also be the same as the number
-                      of num_steps symbols on the last step (the line printed
-                      last to standard output).
+    Parameters:
+    num_steps(int): a value representing the number of steps there are in
+                   the staircase. This will also be the same as the number
+                   of num_steps symbols on the last step (the line printed
+                   last to standard output).
 
-       Returns:
-       None
+    Returns:
+    None
 
     """
     # initialize a count of symbols to print on each step of the staircase

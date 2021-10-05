@@ -1,46 +1,50 @@
 from typing import List
 
+
 def k_backspace(input_string) -> int:
     s_index = len(input_string) - 1
     # iterate in reverse
-    while s_index > 0: 
+    while s_index > 0:
         # check for backspace
         char_right = input_string[s_index]
-        print(f'Right char: {char_right}')
-        if char_right == '<':
+        print(f"Right char: {char_right}")
+        if char_right == "<":
             # track the end of the backspace sequence
             end_backspaces = s_index
             # find the start of the sequence
-            while input_string[s_index] == '<':
+            while input_string[s_index] == "<":
                 s_index -= 1
             # now calculate where the index should move (beyond the deletion)
-            index_before_sequence_to_delete = (
-                end_backspaces - (2*(end_backspaces - s_index))
+            index_before_sequence_to_delete = end_backspaces - (
+                2 * (end_backspaces - s_index)
             )
             print(index_before_sequence_to_delete, end_backspaces)
             # delete the backspaces and appropiate letters
-            input_string = ''.join([
-                input_string[i] for i in range(len(input_string))
-                if not index_before_sequence_to_delete < i < end_backspaces + 1
+            input_string = "".join(
+                [
+                    input_string[i]
+                    for i in range(len(input_string))
+                    if not index_before_sequence_to_delete < i < end_backspaces + 1
                 ]
             )
-            print(f'Changed the string: {input_string}')
+            print(f"Changed the string: {input_string}")
             # move the s_index again
             s_index = len(input_string) - 1
-            print(f'moved to index {s_index}')
+            print(f"moved to index {s_index}")
         else:
             # move one index back
             s_index -= 1
-            print(f'moved to index {s_index}')
+            print(f"moved to index {s_index}")
 
     return input_string
+
 
 """
 if __name__ == '__main__':
     input_string = 'foss<<rritun'
     print(k_backspace(input_string))
     """
-      
+
 """
 01234
 a<bc<
@@ -102,26 +106,27 @@ Indices After Deletion:
 aaa<<
 """
 
-'''Alternative Solution that uses expression as a Stack'''
+"""Alternative Solution that uses expression as a Stack"""
+
+
 class Solution:
     def evalRPN(self, expression: List[str]) -> int:
         def add(x, y):
             return x + y
+
         def subtract(x, y):
             return x - y
+
         def multiply(x, y):
             return x * y
+
         def divide(x, y):
-            result = x /y
+            result = x / y
             result = float(result)
             return int(result)
+
         # map operation functions to characters
-        op_char_func = {
-            '+': add,
-            '-': subtract,
-            '*': multiply,
-            '/': divide
-          }
+        op_char_func = {"+": add, "-": subtract, "*": multiply, "/": divide}
         OPERATORS = list(op_char_func.keys())
         # reverse the list
         expression.reverse()
@@ -131,7 +136,9 @@ class Solution:
             print(index, expression)
             # check for the first calculation
             possible_int1, possible_int2, possible_operator = (
-            expression[index], expression[index - 1], expression[index - 2]
+                expression[index],
+                expression[index - 1],
+                expression[index - 2],
             )
             # make sure we have integers (in str data type)
             operands_valid = True
@@ -140,20 +147,20 @@ class Solution:
                 possible_int2 = int(possible_int2)
             # if it fails, then move on to the next set of three elements
             except ValueError:
-                # move on the next index 
+                # move on the next index
                 operands_valid = False
             # also have to validate the operator
             if possible_operator in OPERATORS and operands_valid is True:
                 # do the calculation
                 operation = op_char_func[possible_operator]
-                print(f'Integers: {possible_int1, possible_int2}')
+                print(f"Integers: {possible_int1, possible_int2}")
                 result = operation(possible_int1, possible_int2)
                 print(result)
                 # place the result into the expression
                 expression.pop(index)
                 expression.pop(index - 1)
                 expression.pop(index - 2)
-                expression.insert(index -2, result)
+                expression.insert(index - 2, result)
                 # start over at top
                 index = len(expression) - 1
             else:
@@ -161,7 +168,8 @@ class Solution:
         # return final result
         return expression[0]
 
+
 if __name__ == "__main__":
-    expression = ["4","3","-"]
+    expression = ["4", "3", "-"]
     sol = Solution()
     print(sol.evalRPN(expression))

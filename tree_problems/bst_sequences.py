@@ -95,7 +95,7 @@ class BinaryTree:
         self.root = root
 
     def to_arrays(self) -> List[List[int]]:
-        '''represent nodes in BFS order using arrays'''
+        """represent nodes in BFS order using arrays"""
         # init output
         nodes = list()
         # init queues
@@ -119,13 +119,13 @@ class BinaryTree:
                     current_level.append(node.right)
         return nodes
 
+
 class Solution:
     def compute_permutations(self, nodes: List[List[int]]) -> List[List[int]]:
-
         def add_all_nodes(current_perm, level_nodes, starting_pos):
             """TODO:
-               adds all the nodes from starting index in level_nodes -> current_perm
-               accounts for IndexErrors
+            adds all the nodes from starting index in level_nodes -> current_perm
+            accounts for IndexErrors
             """
             index = starting_pos
             for _ in range(len(level_nodes)):
@@ -142,7 +142,7 @@ class Solution:
             TODO:
             this method runs, however it leaves out some of the permutations,
             - this is because all nodes in a level appear any nodes of the next level
-                - this is too specific - it regards only the permutations in which the 
+                - this is too specific - it regards only the permutations in which the
                  the BST stays balanced throughout
             - really it should be the parent node appears before any of their children
             - variations in how the children appear can be:
@@ -161,7 +161,7 @@ class Solution:
             for starting_index in range(len(level_nodes)):
                 # C: put all the nodes in this level in the perm, going from starting index
                 add_all_nodes(current_perm, level_nodes, starting_index)
-                # D: if a next level - 
+                # D: if a next level -
                 if level + 1 < len(nodes):
                     # E: go to the next level
                     form_perms(all_perms, current_perm, level + 1)
@@ -170,7 +170,7 @@ class Solution:
                     all_perms.append(current_perm)
                 # G: when come back, remove all previously added nodes
                 current_perm = [val for val in initial_perm]
-        
+
         # A: init a list for all permutations
         all_perms = list()
         # B: go about making the permutations

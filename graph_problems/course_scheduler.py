@@ -1,8 +1,6 @@
 def can_finish(num_courses, prerequisites):
     # build an adjacency matrix of the courses
-    course_sequences = {
-    course: set() for course in range(num_courses)
-    }
+    course_sequences = {course: set() for course in range(num_courses)}
     # add the links from courses to their prerequisites
     for sequence in prerequisites:
         course, prerequisite = sequence

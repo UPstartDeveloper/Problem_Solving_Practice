@@ -2,14 +2,14 @@ def array_of_array_products(arr):
     """
     - integer
     - duplicates
-    
+
     arr = [8, 10, 2]
             [20, ]
             [20, 16, 80]
-    
+
     Idea #1 - quadratic, another array - O(n^2), O(n)
-    
-    
+
+
     # init another array
     # output = [0 for _ in range(arr)]  # [0 , 0, 0]
     output = list()
@@ -46,7 +46,7 @@ def array_of_array_products(arr):
 if __name__ == "__main__":
     print(array_of_array_products([]))
 # start with 1 in the last, move back, fill each with +1 index in arr, multipled with +1 in out
-  
+
 
 """
 [2, 7, 3, 4]
@@ -57,8 +57,6 @@ if __name__ == "__main__":
 
 
 """
-  
-  
 
 
 """

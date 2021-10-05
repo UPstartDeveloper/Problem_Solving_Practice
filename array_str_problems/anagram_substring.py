@@ -1,7 +1,7 @@
-# Problem: Given two strings, str_a and str_b, determine whether any anagram of str_b, 
+# Problem: Given two strings, str_a and str_b, determine whether any anagram of str_b,
 # occurs as a substring of str_a.
-# Constraints: Comparison is NOT case sensitive and input string sizes vary 
-# Examples: 
+# Constraints: Comparison is NOT case sensitive and input string sizes vary
+# Examples:
 # 1) Here come dots and lines that helped build America, The Morse Code ->True
 # 2) crowd, word -> True
 # {'c': 1, "r": 1, "o": 1, "w": 1, "d": 1}
@@ -9,8 +9,8 @@
 # 4) There is no anagram here, game -> False
 
 # Explanations:
-#TRUE = Some arrangement of the characters in str_b is a substring in string a
-#FALSE = Some arrangement of the characters in stb_b is NOT a substring in string #a. No re-arrangement of characters in str_b are contiguously found in str_a.
+# TRUE = Some arrangement of the characters in str_b is a substring in string a
+# FALSE = Some arrangement of the characters in stb_b is NOT a substring in string #a. No re-arrangement of characters in str_b are contiguously found in str_a.
 
 
 """
@@ -53,21 +53,22 @@ def has_anagram_substring(a: str, b: str) -> bool:
     Time: O((a - b)(b^2))
     Space: O(b)
     """
+
     def make_freq_dist(string: str) -> dict:
         dist = dict()
         for letter in string:
             letter = letter.lower()
             if letter not in dist:
                 dist[letter] = 1
-            else: 
+            else:
                 dist[letter] += 1
         return dist
 
-    def is_anagram(sub_a, b) -> bool: 
+    def is_anagram(sub_a, b) -> bool:
         # make a freq dist of str_b
         b_dist = make_freq_dist(b)  # OB
         # make a's freq dist
-        a_dist =  make_freq_dist(sub_a)  # O(b)
+        a_dist = make_freq_dist(sub_a)  # O(b)
         # compare the freq dist's
         for letter in b_dist:  # b iterations--- O(b^2)
             if letter not in a_dist or a_dist[letter] != b_dist[letter]:  # b iterations
@@ -77,13 +78,13 @@ def has_anagram_substring(a: str, b: str) -> bool:
     # edge cases:
     if not a or not b:  # O(1)
         return False
-    if len(b) > len(a): # O(1)
+    if len(b) > len(a):  # O(1)
         return False
     # compare the freq_dist of b, to that of substrings of a (equal size)
     start, end = 0, len(b)  # O(1)
     while start <= len(a) - len(b):  # len(a) - len(b) iterations
         # find the substring of a
-        sub_a  = a[start:end]  # b iterations
+        sub_a = a[start:end]  # b iterations
         # if it works, return T
         if is_anagram(sub_a, b):  # O(b^2)
             return True
@@ -95,11 +96,11 @@ def has_anagram_substring(a: str, b: str) -> bool:
 
 
 if __name__ == "__main__":
-    strings =  [
+    strings = [
         ("Here come dots and lines that helped build America", "The Morse Code"),
         ("crowd", "word"),
         ("There is no anagram here", "some word"),
-        ("There is no anagram here", "game")
+        ("There is no anagram here", "game"),
     ]
     for str_a, str_b in strings:
         print(has_anagram_substring(str_a, str_b))

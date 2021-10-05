@@ -1,14 +1,18 @@
 from typing import Optional
 
+
 class ListNode:
     """Definition for singly-linked list."""
+
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
-        
-        
+
+
 class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+    def addTwoNumbers(
+        self, l1: Optional[ListNode], l2: Optional[ListNode]
+    ) -> Optional[ListNode]:
         """
         Problem Description (credit to Leetcode): https://leetcode.com/problems/add-two-numbers/
         Input/Problem:
@@ -24,52 +28,52 @@ class Solution:
         EC:
             - l1.length != l2.length
             - sum of two nodes > 9
-            
+
         Intuition:
             2 pointers
             decode: LL ---> int (keep track of exp of 10)
             encode: int ---> LL ()
-            
+
         Approach:
-        
+
             1) Pointers:
                 A: decode 1st: LL ---> int (keep track of exp of 10)
                 B: decode 2nd
                 C: sum(1st, 2nd)
                 D: encode sum
                 E: return head of the summed LL
-            
+
             encode:
                 head pter = None
                 calculate pow = 10
                 modulo div of val % pow
                 update the value ---> // pow
                 add a new ListNode obj  (set head node as appropiate)
-                
+
             time: TODO
             space: TODO
-                
+
             342 % 10 ---> 2  # 1st node
             342 // 10 --> 34
             34 % 10 --> 4  # 2nd node
             34 // 10 --> 3
             3 % 10 --> 3 # 3rd node
             3 // 10 --> 0. # STOP b/c no leading 0
-            
-            
-        
+
+
+
         """
         ### HELPERS
         def _decode(head):
             value, node, exp = 0, head, 0
             # figure out the value of the list
             while node is not None:
-                value += (node.val * (10 ** exp))
+                value += node.val * (10 ** exp)
                 node = node.next
                 exp += 1
-            # return 
+            # return
             return value
-        
+
         def _encode(value):
             # special case:
             if value == 0:
@@ -91,7 +95,7 @@ class Solution:
                     node.next = ListNode(digit)
                     node = node.next
             return head
-        
+
         ### DRIVER
         # A: decode all
         addends = [_decode(head_node) for head_node in [l1, l2]]
@@ -99,8 +103,8 @@ class Solution:
         total = sum(addends)
         # C: encode sum, return the new list head
         return _encode(total)
-    
-    
+
+
 """
 TEST:
 l1 = [0], l2 = [0]

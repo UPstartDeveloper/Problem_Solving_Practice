@@ -13,7 +13,6 @@ class Tree:
         self.root = root
 
     def in_order_traversal(self, use_iteration=True):
-
         def _dfs_recursive(node, visited):
             if node.left is not None:
                 _dfs_recursive(node.left)
@@ -21,7 +20,7 @@ class Tree:
             if node.right is not None:
                 _dfs_recursive(node.right)
             return visited
-        
+
         def _dfs_iterative():
             # init collectionss
             stack = list()
@@ -29,7 +28,7 @@ class Tree:
             # push the root onto the stack
             if self.root is not None:
                 stack.append(self.root)
-                # while stack !empty:  
+                # while stack !empty:
                 while len(stack) > 0:
                     # peek at the top node
                     top = stack[-1]
@@ -53,7 +52,6 @@ class Tree:
         return _dfs_recursive(self.root, set())
 
     def pre_order_traversal(self, use_iteration=True):
-        
         def _pre_order_iterative():
             pass
 
@@ -68,13 +66,12 @@ class Tree:
             if node.right is not None:
                 _pre_order_recursive(node.right, visited)
             return visited
-            
+
         if use_iteration is True:
             return _pre_order_iterative()
         return _pre_order_iterative(self.root, set())
 
     def post_order_traversal(self, use_iteration=True):
-        
         def _post_order_iterative():
             pass
 
@@ -89,7 +86,7 @@ class Tree:
             if node is not None:
                 visited.add(node)
             return visited
-            
+
         if use_iteration is True:
             return _post_order_iterative()
         return _post_order_iterative(self.root, set())

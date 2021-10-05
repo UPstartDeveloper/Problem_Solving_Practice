@@ -1,6 +1,6 @@
 from typing import List
 
-# Problem Description on Hacker Rank: http://hr.gs/3apgt 
+# Problem Description on Hacker Rank: http://hr.gs/3apgt
 
 """
 Variable-Value Table:
@@ -23,20 +23,23 @@ arr: [7, 1, 3, 2, 4, 5, 6]
 
 """
 
-def min_swaps(arr: List[int]): 
+
+def min_swaps(arr: List[int]):
     """Return the minimum number of swaps needed to sort a list in ascending
-       order. 
+    order.
 
-       arr(List[int]): a list of positive integers. No duplicates.
-                       Once sorted, all the elements are consecutive.
+    arr(List[int]): a list of positive integers. No duplicates.
+                    Once sorted, all the elements are consecutive.
 
-       Return: int: the lowest number of swap operations needed to sort arr
+    Return: int: the lowest number of swap operations needed to sort arr
 
     """
+
     def swap(index1: int, index2: int):
-        '''Performs a mutative swap on the array.'''
+        """Performs a mutative swap on the array."""
         arr[index1], arr[index2] = arr[index2], arr[index1]
         return None
+
     # initialize a counter for amount of swaps
     num_swaps = 0
     # pointer for what index the lowest index should be in
@@ -56,8 +59,6 @@ def min_swaps(arr: List[int]):
     return num_swaps
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     arr = [7, 1, 3, 2, 4, 5, 6]
     print(min_swaps(arr))
-    

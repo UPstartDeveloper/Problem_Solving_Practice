@@ -5,7 +5,7 @@ https://www.hackerrank.com/challenges/sock-merchant/problem?h_l=interview&playli
 
 
 def solution(socks):
-    '''Return an integer representing the number of pairs of matching socks.'''
+    """Return an integer representing the number of pairs of matching socks."""
     # build a histogram of the socks
     sock_colors = {}
     for sock in socks:

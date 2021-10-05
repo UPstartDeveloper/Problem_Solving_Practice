@@ -28,12 +28,12 @@ def binary_search(array, x):
     # B: search the array
     while low <= high:
         # find the middle value
-        middle  = (low + high) // 2
+        middle = (low + high) // 2
         mid_elem = array[middle]
         # if found, return the index
         if mid_elem == x:
             return middle
-        # if not, divide the array into two subproblems 
+        # if not, divide the array into two subproblems
         elif mid_elem < x:  # go right
             low = middle + 1
         elif mid_elem > x:  # go left
@@ -65,18 +65,19 @@ def binary_search_recursive(array, target, low=None, high=None):
 
 def merge_sort(array):
     """
-    the merge sort algorithm sorts an array of elements 
+    the merge sort algorithm sorts an array of elements
     out of place, is stable, and takes O(n log n) time
 
     Divide: split the array into left and right halves
     Conquer: sort the half
     Combine: merge the two sorted array
     """
+
     def merge(left, right):
         """Merge two sorted lists into a combined sorted list"""
         # A: init the new array
         combined = list()
-        # B: have the two array "battle" for each position in the combined 
+        # B: have the two array "battle" for each position in the combined
         left_idx, right_idx = 0, 0
         while left_idx < len(left) and right_idx < len(right):
             # get the next elements from both
@@ -89,7 +90,7 @@ def merge_sort(array):
             else:  # left_elem > right_elem
                 combined.append(right_elem)
                 right_idx += 1
-        # C: also insert any leftovers at the end 
+        # C: also insert any leftovers at the end
         if left_idx < len(left):
             combined.extend(left[left_idx:])
         elif right_idx < len(right):
@@ -115,9 +116,10 @@ def quick_sort(array, low=0, high=None):
     """
     Divide and conquer sorting algorithm
     that is in place and not stable.
-    O(n log n) time and O(log n) space in 
+    O(n log n) time and O(log n) space in
     the average case
     """
+
     def partition(low, high):
         # the first element will be the pivot
         pivot = low
@@ -144,6 +146,7 @@ def quick_sort(array, low=0, high=None):
         # return the new location of the pivot
         # print(f"Returning {left}, array is {array}")
         return left
+
     # init the subrange over the whole array
     if high is None:
         high = len(array) - 1
@@ -161,7 +164,7 @@ def quick_sort(array, low=0, high=None):
 
 def insertion_sort(array):
     """
-    Intuition: 
+    Intuition:
     - let's mark the first index in the array as sorted
     - then iteratively add more and more elements into their sorted
         position, in the sorted section
@@ -203,12 +206,11 @@ def insertion_sort(array):
             index_before = index - 1
             # if the number before is greater, swap (stop at index 0)
             while index_before > -1 and array[index_before] > array[index]:
-                array[index], array[index_before] = (
-                    array[index_before], array[index]
-                )
+                array[index], array[index_before] = (array[index_before], array[index])
                 index -= 1
                 index_before -= 1
     return array
+
 
 """
  0  1   2  3  4  5  6

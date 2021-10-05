@@ -7,7 +7,7 @@ def linear_search(array, target):
 
 
 def linear_search_recursive(array, target, index=0):
-    '''uses recursion'''
+    """uses recursion"""
     if index == len(array):
         return -1
     elif array[index] == target:
@@ -28,13 +28,12 @@ def binary_search_iter(array, target):
             return mid_ndx
 
         elif mid > target:  # go left
-            high = mid_ndx - 1 
-        
+            high = mid_ndx - 1
+
         elif mid < target:  # go right
             low = mid_ndx + 1
-    
-    return -1
 
+    return -1
 
 
 def binary_search_rec(array, target, low=0, high=None):
@@ -53,13 +52,13 @@ def binary_search_rec(array, target, low=0, high=None):
     # Recursive Cases
     elif mid < target:  # go right
         return binary_search_rec(array, target, mid_ndx + 1, high)
-    
-    else:  # go left 
+
+    else:  # go left
         return binary_search_rec(array, target, low, mid_ndx - 1)
 
 
 def bubble_sort(array):
-    '''Sorts the Array in Place'''
+    """Sorts the Array in Place"""
     is_sorted = False
     while is_sorted is False:
         swaps = 0
@@ -96,10 +95,10 @@ def insertion_sort(array):
     # list is sorted
     return array
 
-def quicksort(array, low=0, high=None):
 
+def quicksort(array, low=0, high=None):
     def partition(array, low, high):
-        '''Chooses a pivot at the last index'''
+        """Chooses a pivot at the last index"""
         # Init pointers
         swapper, pivot = low, high
         lower_side_tail = swapper - 1
@@ -109,12 +108,13 @@ def quicksort(array, low=0, high=None):
                 lower_side_tail += 1
                 array[swapper], array[lower_side_tail] = (
                     array[lower_side_tail],
-                    array[swapper]
+                    array[swapper],
                 )
             swapper += 1
         # move the pivot into position
         array[pivot], array[lower_side_tail + 1] = (
-            array[lower_side_tail + 1], array[pivot]
+            array[lower_side_tail + 1],
+            array[pivot],
         )
         # return the new position of the pivot
         return lower_side_tail + 1
@@ -130,9 +130,3 @@ def quicksort(array, low=0, high=None):
         # Combine: recurse the process on both sides:
         quicksort(array, low, pivot - 1)
         quicksort(array, pivot + 1, high)
-
-    
-
-
-
-

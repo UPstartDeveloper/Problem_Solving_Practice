@@ -34,7 +34,7 @@ B: compare the two numbers for the page turning:
 
 
 def drawing_book(book_length, target_page):
-    '''Return the minimum number of page turns needed to reach a page.'''
+    """Return the minimum number of page turns needed to reach a page."""
     """
     # calculate number of page turns from the front
     if target_page > 1:
@@ -88,5 +88,5 @@ Idea #3 - "map" page numbers to an array index for the front page turns,
     return min([front_turns, turns_from_back])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(drawing_book(6, 4))

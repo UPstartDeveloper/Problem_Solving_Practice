@@ -1,17 +1,18 @@
-'''
+"""
 Problem Description and Starter Code on LeetCode website:
 https://leetcode.com/problems/add-two-numbers/
-'''
+"""
 
 
 class ListNode:
-    '''Definition for singly linked list.'''
+    """Definition for singly linked list."""
+
     def __init__(self, x):
         self.val = x
         self.next = None
 
 
-'''
+"""
 Variable Table 1:
 variable    | node   |  place_val  | increment |  return value         |
 values      | First Call:                                              |
@@ -23,7 +24,7 @@ values      | First Call:                                              |
             | ( 6 )  |    1        |    60     |   60 + decode((4), 2) |
             | ( 4 )  |    2        |    400    |   400 -> overall value is 465!
 
-'''
+"""
 
 
 def decode(node: ListNode, place_val=0) -> int:
@@ -36,7 +37,7 @@ def decode(node: ListNode, place_val=0) -> int:
     return increment + decode(node.next, place_val + 1)
 
 
-'''
+"""
 Variable Table 2:
 variable    |    l1     |     l2     |    value1    |    value2   |   summed_val   |     places    |      value_left     |
 values      |   ( 2 )   |     (5)    |     342      |     465     |    807         |      1        |          807        |
@@ -45,7 +46,7 @@ values      |   ( 2 )   |     (5)    |     342      |     465     |    807      
             | head_node | prev_node  |    node      |      i      |     80         |
             |  ( 7 )    |    ( 7 )   |     ( 0 )    |      1      |     8          |
             |           |    ( 0 )   |     ( 8 )    |      2      |     0          |
-'''
+"""
 
 
 def add_two_numbers(l1: ListNode, l2: ListNode) -> ListNode:
@@ -73,7 +74,7 @@ def add_two_numbers(l1: ListNode, l2: ListNode) -> ListNode:
     return head_node
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # instantiate "good case" test inputs
     l1 = ListNode(2)
     l1.next = ListNode(4)

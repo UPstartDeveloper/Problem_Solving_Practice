@@ -2,7 +2,7 @@ from typing import List
 
 
 def rotate_array(input_array, k):
-    '''Perform k right rotations on input_array, in O(1) memory.'''
+    """Perform k right rotations on input_array, in O(1) memory."""
     for _ in range(k):
         # index the element from right
         last = input_array[-1]
@@ -64,12 +64,12 @@ def rotate(nums: List[int], k: int) -> None:
         nums[index_left], nums[index_right] = elem_right, elem_left
         index_left += 1
         index_right += 1
-        print(f'Nums after {_ + 1} iterations: {nums}')
+        print(f"Nums after {_ + 1} iterations: {nums}")
     # C: move the elements in between the first and last k elements, to the end
     print(index_left, index_right)
     for _ in range(index_left, index_right - required_rotations):
         nums.append(nums.pop(index_left))
-        
+
 
 if __name__ == "__main__":
     arr = list(range(1, 54))

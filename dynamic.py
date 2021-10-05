@@ -16,41 +16,44 @@ def make_trib_table(n):
 
     return trib_table[n]
 
+
 def memoize(f):
     memo = {}
+
     def helper(x):
         if x not in memo:
             memo[x] = f(x)
         return memo[x]
+
     return helper
+
 
 def lcs(strA, strB):
     if len(strA) == 0 or len(strB) == 0:
-       return 0
-    elif strA[-1] == strB[-1]: 
-       # if the last characters match
-       return 1 + lcs(strA[:-1], strB[:-1])
-    else: 
-       # if the last characters don't match
-       return max(lcs(strA[:-1], strB), lcs(strA, strB[:-1]))
+        return 0
+    elif strA[-1] == strB[-1]:
+        # if the last characters match
+        return 1 + lcs(strA[:-1], strB[:-1])
+    else:
+        # if the last characters don't match
+        return max(lcs(strA[:-1], strB), lcs(strA, strB[:-1]))
+
 
 def memoize_lcs(f):
     memo = {}
+
     def helper(x, y):
         if (x, y) not in memo:
             memo[x, y] = f(x, y)
         return memo[x, y]
+
     return helper
 
 
 def make_lcs_table(x, y):
     lcs_table = {}
-    lcs_table[''] = 0
+    lcs_table[""] = 0
     # 'str' --> set(all possible )
-
-
-
-
 
 
 if __name__ == "__main__":

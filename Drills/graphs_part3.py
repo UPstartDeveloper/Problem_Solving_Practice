@@ -1,7 +1,7 @@
 from collections import deque
 
-class BinaryTreeNode:
 
+class BinaryTreeNode:
     def __init__(self, key) -> None:
         self.key = key
         self.left = self.right = None
@@ -12,9 +12,8 @@ class BinaryTree:
         self.root = root
 
     def bfs(self, use_iteration=True):
-
         def _bfs_iterative():
-            # A: init queue 
+            # A: init queue
             q = deque()
             # B: add first node
             if self.root is not None:
@@ -23,9 +22,9 @@ class BinaryTree:
                 while len(q) > 0:
                     # D: dequeue a node
                     node = q.popleft()
-                    print(f'Visiting: {node.key}')
-                    # E: enqueue the children 
-                    if node.left: 
+                    print(f"Visiting: {node.key}")
+                    # E: enqueue the children
+                    if node.left:
                         q.append(node.left)
                     if node.right:
                         q.append(node.right)
@@ -41,7 +40,7 @@ class BinaryTree:
             elif len(q) > 0:
                 node = q.popleft()
                 print(f"Visiting: {node.key}")
-                if node.left: 
+                if node.left:
                     q.append(node.left)
                 if node.right:
                     q.append(node.right)
@@ -50,9 +49,8 @@ class BinaryTree:
         if use_iteration is True:
             return _bfs_iterative()
         return _bfs_recursive()
-    
-    def dfs_inorder(self, use_iteration=True):
 
+    def dfs_inorder(self, use_iteration=True):
         def _recursive(node=self.root):
             if node is not None:
                 if node.left:
@@ -72,6 +70,7 @@ class BinaryTree:
                     node = stack.pop()
                     print(f"Visiting: {node.key}")
                     node = node.right
+
         pass
 
 
@@ -90,14 +89,14 @@ class BacktrackingPatterns:
                     current_perm.append(remaining[index])
                     # get the remaining numbers, and cont. backtracking
                     new_remaining = [
-                        elem for i, elem in enumerate(remaining)
-                        if i != index
+                        elem for i, elem in enumerate(remaining) if i != index
                     ]
                     backtracking_helper(current_perm, all_perms, new_remaining)
                     # reset to before the number was added
                     current_perm.pop(-1)
 
             pass
+
         # A: init a list for the current permutation
         cp = list()
         # B: init a list to hold all the permutations
@@ -129,9 +128,9 @@ class Graph:
         return list(self.vertices.keys())[0]
 
     def bfs(self):
-        # init collections 
+        # init collections
         q = deque()
-        visited  = set()
+        visited = set()
         # enqueue first Vertex
         first = self.get_first()
         q.append(first)
@@ -148,7 +147,6 @@ class Graph:
                     q.append(neighbor)
 
     def dfs(self, use_iter=True):
-
         def _dfs_recursive(node=None, visited=set()):
             # if using recursion, init first node
             if node is None:
@@ -163,7 +161,7 @@ class Graph:
         def _dfs_iterative():
             # init collections
             stack = list()
-            visited = set() 
+            visited = set()
             # push first node
             first = self.get_first()
             stack.append(first)
@@ -189,14 +187,14 @@ class Graph:
     def classify_connection(self, user1, user2):
         """
         Given two vertices in an undirected graph,
-        return whether they are either 1st, 2nd, or 3rd 
+        return whether they are either 1st, 2nd, or 3rd
         degree connections (assuming they are connected).
         """
         # A: init distances dict
         distances = dict()
         # B: init queue
         q = deque([(user1, 0)])
-        # C: traverse the graph 
+        # C: traverse the graph
         while len(q) > 0:
             # dequeue a node
             user, distance = q.popleft()
@@ -212,35 +210,35 @@ class Graph:
         pass
 
     def get_second_third_degree(self, origin_user):
-        """Given a vertex in an undirected graph, 
-           find and return all the vertices
-           that are 2 and 3 degrees away.
+        """Given a vertex in an undirected graph,
+        find and return all the vertices
+        that are 2 and 3 degrees away.
 
 
-           user = Vertex<'Abby', connections = {}>
-           ||
-           Bobby-------Jasmine
-           |
-           |
-           Zain
+        user = Vertex<'Abby', connections = {}>
+        ||
+        Bobby-------Jasmine
+        |
+        |
+        Zain
 
-           ==> {
-               degrees: [neighbor]
-                2: ["Zain", "Jasmine"],
-                3: []
-               }
+        ==> {
+            degrees: [neighbor]
+             2: ["Zain", "Jasmine"],
+             3: []
+            }
 
-            Intuition: BFS
+         Intuition: BFS
 
-            Approach
-            - do a BFS from the user Vertex
-            - distances dict: mmeasure the degrees
-            - return all 
-            linear time and space complexi
+         Approach
+         - do a BFS from the user Vertex
+         - distances dict: mmeasure the degrees
+         - return all
+         linear time and space complexi
 
-            Edge Cases:
-            1- no 2nd and/or no 3rd degree
-            2- user is not a Vertex - raise ValueError
+         Edge Cases:
+         1- no 2nd and/or no 3rd degree
+         2- user is not a Vertex - raise ValueError
 
         """
 
@@ -271,12 +269,11 @@ class Graph:
             return close_neighors
 
         # A: do a BFS from the user Vertex
-        q  = deque([(0, origin_user)])
+        q = deque([(0, origin_user)])
         # B: find all the neighboring nodes within 3 degrees
         degree_nodes = find_neighbors(q)
         # C: return connection in 2nd and 3rd degree
         return get_2nd_3rd_degree_connections(degree_nodes)
-
 
 
 if __name__ == "__main__":

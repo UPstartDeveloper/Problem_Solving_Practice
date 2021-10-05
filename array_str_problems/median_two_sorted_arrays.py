@@ -1,16 +1,17 @@
 from typing import List
 
+
 class Solution:
     def find_median_old(self, nums1: List[int], nums2: List[int]) -> int:
         # merge the sorted lists
         sorted_array = list()
         # store the lengths of both input lists
         nums1_amt, nums2_amt = len(nums1), len(nums2)
-        nums1_index, nums2_index = 0, 0 
+        nums1_index, nums2_index = 0, 0
         # merge the two lists
         while nums1_index < nums1_amt and nums2_index < nums2_amt:
             # get the smallest elements in each list
-            num1, num2 = nums1[nums1_index], nums2[nums2_index] 
+            num1, num2 = nums1[nums1_index], nums2[nums2_index]
             # decide which should go in the merged list next
             if num1 <= num2:
                 # add the number
@@ -46,9 +47,7 @@ class Solution:
         # compare the medians of both arrays
         median = None
         while True:
-            mid1, mid2 = (
-                (low1 + high1) // 2, (low2 + high2) // 2
-            )
+            mid1, mid2 = ((low1 + high1) // 2, (low2 + high2) // 2)
             med1, med2 = arr1[mid1], arr2[mid2]
             # medians match -> return the answer
             if med1 == med2:
@@ -62,6 +61,6 @@ class Solution:
             else:
                 low1 = mid1
                 high2 = mid2
-        
+
         # there's an error if median is None
         return median

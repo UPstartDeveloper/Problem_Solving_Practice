@@ -27,7 +27,7 @@ def isPalindrome(head: ListNode) -> bool:
             temp = middle.next
             if temp.next == last:
                 temp.next = None
-            # make the next node from the middle the last, and re-insert prev 
+            # make the next node from the middle the last, and re-insert prev
             middle.next = last
             last.next = temp
             # move forward middle and last nodes
@@ -36,7 +36,7 @@ def isPalindrome(head: ListNode) -> bool:
             print(last.val, last.next)
             # start reversing, while last node is not the tail
             while last.next is not None:
-                print('in loop')
+                print("in loop")
                 # reset last node after the middle
                 last = middle.next
                 # take the node after the last node for next pointer swap
@@ -46,7 +46,7 @@ def isPalindrome(head: ListNode) -> bool:
                 # move forward middle and last nodes
                 middle = middle.next
                 last = last.next
-            
+
     def check_palindrome(middle) -> bool:
         node = head
         # ignore nodes smack right in the middle
@@ -61,16 +61,17 @@ def isPalindrome(head: ListNode) -> bool:
             node = node.next
             middle = middle.next
         return True
+
     # ------ Driver --------------
     if not head or not head.next:
         return True
     # A: find the middle and end of the LL
     middle, last = find_middle_and_end(head)
-    print('found middle', middle.val)
+    print("found middle", middle.val)
     # B: reverse the second half of the LL
     reverse_last_half(middle, last)
-    print('reversed list')
-    # C: find the middle again 
+    print("reversed list")
+    # C: find the middle again
     middle, last = find_middle_and_end(head)
     # D: check that the list is a palindrome
     return check_palindrome(middle)

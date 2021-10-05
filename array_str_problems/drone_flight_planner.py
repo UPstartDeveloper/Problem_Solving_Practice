@@ -4,20 +4,20 @@ def calc_drone_min_energy(route):
     e minimum amount of energy req for flight
 
     energy
-    input:  route = [ 
+    input:  route = [
                     x    y   z
                     [0,   2, 10],  0, total = 0
-                    [3,   5,  0], +10 energy, total= 10 
+                    [3,   5,  0], +10 energy, total= 10
                     [9,  20,  6], -6 energy, total = 4
-                    [10, 12, 15], -9 energy, total = 
+                    [10, 12, 15], -9 energy, total =
                     [10, 10,  8] ] +7 energy, total = 2
-                    
+
                     2 energy
 
     output: 5 # less than 5 kWh and the drone would crash before the finish
             # line. More than `5` kWh and it’d end up with excess energy
-            
-            
+
+
     approach:
 
     - iterate over all the points
@@ -43,7 +43,8 @@ def calc_drone_min_energy(route):
             min_total = total
     # C: find the lowest at the end
     return -1 * min_total
-  
+
+
 """
 route = [ 
    x    y   z

@@ -104,9 +104,9 @@ class LinkedList:
         for _ in range(nums_smaller):
             node = node.next
         return node
-        
+
     def partition(self, parting):
-        '''move the small elements you find on the right, to the left'''
+        """move the small elements you find on the right, to the left"""
         # A: find the number of elements < p
         nums_smaller = self.nums_smaller(parting)
         # B: init pointers at the starting nodes of both partition
@@ -131,7 +131,9 @@ class LinkedList:
             else:
                 right = right.next
         # D: exit the function
-        return None 
+        return None
+
+
 """
                                    r
                l       

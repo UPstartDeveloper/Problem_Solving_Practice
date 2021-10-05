@@ -64,7 +64,8 @@ from typing import List, Tuple
 
 
 class TreeNode:
-    '''TODO: generalize this to M-Way tree'''
+    """TODO: generalize this to M-Way tree"""
+
     def __init__(self, id, val):
         self.id = id
         self.val = val
@@ -91,7 +92,7 @@ class TreeNode:
         return total
 
     def get_parent(self):
-        '''get the highest possible parent of this node'''
+        """get the highest possible parent of this node"""
         parent, node = self.parent, self
 
         while parent is not None:
@@ -132,7 +133,7 @@ class Solution:
     tree is NOT guaranteed to be complete or full - i.e. may not always be balanced
     tree is ASSUMED to be binary
 
-    Time: O(n^2), 
+    Time: O(n^2),
     thing to optimize is repeated work is calculating the tree sums
 
     Space: O(n)
@@ -140,10 +141,11 @@ class Solution:
     n - largest possible space the stack in a DFS can take up
 
     """
+
     def cut_the_tree(self, data: List[int], edges: List[Tuple[int]]):
 
         # A: build the entire tree once - each has an id - O(n)
-        tree = Tree(data, edges)  # 
+        tree = Tree(data, edges)  #
         # B: find the smallest difference by iterating over the list of edges
         smallest_diff = float("inf")
         for node_id, child_id in edges:  # e iterations ---> overall O(n^2)
@@ -157,17 +159,14 @@ class Solution:
             diff = abs(sum1 - sum2)
             # update smallest as appropiate
             if diff < smallest_diff:
-                smallest_diff = diff 
+                smallest_diff = diff
         # return solution
         return smallest_diff
 
 
 if __name__ == "__main__":
-        # Test Case from Hacker Rank
-        data = [1, 2, 3, 4, 5, 6]
-        edges = [
-            (1, 2), (1, 3), (2, 6), 
-            (3, 4), (3, 5)
-        ]
-        sol = Solution()
-        print(sol.cut_the_tree(data, edges))
+    # Test Case from Hacker Rank
+    data = [1, 2, 3, 4, 5, 6]
+    edges = [(1, 2), (1, 3), (2, 6), (3, 4), (3, 5)]
+    sol = Solution()
+    print(sol.cut_the_tree(data, edges))

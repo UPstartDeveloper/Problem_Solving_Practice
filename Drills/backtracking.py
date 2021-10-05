@@ -7,7 +7,7 @@ def permutations(nums):
     """
 
     def find_permutations(current, remaining, found):
-        '''Computes the permuations in just 1 branch of the tree.'''
+        """Computes the permuations in just 1 branch of the tree."""
         # base case - current perm is complete
         if len(current) == len(nums):
             found([num for num in current])
@@ -18,14 +18,15 @@ def permutations(nums):
                 current.append(remaining[index])
                 # recurse
                 new_remaining = [
-                    rem_num for rem_index, rem_num in enumerate(remaining)
+                    rem_num
+                    for rem_index, rem_num in enumerate(remaining)
                     if index != rem_index
                 ]
                 find_permutations(current, new_remaining, found)
                 # remove the previously added num
                 current.pop()
 
-    # A: init a list to store all perms 
+    # A: init a list to store all perms
     all = list()
     # B: traverse the tree of permutations - init the current perm
     find_permutations([], [num for num in nums], all.append)
@@ -36,4 +37,3 @@ def permutations(nums):
 if __name__ == "__main__":
     nums = [1, 2, 3]
     print(permutations(nums))
-    

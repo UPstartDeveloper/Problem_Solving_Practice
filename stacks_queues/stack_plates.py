@@ -71,11 +71,11 @@ class PlateStack:
         self.plates = list()
 
     def push(self, plate: Plate) -> None:
-        '''Add items to the end of the list (top of the stack).'''
+        """Add items to the end of the list (top of the stack)."""
         self.plates.append(plate)
 
     def pop(self) -> Plate:
-        '''Remove from the end of the list (top of stack).'''
+        """Remove from the end of the list (top of stack)."""
         if len(self.plates) == 0:
             raise RuntimeError("There are no plates in this stack.")
         return self.plates.pop()
@@ -93,22 +93,22 @@ class SetOfStacks:
         self.cap = capacity
         self.num_stacks = 0
 
-    def list_valid_ids(self, purpose='push') -> list:
+    def list_valid_ids(self, purpose="push") -> list:
         """
-        Give a zero-indexed list representing all stacks 
+        Give a zero-indexed list representing all stacks
         that can be pushed or popped from.
         """
 
         def _list_valid_push_ids(plates):
-            '''if pushing: return the id of each stack whose len < cap'''
+            """if pushing: return the id of each stack whose len < cap"""
             valid_ids = list()
             for plate_id, plate in plates:
                 if not plate.is_full():
                     valid_ids.append(plate_id)
             return valid_ids
-        
+
         def _list_valid_pop_ids(plates: List[Tuple[int, Plate]]):
-            '''if popping: return the id of each stack whose len > 0'''
+            """if popping: return the id of each stack whose len > 0"""
             valid_ids = list()
             for plate_id, plate in plates:
                 if not plate.is_empty():
@@ -117,18 +117,17 @@ class SetOfStacks:
 
         # get a list of all the plate stacks, ordered by id
         plates = sorted(list(self.stacks.items()))
-        if purpose == 'push':
+        if purpose == "push":
             return _list_valid_push_ids(plates)
         return _list_valid_pop_ids(plates)
 
     def _is_valid_id(self, id: int) -> bool:
-        '''Returns T/F based on the id being a key of the stacks dict.'''
+        """Returns T/F based on the id being a key of the stacks dict."""
         return id in self.stacks.keys()
 
-    def _find_stack(self, purpose='push') -> Tuple[int, PlateStack]:
-
+    def _find_stack(self, purpose="push") -> Tuple[int, PlateStack]:
         def _find_stack_push(self, plates):
-            '''returns the first PlateStack < cap'''
+            """returns the first PlateStack < cap"""
             # find the first available plate
             for plate_id, plate in plates:
                 if plate.is_full(self.cap) is False:
@@ -138,8 +137,8 @@ class SetOfStacks:
             return self._add_stack()
 
         def _find_stack_pop(self, plates):
-            '''returns the first PlateStack > 0'''
-             # find the first available plate
+            """returns the first PlateStack > 0"""
+            # find the first available plate
             for plate_id, plate in plates:
                 if plate.is_empty() is False:
                     return plate_id, plate
@@ -150,22 +149,22 @@ class SetOfStacks:
         # get a list of all the plate stacks, ordered by id
         plates = sorted(list(self.stacks.items()))
         # return the plates for the push or pop, as specified
-        if purpose == 'push':
+        if purpose == "push":
             return _find_stack_push(plates)
         return _find_stack_pop(plates)
 
     def _add_stack(self) -> Tuple[int, PlateStack]:
         """
-        Adds a new plate, increments the # of stacks 
+        Adds a new plate, increments the # of stacks
         and returns the new plate.
         """
-        plate_id, new_plate = self.num_stacks, PlateStack() 
+        plate_id, new_plate = self.num_stacks, PlateStack()
         self.stacks[plate_id] = new_plate
         self.num_stacks += 1
         return plate_id, new_plate
 
     def _remove_stack(self, id: int):
-        '''Removes the stack of plates, and tells the user.'''
+        """Removes the stack of plates, and tells the user."""
         del self.stacks[id]
         print(f"Stack {id} has now been removed because it was empty.")
         self.num_stacks -= 1
@@ -176,9 +175,11 @@ class SetOfStacks:
         # B: find the right plate stack
         if id is not None and self._is_valid_id(id) is False:
             # print error message
-            raise ValueError(f"Cannot push to PlateStack at id {id}. \
+            raise ValueError(
+                f"Cannot push to PlateStack at id {id}. \
                     Please use .list_valid_ids(purpose='push') to \
-                    see which stacks are under capacity.")
+                    see which stacks are under capacity."
+            )
         elif id is None:
             id, plate_stack = self._find_stack()
         elif self._is_valid_id(id) is True:
@@ -191,24 +192,27 @@ class SetOfStacks:
             print(f"Stack {id} is now full.")
 
     def pop(self, plate: Plate, id=None):
-        """Removes a plate from one of the stacks, 
+        """Removes a plate from one of the stacks,
         and removes the stack if needed."""
-        # A: if the id is not valid, raise an error 
+        # A: if the id is not valid, raise an error
         if id is not None and self._is_valid_id(id) is False:
-            raise ValueError(f"Cannot pop from PlateStack at id {id}. \
+            raise ValueError(
+                f"Cannot pop from PlateStack at id {id}. \
                     Please use .list_valid_ids(purpose='pop') to \
-                    see which stacks are under capacity.")
+                    see which stacks are under capacity."
+            )
         # B: find the stack
         stack = None
         if id is None:
-            id, stack = self._find_stack(purpose='pop')
+            id, stack = self._find_stack(purpose="pop")
         else:  # id is not None
             stack = self.stacks[id]
         # C: remove the plate from the stack
         plate = stack.pop()
         # D: return the plate and id
         return plate
-               
+
+
 """
 FOLLOW UP
 Implement a function 

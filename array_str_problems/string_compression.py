@@ -53,13 +53,11 @@ def compress_string(string) -> str:
     """
     # validate the string
     if isinstance(string, str) is False:
-        raise ValueError(
-            f"Error while validating input. {string} is not of type str."
-        )
+        raise ValueError(f"Error while validating input. {string} is not of type str.")
     # compress the string
     output = string
     if len(string) > 0:
-        # A: init a list 
+        # A: init a list
         str_counts = list()
         # B: populate it with counts (iterates over string)
         index = 0
@@ -75,7 +73,7 @@ def compress_string(string) -> str:
             # D: insert in the freqency dist
             str_counts.append(f"{letter}{count}")
         # E: form the compressed string
-        compressed = ''.join(str_counts)
+        compressed = "".join(str_counts)
         # F: output the compressed string
         if len(compressed) < len(string):
             output = compressed

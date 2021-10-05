@@ -1,9 +1,11 @@
 import string
 
 """Linked List used for Separate Chaining"""
+
+
 class ListNode:
     def __init__(self, val):
-        self.val = val 
+        self.val = val
         self.next = None
 
 
@@ -27,13 +29,13 @@ class LinkedList:
                 current_node = current_node.next
 
             prev.next = node
-    
+
     def prepend(self, node):
         node.next = self.head
         self.head = node
 
     def delete(self, node_val):
-        '''Deletes the first node that has the matching value.'''
+        """Deletes the first node that has the matching value."""
         # find the node with the value
         prev, current_node = None, self.head
         while current_node.val != node_val:
@@ -43,12 +45,12 @@ class LinkedList:
         if self.head != current_node:  # current_node is the node to delete
             prev.next = current_node.next
         # if it is the head, move down the head pointer
-        elif self.head == current_node and self.head is not None:  
+        elif self.head == current_node and self.head is not None:
             self.head = self.head.next
 
     def size(self):
         length = 0
-        node = self.head 
+        node = self.head
         while node is not None:
             node = node.next
             length += 1
@@ -63,11 +65,11 @@ class LinkedList:
         return prev
 
     def insert(self, new_node, steps):
-        '''Inserts a new node n steps into the list, if possible.'''
+        """Inserts a new node n steps into the list, if possible."""
         # validate the input
         if isinstance(new_node, ListNode):
-            if steps <= self.size(): 
-                # find the node exactly at n steps into the list  
+            if steps <= self.size():
+                # find the node exactly at n steps into the list
                 prev, current_node = None, self.head
                 steps_taken = 0
                 while steps_taken < steps:
@@ -83,15 +85,19 @@ class LinkedList:
             # check if we are doing an append op
             elif steps == self.size() + 1:
                 self.append(new_node)
-            else:  # err msg for steps 
-                print(f"List of size {self.size()} is too \
-                        small to insert at {steps} steps.")
+            else:  # err msg for steps
+                print(
+                    f"List of size {self.size()} is too \
+                        small to insert at {steps} steps."
+                )
         else:  # err msg for new_node
-            print(f"Cannot insert new_node of type {type(new_node)}.\
-                    Pass a ListNode instead.")
+            print(
+                f"Cannot insert new_node of type {type(new_node)}.\
+                    Pass a ListNode instead."
+            )
 
     def update(self, current_val, new_val):
-        '''Replaces the value in the first node with current_val.'''
+        """Replaces the value in the first node with current_val."""
         node = self.head
         while node is not None:
             # replace node val
@@ -101,7 +107,7 @@ class LinkedList:
             node = node.next
 
     def search(self, node_val):
-        '''Returns the node if found having node_val'''
+        """Returns the node if found having node_val"""
         node = self.head
         while node is not None:
             if node.val == node_val:
@@ -123,14 +129,14 @@ class LinkedList:
         return None
 
     def items(self):
-        '''returns a list of the values of each node in the list.'''
+        """returns a list of the values of each node in the list."""
         values = list()
         node = self.head
         while node is not None:
             values.append(node.val)
             node = node.next
         return values
-        
+
 
 """Hash Table Class"""
 
@@ -141,15 +147,13 @@ class HashTable:
     # HASH_FUNC_UPPER_BOUND = 10_000_000_000
 
     def __init__(self, num_buckets=8):
-        """A resizable hash table that uses 
+        """A resizable hash table that uses
         a dynamic array w/ separate chaining.
-        
+
         Remember that keys in a HashTable must be unique!
         """
-        self.buckets = [
-            LinkedList() for _ in range(num_buckets)
-        ]
-        self.num_entries = 0 
+        self.buckets = [LinkedList() for _ in range(num_buckets)]
+        self.num_entries = 0
 
     def _hash(self, key):
         hash_value = hash(key)  # a unique hash for each unique key
@@ -165,9 +169,7 @@ class HashTable:
             # dump out all the entries into another list
             entries = self.items()
             # make the bucket array triple in size
-            self.buckets = [
-                LinkedList() for _ in range(len(self.buckets) * 3)
-            ]
+            self.buckets = [LinkedList() for _ in range(len(self.buckets) * 3)]
             # readd all the entries into the new buckets array
             self.num_entries = 0
             for key, value in entries:
@@ -176,7 +178,7 @@ class HashTable:
         #     print('not resizing')
 
     def set(self, key, value):
-        '''Add or update entries in the hash table.'''
+        """Add or update entries in the hash table."""
         # A: find the bucket index where the entry belong
         bucket_index = self._hash(key)
         # B: go to that chain in the bucket array
@@ -194,21 +196,21 @@ class HashTable:
             self._resize_buckets()
 
     def items(self):
-        '''get a list of all the key-value pairs'''
+        """get a list of all the key-value pairs"""
         entries = list()
         for chain in self.buckets:
             entries.extend(chain.items())
-        return entries        
+        return entries
 
     def unset(self, key):
-        '''remove a key-value pair'''
+        """remove a key-value pair"""
         bucket_index = self._hash(key)
         chain = self.buckets[bucket_index]
         value = self.get(key)
         chain.delete((key, value))
 
     def get(self, key):
-        '''return the value associated with a given key'''
+        """return the value associated with a given key"""
         # hash the key
         bucket_index = self._hash(key)
         value = self.buckets[bucket_index].search_key(key)

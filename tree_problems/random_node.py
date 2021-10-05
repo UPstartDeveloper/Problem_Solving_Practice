@@ -77,7 +77,7 @@ class RandomTree:
         if node is None:  # special case
             self.root = RandomTreeNode(node_val)
         else:  # +1 levels in the tree
-            while node is not None:  # go 
+            while node is not None:  # go
                 parent = node
                 # go left
                 if node_val < node.key:
@@ -98,7 +98,7 @@ class RandomTree:
         parent, node = None, self.root
         # binary search for the node_value in the tree
         while node is not None and node.key != node_val:
-            # move the parent pointer 
+            # move the parent pointer
             parent = node
             # go right
             if node.key < node_val:
@@ -107,14 +107,14 @@ class RandomTree:
             elif node.key > node_val:
                 node = node.left
         # if node not found, raise error
-        if node is None:   
+        if node is None:
             raise ValueError("Node could not be found in this tree.")
         # return what was found
         return parent, node
 
     def find(self, node_val) -> RandomTreeNode:
         """
-        Finds the first node w/ a key == the given node_val. 
+        Finds the first node w/ a key == the given node_val.
         If not found, raises ValueError.
         """
         # A: Validate the tree
@@ -166,16 +166,16 @@ class RandomTree:
 
     def get_random_node(self) -> RandomTreeNode:
         def _get_rth_node(node_num):
-            """returns the node we hit after doing iterative 
+            """returns the node we hit after doing iterative
             in order DFS for node_num steps
             """
-            # A: init collections 
+            # A: init collections
             stack = list()
             # B: push the first node onto stack
             stack.append(self.root)
             # C: count visits taken so far
             visits = 0
-            # D: traverse 
+            # D: traverse
             while len(stack) > 0:
                 # get the node from the stack top
                 node = stack[-1]

@@ -14,37 +14,37 @@ class Solution:
         [[0,0,0],
          [0,1,0],
          [0,0,0]]
-         
+
         Clarifying Q's:
         so if an element is 0, it's distance is zero? yes
         so each elem in the output corresponds to the same pair of indices in the input? yes
         so I take it the input is immutable? yes
         am I allowed to use the deque class?
-        
+
         Assume:
         that the matrix is always nxn (square)
         cannot go diagonal
-        
+
         Intuition:
-        
+
         use BFS to find the shortest distance from one element in the matrix to a 0
         do it for all the elements
         collect them in corresponding order of indicies in an output matrix (return)
-        
+
         Approach:
-        
+
         helper function for finding_nearest_zero
-        
+
         driver function - iterate over the matrix cells
-        
-        Edg 
-        
-        
-        
+
+        Edg
+
+
+
         """
         # Helper -------------------------------------------------------------
         def find_nearest_zero(row_index, col_index):
-            # A: define the directions we can go in 
+            # A: define the directions we can go in
             DIRECTIONS = [
                 (0, 1),  # right
                 (0, -1),  # left
@@ -66,11 +66,16 @@ class Solution:
                     return distance
                 # otherwise enqueue all the neighboring rows, cols, and distance + 1
                 for delta_row, delta_col in DIRECTIONS:
-                    neighbor_row, neighbor_col = row_index + delta_row, col_index + delta_col
-                    if 0 <= neighbor_row < len(matrix) and 0 <= neighbor_col < len(matrix[0]):
+                    neighbor_row, neighbor_col = (
+                        row_index + delta_row,
+                        col_index + delta_col,
+                    )
+                    if 0 <= neighbor_row < len(matrix) and 0 <= neighbor_col < len(
+                        matrix[0]
+                    ):
                         if (neighbor_row, neighbor_col) not in visited:
                             q.append((neighbor_row, neighbor_col, distance + 1))
-        
+
         # Driver -------------------------------------------------------------
         # A: init the output matrix
         output = list()
@@ -88,8 +93,8 @@ class Solution:
             output.append(out_row)
         # H: return the output matrix
         return output
-        
-        
+
+
 """
 Input:
 [[0,0,0],
@@ -113,4 +118,3 @@ Output:
  [0,1,0],
  [0,0,0]]
 """
-     

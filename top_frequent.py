@@ -97,88 +97,85 @@ types - counts
 """
 # Open prompt.md for coding challenge.
 
+
 def top_n_frequent(nums, k):
 
-  """"
-  # make a frequency distrbution - dictionary
-  count_types = dict()
-  # multiple passes
-  for val in nums:
-    count = 0
-    for num in nums:
-      if val == num:
-        count += 1
-    if count not in count_types:
-      count_types[count] = [val]
-    else:
-      count_types[count].append(val)
-
-
-  # dump key-value pairs into another list
-  # sort by the counts, reverse (Desc order)
-  # make an empty list
-  # keeping adding types until we hit k
-  """
-  def is_first_k_filled(sp, k) -> bool:
-      for index_sp in range(k):
-        if sp[index_sp] == (0, 0):
-          return False
-      return True
-  def make_distribution(nums):
-    type_counts = dict()
-    for num in nums:
-      if num in type_counts:
-        type_counts[num] += 1
-      else:  # first time we've seen it
-        type_counts[num] = 1
-    return type_counts
-  def sort(pairs):
-    '''sort by the count, least to greatest'''
-    # counts = list()
-    # find the lowest count
-    min_count = float('inf')
-    for index, pair in enumerate(pairs):
-      key, value = pair
-      if value < min_count:
-        min_count = value
-    # find the highest count
-    max_count = 0
-    for index, pair in enumerate(pairs):
-      key, value = pair
-      if value > max_count:
-        max_count = value
-    # allocate mem for the counts array
-    sorted_pairs = (
-      [(0, 0) for _ in 
-      range(max_count - min_count + 1)]
-    )
-    # find the counts of each count
-    output = []
-    # sorted_pairs = 0
-    index = 0
-    while not is_first_k_filled(sorted_pairs, k):
-      pair = pairs[index]
-      key, value = pair
-      if value == max_count:
-        index_sp = 0
+    """ "
+    # make a frequency distrbution - dictionary
+    count_types = dict()
+    # multiple passes
+    for val in nums:
+      count = 0
+      for num in nums:
+        if val == num:
+          count += 1
+      if count not in count_types:
+        count_types[count] = [val]
       else:
-        index_sp = (
-          max_count - (value % max_count)
-        )
-      sorted_pairs[index_sp] = pair
-      index += 1
-    return [
-      key for key, value in sorted_pairs[:k]
-      ]
+        count_types[count].append(val)
 
-  # make a frequency distrbution
-  type_counts = make_distribution(nums)
-  # dump key-value pairs into another list
-  type_counts = list(type_counts.items())
-  # sort the pairs by the counts
-  output = sort(type_counts)
-  # return the types of the largest k counts
-  return output
+
+    # dump key-value pairs into another list
+    # sort by the counts, reverse (Desc order)
+    # make an empty list
+    # keeping adding types until we hit k
+    """
+
+    def is_first_k_filled(sp, k) -> bool:
+        for index_sp in range(k):
+            if sp[index_sp] == (0, 0):
+                return False
+        return True
+
+    def make_distribution(nums):
+        type_counts = dict()
+        for num in nums:
+            if num in type_counts:
+                type_counts[num] += 1
+            else:  # first time we've seen it
+                type_counts[num] = 1
+        return type_counts
+
+    def sort(pairs):
+        """sort by the count, least to greatest"""
+        # counts = list()
+        # find the lowest count
+        min_count = float("inf")
+        for index, pair in enumerate(pairs):
+            key, value = pair
+            if value < min_count:
+                min_count = value
+        # find the highest count
+        max_count = 0
+        for index, pair in enumerate(pairs):
+            key, value = pair
+            if value > max_count:
+                max_count = value
+        # allocate mem for the counts array
+        sorted_pairs = [(0, 0) for _ in range(max_count - min_count + 1)]
+        # find the counts of each count
+        output = []
+        # sorted_pairs = 0
+        index = 0
+        while not is_first_k_filled(sorted_pairs, k):
+            pair = pairs[index]
+            key, value = pair
+            if value == max_count:
+                index_sp = 0
+            else:
+                index_sp = max_count - (value % max_count)
+            sorted_pairs[index_sp] = pair
+            index += 1
+        return [key for key, value in sorted_pairs[:k]]
+
+    # make a frequency distrbution
+    type_counts = make_distribution(nums)
+    # dump key-value pairs into another list
+    type_counts = list(type_counts.items())
+    # sort the pairs by the counts
+    output = sort(type_counts)
+    # return the types of the largest k counts
+    return output
 
 
 """print(3 - (1 % 3))
@@ -218,7 +215,7 @@ isp = 1
 
 """
 
-nums = [1,1,1,2,2,3] 
+nums = [1, 1, 1, 2, 2, 3]
 k = 2
 # print(top_k_frequent(nums, k))
 
@@ -239,48 +236,49 @@ space = k for the heapq, n
 """
 from heapq import heappush, heappop, heappushpop
 
+
 def top_k_frequent(nums, k):
-  def make_distribution(nums):
-    type_counts = dict()
-    for num in nums:
-      if num in type_counts:
-        type_counts[num] += 1
-      else:  # first time we've seen it
-        type_counts[num] = 1
-    return type_counts
+    def make_distribution(nums):
+        type_counts = dict()
+        for num in nums:
+            if num in type_counts:
+                type_counts[num] += 1
+            else:  # first time we've seen it
+                type_counts[num] = 1
+        return type_counts
 
-  # make a frequency distrbution
-  type_counts = make_distribution(nums)
-  # make a list of the kv pairs
-  type_counts = list(type_counts.items())
-  # reverse the pairs
-  for index, pair in enumerate(type_counts):
-    type_counts[index] = (pair[1], pair[0])
+    # make a frequency distrbution
+    type_counts = make_distribution(nums)
+    # make a list of the kv pairs
+    type_counts = list(type_counts.items())
+    # reverse the pairs
+    for index, pair in enumerate(type_counts):
+        type_counts[index] = (pair[1], pair[0])
 
-  # put the first k into a heapq (min heap)
-  heap = list()
-  for index in range(k):
-    pair = type_counts[index]
-    heappush(heap, pair)
-  # iterate over the rest - n - k
-  for index in range(k, len(type_counts)):
-    next_pair = type_counts[index]
-    next_count, next_type = next_pair
-    # if new pair has count > min count
-    min_count, min_type = heap[0]
-    if next_count > min_count:
-      # remove current min count
-      # push the new pair into the heap
-      heappushpop(heap, next_pair)
-  # take out the types in the heap as list
-  output = list()
-  for _ in range(k):
-    pair = heappop(heap)
-    count, type = pair
-    output.append(type)
-  return sorted(output)
+    # put the first k into a heapq (min heap)
+    heap = list()
+    for index in range(k):
+        pair = type_counts[index]
+        heappush(heap, pair)
+    # iterate over the rest - n - k
+    for index in range(k, len(type_counts)):
+        next_pair = type_counts[index]
+        next_count, next_type = next_pair
+        # if new pair has count > min count
+        min_count, min_type = heap[0]
+        if next_count > min_count:
+            # remove current min count
+            # push the new pair into the heap
+            heappushpop(heap, next_pair)
+    # take out the types in the heap as list
+    output = list()
+    for _ in range(k):
+        pair = heappop(heap)
+        count, type = pair
+        output.append(type)
+    return sorted(output)
 
 
-nums = [1,1,1,2,2,3] 
+nums = [1, 1, 1, 2, 2, 3]
 k = 2
 print(top_k_frequent(nums, k))

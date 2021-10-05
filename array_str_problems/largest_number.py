@@ -32,28 +32,29 @@ class Solution:
         Questions:
          am I allowed to use the built-in sorting algorithm? yes
          is the input mutable? yes
-         
+
         Assumptions:
         always at least one integer
         all nonnegative
-         
-        # intutition: 
+
+        # intutition:
         we need to make the largest digits appear in the largest
         (aka the leftmost) place values in our return number
-        
+
         "sort by the leftmost place values of 10 in descending order"
-        
-        # approach: 
+
+        # approach:
         # A: convert the numbers to strings
         # B: sort those strings in reverse
         # C: combine the strings into one, representing the output number
-        
+
         # edge cases
         what if there's a leading 0? assume it's not possible
-        
+
         """
+
         def leftmost_digits(nums):
-            '''return an array sorted by order of leftmost digit'''
+            """return an array sorted by order of leftmost digit"""
             # init the array of values and indices
             values_indices = list()
             # populate the array with the leftmost digit from nums
@@ -66,24 +67,20 @@ class Solution:
             # sort the array by those left nums
             values_indices.sort()
             return values_indices
-            
+
         def sort_by_remainder(tuple1, tuple2):
-            '''modulo divide by 10 until the numbers can be sorted'''
+            """modulo divide by 10 until the numbers can be sorted"""
             # unpack both tuples, get the real numbers using the index
             val1, index1, place_values1 = tuple1
             val2, index2, place_values2 = tuple2
             # convert to strings for the comparison
-            num1, num2 = (
-                str(nums[index1]), str(nums[index2])
-            )
+            num1, num2 = (str(nums[index1]), str(nums[index2]))
             # iterate to find the shorter string
             iterations = len(num1)
             if len(num2) < len(num1):
                 iterations = len(num2)
             for index in range(iterations):
-                digi1, digi2 = (
-                    num1[index], num2[index]
-                )
+                digi1, digi2 = (num1[index], num2[index])
                 # compare the integers
                 if digi2 > digi1:
                     return tuple1, tuple2
@@ -116,6 +113,7 @@ class Solution:
                 return (tuple2, tuple1)
             else:  # num2 turns out to be the value that comes first
                 return (tuple1, tuple2)"""
+
         # A: find the leftmost number in each given integer
         # use it to make a new array (val, index)
         values_indices = leftmost_digits(nums)  # O(n(log n + log k))
@@ -123,15 +121,15 @@ class Solution:
         final = list()
         index = len(values_indices) - 1
         while index > -1:  # n iterations
-            value, num_index = (
-                values_indices[index][0], values_indices[index][1] 
-            )
-            if len(values_indices) > 1 and index > 0 and value == values_indices[index - 1][0]:
+            value, num_index = (values_indices[index][0], values_indices[index][1])
+            if (
+                len(values_indices) > 1
+                and index > 0
+                and value == values_indices[index - 1][0]
+            ):
                 # then sort them more
-                values_indices[index - 1], values_indices[index] = (
-                    sort_by_remainder(  # 
-                        values_indices[index - 1], values_indices[index]
-                    )
+                values_indices[index - 1], values_indices[index] = sort_by_remainder(  #
+                    values_indices[index - 1], values_indices[index]
                 )
             # print(values_indices)
             # then add it to a final array
@@ -140,8 +138,8 @@ class Solution:
             # and move on to adding the next number
             index -= 1
         # C: make the final number string
-        return ''.join(final)  # n iterations
-        
+        return "".join(final)  # n iterations
+
         """
         def leftmost_digits(nums):
             '''return an array sorted by order of leftmost digit'''

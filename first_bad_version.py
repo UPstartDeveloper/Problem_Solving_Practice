@@ -102,23 +102,25 @@ if False:
 """
 import math
 
+
 def firstBadVersion(last_version, isBadVersion):
-  # assume the last_version is bad
-  lowest_true = last_version
-  # find the middle to start iterating from (middle between 1, and last_version)
-  highest_false = math.ceil(last_version / 2)
-  # find the last working version
-  while isBadVersion(highest_false) is True:
-    # iterate forwards
-    highest_false -= 1
-    # find the last bad version
-  while lowest_true > highest_false:
-    if isBadVersion(lowest_true) is True:
-      # update the lowest_true, and iterate again
-      lowest_true -= 1
-  # we found it!
-  return lowest_true + 1
-  
+    # assume the last_version is bad
+    lowest_true = last_version
+    # find the middle to start iterating from (middle between 1, and last_version)
+    highest_false = math.ceil(last_version / 2)
+    # find the last working version
+    while isBadVersion(highest_false) is True:
+        # iterate forwards
+        highest_false -= 1
+        # find the last bad version
+    while lowest_true > highest_false:
+        if isBadVersion(lowest_true) is True:
+            # update the lowest_true, and iterate again
+            lowest_true -= 1
+    # we found it!
+    return lowest_true + 1
+
+
 """
 last_version = 5
 
@@ -129,4 +131,3 @@ lowest_true  |  highest_false   |
                       4
     
 """
-  

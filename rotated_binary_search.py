@@ -1,8 +1,7 @@
 # Logarithmic Time, constant space solution
 def shifted_arr_search(shiftArr, num):
-  
     def find_pivot():
-        '''Find the place where the arr splits into two sorted subranges'''
+        """Find the place where the arr splits into two sorted subranges"""
         # init the low and hi pt'ers
         lo, mid, hi = 0, 0, len(shiftArr) - 1
         # find the pivot using BS
@@ -21,9 +20,9 @@ def shifted_arr_search(shiftArr, num):
                 # go search the left half to find the pivot
                 hi = mid - 1
         return mid
-        
+
     def bin_search(lo, hi, target):
-        '''Executes Binary Search recursively'''
+        """Executes Binary Search recursively"""
         while lo <= hi:
             # calculate the middle
             mid = (lo + hi) // 2
@@ -38,25 +37,24 @@ def shifted_arr_search(shiftArr, num):
                 lo = mid + 1
         # not found case (when lo > hi)
         return -1
-  
+
     # find the pivot
     pivot = find_pivot()
     # find answers for the left and right sides
     if len(shiftArr) == 1:
         return pivot
-    # otherwise, 
+    # otherwise,
     # search the left side of the pivot
     left_side_ans = bin_search(0, pivot - 1, num)
     # search everything else
     right_side_ans = bin_search(pivot, len(shiftArr) - 1, num)
     # return the index
     if left_side_ans == right_side_ans == -1:  # not found
-        return -1 
+        return -1
     elif left_side_ans == -1:
         return right_side_ans
     else:  # not found on the right, but on the left
         return left_side_ans
-
 
 
 """
@@ -167,11 +165,11 @@ class Solution:
                 elif middle_index == len(nums) - 1 and middle_index > 0:
                     return rotated_binary_search(low, middle_index - 1)
                     """
-                # print('not in any if statements!')
-                # print(f'Middle: {mid}, low: {low}, and high: {high}')
-                # return -1
-        # --------------------------------------------------------------------
-        # return rotated_binary_search(0, len(nums) - 1)    
+# print('not in any if statements!')
+# print(f'Middle: {mid}, low: {low}, and high: {high}')
+# return -1
+# --------------------------------------------------------------------
+# return rotated_binary_search(0, len(nums) - 1)
 """           
 
 nums = [4,5,6,7,0,1,2], target = 0

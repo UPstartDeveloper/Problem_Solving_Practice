@@ -1,17 +1,17 @@
 def dailyTemperatures(dailyTemps):
     """
     Idea #1: iterative solution
-    
+
     init an empty list
-    
+
     iterate over the input list
         iterate until you find an index with greater element,
         or go outside the list
         calculate the difference
         appedn the difference (or 0) to output list
-    
+
     Complexity Analysis:
-    Time - O(n^2) - for each of n iterations, we require an average of 
+    Time - O(n^2) - for each of n iterations, we require an average of
     n/2 iterations to the end of the list. Therefore, the runtime rises asymptotically
     as quadratic function with respect to n, the length of dailyTemps.
 
@@ -25,7 +25,7 @@ def dailyTemperatures(dailyTemps):
     # iterate over input list
     for temp_index, temp_val in enumerate(dailyTemps):  # n iterations
         # find the index of a hotter day, if possible
-        next_index = temp_index + 1 # O(1)
+        next_index = temp_index + 1  # O(1)
         while next_index < NUM_DAYS:  # up to n iterations
             # determine if the temperature on this day is greater
             next_day_temp = dailyTemps[next_index]

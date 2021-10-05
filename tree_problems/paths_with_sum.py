@@ -83,14 +83,18 @@ class Solution:
             if ssf == target:
                 paths_found += 1
             # if still < target, continue searching
-            elif ssf < target: 
+            elif ssf < target:
                 # copy ssf's value, so it's not shared between branches
                 ssf_on_branch = ssf
                 if node.left:
-                    paths_found = pre_order_dfs_recursive(node.left, ssf_on_branch, paths_found)
+                    paths_found = pre_order_dfs_recursive(
+                        node.left, ssf_on_branch, paths_found
+                    )
                 if node.right:
                     # reset the sum before going right, b/c paths can only go down
-                    paths_found = pre_order_dfs_recursive(node.right, ssf_on_branch, paths_found)
+                    paths_found = pre_order_dfs_recursive(
+                        node.right, ssf_on_branch, paths_found
+                    )
             # return the total number of paths
             return paths_found
 
@@ -116,7 +120,7 @@ class Solution:
                 else:  # node is None
                     # get the node and ssf at the top of the stack
                     node, ssf = stack.pop()
-            
+
             return paths_found
 
         return pre_order_dfs_iterative(node, 0, 0)
@@ -128,10 +132,10 @@ class Solution:
         """
         # - init a count
         count = 0
-        # validate 
-        if (tree is not None and tree.root is not None and target != 0):
+        # validate
+        if tree is not None and tree.root is not None and target != 0:
             # - traverse through all the different paths via BFS
-            q =  deque([tree.root])  # O(n) space when the tree is balanced
+            q = deque([tree.root])  # O(n) space when the tree is balanced
             while len(q) > 0:  # n iterations
                 # get the node at front of the queue
                 node = q.popleft()
@@ -154,11 +158,13 @@ if __name__ == "__main__":
         BinaryNode(8),
         BinaryNode(5),
         BinaryNode(4),
-        BinaryNode(-5)
+        BinaryNode(-5),
     )
     tree = BinaryTree(node1)
-    node1.left = node2; node1.right = node3
-    node3.left = node4; node3.right = node5
+    node1.left = node2
+    node1.right = node3
+    node3.left = node4
+    node3.right = node5
     node4.left = node6
 
     sol = Solution()

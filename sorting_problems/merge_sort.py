@@ -1,5 +1,6 @@
 def merge_sort(nums):
-    '''Stable out of place algorithm for sorting, using divide and conquer.'''
+    """Stable out of place algorithm for sorting, using divide and conquer."""
+
     def merge_lists(list1, list2):
         """Merge two sorted lists into one larger sorted list
         This function helps in the CONQUER step
@@ -28,6 +29,7 @@ def merge_sort(nums):
         if index2 < LENGTH2:
             merged.extend(list2[index2:])
         return merged
+
     # Base Case
     if len(nums) <= 2:
         nums.sort()
@@ -38,16 +40,17 @@ def merge_sort(nums):
     left_subproblem = merge_sort(nums[:mid_index])
     # B: sort the right side
     right_subproblem = merge_sort(nums[mid_index:])
-    print(f'Middle index: {mid_index}')
-    print(f'Left:{left_subproblem}, and Right: {right_subproblem}')
+    print(f"Middle index: {mid_index}")
+    print(f"Left:{left_subproblem}, and Right: {right_subproblem}")
     # CONQUER
     # C: sort them both into one larger sorted list
     merged = merge_lists(left_subproblem, right_subproblem)
-    print(f'Just merged: {merged}')
+    print(f"Just merged: {merged}")
     # E: place that list back into the input list
-    return merged 
-  
-if __name__ == '__main__':
-    nums = [2, 2,2,2,2,2,22,2,2,2,2, 6, 3,3, 1,2,2,2,2,22,2,2]
+    return merged
+
+
+if __name__ == "__main__":
+    nums = [2, 2, 2, 2, 2, 2, 22, 2, 2, 2, 2, 6, 3, 3, 1, 2, 2, 2, 2, 22, 2, 2]
     # nums = [38, 27, 43, 3, 9, 82, 10]
     print(merge_sort(nums))

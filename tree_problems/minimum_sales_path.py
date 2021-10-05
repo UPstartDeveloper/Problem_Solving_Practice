@@ -1,5 +1,6 @@
 from collections import deque
 
+
 def get_cheapest_cost(rootNode):
     def get_all_paths(self, node, sum_so_far=0):
         # update the sum so far
@@ -13,7 +14,7 @@ def get_cheapest_cost(rootNode):
             # update the min sales path if necessary
             if sum_so_far < rootNode.min_sales_path:
                 rootNode.min_sales_path = sum_so_far
-        
+
     # get all sales paths from the root node
     min_sales_path = rootNode.get_all_paths()
     # minimum sales path
@@ -23,12 +24,12 @@ def get_cheapest_cost(rootNode):
 # Time O(n), number of nodes
 # Space: O(h), where h of the tree
 
-########################################## 
+##########################################
 # Use the helper code below to implement #
 # and test your function above           #
 ##########################################
 
-# A node 
+# A node
 class Node:
 
     # Constructor to create a new node
@@ -36,9 +37,9 @@ class Node:
         self.cost = cost
         self.children = deque()
         self.parent = None
-        self.min_sales_path = float('inf')
-        return 
-   
+        self.min_sales_path = float("inf")
+        return
+
 
 """
 root != None
@@ -89,4 +90,3 @@ node = 6, ssf, 10
  # DFS/BFS implement recurisvely
      
 """
- 

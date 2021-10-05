@@ -1,16 +1,20 @@
-import numpy as np 
+import numpy as np
+
+
 class Solution:
     # init the empty output array
     output = list()
+
     def get_permutations(self, input_list):
         def get_remaining_nums(nums_left, index):
-            # make a deep copy of the array 
+            # make a deep copy of the array
             # (so the changes made to one don't affect the other)
             remaining_nums = np.array(nums_left).copy()
             remaining_nums = list(remaining_nums)
             # remove the num just added, then return the rest
             remaining_nums.pop(index)
             return remaining_nums
+
         def generate_permutations(nums_left, permutation):
             # base case
             if len(permutation) == len(input_list):
@@ -32,14 +36,16 @@ class Solution:
                     remaining_nums = get_remaining_nums(nums_left, index)
                     generate_permutations(remaining_nums, permutation)
                     permutation.pop()
+
         # init the perm to an empty array
         perm = list()
         # find all permutations
         generate_permutations(input_list, perm)
         return self.output
-    
+
+
 sol = Solution()
-print(sol.get_permutations([1,2,3]))
+print(sol.get_permutations([1, 2, 3]))
 
 """
 init the output = [
@@ -71,7 +77,3 @@ recursive case: len(nums) > 1
 
 
 """
-    
-    
-    
-    

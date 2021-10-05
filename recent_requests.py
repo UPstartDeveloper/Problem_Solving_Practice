@@ -1,5 +1,4 @@
 class RecentCounter(object):
-
     def __init__(self):
         self.times_requests_made = set()  # constant
         # counter for number of recent requests
@@ -49,11 +48,12 @@ class RecentCounter(object):
             # otherwise, remove the time from the set
         # return the count
         return recent_requests  # O(1)
-    
+
     # Time: O(1)
     # n: # calls to ping
     # Space: O(n)
-    
+
+
 """
 ["RecentCounter",         "ping", "ping", "ping", "ping"]
 [[],                        [1], [100], [3001], [3002]]
@@ -64,7 +64,6 @@ obj.times_requests_made = set() = {1}
 time = 1
 recent_requests = 1
 """
-        
 
 
 # Your RecentCounter object will be instantiated and called as such:

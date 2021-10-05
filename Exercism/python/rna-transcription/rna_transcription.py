@@ -1,5 +1,6 @@
 import unittest
 from string import ascii_uppercase as alphabet
+
 """
 RNA Transcription
 Problem found on Exercism. Description can be found at the following URL:
@@ -32,18 +33,12 @@ return string
 
 
 def to_rna(dna):
-    err_msg = 'Input not a DNA strand.'
+    err_msg = "Input not a DNA strand."
     # map DNA letters to RNA letters
-    rna_key = {
-        'A': 'U',
-        'T': 'A',
-        'C': 'G',
-        'G': 'C',
-        ' ': ' '
-    }
+    rna_key = {"A": "U", "T": "A", "C": "G", "G": "C", " ": " "}
     # characters to skip over, if they appear in dna
     skip_chars = ".,/?><':;&^%$#@!*(){}[]"
-    rna_seq = ''
+    rna_seq = ""
     if isinstance(dna, str) is True:
         for char in dna:
             if isinstance(char, str) is True:
@@ -60,26 +55,26 @@ def to_rna(dna):
 # Test Cases
 class RNATranscriptionTests(unittest.TestCase):
     def test_to_rna_on_good_inputs(self):
-        dna = 'GCTA'
-        assert to_rna(dna) == 'CGAU'
+        dna = "GCTA"
+        assert to_rna(dna) == "CGAU"
 
-        dna = 'CTAG GTAC'
-        assert to_rna(dna) == 'GAUC CAUG'
+        dna = "CTAG GTAC"
+        assert to_rna(dna) == "GAUC CAUG"
 
     def test_to_rna_on_bad_inputs(self):
         with self.assertRaises(ValueError):
             to_rna(123)
 
         with self.assertRaises(ValueError):
-            to_rna('ABCD')
+            to_rna("ABCD")
 
     def test_to_rna_on_edge_cases(self):
-        dna = 'GC//TA'
-        assert to_rna(dna) == 'CGAU'
+        dna = "GC//TA"
+        assert to_rna(dna) == "CGAU"
 
-        dna = '>33GCTA    ...?'
-        assert to_rna(dna) == 'CGAU'
+        dna = ">33GCTA    ...?"
+        assert to_rna(dna) == "CGAU"
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

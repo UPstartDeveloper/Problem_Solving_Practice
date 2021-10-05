@@ -3,17 +3,18 @@ class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
-        
+
+
 class Solution:
     def reverse(self, head_second_half):
-        """Reverses the order of ListNodes that come after the 
-           input ListNode.
+        """Reverses the order of ListNodes that come after the
+        input ListNode.
 
-           Parameters:
-           head_second_half (ListNode): a node in the middle of the 
-                                        LinkedList
+        Parameters:
+        head_second_half (ListNode): a node in the middle of the
+                                     LinkedList
 
-           Returns: the new head node of this section of the list
+        Returns: the new head node of this section of the list
 
         """
         new_head = None
@@ -25,32 +26,30 @@ class Solution:
             head_second_half = node_after
         return new_head
 
-
-        
     def is_palindrome(self, head: ListNode):
         """
         assume numeric elements
-        
-        
+
+
         Idea #1 - list
             - store elements in a list
-                iterate for n/2 
-                    - iterate forwards and backwards, 
-            
+                iterate for n/2
+                    - iterate forwards and backwards,
+
              0.  1.   2. 3
             [1 , 2,  2,  1]
-                 
+
             Space: O(n)
             Time: O(n)
-            
-        head           |.  elements         | index | EL | ER 
+
+        head           |.  elements         | index | EL | ER
         ListNode(1)    |    [1, 2, 2, 1]    |  1   | 2     2
         ListNode(2)
          ListNode(2)
          ListNode(1)
          None
         NUM_ELEM = 4
-        
+
         """
         """
         # A: store in a list
@@ -195,8 +194,8 @@ class Solution:
         return True
 
 
-if __name__ == '__main__':
-    # set up the list 
+if __name__ == "__main__":
+    # set up the list
     nodes = [
         ListNode(1),
         ListNode(2),
@@ -209,8 +208,3 @@ if __name__ == '__main__':
     # test the solution (should be True)
     sol = Solution()
     print(sol.is_palindrome(nodes[0]))
-    
-            
-        
-  
-        

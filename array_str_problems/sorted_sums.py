@@ -14,23 +14,24 @@ import sys
 # The function accepts INTEGER_ARRAY a as parameter.
 #
 
+
 def sortedSum(a):
     """
     array of ints
-    
+
     non-desc order = least to greatest
-    
+
     ASSUME
     all pos ints
     at least 1 int
     dupes are allowed
     a is mutable
-    
+
     module the answer w/ (10e9 + 7)
-    
+
     Intuition:
         - iteratively sorting + summing nums, at the end we cum_sum
-        
+
     Approach:
         1. Sorting Problem:
             - need an array of n spaces
@@ -41,13 +42,13 @@ def sortedSum(a):
         2. Math Problem:
             - make a separate sorted array
             - take a look at the distance each int moved
-    
+
     Edge Cases:
         - all dupe numbers - not a different algorithm necessarily
         - too many nums/too large - return a ValueError
-    
+
     """
-    
+
     def insert_next_elem(index):
         index_to_sort = index
         while index_to_sort > 0:
@@ -55,14 +56,14 @@ def sortedSum(a):
             index_before = index_to_sort - 1
             elem_to_sort = a[index_to_sort]
             elem_before = a[index_before]
-            # swap if needed 
+            # swap if needed
             if elem_before > elem_to_sort:
                 a[index_before] = elem_to_sort
                 a[index_to_sort] = elem_before
             # move back further
             index_to_sort -= 1
         return index + 1
-    
+
     def sum_of_spaces(spaces):
         # init the sum
         sum_spaces = 0
@@ -70,10 +71,10 @@ def sortedSum(a):
         # add sum of elems sorted so far
         for index in range(spaces):
             sum_spaces += a[index] * coef
-            coef += 1         
+            coef += 1
         # return the sum
         return sum_spaces
-    
+
     # A: need an array of n spaces
     sums = list()
     # B: insertion sort the array
@@ -89,5 +90,7 @@ def sortedSum(a):
         index = updated_index
     # C: add all the sums together
     return int(sum(sums) % (10e9 + 7))
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     pass

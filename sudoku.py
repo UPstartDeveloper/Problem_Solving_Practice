@@ -1,10 +1,11 @@
 def validate_sudoku_board(board):
     def validate(values, values_set):
         # make sure there are no duplicates or 0's
-        print(f'Comparing {values_set}, to {values}')
+        print(f"Comparing {values_set}, to {values}")
         if "0" not in values_set and len(values_set) == len(values):
             return True
         return False
+
     is_valid = True
     # A: validate rows
     for row in board:  # 9 iterations
@@ -23,7 +24,7 @@ def validate_sudoku_board(board):
         for row in board:
             value = row[col_index]
             if not value == ".":
-              column.append(value)
+                column.append(value)
         # make a set of the column
         col_set = set(column)
         # validate
@@ -42,17 +43,17 @@ def validate_sudoku_board(board):
             box_values = list()
             # collect values in one box
             for row_index in range(start_row, end_row):
-              for col_index in range(start_col, end_col):
-                # print("adding coordinates", row_index, col_index)
-                value = board[row_index][col_index]
-                if not value == ".":
-                  box_values.append(value)
+                for col_index in range(start_col, end_col):
+                    # print("adding coordinates", row_index, col_index)
+                    value = board[row_index][col_index]
+                    if not value == ".":
+                        box_values.append(value)
             # validate the one box
             box_set = set(box_values)
             # validate
             is_valid = validate(box_values, box_set)
             if is_valid is False:
-              return is_valid
+                return is_valid
             # move on to the next box, in same row of sub-boxes
             start_col += 3
             end_col += 3
@@ -61,6 +62,8 @@ def validate_sudoku_board(board):
             end_row += 3
     # D: otherwise the board is valid
     return is_valid
+
+
 """
 
 # Idea #2: works under the assumption that when the board is invalid,
@@ -155,21 +158,21 @@ def validate_sudoku_board(board):
 '''
 
 
-if __name__ == '__main__':
-  board = [
-      ["8","3",".",".","7",".",".",".","."],
-      ["6",".",".","1","9","5",".",".","."],
-      [".","9","8",".",".",".",".","6","."],
-      ["8",".",".",".","6",".",".",".","3"],
-      ["4",".",".","8",".","3",".",".","1"],
-      ["7",".",".",".","2",".",".",".","6"],
-      [".","6",".",".",".",".","2","8","."],
-      [".",".",".","4","1","9",".",".","5"],
-      [".",".",".",".","8",".",".","7","9"]
+if __name__ == "__main__":
+    board = [
+        ["8", "3", ".", ".", "7", ".", ".", ".", "."],
+        ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+        [".", "9", "8", ".", ".", ".", ".", "6", "."],
+        ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+        ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+        ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+        [".", "6", ".", ".", ".", ".", "2", "8", "."],
+        [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+        [".", ".", ".", ".", "8", ".", ".", "7", "9"],
     ]
-  print(validate_sudoku_board(board))
-    
-  """
+    print(validate_sudoku_board(board))
+
+    """
     # a = list(range(1, 10))
     a = [1, 2, 2, 3, 4, 5, 6, 7, 8]
     b = 0

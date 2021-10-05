@@ -1,6 +1,4 @@
-
-
-'''
+"""
 Idea #1
 Brute force solution.
 
@@ -15,13 +13,13 @@ needs the following:
 2. for each number, iterate through all other numbers
 3. on an single iteration, sum the number from the outer loop (num_1) and inner loop (num_2)
 4. if their sums match, then output them together as a list
-'''
+"""
 
 
 def all_pairs_matching_sum(a, t):
-    '''a is the array, t is the sum.
-       Runtime Complexity: O(n^2), where n = len(a)
-    '''
+    """a is the array, t is the sum.
+    Runtime Complexity: O(n^2), where n = len(a)
+    """
     num_1 = 0
     num_2 = 0
     matching_pairs = list()
@@ -41,15 +39,16 @@ def all_pairs_matching_sum(a, t):
                         matching_pairs.append(pair)
     return matching_pairs
 
-'''
+
+"""
 Given two arrays, determine if both arrays contain exactly the same elements
 Input [1,2,5,4,0] and [4,2,5,0,1] -> Yes
 Input [1,7,1] and [7,7,1]  No
-'''
+"""
 
 
 def compare_arrays(arr_1, arr_2):
-    '''Compare using length of list, and distribution of list elements'''
+    """Compare using length of list, and distribution of list elements"""
     if not len(arr_1) == len(arr_2):
         return False
     # make histograms of both lists
@@ -72,7 +71,7 @@ def compare_arrays(arr_1, arr_2):
     return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     array_1 = [1, 2, 5, 4, 0]
     array_2 = [4, 2, 5, 0, 1]
     print(compare_arrays(array_1, array_2))

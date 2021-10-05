@@ -71,7 +71,7 @@ class BinaryNode:
     def __init__(self, key):
         self.key = key
         self.left = self.right = None
-    
+
     def dfs(self) -> list:
         """
         Better way to implement an iterative DFS:
@@ -105,10 +105,8 @@ class Solution:
         # Validate the nodes
         is_equal = False
         if root1 is not None and root2 is not None:
-            # DFS (in-order) the subtrees that the nodes are part of 
-            subtree1_values, T2_values = (
-                root1.dfs(), root2.dfs()
-            )
+            # DFS (in-order) the subtrees that the nodes are part of
+            subtree1_values, T2_values = (root1.dfs(), root2.dfs())
             # compare visited values
             is_equal = subtree1_values == T2_values
         return is_equal

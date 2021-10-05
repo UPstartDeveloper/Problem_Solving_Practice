@@ -27,7 +27,7 @@ all the stack frames do.
 
 
 def find_path(grid, stack=None, path=None):
-    '''Finds a path from the start till the end, using DFS.'''
+    """Finds a path from the start till the end, using DFS."""
     # Base Case: for the first call, init the stack and path
     if stack is None and path is None:
         stack, path = list(), list()
@@ -46,9 +46,7 @@ def find_path(grid, stack=None, path=None):
         print(f"Path found: {path}")
         return path
     # otherwise, see if we can continue going down
-    neighbors = [
-        (row + 1, col), (row, col + 1)
-    ]
+    neighbors = [(row + 1, col), (row, col + 1)]
     for neighbor in neighbors:
         n_row, n_col = neighbor
         if n_row < len(grid) and n_col < len(grid[0]) and grid[n_row][n_col] != 0:
@@ -58,19 +56,14 @@ def find_path(grid, stack=None, path=None):
             if path[-1] == (len(grid) - 1, len(grid[0]) - 1):
                 break
     # when we hit a dead end, that's not the destination
-    else: # remove cell on the dead end path
+    else:  # remove cell on the dead end path
         path.pop()
     return path
 
 
 if __name__ == "__main__":
     # init a test grid - 0 means "the robot can't go here"
-    grid = [
-        [1, 1, 1, 0],
-        [1, 0, 1, 1],
-        [1, 1, 1, 1],
-        [1, 0, 1, 1]
-    ]
+    grid = [[1, 1, 1, 0], [1, 0, 1, 1], [1, 1, 1, 1], [1, 0, 1, 1]]
     # test if the output from the function is correct
     print(find_path(grid))
     """

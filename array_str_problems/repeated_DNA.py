@@ -1,31 +1,31 @@
 class Solution:
     def findRepeatedDnaSequences(self, s: str) -> List[str]:
         """
-        input: is a string 
+        input: is a string
         - length between 0 and 100,000
         - all upper case
         - either 'A', 'C', 'G', 'T'
-        
+
         repeated = occurs more than once
-        
+
         output:
         list of repeated substrings
-                    AAAAACCCCCAAAAACCCCC  
+                    AAAAACCCCCAAAAACCCCC
         Input: s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
         Output: ["AAAAACCCCC","CCCCCAAAAA"]
-        
+
         questions:
         can the start of the substrings overlap? yes
-        
+
         Idea 1: Histogram
-        
+
         # Intuition: use a sliding window to find all the substring types (10 chars)
                      store the number of occurences of each
                      return all that appear +1 times in an array
         Approach:
-        
+
         # A: init the histogram (use a dict)
-        
+
         {
         "AAAAACCCCC": 2,
         }
@@ -47,10 +47,8 @@ class Solution:
             start += 1
             end += 1
         # C: iterate over the key-value pairs, pick out the ones w/ 1+ occurences
-        return [
-            string for string, tokens in histogram.items() if tokens > 1
-        ]
-    
+        return [string for string, tokens in histogram.items() if tokens > 1]
+
     """
      01234567890123456789012345678901
     "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
@@ -85,4 +83,3 @@ class Solution:
      Time: O(n)
      Space: O(n)
     """
-        

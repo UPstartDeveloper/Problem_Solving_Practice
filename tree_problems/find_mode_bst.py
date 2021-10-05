@@ -60,8 +60,9 @@ class Solution:
                                      
         
         """
+
         def find_max_occurrences():
-            '''iterative DFS to find how many times the modes appear'''
+            """iterative DFS to find how many times the modes appear"""
             # init output
             max_occurrences = 0
             current_occurrences = 0
@@ -70,7 +71,7 @@ class Solution:
             stack = list()
             # push first node onto stack
             node = root
-            # DFS 
+            # DFS
             while node is not None or len(stack) > 0:
                 # defer the current node, go down the left subtree
                 if node is not None:
@@ -92,9 +93,9 @@ class Solution:
                     node = node.right
             # return the rel freq of the mode(s) in the tree
             return max_occurrences
-        
+
         def find_modes(max_occurrences):
-            '''iterative DFS to find how many times the modes appear'''
+            """iterative DFS to find how many times the modes appear"""
             # init output
             modes = list()
             current_occurrences = 0
@@ -103,7 +104,7 @@ class Solution:
             stack = list()
             # push first node onto stack
             node = root
-            # DFS 
+            # DFS
             while node is not None or len(stack) > 0:
                 # defer the current node, go down the left subtree
                 if node is not None:
@@ -125,10 +126,8 @@ class Solution:
                     node = node.right
             # return the modes
             return modes
-        
-        
+
         # A: iterate through the tree --> just find max_occurrences
         max_occurrences = find_max_occurrences()
         # B: find current_occurences, fill the array
         return find_modes(max_occurrences)
-        

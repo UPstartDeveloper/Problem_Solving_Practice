@@ -109,10 +109,7 @@ from typing import List
 def ordered_frequencies(corpus: str):
     def tokenize(corpus: str) -> List[str]:
         words_with_commas = corpus.split()
-        words = [
-            word[:-1] if word[-1] == "," else word
-            for word in words_with_commas 
-        ]
+        words = [word[:-1] if word[-1] == "," else word for word in words_with_commas]
         return words
 
     PUNCTUATIONS = [".", "?", "!"]
@@ -135,9 +132,7 @@ def ordered_frequencies(corpus: str):
     # sort them as tuples in descending order
     unordered_frequencies = list(freq_dist.items())
     # return the list
-    return sorted(
-        unordered_frequencies, reverse=True, key=lambda pair: pair[1]
-    )
+    return sorted(unordered_frequencies, reverse=True, key=lambda pair: pair[1])
 
 
 if __name__ == "__main__":

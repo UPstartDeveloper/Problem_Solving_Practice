@@ -2,16 +2,16 @@ def index_equals_value_search(arr):
     """
     input: arr = [-8,0,2,5]
     output: 2 # since arr[2] == 2
-    
+
     Intuition:
     linear search for all elems i  == arr[i]
-    
+
     Approach:
     store the elems in another array
     [2]
     return the min, or -1
     """
-    
+
     # I don't think I can hear you anymore
     # Did my idea make sense? nope
     # can you hear me now ?
@@ -92,7 +92,7 @@ def index_equals_value_search(arr):
             if (middle < len(arr) - 1 and arr[middle + 1] == mid_elem):
                 answer = middle
             low = middle + 1
-        """ 
+        """
 
     # return the answer
     return answer

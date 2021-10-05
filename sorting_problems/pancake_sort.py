@@ -37,46 +37,48 @@ def pancake_sort(nums):
         end_index -= 1
         print(f'Nums after: {nums}')
     return nums
-"""   
+"""
+
+
 def pancake_sort(arr):
-  def find_max(num_elem_to_find_max):
-    # find the idx of bigggest among num elems
-    # linear search
-    max_num = float('-inf')
-    max_index = -1
-    index = 0
-    while index < num_elem_to_find_max:
-      num = arr[index]
-      if num > max_num:
-        max_num = num
-        max_index = index
-      index += 1
-    return max_index
-  def flip(arr, k):
-    # slice the array
-    slice_arr = arr[:k]  # n 
-    # reverse the slice
-    slice_arr.reverse()  # n
-    # put it in back the array
-    for index, num in enumerate(slice_arr):  # n
-      arr[index] = num
-    return None
-  num_elem_to_find_max = len(arr)  # constant 
-  while num_elem_to_find_max > 1:  # n iterations
-    # linear search to find max in that num
-    max_index = find_max(num_elem_to_find_max)  # n
-    # flip it by that index + 1
-    flip(arr, max_index + 1)  # n
-    flip(arr,  num_elem_to_find_max)
-    # decrement the num of elements left to sort
-    num_elem_to_find_max -= 1
-  return arr
-    
+    def find_max(num_elem_to_find_max):
+        # find the idx of bigggest among num elems
+        # linear search
+        max_num = float("-inf")
+        max_index = -1
+        index = 0
+        while index < num_elem_to_find_max:
+            num = arr[index]
+            if num > max_num:
+                max_num = num
+                max_index = index
+            index += 1
+        return max_index
+
+    def flip(arr, k):
+        # slice the array
+        slice_arr = arr[:k]  # n
+        # reverse the slice
+        slice_arr.reverse()  # n
+        # put it in back the array
+        for index, num in enumerate(slice_arr):  # n
+            arr[index] = num
+        return None
+
+    num_elem_to_find_max = len(arr)  # constant
+    while num_elem_to_find_max > 1:  # n iterations
+        # linear search to find max in that num
+        max_index = find_max(num_elem_to_find_max)  # n
+        # flip it by that index + 1
+        flip(arr, max_index + 1)  # n
+        flip(arr, num_elem_to_find_max)
+        # decrement the num of elements left to sort
+        num_elem_to_find_max -= 1
+    return arr
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # nums = [5, 2, 3, 4, 1]
     # nums = [2, 2,2,2,2,2,22,2,2,2,2, 6, 3,3, 1,2,2,2,2,22,2,2]
     nums = [38, 27, 43, 3, 9, 82, 10]
     print(pancake_sort(nums))
-    

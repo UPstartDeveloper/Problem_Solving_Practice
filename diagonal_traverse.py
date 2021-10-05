@@ -1,36 +1,37 @@
 from typing import List
 
+
 def findDiagonalOrder(nums: List[List[int]]) -> List[int]:
     """
     not necessarily a rectanngle
     at least 1 row
     size of row <= 1
-    
+
     [
-    
+
     [1,2,3],
     [4,5,6],
     [7,8,9]
-        
+
     ]
-    
+
     r =   0, 1, 0, 2, 1, 0, 2, 1
     c =   0, 0, 1, 0, 1, 2, 1, 2
     num = 1, 4, 2, 7, 5, 3, 8, 6
-    
+
     for each diagonal
         count down the row, index
         count up the col index
-        
+
     tip = up + right
     tail = down + right
     row = count down
     col = count up
-    
+
     Idea #1
-    
+
     - # of vectors we need
-    - init a list 
+    - init a list
     - iterate over all the vector
         - tail (starting pt)
         - tip (ending pt)
@@ -38,7 +39,7 @@ def findDiagonalOrder(nums: List[List[int]]) -> List[int]:
             - row-=1
             - col+=1
             - add them to our list
-    - return 
+    - return
     """
     """# define the directions
     UP, DOWN, RIGHT = [
@@ -133,7 +134,9 @@ def findDiagonalOrder(nums: List[List[int]]) -> List[int]:
         if starting_row < FINAL_ROW:  # moving down the first column
             starting_row += 1
         # moving across the last row
-        elif (starting_row == FINAL_ROW or starting_row == longest_row_index) and starting_col < len(nums[starting_row]):
+        elif (
+            starting_row == FINAL_ROW or starting_row == longest_row_index
+        ) and starting_col < len(nums[starting_row]):
             starting_col += 1
         # when the last row is not one of the longest length
         elif starting_col < FINAL_COL:
@@ -149,6 +152,7 @@ def findDiagonalOrder(nums: List[List[int]]) -> List[int]:
         """
     # return the final list
     return output
+
 
 """
 
@@ -216,13 +220,30 @@ Idea: elements at the same sum index belong in the same diagonal
 
 if __name__ == "__main__":
     # test cases - sqaure
-    nums = [[1,2,3],[4,5,6],[7,8,9]]
-    assert findDiagonalOrder(nums) == [1,4,2,7,5,3,8,6,9]
-    nums = [[1,2,3,4,5],[6,7],[8],[9,10,11],[12,13,14,15,16]]
-    assert findDiagonalOrder(nums) == [1,6,2,8,7,3,9,4,12,10,5,13,11,14,15,16]
-    nums = [[1,2,3],[4],[5,6,7],[8],[9,10,11]]
-    assert findDiagonalOrder(nums) == [1,4,2,5,3,8,6,9,7,10,11]
-    nums = [[1,2,3,4,5,6]]
-    assert findDiagonalOrder(nums) == [1,2,3,4,5,6]
-    nums = [[14,12,19,16,9],[13,14,15,8,11],[11,13,1]]
-    assert findDiagonalOrder(nums) == [14,13,12,11,14,19,13,15,16,1,8,9]
+    nums = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    assert findDiagonalOrder(nums) == [1, 4, 2, 7, 5, 3, 8, 6, 9]
+    nums = [[1, 2, 3, 4, 5], [6, 7], [8], [9, 10, 11], [12, 13, 14, 15, 16]]
+    assert findDiagonalOrder(nums) == [
+        1,
+        6,
+        2,
+        8,
+        7,
+        3,
+        9,
+        4,
+        12,
+        10,
+        5,
+        13,
+        11,
+        14,
+        15,
+        16,
+    ]
+    nums = [[1, 2, 3], [4], [5, 6, 7], [8], [9, 10, 11]]
+    assert findDiagonalOrder(nums) == [1, 4, 2, 5, 3, 8, 6, 9, 7, 10, 11]
+    nums = [[1, 2, 3, 4, 5, 6]]
+    assert findDiagonalOrder(nums) == [1, 2, 3, 4, 5, 6]
+    nums = [[14, 12, 19, 16, 9], [13, 14, 15, 8, 11], [11, 13, 1]]
+    assert findDiagonalOrder(nums) == [14, 13, 12, 11, 14, 19, 13, 15, 16, 1, 8, 9]

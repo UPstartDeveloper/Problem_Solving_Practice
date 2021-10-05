@@ -1,8 +1,8 @@
-'''
+"""
 Problem description and starter code found on LeetCode:
 https://leetcode.com/problems/median-of-two-sorted-arrays/
-'''
-'''
+"""
+"""
 Variable Table:
 Variable     |    nums1    |   nums2   |  merged   |
 Values       |   [1, 3]    |     [2]   |     []    |
@@ -13,11 +13,11 @@ Values       |   [1, 3]    |     [2]   |     []    |
                            |     []    |   [1, 2]  |
                            |           | [1, 2, 3] | mid_index|  middle   |
                                                    |    2     |   2
-'''
+"""
 
 
 def find_median_sorted_arrays(nums1, nums2) -> float:
-    '''Merges two sorted lists of numbers, and returns the median of all.'''
+    """Merges two sorted lists of numbers, and returns the median of all."""
     # create a new list of all items in order
     merged = list()
     index1, index2 = 0, 0
@@ -44,7 +44,7 @@ def find_median_sorted_arrays(nums1, nums2) -> float:
         return (middle + merged[mid_index - 1]) / 2
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # test on good inputs
     nums1 = [1, 3]
     nums2 = [2]

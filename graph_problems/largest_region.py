@@ -15,35 +15,36 @@ import sys
 # The function accepts 2D_INTEGER_ARRAY matrix as parameter.
 #
 
+
 def connectedCell(matrix):
     """
     Clarifications:
     - return the size of the largest "region" of connected vertices
-    - ASSUME graph is mutable - helps to not "double" count a region of 
+    - ASSUME graph is mutable - helps to not "double" count a region of
         land
     - the matrix CAN be empty, or is a rectangle
     - vertices CAN connect diagonally, as well as horizontally/vertically
     - only 0s or 1s
     - ASSUME deques are allowed
-    
+
     110 ---> 000 --> 000 --> [3, 1] ---> 3
     100      000     000
     001      001     000
-        
+
     Intuition:
         filled cell = vertex of directed graph
         BFS each connect comp of filled cells
-        
+
     Approach:
         A: define the edge vectors (going from one node to another)
         B: init count for size_largest_region = 0
         C: traverse the MATRIX
-            1: if filled cell found, start BFS w/ a queue 
-            2: dequeue each node, 
+            1: if filled cell found, start BFS w/ a queue
+            2: dequeue each node,
             3: mark the cell 0, enqueue neighbors
             4: after BFS, update largest_size if needed
         D: return size_largest_region
-    
+
     Edge Cases
         empty graph ---> assume we return 0
         no 1s --> return 0
@@ -66,7 +67,7 @@ def connectedCell(matrix):
         # lower right
         (1, 1),
         # upper left
-        (-1, -1)
+        (-1, -1),
     ]
     # B: init count for size_largest_region = 0
     size_largest_region = 0
@@ -74,12 +75,12 @@ def connectedCell(matrix):
     for row_ndx in range(len(matrix)):
         for col_ndx in range(len(matrix[0])):
             if matrix[row_ndx][col_ndx] == 1:
-                # 1: if filled cell found, start BFS w/ a queue 
+                # 1: if filled cell found, start BFS w/ a queue
                 q = deque([(row_ndx, col_ndx)])
                 size_current = 0
                 while len(q) > 0:
                     # 2: dequeue each node
-                    cell_row, cell_col = q.popleft() 
+                    cell_row, cell_col = q.popleft()
                     # 3: mark the cell 0, enqueue neighbors
                     if matrix[cell_row][cell_col] == 1:
                         matrix[cell_row][cell_col] = 0
@@ -93,8 +94,7 @@ def connectedCell(matrix):
                                     neighbor = neighbor[col_neighbor]
                                     if neighbor == 1:
                                         # prevent double-counting
-                                        coords = (
-                                            row_neighbor, col_neighbor)
+                                        coords = (row_neighbor, col_neighbor)
                                         q.append(coords)
                 # 4: after BFS, update largest_size if needed
                 if size_current > size_largest_region:
@@ -102,10 +102,10 @@ def connectedCell(matrix):
                     size_current = 0
     # D: return size_largest_region
     return size_largest_region
-    
-    
-if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+
+if __name__ == "__main__":
+    fptr = open(os.environ["OUTPUT_PATH"], "w")
 
     n = int(input().strip())
 
@@ -118,6 +118,6 @@ if __name__ == '__main__':
 
     result = connectedCell(matrix)
 
-    fptr.write(str(result) + '\n')
+    fptr.write(str(result) + "\n")
 
     fptr.close()

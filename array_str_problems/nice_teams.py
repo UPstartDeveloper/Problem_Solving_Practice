@@ -16,44 +16,45 @@ import sys
 #  2. INTEGER minDiff
 #
 
+
 def maxPairs(skill_levels, min_diff):
     """
     unsorted array of integers
     pos integers
     dupes
     at least 1 int
-    
+
     minDiff is a non negative int
-    
+
     return # of pairs where diff >= minDiff
 
     Clarifications:
     possibilities - no duplicating values in pairs
     skillLevel list is MUTABLE
-    
+
     Intuition:
         permutations problem
-        
+
     Edge Cases:
-        negatives = not going to worry about it 
+        negatives = not going to worry about it
         float = raise ValueError
-        
+
     Approaches:
     1. Brute force - try every combo, increment if it works
         A) quadratic, constant space
-        
+
     2) use a set
         ratings = [1, 2, 3, 4, 5, 6], mD = 4
                    ^           ^
         A: put all the elems in a set
-        B: iterate over elems 
+        B: iterate over elems
             a) look for an element at least bigger than mD
-    
+
     3) Sorting
     1, 1, 2, 3, 4, 5
         a) [1, 2, 3, 4, 5, 6], mD = 4
             ^              ^
-            
+
     4) Set + Sort it
         A: init a set
         B: sort the elems
@@ -62,10 +63,10 @@ def maxPairs(skill_levels, min_diff):
             b) calc the pair = elem + mD
             c) iterate from back --> find lowest elem that meets
             d) if found - increment pair_count, add index to set
-        D: return pair_count 
-    
+        D: return pair_count
+
     [3, 4, 5, 2, 1, 1], mD = 3
-    
+
     indices_used = {
         4, 5
     }
@@ -75,9 +76,9 @@ def maxPairs(skill_levels, min_diff):
         ^          ^
            ^
      1 + mD = 4
-     
+
      pC = 0, 1, 2
-        
+
     """
     # A: init a set
     used = set()
@@ -97,7 +98,7 @@ def maxPairs(skill_levels, min_diff):
             if skill_levels[-1] >= threshold:
                 while second_player > first_player:
                     second_skill = skill_levels[second_player]
-                    # d) if found - increment pair_count, 
+                    # d) if found - increment pair_count,
                     if second_skill >= threshold:
                         # make sure we can't go back further
                         skill_before = skill_levels[second_player - 1]
@@ -116,5 +117,6 @@ def maxPairs(skill_levels, min_diff):
     # D: return pair_count
     return pairs
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     pass

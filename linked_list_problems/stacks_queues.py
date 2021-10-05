@@ -32,7 +32,7 @@ class LinkedList:
             self.head = new_node
 
     def _find(self, target):
-        '''Linear search'''
+        """Linear search"""
         prev, node = None, self.head
         while node is not None and node.val != target:
             prev = node
@@ -52,10 +52,11 @@ class LinkedList:
                 prev.next = node.next
                 if node == self.tail:
                     self.tail = prev
-    
+
 
 class LinkedStack:
-    '''top is the head'''
+    """top is the head"""
+
     def __init__(self):
         self.items = LinkedList()
 
@@ -76,7 +77,8 @@ class LinkedStack:
 
 
 class LinkedQueue:
-    '''head is the front, tail is the back'''
+    """head is the front, tail is the back"""
+
     def __init__(self):
         self.items = LinkedList()
 

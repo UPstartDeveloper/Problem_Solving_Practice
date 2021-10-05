@@ -1,32 +1,32 @@
 def find_pairs_with_given_difference(arr, k):
-  intermediate = list()
-  # A: use 2 for loops to find those triplet, and put them in a 2D array
-  for index, element in enumerate(arr):
-    for other_index, other_elem in enumerate(arr):
-      if index != other_index:
-        if element - other_elem == k:
-          triplet = [element, other_elem, other_index]
-          intermediate.append(triplet)
-  # B: sort the intermediate by the z-axis - nlogn
-  intermediate.sort(key=lambda triplet: triplet[2])
-  # C: list comp to get the x, y elems - n
-  output = [
-    [triplet[0], triplet[1]] for triplet in intermediate 
-  ]
-  return output
+    intermediate = list()
+    # A: use 2 for loops to find those triplet, and put them in a 2D array
+    for index, element in enumerate(arr):
+        for other_index, other_elem in enumerate(arr):
+            if index != other_index:
+                if element - other_elem == k:
+                    triplet = [element, other_elem, other_index]
+                    intermediate.append(triplet)
+    # B: sort the intermediate by the z-axis - nlogn
+    intermediate.sort(key=lambda triplet: triplet[2])
+    # C: list comp to get the x, y elems - n
+    output = [[triplet[0], triplet[1]] for triplet in intermediate]
+    return output
+
 
 def find_pairs_with_given_difference_linear(arr, k):
-  elements = set(arr)
-  
-  output = list()
-  # element = x
-  # element - k = y
-  
-  for element in arr:
-    if (element - k) in elements:
-      output.append([(element - k), element])
-      
-  return output
+    elements = set(arr)
+
+    output = list()
+    # element = x
+    # element - k = y
+
+    for element in arr:
+        if (element - k) in elements:
+            output.append([(element - k), element])
+
+    return output
+
 
 """
 O(n)

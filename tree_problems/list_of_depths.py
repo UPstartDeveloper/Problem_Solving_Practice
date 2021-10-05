@@ -59,7 +59,7 @@ from typing import List
 
 
 class TreeNode:
-    def __init__(self, key): 
+    def __init__(self, key):
         self.key = key
         self.left = None
         self.right = None
@@ -80,25 +80,27 @@ class LinkedList:
     def __init__(self, items):
         self.head = ListNode(items[0])
         node = self.head
-        for index in range (1, len(items)):
+        for index in range(1, len(items)):
             next_node = List(items[index])
             node.next = next_node
             node = next_node
-        
-    
+
+
 def list_of_depths(tree: Tree) -> List[LinkedList]:
     q, next_level, lists = deque(), deque(), list()
     # A: enqueue the root node
     q.append(tree.root)
     # B: go until there are no more items in the queue and next neighbors
-    while not (len(q) == 0 and len(next_level) == 0):  # log(n), where n is # of nodes, and tree's balanced
+    while not (
+        len(q) == 0 and len(next_level) == 0
+    ):  # log(n), where n is # of nodes, and tree's balanced
         # 1st pass: enqueue the neighbors of that node (aka item)
         for node in q:
             if node.left is not None:
                 next_level.append(node.left)
             if node.right is not None:
                 next_level.append(node.right)
-        # 2nd pass: make a LL from the nodes in the queue, add 
+        # 2nd pass: make a LL from the nodes in the queue, add
         list_items = list()
         for node in q:
             list_items.append(q.popleft())
@@ -108,6 +110,7 @@ def list_of_depths(tree: Tree) -> List[LinkedList]:
             q.append(next_level.popleft())
     # C: return the lists of list nodes
     return lists
+
 
 """
 Manual Test:

@@ -1,8 +1,8 @@
-'''
+"""
 Problem: Find the 5th largest value in an array of n numbers.
-'''
+"""
 
-'''
+"""
 1) load in first 5 elements into a sublist
     - keep track of the min of this sublist
 2) traverse over the remaining elements
@@ -11,9 +11,9 @@ Problem: Find the 5th largest value in an array of n numbers.
     - update the min
 
 3) return the min of the 5
-'''
+"""
 
-'''
+"""
 Given an array a of numbers and a target value t, find two numbers that sum
 to t (that is, a[i] + a[j] = t).
 
@@ -49,13 +49,13 @@ Idea 1:
 
 
 
-'''
+"""
 
 
-'''
+"""
 Find the k largest numbers in a an array of n numbers. Return them in an array
 sorted in decreasing order.
-'''
+"""
 
 #  0  1  2  3  4
 # [7, 6, 6, 4, 3, 2, 1] , k=4

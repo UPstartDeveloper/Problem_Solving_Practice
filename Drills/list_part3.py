@@ -11,7 +11,6 @@ class ListNode:
 
 
 class LinkedList:
-
     def __init__(self, head, tail=None):
         self.head = head
         self.tail = self.head
@@ -28,15 +27,15 @@ class LinkedList:
         self.tail = new
 
     def get_node(self, node_val):
-        '''ASSUMES the node in list'''
+        """ASSUMES the node in list"""
         prev, node = self._get_node(node_val)
         return node
 
     def update_node(self, current_val, new_val):
-        '''ASSUMES the node in list'''
+        """ASSUMES the node in list"""
         prev, node = self._get_node(current_val)
         node.val = new_val
-        
+
     def _get_node(self, node_val):
         prev, node = None, self.head
         while node is not None and node.val != node_val:
@@ -55,12 +54,12 @@ class LinkedList:
             # change the head
             self.head = self.head.next
         # C: otherwise, delete by "skipping the node"
-        else:  
+        else:
             prev.next = node.next
             # D: if deleted node is tail, move tail
             if node == self.tail:
                 self.tail = prev
-    
+
     def prepend(self, new_val):
         node = ListNode(new_val)
         node.next = self.head

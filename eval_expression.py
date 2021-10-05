@@ -1,27 +1,32 @@
 def add(x, y):
-        return x + y
+    return x + y
+
+
 def subtract(x, y):
     return x - y
+
+
 def multiply(x, y):
     return x * y
+
+
 def divide(x, y):
     return x // y
 
+
 class BinaryTree:
     # store operators to functions
-    operator_funcs = {
-            "+": add,
-            "-": subtract,
-            "*": multiply,
-            "//": divide
-        }
+    operator_funcs = {"+": add, "-": subtract, "*": multiply, "//": divide}
+
     def __init__(self):
         self.root = None
         self.final_value = 0
 
     def add_expressions(self, expression, operator1, operator2):
         index = 0
-        while index < len(expression) and (operator1 in expression or operator2 in expression):
+        while index < len(expression) and (
+            operator1 in expression or operator2 in expression
+        ):
             possible_operator = expression[index]
             if possible_operator == operator1 or possible_operator == operator2:
                 # add the root of the expression to be added
@@ -58,7 +63,7 @@ class BinaryTree:
                 expression.remove(second_operand)
             index += 1
         return expression
-    
+
     def post_order_DFS(self, node=None):
         # start at the root
         if node is None:
@@ -76,8 +81,7 @@ class BinaryTree:
         else:  # node is an operator
             operation = operator_funcs[node.data]
             return operation(left_side, right_side)
-        
-        
+
 
 class BinaryTreeNode:
     def __init__(self, data):
@@ -91,12 +95,12 @@ def evaluate_expression(expression):
     index = 0
     full_expression = BinaryTree()
     # add all multiplication/division first, then addition and subtraction
-    expression = full_expression.add_expressions(expression, '*', '/')
-    full_expression.add_expressions(expression, '+', '-')
+    expression = full_expression.add_expressions(expression, "*", "/")
+    full_expression.add_expressions(expression, "+", "-")
     # calculate the final value
     return full_expression.post_order_DFS()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     expression = ["3", "4", "+", "5", "-"]
     print(evaluate_expression(expression))

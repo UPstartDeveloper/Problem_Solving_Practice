@@ -1,10 +1,11 @@
 import math
 
+
 class Solution(object):
-    def __init__(self): 
+    def __init__(self):
         self.num_paths_overall = 0
         self.distance_so_far = 0
-        
+
     def climbStairs(self, n):
         """
         :type n: int
@@ -215,8 +216,8 @@ class Solution(object):
             index += 1
         # return the answer to the largest subproblem
         return answers[n]
-    
-    
+
+
 """
 n = 10
 num_paths_overall = 1 

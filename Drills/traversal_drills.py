@@ -1,6 +1,8 @@
 import deque
 
 """TREES"""
+
+
 class TreeNode:
     def __init__(self, key):
         self.key = key
@@ -12,15 +14,15 @@ class Tree:
         self.root = root
 
     def bfs(self, use_iteration=True):
-        '''Visits all the nodes and prints them.'''
+        """Visits all the nodes and prints them."""
 
         def _bfs_iterative():
             # A: init a queue
             q = deque()
-            # B: enqueue the root 
+            # B: enqueue the root
             if self.root is not None:
                 q.append(self.root)
-                # C: traverse the tree 
+                # C: traverse the tree
                 while len(q) > 0:
                     # visit the node at front of the queue
                     node = q.popleft()
@@ -30,7 +32,7 @@ class Tree:
                         q.append(node.left)
                     if node.right:
                         q.append(node.left)
-        
+
         def _bfs_recursive(q=None):
             # Base Case: need to enqueue the root
             if q is None:
@@ -47,7 +49,7 @@ class Tree:
                 print(f"Visiting Node w/ Key: {node.key}")
                 # enqueue the children nodes
                 if node.left:
-                        q.append(node.left)
+                    q.append(node.left)
                 if node.right:
                     q.append(node.left)
                 return _bfs_recursive(q)
@@ -56,10 +58,8 @@ class Tree:
             return _bfs_iterative()
         return _bfs_recursive()
 
-    def dfs(self, order='in_order'):
-
+    def dfs(self, order="in_order"):
         def _inorder(use_iteration=True):
-
             def __inorder_iterative():
                 pass
 
@@ -74,16 +74,15 @@ class Tree:
                 # traverse the right subtree
                 if node and node.right:
                     __inorder_recursive(node.right)
-                
+
             return __inorder_recursive()
 
         def _preorder(use_iteration=True):
-
             def __inorder_iterative():
                 pass
 
             def __preorder_recursive(node=self.root):
-                
+
                 # visit the current node
                 if node:
                     print(f"Visiting Node w/ Key: {node.key}")
@@ -93,11 +92,10 @@ class Tree:
                 # traverse the right subtree
                 if node and node.right:
                     __preorder_recursive(node.right)
-                
+
             return __preorder_recursive()
 
         def _postorder(use_iteration=True):
-
             def __postorder_iterative():
                 pass
 
@@ -109,9 +107,10 @@ class Tree:
                     __postorder_recursive(node.right)
                     # visit this node
                     print(f"Visiting Node w/ Key: {node.key}")
+
             return __postorder_recursive()
-        
-        if order == 'in_order':
+
+        if order == "in_order":
             return _inorder()
 
 
@@ -123,7 +122,7 @@ class Vertex:
         self.id = id
         self.neighbors = dict()  # str --> Vertex obj
 
-    
+
 class Graph:
     def __init__(self, is_directed=False):
         self.vertices = dict()  # id --> Vertex
@@ -146,7 +145,7 @@ class Graph:
             v2.neighbors[v1.id] = v1
 
     def _bfs_iterative(self):
-        '''Assumes all the vertices are connected. And visits by just printing'''
+        """Assumes all the vertices are connected. And visits by just printing"""
         if len(self.vertices) > 0:
             # A: init collections
             q = deque()
@@ -173,7 +172,7 @@ class Graph:
             first = list(self.vertices.values())[0]
             q.append(first)
             return self._bfs_recursive(q, visited)
-        # RC: visit the next node 
+        # RC: visit the next node
         else:
             node = q.popleft()
             print(f"Visiting node w/ key: {node.id}")
@@ -184,7 +183,7 @@ class Graph:
             return self._bfs_iterative(q, visited)
 
     def dfs_iterative(self):
-        '''Assumes all the nodes are connected. Visits by printing.'''
+        """Assumes all the nodes are connected. Visits by printing."""
         if len(self.vertices) > 0:
             # A init collections
             visited = set()

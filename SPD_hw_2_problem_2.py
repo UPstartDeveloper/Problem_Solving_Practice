@@ -1,4 +1,4 @@
-'''
+"""
 Two-Sum
 https://leetcode.com/problems/two-sum/
 
@@ -48,13 +48,13 @@ Traverse the list (O(n))
 So we're looking at a runtime of O(n log n) - not great, but for now I honestly
 don't see a better way. For now I'll implement it, and let's see a better
 idea emerges, ok?
-'''
+"""
 
 
 def binary_search(array, other_num, low, high):
     """Searches for the other number needed to make the target sum.
-       Returns array index, or -1 if not found.
-       low and high - index positions between which we are searchig
+    Returns array index, or -1 if not found.
+    low and high - index positions between which we are searchig
 
     """
     mid = (low + high) // 2
@@ -73,7 +73,7 @@ def binary_search(array, other_num, low, high):
 
 
 def two_sum(array, target):
-    '''Solution to the above problem.'''
+    """Solution to the above problem."""
     array.sort()  # sort the array
     pair = []  # init list to store indices
     for index in range(len(array)):
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     print(two_sum([2, 7, 11, 15], 9))  # it works!
 
 
-'''
+"""
 In terms of tradeoffs I do sacrifice a lot of time by sorting the list, and
 that would become a real problem if this is used with a dataset of thousands
 of items.
@@ -101,4 +101,4 @@ To improve it, might I suggest using a hash table instead? That way we could
 avoid sorting, use a traversal to build a histogram of our numbers, and lookup
 the other number need to make a pair in linear search (but at the same time
 that may make it harder to return the index of the numbers).
-'''
+"""

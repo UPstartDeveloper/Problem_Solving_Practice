@@ -6,26 +6,27 @@ class TreeNode:
         self.left = left
         self.right = right
 
-from collections import deque 
+
+from collections import deque
+
 
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         depth = 0
-        
+
         if root is not None:
             q = deque([root])
-            
+
             while q:
                 level_length = len(q)
-                
+
                 for _ in range(level_length):
                     node = q.popleft()
                     if node.left:
                         q.append(node.left)
                     if node.right:
                         q.append(node.right)
-                
+
                 depth += 1
-        
+
         return depth
-        

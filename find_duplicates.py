@@ -4,56 +4,56 @@ def find_duplicates(arr1, arr2):
     >= ints
     sorted
     unique ints in each arr
-    
-    
+
+
     arr1 = [1, 2, 3, 5, 6, 7], arr2 = [3, 6, 7, 8, 20]
-    
-    # Brute force - 
-    - iterative 
-    - quadratic 
-    
+
+    # Brute force -
+    - iterative
+    - quadratic
+
     # Idea - Sets
 
     {1, 2, 3, 5, 6, 7}
     [3]
-    
+
     {3, 6, 7} = [3, 6, 7]
-    
+
     S = smaller arraty
     L = larger
-    
-    
+
+
     Space = L
     Time = S + L
-    
+
     Idea - Searching
-    
+
     find smaller array - constant
     iterate over the smaller one - S iterations
         binary search for it in the larger one - log L
         if so, add to the intersections
-    
+
     Time: O(S log L)
     Space: O(S)
     ----------------------
     constant space
     linear time
-    
+
     same length
-    
-    sesarch 
-    
-    arr1 = [1, 2, 3, 5, 6, 7], 
+
+    sesarch
+
+    arr1 = [1, 2, 3, 5, 6, 7],
     arr2 = [3, 6, 7, 8, 20, 34]
     ans = [3]
-    
+
                     v
-    arr1 = [1, 2, 3, 8, 10, 11], 
+    arr1 = [1, 2, 3, 8, 10, 11],
                 v
     arr2 = [3, 6, 7, 8, 20, 34]
-    
-    
-    
+
+
+
     <---- 1 -3---------- 7 -->
             3-------------------------34
     """
@@ -70,7 +70,7 @@ def find_duplicates(arr1, arr2):
     # init two pointers in both arrays
     ps = 0
     pl = 0
-    
+
     while ps < len(smaller) and pl < len(larger):
         # compare
         if smaller[ps] == larger[pl]:
@@ -82,7 +82,7 @@ def find_duplicates(arr1, arr2):
         else:
             ps += 1
     return answer
-        
+
     """
     def binary_search(target, lo, hi, array):
         # calculate the middle index and element
@@ -121,7 +121,6 @@ def find_duplicates(arr1, arr2):
     return answer
     """
 
-
     """
     Test Case 1
                 0. 1. 2. 3. 4. 5 
@@ -134,4 +133,3 @@ def find_duplicates(arr1, arr2):
 
     elem = 3
     """
-    

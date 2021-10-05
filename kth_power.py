@@ -3,6 +3,7 @@ Solution for
 Sort Integers by The Power Value: https://leetcode.com/problems/sort-integers-by-the-power-value/
 """
 
+
 class Solution:
     def getKth(self, lo: int, hi: int, k: int) -> int:
         # Can I calculate the power of an integer?
@@ -13,30 +14,31 @@ class Solution:
         # assume no negatives
         def calculate_steps(range_int: int) -> int:  # i = range_int
             # init a variable to count the number of steps at 0
-            steps = 0 
+            steps = 0
             # iterate while the number not equal to zero
             while range_int != 1:
                 # transform it using the right eq, based on even or odd
                 if range_int % 2 == 0:
                     range_int /= 2
-                else: # should be odd
-                    range_int = (3 * range_int + 1)
+                else:  # should be odd
+                    range_int = 3 * range_int + 1
                 steps += 1
             # return the steps
             return steps
+
         """
         steps = 9
         
         range_int = 1
         """
-        power_ints = dict() 
+        power_ints = dict()
         # n = hi - lo + 1
         # iterate over all the integers in the range
         for num in range(lo, hi + 1):  # n iterations
             # calulate the power of the integer
             power = calculate_steps(num)
             # map each integer of the power -> range_int
-            if power in power_ints: # O(1)
+            if power in power_ints:  # O(1)
                 power_ints[power].append(num)
             else:
                 power_ints[power] = [num]
@@ -46,13 +48,13 @@ class Solution:
         for power in sorted_powers:  # n iterations
             ints = power_ints[power]
             ints.sort()
-            sorted_ints.extend(ints)  # 
+            sorted_ints.extend(ints)  #
         # return the k - 1 element
-        return sorted_ints[k -1]
-    
+        return sorted_ints[k - 1]
+
     # Time O(n * calculate_power + n log n)
     # Space O(n)
-    
+
     """
     
     """
@@ -73,4 +75,3 @@ class Solution:
     power = 9
     
     """
-        

@@ -1,13 +1,9 @@
 from collections import deque
 
+
 def shortest_cell_path(grid, sr, sc, tr, tc):
     # define the 4 directions
-    directions = [
-        (-1, 0),  # UP
-        (1, 0), # DOWN
-        (0, -1), # LEFT
-        (0, 1)  # RIGHT    
-    ]
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # UP  # DOWN  # LEFT  # RIGHT
     # starting location, and starting distance
     start = (sr, sc, 0)
     # the dictionary of locations, and distances to the destination
@@ -21,10 +17,10 @@ def shortest_cell_path(grid, sr, sc, tr, tc):
     while next_locations:
         # dequeue from the queue - # store the location and distance
         next_loc_and_dist = next_locations.popleft()  # (0,0,0)
-        next_location_row, next_location_col, dist_so_far = next_loc_and_dist  
+        next_location_row, next_location_col, dist_so_far = next_loc_and_dist
         # mark the next location as travelled
         locations_travelled.add((next_location_row, next_location_col))
-        # check if it's the destination 
+        # check if it's the destination
         if (tr, tc) == (next_location_row, next_location_col):
             # store the distance
             if dist_so_far not in distances_dest:
@@ -34,28 +30,28 @@ def shortest_cell_path(grid, sr, sc, tr, tc):
             delta_x, delta_y = direction
             new_row, new_col = (
                 next_location_row + delta_x,
-                next_location_col + delta_y
+                next_location_col + delta_y,
             )
             # see if we should enqueue the neighboring cell
             neighboring_location = (new_row, new_col, dist_so_far + 1)
             if 0 <= new_row < len(grid) and 0 <= new_col < len(grid[0]):
-                if grid[new_row][new_col] == 1 and (new_row, new_col) not in locations_travelled:
+                if (
+                    grid[new_row][new_col] == 1
+                    and (new_row, new_col) not in locations_travelled
+                ):
                     # enqueue the neibhor, and location + 1
                     next_locations.append(neighboring_location)
                     print(f"Added {neighboring_location} to the queue")
                     print(distances_dest)
-                    print(f'Whole queue: {neighboring_location}')
+                    print(f"Whole queue: {neighboring_location}")
     # return the min of the destination distances
     min_dist = -1
     if len(distances_dest) > 0:
         min_dist = min(distances_dest)
     return min_dist
 
-grid = [
-    [1,1,1,1],
-    [0,0,0,1],
-    [1,1,1,1]
-]
+
+grid = [[1, 1, 1, 1], [0, 0, 0, 1], [1, 1, 1, 1]]
 
 print(shortest_cell_path(grid, 0, 0, 2, 0))
 

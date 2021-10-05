@@ -3,6 +3,7 @@ class Node:
         self.data = data
         self.next = None
 
+
 class LinkedList:
     def __init__(self, head):
         self.head = head
@@ -23,7 +24,7 @@ class LinkedList:
         return str(items)
 
     def remove_duplicates(self):
-        '''Linear time and space'''
+        """Linear time and space"""
         # init a set
         unique_elems = set()
         # iterate over the list
@@ -61,4 +62,4 @@ if __name__ == "__main__":
         node = new_node
     # test the output of the function
     ll.remove_duplicates()
-    print(f'Items: {ll}')
+    print(f"Items: {ll}")

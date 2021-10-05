@@ -59,7 +59,7 @@ class Stack:
     stack = list()
 
     def subtract(self):
-        '''removes the 2, subtracts 2nd from 1st and adds to stack'''
+        """removes the 2, subtracts 2nd from 1st and adds to stack"""
         # check if 2 elements
         if len(self.stack) > 1:
             top = self.stack.pop()
@@ -67,22 +67,22 @@ class Stack:
             diff = abs(top - second)
             self.stack.append(diff)
             return 0
-        else: 
+        else:
             return -1
 
     def addition(self):
-        '''adds two topmost, adds sums ot the stack'''
-         # check if 2 elements
+        """adds two topmost, adds sums ot the stack"""
+        # check if 2 elements
         if len(self.stack) > 1:
             top = self.stack.pop()
             second = self.stack.pop()
             self.stack.append(sum([top, second]))  # 5 + 6
             return 0
-        else: 
+        else:
             return -1
 
     def duplicate(self):
-        '''copies the top elem, puts on the top'''
+        """copies the top elem, puts on the top"""
         if len(self.stack) > 0:
             top = self.stack[-1]
             self.stack.append(top)
@@ -91,14 +91,14 @@ class Stack:
             return -1
 
     def solution(self, commands: str) -> int:
-        # A: split up the chars 
+        # A: split up the chars
         commands = commands.split()
         # B: process each char as a command
         char_functions = {
             "+": self.addition,
             "-": self.subtract,
             "DUP": self.duplicate,
-            "POP": self.stack.pop, 
+            "POP": self.stack.pop,
         }
         for char in commands:
             if char in char_functions:
@@ -119,7 +119,7 @@ class Stack:
 if __name__ == "__main__":
     # s = “4 5 6 - 7 +”  returns 8
     s = "13 DUP 4 POP 5 DUP + DUP + -"
-    # s = "5 6 + -" 
+    # s = "5 6 + -"
     # s = “3 DUP 5 - -” return -1
     stack = Stack()
     print(stack.solution(s))

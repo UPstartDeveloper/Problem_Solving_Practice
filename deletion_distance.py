@@ -9,6 +9,7 @@ class Memoize:
         answer = self.cache[(str1, str2)]
         return answer
 
+
 @Memoize
 def deletion_distance(str1, str2):
     # base cases:
@@ -21,7 +22,9 @@ def deletion_distance(str1, str2):
     # recursive cases: not totally equal
     elif str1[-1] != str2[-1]:
         # calculate the two possible deletion distances
-        return 1 + min(deletion_distance(str1[:-1], str2), deletion_distance(str1, str2[:-1]))
+        return 1 + min(
+            deletion_distance(str1[:-1], str2), deletion_distance(str1, str2[:-1])
+        )
     elif str1[-1] == str2[-1]:
         return deletion_distance(str1[:-1], str2[:-1])
 

@@ -7,9 +7,9 @@ class Vertex:
         self.neighbors = dict()  # id --> Vertex obj
 
     def add_neighbor(self, neighbor):
-        '''input is an existing Vertex obj'''
+        """input is an existing Vertex obj"""
         self.neighbors[neighbor.id] = neighbor
-    
+
 
 class Graph:
     def __init__(self, is_directed=False):
@@ -26,12 +26,11 @@ class Graph:
             v2_obj.add_neighbor(v1_obj)
 
     def add_vertex(self, vertex_id: str):
-        '''adds or updates the entry that has the vertex_id'''
+        """adds or updates the entry that has the vertex_id"""
         self.vertices[vertex_id] = Vertex(vertex_id)
         return self.vertices[vertex_id]
 
     def bfs(self, iterate=True):
-        
         def _bfs_iterative(self):
             # init collections
             q = deque()
@@ -56,7 +55,6 @@ class Graph:
         # TODO: implement and call a recursive BFS implementation
 
     def dfs(self, iterate=True):
-
         def _dfs_iterative():
             # init collections
             stack = list()
@@ -86,7 +84,7 @@ class Graph:
                     _dfs_recursive(neighbor, visited)
             # return the visited nodes
             return visited
-            
+
         if iterate is True:
             return _dfs_iterative()
         return _dfs_recursive()

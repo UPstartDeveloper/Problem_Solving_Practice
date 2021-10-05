@@ -7,7 +7,6 @@ class Search:
         self.target = target
 
     def linear(self, use_iterative=True) -> int:
-        
         def _iterative_linear_search():
             pass
 
@@ -28,9 +27,10 @@ class ListNode:
 
 
 class LinkedList:
-    """good to use for either a queue or a stack - 
-       head and tail pointers
+    """good to use for either a queue or a stack -
+    head and tail pointers
     """
+
     pass
 
 
@@ -39,7 +39,8 @@ class DoublyNode:
 
 
 class DoublyLinkedList:
-    '''good to implement a deque'''
+    """good to implement a deque"""
+
     pass
 
 
@@ -50,7 +51,8 @@ class Vertex:
 
 
 class Graph:
-    '''adjacency list'''
+    """adjacency list"""
+
     def __init__(self, is_directed=False):
         self.is_directed = is_directed
         self.vertices = dict()
@@ -71,7 +73,7 @@ class Graph:
         return visited
 
     def bfs_recur(self, q=None, visited=set()):
-        if q is None: # init case
+        if q is None:  # init case
             first = list(self.vertices.values())[0]
             q = deque([first])
         elif len(q) == 0:  # end case
@@ -87,9 +89,7 @@ class Graph:
 
     def dfs_iter(self):
         visited = set()
-        stack = list([
-            list(self.vertices.values())[0]
-        ])
+        stack = list([list(self.vertices.values())[0]])
         while len(stack) > 0:
             node = stack.pop()
             visited.add(node)
@@ -100,8 +100,5 @@ class Graph:
 
 
 class TreeNode:
-    def __init__(s)
-
-
-
-
+    def __init__(s):
+        pass

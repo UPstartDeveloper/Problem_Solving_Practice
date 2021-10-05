@@ -5,7 +5,7 @@ def FindIntersection(strArr):
     strArr - > 2 str
     both represt sorted collection of nums (csv)
 
-    Return 
+    Return
     str
     csv numbers shared in both collections
 
@@ -24,7 +24,7 @@ def FindIntersection(strArr):
     shared = [1, 4, 13]
 
 
-    CQ: 
+    CQ:
     1. Brute force:
         - nested loop --> iterate
 
@@ -52,7 +52,7 @@ def FindIntersection(strArr):
         - validate the inputs
         - init a shared array
         - traverse both - f + s
-        - when equal --> 
+        - when equal -->
             - add to shared
             - move on to the next distinct val in both
         - not equal
@@ -71,24 +71,24 @@ def FindIntersection(strArr):
 
     Time: linear - f + s
     Space: f + s
-    
-            
+
+
 
 
     Edge Cases:
-    - floating pt. nums --> split by ", " 
+    - floating pt. nums --> split by ", "
     - one str is empty --> return "false"
     - heterogenous data --> ValueError
     """
 
     def validate(arr1, arr2):
-        '''TODO: implement!!! - raise ValueError if not homogenous data'''
+        """TODO: implement!!! - raise ValueError if not homogenous data"""
         # represent the array values as bools, if they are strings
         # combine then
         arr1.extend(arr2)
         # validate they alll work as numbers
         for val in arr1:
-            try: 
+            try:
                 val_num = float(val)
             except ValueError:
                 raise ValueError("There can only be numbers in both collections")
@@ -101,7 +101,7 @@ def FindIntersection(strArr):
         while index1 < len(arr1) and index2 < len(arr2):
             num1 = int(arr1[index1])
             num2 = int(arr2[index2])
-            #   - when equal --> 
+            #   - when equal -->
             if num1 == num2:
                 # add to shared
                 shared.append(arr1[index1])
@@ -119,7 +119,7 @@ def FindIntersection(strArr):
                         break
                 index2 += 1
             # not equal
-            else: 
+            else:
                 # - mpve index in str w/ smaller, until >= val in other
                 if num1 < num2:
                     index1 += 1
@@ -128,12 +128,12 @@ def FindIntersection(strArr):
         return shared
 
     def parse_intersection(shared):
-        '''# - return "false" is shared is empty, or cast as a str'''
+        """# - return "false" is shared is empty, or cast as a str"""
         if len(shared) == 0:
             return "false"
-        return ', '.join(shared)
+        return ", ".join(shared)
 
-    # B: traverse both arrays - f + s   
+    # B: traverse both arrays - f + s
     arr1 = strArr[0].split(", ")
     arr2 = strArr[1].split(", ")
     # A: TODO: validate the inputs
@@ -145,5 +145,5 @@ def FindIntersection(strArr):
 
 
 if __name__ == "__main__":
-    strArr = ["1, 3, 4, 1.4, 13", "1, 2, 4, 13, 15"] 
+    strArr = ["1, 3, 4, 1.4, 13", "1, 2, 4, 13, 15"]
     print(FindIntersection(strArr))

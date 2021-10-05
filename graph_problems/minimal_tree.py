@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from typing import List
-# Problem: Given a sorted (increasing order) array with unique integer elements, 
+
+# Problem: Given a sorted (increasing order) array with unique integer elements,
 # write an algorithm to create a binary search tree with minimal height.
 
 
@@ -24,9 +25,7 @@ class MinimalTree:
             # Base Case: 2 items left to add
             if len(items) == 2:
                 # make nodes for both remaining items
-                child, grandchild = (
-                    TreeNode(items[1]), TreeNode(items[0])
-                )
+                child, grandchild = (TreeNode(items[1]), TreeNode(items[0]))
                 # make the right child the greater element,
                 parent.right = child
                 # make the smaller element the grandchild of the parent
@@ -43,7 +42,7 @@ class MinimalTree:
                     parent.right = child
                 # form the left and right subtrees of this node
                 add_subtree(self.integers[:middle_idx], child)
-                add_subtree(self.integers[middle_idx + 1:], child)
+                add_subtree(self.integers[middle_idx + 1 :], child)
 
         # make the root node of the tree
         middle_idx = len(self.integers // 2)
@@ -51,6 +50,6 @@ class MinimalTree:
         # make the left subtree from the root
         add_subtree(self.integers[:middle_idx], self.root)
         # make the right subtree from the root
-        add_subtree(self.integers[middle_idx + 1:], self.root)
+        add_subtree(self.integers[middle_idx + 1 :], self.root)
         # return the root
         return self.root

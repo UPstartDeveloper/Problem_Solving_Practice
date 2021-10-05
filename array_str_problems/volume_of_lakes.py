@@ -63,11 +63,10 @@ from typing import List
 
 
 def volume_of_lakes(island: List[int]):
-    '''Linear time and space solution'''
+    """Linear time and space solution"""
 
     def find_lake_locations(labels, land_start_index, end_land_index):
-        """TODO: add docstring
-        """
+        """TODO: add docstring"""
         lake_locations = list()
         if land_start_index < end_land_index:
             # A: go from first L to last L in the list
@@ -111,7 +110,7 @@ def volume_of_lakes(island: List[int]):
                 end_land_index = len(island) - 1
         # label the island as land or water
         if end_land_index > land_start_index:
-            # label the start and end as land --> 
+            # label the start and end as land -->
             labels[land_start_index] = labels[end_land_index] = 1
             land_height = island[land_start_index]
             index = land_start_index + 1

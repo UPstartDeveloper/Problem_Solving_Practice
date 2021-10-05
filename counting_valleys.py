@@ -92,13 +92,13 @@ def counting_valleys(n, s):
     altitude, valley_depth, valley_count = 0, 0, 0
     for letter in s:
         # adjust the altitude and depth on a 'D'
-        if letter == 'D':
+        if letter == "D":
             # entering a valley
             if altitude == 0:
                 valley_depth += 1
             altitude -= 1
         # adjust the altitude and depth on a 'U'
-        elif letter == 'U':
+        elif letter == "U":
             altitude += 1
             if valley_depth > 0:
                 valley_depth -= 1

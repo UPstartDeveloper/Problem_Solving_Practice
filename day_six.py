@@ -1,4 +1,4 @@
-'''
+"""
 Purpose and Value of Each of the Problem Solving Steps:
 
 1. Generate reasonable test inputs:
@@ -89,7 +89,7 @@ sort in decreasing order (insertion)
 [8,| 9]
 
 [9, 8]
-'''
+"""
 
 
 def find_min(scores):
@@ -107,7 +107,7 @@ def return_k_highest(scores, k):
     print(return_k_highest(scores, k))
 
 
-'''
+"""
 2. Given an array a of numbers and a target value t,
 find two numbers that sum to t (that is, a[i] + a[j] = t).
 Good -> a = [10, 9, 7], t = 19
@@ -122,10 +122,10 @@ E - ['Spider-Man']
 
 4. Find the longest substring of unique letters in a given string of n letters.
 
-'''
+"""
 
 
-'''
+"""
 Roman Numerals
 
 everything below 3,099
@@ -137,4 +137,4 @@ Symbol       Value
 10L            50C
 100D           500M
 1000
-'''
+"""
