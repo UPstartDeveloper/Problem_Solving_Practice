@@ -44,16 +44,34 @@ class Solution:
                 }
 
         Approach:
-
-            # A: BFS ---> dict of depth-nodes
-            # B: BFS --> dict node-parents
-            # C: check if x and y in same depth
-            # D: check if parent_x != parent_y
-
-
+            1) BFS
+                # A: BFS ---> dict of depth-nodes
+                # B: BFS --> dict node-parents
+                # C: check if x and y in same depth
+                # D: check if parent_x != parent_y
+                
+            2) DFS (recursive) - same time, possibly better space
+                A: for both nodes:
+                    1) DFS --> find parent
+                    2) DFS --> calculate the depth
+                B: compare the parents and depths
         """
 
         ### HELPERS
+        def _find_parent(node, target, parent=None):
+            """recursive preorder DFS - can be used for approach #2"""
+            if node:
+                if node.val == target:
+                    return parent
+                answer_left = _find_parent(node.left, target, node)
+                if answer_left:  # it found the parent
+                    return answer_left
+                answer_right = _find_parent(node.right, target, node)
+                if answer_right:  # parent found?
+                    return answer_right
+            # parent not found
+            return None
+
         def _map_depths_and_parents(root):
             """iterative BFS - front = index 0; back = last index"""
             q = deque([root])
