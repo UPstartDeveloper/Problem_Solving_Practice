@@ -1,27 +1,40 @@
 import javax.xml.namespace.QName;
 
 /**
- * ITERATOR DESIGN PATTERN (OOP): int[] arr = [1, 2, 3]; Iterator<Integer> it =
- * arr.iterator(); while(it.hasNext()){ print it.next(); } // 123 hasNext() //
- * returns whether or not the iterator has additional elements next() // returns
+ * ITERATOR DESIGN PATTERN (OOP): 
+ * int[] arr = [1, 2, 3]; 
+ * Iterator<Integer> it = arr.iterator(); 
+ * while(it.hasNext()){ 
+ *      print it.next(); 
+ * } // output: 123 
+ * 
+ * hasNext() // returns whether or not the iterator has additional elements 
+ * 
+ * next() // returns
  * next element in iterator, throws NoSuchElementException otherwise.
- * ---------------------------------------------------- CHALLENGE: Given an
- * iterator of iterators, implement an interleaving iterator that takes in: - an
- * iterator of iterators, and
+ * ---------------------------------------------------- 
+ * CHALLENGE: Given an
+ * iterator of iterators, implement an interleaving iterator that takes in: 
  * 
- * outputs elements from the nested iterators in interleaved order.
+ * - an iterator of iterators, and
  * 
- * That is, if we had the iterators i and j iterating over the elements [ ia,
- * ib, ic] and [ja, jb] respectively,
+ * output: elements from the nested iterators in interleaved order.
+ * 
+ * That is, if we had the iterators i and j iterating over the elements 
+ * [ ia, ib, ic] and [ja, jb] respectively,
  * 
  * the order in which your interleaving iterator should emit the elements would
  * be [ia, ja, ib, jb, ic].
  * 
- * Your interleaving iterator should: - implement the Iterator interface, - take
- * in the iterator of iterators in its constructor, - and provide the next() and
- * hasNext() methods.
+ * Your interleaving iterator should: 
+ * - implement the Iterator interface, 
+ * - take in the iterator of iterators in its constructor
+ * - and provide the 
+ *      next() and
+ *      hasNext() methods.
  * 
  * Assume that there are no additional methods offered by the iterator.
+ * 
  * 
  * Given the following three iterators put into an array of iterators…
  * 

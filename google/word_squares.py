@@ -72,8 +72,6 @@ class Solution:
         2. assumes that we have at least 1 word,
         3. no empty words
 
-
-
         Intuition:
             - decide on what K to use in the sq. ---> use the length of the words
             - what words to put in that sq. and in what order
