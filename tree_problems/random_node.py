@@ -48,20 +48,23 @@ Approach:
 - in getRandomNode - generate the num r = in range [0, self.size - 1]
 - return the rth node we hit when doing a DFS
 
+3. HashTable?
+    A: on insert --> add the new binary node
+
 Edge Case 
 1. null tree? - return None
 
 """
+from collections import deque
 import random
 
-
-class RandomTreeNode:
+class RandomTreeNode1:
     def __init__(self, key):
         self.key = key
         self.left = self.right = None
 
 
-class RandomTree:
+class RandomTree1:
     def __init__(self, root=None):
         self.root = root  # ideally a RandomTreenode obj
         self.size = 0
@@ -75,7 +78,7 @@ class RandomTree:
         # B: binary search for the right position to place the node
         parent, node = None, self.root
         if node is None:  # special case
-            self.root = RandomTreeNode(node_val)
+            self.root = RandomTreeNode1(node_val)
         else:  # +1 levels in the tree
             while node is not None:  # go
                 parent = node
@@ -87,9 +90,9 @@ class RandomTree:
                     node = node.right
             # update the node object to be the new node
             if parent.key > node_val:
-                parent.left = RandomTreeNode(node_val)
+                parent.left = RandomTreeNode1(node_val)
             else:  # parent.key <= node_val
-                parent.right = RandomTreeNode(node_val)
+                parent.right = RandomTreeNode1(node_val)
         # C: increment self.size
         self.size += 1
 
@@ -112,7 +115,7 @@ class RandomTree:
         # return what was found
         return parent, node
 
-    def find(self, node_val) -> RandomTreeNode:
+    def find(self, node_val) -> RandomTreeNode1:
         """
         Finds the first node w/ a key == the given node_val.
         If not found, raises ValueError.
@@ -125,7 +128,7 @@ class RandomTree:
         # C: return the node, if found
         return node
 
-    def delete(self, node_val) -> RandomTreeNode:
+    def delete(self, node_val) -> RandomTreeNode1:
         """
         Intuition
             - we know the left subtree needs to take the place of its parent
@@ -164,7 +167,7 @@ class RandomTree:
         # F: return the deleted node
         return node
 
-    def get_random_node(self) -> RandomTreeNode:
+    def get_random_node(self) -> RandomTreeNode1:
         def _get_rth_node(node_num):
             """returns the node we hit after doing iterative
             in order DFS for node_num steps
@@ -201,9 +204,139 @@ class RandomTree:
         # C: get the random node
         return _get_rth_node(node_num)
 
+    
+class RandomNode2:
+    def __init__(self, val):
+        self.val = val
+        self.id = None
+        self.left, self.right = None, None
+
+
+class RandomTree2:
+    def __init__(self, root):
+        self.node_ids = dict()  # id --> List[RandomNode2]
+        if root is not None:
+            self.root = root
+            self._hash_node(root)
+
+    def _hash_node(self, node):
+        hash_id = hash(node)
+        node.id = hash_id
+        if hash_id not in self.node_ids:
+            self.node_ids[hash_id] = set([node])
+        else: 
+            self.node_ids[hash_id].add(node)
+
+    def insert(self, val) -> None:
+        ### HELPER
+        def _place_node(new_node: RandomNode2) -> None:
+            '''Add the node as a new leaf, arbritarily move left/right'''
+            if self.root is None:
+                self.root = new_node
+            else:  # move the node down to find a space
+                CHOICES = [0, 1]  # 0 = left, 1 = right
+                parent, node = None, self.root
+                while node is not None:
+                    parent = node
+                    direction = random.choice(CHOICES)
+                    if direction == 0:  # move left
+                        node = node.left
+                    else:  # move right
+                        node = node.right
+                # insert the new node
+                if parent.left == node:
+                    parent.left = new_node
+                else:  # new right child
+                    parent.right = new_node
+        
+        ### DRIVER
+        # A: place the node in the tree, structurally
+        node = RandomNode2(val)
+        _place_node(node)
+        # B: insert the node in the hash table
+        self._hash_node(node)
+
+    def delete(self, val) -> RandomNode2:
+        ### HELPERS
+        def _remove_structurally(parent, node):
+            # rming the root -> no more action needed
+            if parent is not None:
+                is_left_child = True
+                if parent.right == node:
+                    is_left_child = False
+                # 0 kids: rm childless node
+                if node.left is None and node.right is None:
+                    if parent.left == node:
+                        parent.left = None
+                    else: 
+                        parent.right = None
+                # 1 kid:
+                elif node.left and not node.right:
+                    if is_left_child:
+                        parent.left = node.left
+                    else:
+                        parent.right = node.left
+                elif node.right and not node.left:
+                    if is_left_child:
+                        parent.left = node.right
+                    else:
+                        parent.right = node.right
+                # 2 kids:
+                else:  
+                    # choose a subtree a grandchild randomly
+                    grandchild = random.choice([node.left,  node.right])
+                    # promote the grandchild
+                    if is_left_child:
+                        parent.left = grandchild
+                    else:
+                        parent.right = grandchild
+                    # re-insert the other 
+                    if node.left is not grandchild:
+                        self.insert(node.left)
+                    else:
+                        self.insert(node.right)
+
+        def _remove_from_dict(node):
+            if node.id in self.node_ids:
+                nodes = self.node_ids[node.id]
+                for n in nodes:
+                    if node == n:
+                        self.node_ids[node.id].remove(node)
+
+        ### DRIVER
+        # find the first node w/ the val
+        parent, node = self._find_node(val)
+        # rm it from the tree, structurally and from the dict
+        _remove_structurally(parent, node)
+        _remove_from_dict(node)
+
+    def _find_node(self, val):
+        q = deque([(None, self.root)])
+        while q:
+            parent, node = q.popleft()
+            if node.val == val:
+                return parent, node
+            for child in [node.left, node.right]:
+                if child:
+                    q.append((parent, child))   
+
+    def find(self, val) -> RandomNode2:
+        """return the first node w/ the given value via BFS"""
+        # tree is there
+        if self.root is not None:
+            parent, node = self._find_node(val)
+            return node
+        return None
+
+    def get_random_node(self) -> RandomNode2:
+        # choose an id randomly 
+        hash_id = random.choice(self.node_ids.keys())
+        node = random.choice(self.node_ids[hash_id])
+        # return the corresponding node
+        return node
 
 if __name__ == "__main__":
-    tree = RandomTree()
+    tree = RandomTree1()
     tree.insert(5)
     tree.insert(7)
     tree.insert(6)
