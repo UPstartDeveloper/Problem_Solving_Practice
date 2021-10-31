@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class Vertex:
     def __init__(self, val):
         self.id = val
@@ -63,14 +64,14 @@ class Graph:
                 for n in node.neighbors.values():
                     if n not in visited:
                         queue.append(n)
-            
+
             return _bfs_recursive(queue, visited)
 
         ### DRIVER
         if use_iteration:
             return _bfs_iterative()
         return _bfs_recursive()
-    
+
     def dfs(self, use_iteration=True):
         ### HELPERS
         def _dfs_iterative():
@@ -104,4 +105,3 @@ class Graph:
         if use_iteration:
             return _dfs_iterative()
         return _dfs_recursive()
-        

@@ -1,5 +1,6 @@
 from typing import List
 
+
 class ListNode:
     def __init__(self, val):
         self.val = val
@@ -15,7 +16,7 @@ class LinkedList:
     def append(self, item: int):
         new_node = ListNode(item)
         # no nodes in the list
-        if self.head is None:  
+        if self.head is None:
             self.head = self.tail = new_node
         # otherwise, if only 1 node so far
         else:
@@ -24,7 +25,7 @@ class LinkedList:
             self.tail = new_node
         # increment size
         self.size += 1
-            
+
     def prepend(self, item: int):
         new_node = ListNode(item)
         if self.head is None:

@@ -1,5 +1,6 @@
 from typing import List
 
+
 class DoublyNode:
     def __init__(self, val, prev=None, next=None):
         self.val = val
@@ -18,20 +19,20 @@ class DoublyLinkedList:
             self.add(item)
 
     def add(self, item, append_last=True):
-        
+
         ## HELPERS
         def _append(node):
             node.next = self.tail
             node.prev = self.tail.prev
             self.tail.prev.next = node
             self.tail.prev = node
-             
+
         def _prepend(node):
             node.prev = self.head
             node.next = self.head.next
             self.head.next.prev = node
             self.head.next = node
-        
+
         ## DRIVER
         new_node = DoublyNode(item)
         if append_last:

@@ -110,3 +110,54 @@ class Tree:
                     q.append(node.right)
         # return the visited nodes
         return visited
+
+
+class MwayNode:
+    def __init__(self, val: str, children=list()):
+        self.parent = None
+        self.val = val
+        self.children = children
+
+
+class MwayTree:
+    def __init__(self, root=None):
+        self.root = root
+
+    def leaves_in_order(self) -> list[str]:
+        """Given the root, return a list of all
+        the leaf node values in the tree (regardless of depth).
+        """
+        leaves = list()
+        if self.root is not None:
+            # BFS
+            q = deque([self.root])
+            while q:
+                node = q.popleft()
+                if node.children and len(node.children) == 0:
+                    leaves.append(node.val)
+                for c in node.children:
+                    q.append(c)
+        return leaves
+
+    def dfs(self, method="inorder", use_iteration=True):
+        """Vanilla DFS"""
+
+        ### HELPERS
+        def _inorder_recursive(node=self.root, visited=set()):
+            if node and node not in visited:
+                visited.add(node.val)
+                for child in node.children:
+                    _inorder_recursive(child, visited)
+            return visited
+
+        def _inorder_iterative():
+            """TODO"""
+            pass
+
+        ### DRIVER
+        options = {
+            "inorder": [_inorder_recursive, _inorder_iterative],
+            "preorder": [],
+            "postorder": [],
+        }
+        return options[method][int(use_iteration)]

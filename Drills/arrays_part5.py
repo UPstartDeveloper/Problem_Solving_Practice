@@ -1,11 +1,11 @@
 from typing import List
 
+
 class Array:
     def __init__(self, items: List[int]):
         self.nums = items
 
     def search_linear(self, target, use_iteration=True):
-
         def _iterative():
             # iterative
             for index, num in enumerate(self.nums):
@@ -14,7 +14,7 @@ class Array:
                     return index
             # not found
             return -1
-        
+
         def _recursive(index=0):
             if index < len(self.items):
                 # found
@@ -36,7 +36,7 @@ class Array:
             while low <= hi:
                 mid_ndx = (low + hi) // 2
                 mid_elem = self.items[mid_ndx]
-                # found 
+                # found
                 if target == mid_elem:
                     return mid_ndx
                 # move left
@@ -47,7 +47,7 @@ class Array:
                     low = mid_ndx + 1
             # not found
             return -1
-            
+
         def _recursive(low=0, hi=len(self.items) - 1):
             # not found
             if low > hi:
@@ -55,7 +55,7 @@ class Array:
             # calculate the middle
             mid_ndx = (low + hi) // 2
             mid_elem = self.items[mid_ndx]
-            # found 
+            # found
             if target == mid_elem:
                 return mid_ndx
             # move left
@@ -80,7 +80,7 @@ class Array:
                 if elem > next_elem:
                     self.items[next_ndx], self.items[ndx] = elem, next_elem
                     swaps += 1
-                # move on 
+                # move on
                 ndx += 1
             # update is sorted
             if swaps == 0:
@@ -108,4 +108,3 @@ class Array:
             ndx += 1
         # all done!
         return self.items
-

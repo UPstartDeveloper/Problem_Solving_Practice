@@ -49,7 +49,7 @@ class Solution:
                 # B: BFS --> dict node-parents
                 # C: check if x and y in same depth
                 # D: check if parent_x != parent_y
-                
+
             2) DFS (recursive) - same time, possibly better space
                 A: for both nodes:
                     1) DFS --> find parent
@@ -106,9 +106,9 @@ class Solution:
         # C&D: check if cousins
         are_depths_same, are_parents_different = (
             _are_depths_same(x, y, depths),
-            (node_parents[x] != node_parents[y])
+            (node_parents[x] != node_parents[y]),
         )
-        return (are_depths_same and are_parents_different)
+        return are_depths_same and are_parents_different
 
 
 """

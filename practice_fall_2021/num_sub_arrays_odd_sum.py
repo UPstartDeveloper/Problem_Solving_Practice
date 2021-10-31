@@ -2,39 +2,39 @@ class Solution:
     def numOfSubarrays(self, arr: List[int]) -> int:
         """
         Leetcode Link: https://leetcode.com/problems/number-of-sub-arrays-with-odd-sum/
-        
+
         Input/Problem:
             - ASSUME non empty
-            - pos ints 
+            - pos ints
             - subarrays --> sums --> # of odd sums
             - ASSUME input immutable
             - ASSUME input can have dupes
-            - ASSUME input may not be sorted 
+            - ASSUME input may not be sorted
             - ASSUME # of subsets can still fit in RAM
             Output:
             - return num_odd_sums % (10**9 + 7)
-            
+
         rules:
             O + O = E
             E + E = E
             O + E = O
-            
+
         EC:
             1) empty array --> ValueError?
             2) non-pos --> ValueError?
-            
+
         Intuition:
             subset
-            
+
         Approach:
-        
+
             1) Recursive Backtracking - for combos, not perms
-            
+
             # A: find all subarrays
-            # B: find all sums 
+            # B: find all sums
                 # C: counting if it's oddd
             # D: return the count
-            
+
         """
         ### HELPER
         def _count_odd_sums_going_from(index):
@@ -45,7 +45,7 @@ class Solution:
                     odd_sums += 1
                 index += 1
             return odd_sums
-                
+
         ### DRIVER
         # A: init total_count
         total_count = 0
@@ -101,7 +101,8 @@ class Solution:
         # C: counting if it's odd
         return odds
         """
-    
+
+
 """
 numOfSubarrays
 arr                 subarrs
@@ -124,4 +125,3 @@ index        value      rems
 1
 
 """
-        

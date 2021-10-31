@@ -78,24 +78,24 @@ out: 30
 
 """
 
+
 def min_cost_to_combine_sticks(sticks):
-  # TODO[refactor]: special case: sticks < 3
-  if len(sticks) == 1:  # n iteratoion
-    return 0
-  elif len(sticks) < 3:   # n 
-  	return sum(sticks)
-  # A: sort the arr (asc) order
-  sticks.sort()  # O(nlog(n))
-  # B: init costs arr = [] 
-  total_cost = sticks[0] + sticks[1]
-  # D: 1 point + last values in the costs array
-  for index in range(2, len(sticks):  # n -2 iter
-      new_cost = total_cost + sticks[index]  # 3 + 3 = 6
-      total_cost += new_cost
-  return total_cost
-                     
-                     
-                     
+    # TODO[refactor]: special case: sticks < 3
+    if len(sticks) == 1:  # n iteratoion
+        return 0
+    elif len(sticks) < 3:  # n
+        return sum(sticks)
+    # A: sort the arr (asc) order
+    sticks.sort()  # O(nlog(n))
+    # B: init costs arr = []
+    total_cost = sticks[0] + sticks[1]
+    # D: 1 point + last values in the costs array
+    for index in range(2, len(sticks)):  # n -2 iter
+        new_cost = total_cost + sticks[index]  # 3 + 3 = 6
+        total_cost += new_cost
+    return total_cost
+
+
 """
 
 
@@ -109,29 +109,4 @@ space: O(1)
 
 
 
-""""
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+"""

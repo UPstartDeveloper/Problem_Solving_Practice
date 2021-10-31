@@ -1,10 +1,11 @@
 from collections import deque
 
+
 class GardenVertex:
     def __init__(self, identifier):
         self.id = identifier
         self.val = None
-        self.neighbors = dict()  # id --> GardenVertex 
+        self.neighbors = dict()  # id --> GardenVertex
 
 
 class Graph:
@@ -17,8 +18,7 @@ class Graph:
         for node1_id, node2_id in paths:
             self.gardens[node1_id].neighbors[node2_id] = self.gardens[node2_id]
             self.gardens[node2_id].neighbors[node1_id] = self.gardens[node1_id]
-            
-            
+
     def set_flower_values(self):
         """iterative BFS"""
         # B: BFS each component
@@ -38,7 +38,8 @@ class Graph:
                     cg.val = flower_val
                     # 3) enqueue all unvisited neighbors - enqueue node object + flower value
                     neighbors = [
-                        neighbor for neighbor in list(cg.neighbors.values()) 
+                        neighbor
+                        for neighbor in list(cg.neighbors.values())
                         if neighbor not in visited
                     ]
                     neighbors_index, flowers_index = 0, flower_val % len(CHOICES)
@@ -50,7 +51,7 @@ class Graph:
                         # enqueue
                         q.append((neighbors[neighbors_index], flowers_index + 1))
                         neighbors_index += 1
-    
+
 
 class Solution:
     def gardenNoAdj(self, n: int, paths: List[List[int]]) -> List[int]:
@@ -120,4 +121,3 @@ class Solution:
         graph.set_flower_values()  # TODO
         # F: return output - return values of all the nodes (dict.values())
         return [node.val for node in graph.gardens.values()]
-        

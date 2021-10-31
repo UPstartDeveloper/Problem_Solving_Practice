@@ -1,13 +1,14 @@
 from typing import List
 
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
-        self.left, self.right = left, right\
-    
+        self.left, self.right = left, right
+
 
 class BSTNode(TreeNode):
-    def get_inorder_successor(self) -> List["BSTNode","BSTNode", bool]:
+    def get_inorder_successor(self) -> List["BSTNode", "BSTNode", bool]:
         """Assume the node has a right subtree"""
         pass
 

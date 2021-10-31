@@ -74,11 +74,13 @@ Clarifying:
                     - Director (sub)
 
 """
+
+
 class Call:
     pass
 
-class Employee:
 
+class Employee:
     def __init__(self, superior=None, subordinates=[]):
         self.superior = superior
         self.subordinates = subordinates
@@ -100,7 +102,7 @@ class Manager(Employee):
     def __init__(self, superior, respondents: List[Respondent]):
         super().__init__(superior, respondents)
 
-    
+
 class Director(Employee):
     def __init__(self, managers: List[Manager]):
         super().__init__(subordinates=managers)
