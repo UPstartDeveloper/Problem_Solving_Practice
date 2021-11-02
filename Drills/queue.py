@@ -8,6 +8,8 @@ class LinkedQueue:
     def __init__(self, front=None, back=None):
         self.front = front
         self.back = back
+        if self.front is not None:
+            self.front.next = self.back
 
     def front(self):
         """return the value at the front of the queue"""
@@ -21,6 +23,7 @@ class LinkedQueue:
         # if no previous nodes, set both the front and back
         if not self.back:
             self.front = item
+            self.front.next = self.back
         # if the back is already there, update the back
         else:
             self.back.next = item
