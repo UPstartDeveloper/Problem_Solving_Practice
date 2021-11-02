@@ -58,6 +58,7 @@ Edge Case
 from collections import deque
 import random
 
+
 class RandomTreeNode1:
     def __init__(self, key):
         self.key = key
@@ -204,7 +205,7 @@ class RandomTree1:
         # C: get the random node
         return _get_rth_node(node_num)
 
-    
+
 class RandomNode2:
     def __init__(self, val):
         self.val = val
@@ -224,13 +225,13 @@ class RandomTree2:
         node.id = hash_id
         if hash_id not in self.node_ids:
             self.node_ids[hash_id] = set([node])
-        else: 
+        else:
             self.node_ids[hash_id].add(node)
 
     def insert(self, val) -> None:
         ### HELPER
         def _place_node(new_node: RandomNode2) -> None:
-            '''Add the node as a new leaf, arbritarily move left/right'''
+            """Add the node as a new leaf, arbritarily move left/right"""
             if self.root is None:
                 self.root = new_node
             else:  # move the node down to find a space
@@ -248,7 +249,7 @@ class RandomTree2:
                     parent.left = new_node
                 else:  # new right child
                     parent.right = new_node
-        
+
         ### DRIVER
         # A: place the node in the tree, structurally
         node = RandomNode2(val)
@@ -268,7 +269,7 @@ class RandomTree2:
                 if node.left is None and node.right is None:
                     if parent.left == node:
                         parent.left = None
-                    else: 
+                    else:
                         parent.right = None
                 # 1 kid:
                 elif node.left and not node.right:
@@ -282,15 +283,15 @@ class RandomTree2:
                     else:
                         parent.right = node.right
                 # 2 kids:
-                else:  
+                else:
                     # choose a subtree a grandchild randomly
-                    grandchild = random.choice([node.left,  node.right])
+                    grandchild = random.choice([node.left, node.right])
                     # promote the grandchild
                     if is_left_child:
                         parent.left = grandchild
                     else:
                         parent.right = grandchild
-                    # re-insert the other 
+                    # re-insert the other
                     if node.left is not grandchild:
                         self.insert(node.left)
                     else:
@@ -318,7 +319,7 @@ class RandomTree2:
                 return parent, node
             for child in [node.left, node.right]:
                 if child:
-                    q.append((parent, child))   
+                    q.append((parent, child))
 
     def find(self, val) -> RandomNode2:
         """return the first node w/ the given value via BFS"""
@@ -329,11 +330,12 @@ class RandomTree2:
         return None
 
     def get_random_node(self) -> RandomNode2:
-        # choose an id randomly 
+        # choose an id randomly
         hash_id = random.choice(self.node_ids.keys())
         node = random.choice(self.node_ids[hash_id])
         # return the corresponding node
         return node
+
 
 if __name__ == "__main__":
     tree = RandomTree1()
