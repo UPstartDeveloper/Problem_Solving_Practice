@@ -62,11 +62,9 @@ class Solution:
         ### DRIVER
         if n not in self.cache:
             count = 0 
-            for start in range(1, n + 1):
-                num_left_children, num_right_children = (
-                    start - 0 - 1,
-                    n - start
-                )
+            for root_node_val in range(1, n + 1):
+                num_left_children = root_node_val - 0 - 1
+                num_right_children = n - root_node_val
                 count += (
                     self.numTrees(num_left_children) *
                     self.numTrees(num_right_children)
