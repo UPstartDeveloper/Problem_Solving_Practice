@@ -1,7 +1,9 @@
 from typing import Optional
 
+
 class ListNode:
     """Definition for singly-linked list."""
+
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
@@ -11,39 +13,39 @@ class Solution:
     def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
         """
         Leetcode: https://leetcode.com/problems/remove-linked-list-elements/
-        
+
         Input/Problem:
             SLL
-            int 
+            int
             mutating the SLL
             mutable
-        
+
         Intuition:
             pointers
-            
+
             Stepping Stone
                 delete one node
                 multiple times
-        
+
         EC:
             1) val nto found ---> !modify
             2) null head = return None
             3) head is deleted ---> head = head.next
             4) node.val or val ---> ValueError
             5) mmultiple nodes to del, w/ node.val
-    
+
         Approach:
-        
+
             1) Brute force - array
                 linear time and space
-            
+
             2) Multiple passes
                 - delete_one_value
                 - call it until it doesn't make any changes
                 - const space, O(k * n), k = # of nodes to delete
-                
+
             3) 1 pass, constant space
-            
+
             A: init prev = None, node = head
             B: delete all in one pass
             while node is not None:
@@ -53,11 +55,11 @@ class Solution:
                 parent = node
                 node = node.next
             C: return new head
-            
-            
+
+
             [1,2,6 --> None], val = 6
-                 p   n   
-        
+                 p   n
+
         """
         # A: init prev = None, node = head
         prev, node = None, head
@@ -78,7 +80,8 @@ class Solution:
             node = node.next
         # C: return new head
         return head
-    
+
+
 """
 Conceptual Test:
     [1 -> 2 --- -> 3 -> 6 -> None val = 6

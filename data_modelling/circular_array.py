@@ -35,6 +35,7 @@ and should support iteration via the standard
 """
 from typing import Optional
 
+
 class DoublyNode:
     def __init__(self, val, prev=None, next=None):
         self.val = val
@@ -105,7 +106,7 @@ class CircularArray:
 
     def __next__(self):
         if self.current_node is not self.items.tail:
-            # copy value to return 
+            # copy value to return
             next_val = self.current_node.val
             # move on
             self.current_node = self.current_node.next
