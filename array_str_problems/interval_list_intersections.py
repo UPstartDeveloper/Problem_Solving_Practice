@@ -3,6 +3,8 @@ from typing import List
 class Solution:
     def intervalIntersection(self, firstList: List[List[int]], secondList: List[List[int]]) -> List[List[int]]:
         """
+        Leetcode: https://leetcode.com/problems/interval-list-intersections/
+        
         Input/Problem:
             2 arrays ----> of 1D lists ---> int intervals
             1 can be empty
