@@ -1,9 +1,13 @@
 from typing import List
 
-
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         """
+        Leetcode: https://leetcode.com/problems/maximum-subarray/
+        
+        Blog post explanation (by MS alum Jessica Trinh): 
+            https://levelup.gitconnected.com/kadanes-algorithm-solving-for-maximum-subarray-in-o-n-time-and-o-1-space-776290910090
+        
         Problem Statement
         "Given an integer array nums, find the contiguous subarray
         (containing at least one number) which has the largest sum and return its sum."
