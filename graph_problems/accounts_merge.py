@@ -1,11 +1,9 @@
-from typing import List
+from collections import deque
+from typing import List, Set
 
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
         """
-        Leetcode: 
-          https://leetcode.com/problems/accounts-merge/
-          
         Input/Problem:
             list of accounts
             first cols - first names (just English, lower + upper)
@@ -64,46 +62,85 @@ class Solution:
             {"johnsmith@mail.com","john_newyork@mail.com", "john00@mail.com"} Jogn
             {johnnybravo@mail.com"}
         ]
-        """
-        ### HELPERS
-        def _merge(rows):
-            # A: disjoint set - so init all emails that belong together
-            merged = m = list()
-            name, email_sets = rows[0][0], [
-                set(r[1:]) for r in rows
-            ]
-            # B: combining sets of emails together
-            for es in email_sets:
-                # first see if it belongs in an older set
-                does_belong = False
-                for index, b in enumerate(merged):
-                    if len(b & es) > 0:
-                        merged[index] = b.union(es)
-                        does_belong = True
-                if does_belong is False:  # add new bucket
-                    merged.append(es)  
-            # C: make a 2D list -- cast as a list, sort, add the name at beginning
-            for index, es in enumerate(merged):
-                email_list = sorted(list(es))
-                email_list.insert(0, name)
-                merged[index] = email_list
-            # D: done!
-            return merged 
         
+        Graph
+            vertex = email, name
+            edges = other emails in the same name
+            
+        Adj:
+            johnsmith@mail.com ----john_newyork@mail.com ---- john00@mail.com"
+            [ John ] + sorted([email1, 2, ...])
+        """       
         ### DRIVER
-        # 1) Check if there is a merge needed - TODO
-        name_rows = dict()
-        for index, acct in enumerate(accounts):
-            name = acct[0]
-            if name not in name_rows:
-                name_rows[name] = [index]
-            else:  # seen before
-                name_rows[name].append(index)
-        # 2) if dupe names ---> merging:
+        # A: make the graph
+        accounts_graph = AccountGraph(accounts)  # TODO
+        # B: BFS on each component - collect emmails for each unique person
+        name_emails_merged = accounts_graph.traverse()  # TODO
+        # C: return the output
+        return name_emails_merged
+    
+
+class Vertex:
+    def __init__(self, email, name):
+        self.email = email
+        self.name = name
+        self.neighbors = dict()  # email ---> Vertex
+        
+
+class AccountGraph:
+    def __init__(self, accounts):
+        self.graph = dict()
+        # A: TODO[test]: traverse each row in matrix
+        for a in accounts:
+            name = a[0]
+            # B: make new vertex object for all new emails
+            emails = a[1:]
+            new_emails = [
+                email for email in emails
+                if email not in self.graph
+            ]
+            new_vertices = [
+                Vertex(email, name) for email in new_emails
+            ]
+            # C: add to the .graph property!
+            for v in new_vertices:
+                self.graph[v.email] = v
+            # D: connect adj. vertices togheter as neighbirs
+            for index, email in enumerate(emails[:-1]):
+                vertex = self.graph[email]
+                next_vertex = self.graph[emails[index + 1]]
+                vertex.neighbors[next_vertex.email] = next_vertex
+                next_vertex.neighbors[vertex.email] = vertex
+                
+    def traverse(self):
+        ### HELPERS
+        def _bfs(vertex) -> Set[Vertex]:
+            """return a set of Vertex objs"""
+            locally_visited = lv = set()
+            q = deque([vertex])
+            while q:
+                node = q.popleft()
+                lv.add(node)
+                for neighbor in node.neighbors.values():
+                    if neighbor not in lv:
+                        q.append(neighbor)
+            return lv
+
+        ### DRIVER
+        # A: init output array
         output = list()
-        for name, rows_indices in name_rows.items():
-            # extend output by each merged acct in the 2D list
-            rows = [accounts[row_index] for row_index in rows_indices]
-            output.extend(_merge(rows))                
-        # 3) return output     
+        # B: traverse all the components
+        visited = set()
+        for email, vertex in self.graph.items():
+            if vertex.email not in visited:
+                # 1: BFS a component ---> set of all emails
+                vertices_local_components = _bfs(vertex)  # TODO
+                # 2: add a new "merged" account to the output (sorted)
+                emails = [v.email for v in vertices_local_components]
+                merged_acct = [vertex.name] + sorted(emails)
+                output.append(merged_acct)
+                # 3: keep track of all globally visited 
+                for email in emails:
+                    visited.add(email)
+        # C: return output
         return output
