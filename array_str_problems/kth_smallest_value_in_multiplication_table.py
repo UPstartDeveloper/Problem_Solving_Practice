@@ -1,5 +1,6 @@
 import math
 
+
 class Solution:
     def findKthNumber(self, m: int, n: int, k: int) -> int:
         """
@@ -8,45 +9,45 @@ class Solution:
             k ----> which value to index (1-index)
         Output:
             k smallest produ f====> sorted(products)
-            
+
         ASSUME fits in memory
-            
+
         Intuition:
             - heaps
             - dynammic programming
-            
+
         EC:
             1) invalid inputs - negatives, k is too large ---> ValueError
             2) TODO
-            
+
         Approach:
-        
+
             1) Brute force ---> sorting
                 A: make the table --- 2D -- products ---> O(m*n)
                 B: sort all the eement ----> 1D array  ---> linearithmic
                 3) return prod[k-1] elements  ---> O(1)
-                
+
             2) Searching
                 A: make the table --- 2D -- products ---> O(m*n)
-                B: search for kth ----> 
+                B: search for kth ---->
                     k = 6
                     m = 2
                     n = 3
                     row_solution = k / n ---> 2nd row
                     col_solution = k - (k / n) - 1
-                    
+
                     k - (k / n) - 1
                     6 - ((6/ 2)) - 1 =
                     6 - 3 - 1 = 2
-                    
+
             3) TODO
-            
+
         m = 2
         n = 3
-        
+
         [0, 0, 0]
         [0, 0, 0]
-                    
+
         """
         ### HELPERS
         def _compute_mul_table_2d(m, n):
@@ -60,7 +61,7 @@ class Solution:
                 table.append(row)
             # C: all done!
             return table
-        
+
         def _compute_mul_table_1d(m, n):
             # A: init the table
             table = list()
@@ -70,21 +71,22 @@ class Solution:
                     table.append(row_factor * col_factor)
             # C: all done!
             return table
-        
+
         def _search_for_answer(k, table):
             """TODO[test]"""
             num_rows, num_cols = len(table), len(table[0])
             row_solution = math.ceil(k / num_cols) - 1
             # col_solution = # TODO
             return table[row_solution][col_solution]
-        
+
         ### DRIVER
         # A: make the table --- 2D -- products ---> O(m*n)
-        # table = _compute_mul_table_2d(m, n)  
-        table = _compute_mul_table_1d(m, n)  
+        # table = _compute_mul_table_2d(m, n)
+        table = _compute_mul_table_1d(m, n)
         # B: search for kth
         return sorted(table)[k - 1]
-    
+
+
 """
 m = 2, n = 3, k = 6 ---> k = 5
 
