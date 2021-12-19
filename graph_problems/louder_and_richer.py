@@ -24,21 +24,21 @@ class PersonGraph:
         """TODO: iterative DFS"""
         if person_id not in self.quietest_cache:
             person = self.graph[person_id]
-            lowest_quiet_level = lql = person.q_lvl
-            node_id_with_lowest = niwl = person_id
-            if person_id in self.graph:
-                # start DFS
-                stack = list([person])
-                while stack:
-                    node = stack.pop()
-                    # visit the node
-                    if node.q_lvl < lql:
-                        lql = node.q_lvl
-                        niwl = node.id
-                    # push the neighboring
-                    for neighbor_node in node.richer.values():
-                        stack.append(neighbor_node)
-            self.quietest_cache[person_id] = niwl
+            # Base Case: no neighbors
+            if len(person.richer) == 0:
+                self.quietest_cache[person_id] = person_id
+            # Recursive Case: has neighbors
+            else:
+                # get the quietest amongst all downstream neighbors, and self 
+                quietest_nodes = [
+                    self.graph[self.find_quietest_and_richer(neighbor_id)]
+                    for neighbor_id in person.richer
+                ]
+                quietest_nodes.append(person)
+                # sort by quietest
+                quietest_nodes.sort(key=lambda node: node.q_lvl)
+                # cache the answer
+                self.quietest_cache[person_id] = quietest_nodes[0].id
         return self.quietest_cache[person_id]
         
     def sort_by_money_and_quietness(self):
