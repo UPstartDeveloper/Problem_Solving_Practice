@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         """
@@ -47,27 +48,25 @@ class Solution:
             Space - O(n * n):
                 b/c we need to store up to n paths in the all_paths variable, and the length of those paths may contain up to n items
         """
-        ### HELPER 
+        ### HELPER
         def _find_all_paths(current_path, all_paths, current_node):
             # Base Case: when path is complete:
             if current_node == len(graph) - 1:  # 3
                 current_path.append(current_node)
-                all_paths.append(current_path[:])  
-                
+                all_paths.append(current_path[:])
+
             # Recursive: keep traversing
             else:
                 # visit the current_node
                 current_path.append(current_node)
                 # recurse on the node's neighbors
                 for neighbor_node in graph[current_node]:
-                    _find_all_paths(
-                        current_path, all_paths, neighbor_node
-                    )
+                    _find_all_paths(current_path, all_paths, neighbor_node)
                     # backtrack - rm the neighor just added
                     current_path.pop()
-                    
+
             # Output: all done!
             return all_paths
-    
-        ### DRIVER 
+
+        ### DRIVER
         return _find_all_paths([], [], 0)

@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Vertex:
     def __init__(self, index, char):
         self.ndx = index
@@ -19,9 +20,8 @@ class CharacterGraph:
             v1, v2 = self.characters[index1], self.characters[index2]
             v1.neighbors[v2.ndx] = v2
             v2.neighbors[v1.ndx] = v1
-            
+
     def sort_comps(self) -> List[str]:
-        
         def _dfs(visited, vertex):
             comp_visited = set()
             stack = [vertex]
@@ -39,9 +39,9 @@ class CharacterGraph:
             # update global set
             visited.union(set([v.ndx for v in comp_visited]))
             return dict(zip(sorted(indices), sorted(chars)))
-        
+
         # A: init empty array of index --> char
-        sorted_chars = sc = ['' for _ in range(len(self.string))]
+        sorted_chars = sc = ["" for _ in range(len(self.string))]
         # B: for each comp
         visited = set()
         index = 0
@@ -58,10 +58,11 @@ class CharacterGraph:
             index += 1
         # C: fill in any missing values in the array using s
         for index in range(len(sc)):
-            if sc[index] == '':
+            if sc[index] == "":
                 sc[index] = self.string[index]
         # D: return the array
         return sc
+
 
 class Solution:
     def smallestStringWithSwaps(self, s: str, pairs: List[List[int]]) -> str:
@@ -95,4 +96,4 @@ class Solution:
         # B: sort each comp
         sorted_chars = char_graph.sort_comps()  # List[str]
         # C: return the new permuations
-        return ''.join(sorted_chars)
+        return "".join(sorted_chars)

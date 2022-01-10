@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
         """
@@ -69,11 +70,11 @@ class Solution:
             # A1: check each pair, stop when the single number is found
             index1, index2 = 0, 1
             while index2 < len(nums) and nums[index1] == nums[index2]:
-                index1 += 2; index2 += 2
+                index1 += 2
+                index2 += 2
             return nums[index1]
-        
+
         def _search_binary(nums):
-            
             def _get_lr(mid_ndx):
                 left, right = None, None
                 if mid_ndx > 0:
@@ -81,7 +82,7 @@ class Solution:
                 if mid_ndx < len(nums) - 1:
                     right = nums[mid_ndx + 1]
                 return left, right
-            
+
             lo, hi = 0, len(nums) - 1
             while lo <= hi:
                 # get middle
@@ -91,9 +92,9 @@ class Solution:
                 left, right = _get_lr(mid_ndx)
                 # Base case: answer is found ---> both L and R are diff
                 if (
-                    (left and right and left != mid_elem and mid_elem != right) or 
-                    (mid_ndx == 0 and mid_elem != right) or
-                    (mid_ndx == len(nums) - 1 and mid_elem != left)
+                    (left and right and left != mid_elem and mid_elem != right)
+                    or (mid_ndx == 0 and mid_elem != right)
+                    or (mid_ndx == len(nums) - 1 and mid_elem != left)
                 ):
                     break
                 # Recursive case: on left side
@@ -102,15 +103,13 @@ class Solution:
                         hi = mid_ndx - 1
                     else:
                         lo = mid_ndx + 1
-                elif right and mid_elem == right:   # on right side
+                elif right and mid_elem == right:  # on right side
                     if mid_ndx % 2 == 0:  # go right should be even
                         lo = mid_ndx + 1
                     else:
-                        hi = mid_ndx - 1 # go right, b/c should be even
+                        hi = mid_ndx - 1  # go right, b/c should be even
             # target found
             return nums[mid_ndx]
-        
+
         ### DRIVER
         return _search_binary(nums)
-        
-        

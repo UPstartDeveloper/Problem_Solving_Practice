@@ -68,8 +68,8 @@ class LinkedList:
                 self.head = self.head.next
             # deleting mid - move prev "around" the node to delete
             if prev is not None:
-                prev.next = found.next 
-            # deleting tail - added step, reset tail point 
+                prev.next = found.next
+            # deleting tail - added step, reset tail point
             if self.tail == found:
                 self.tail = prev
             # all cases - decrement the size
@@ -118,9 +118,7 @@ class LinkedQueue:
 
 if __name__ == "__main__":
     ll = LinkedList()
-    nodes = [
-        ListNode("A"), ListNode("B"), ListNode("C"), ListNode("D")
-    ]
+    nodes = [ListNode("A"), ListNode("B"), ListNode("C"), ListNode("D")]
     assert ll.head == None
     assert ll.tail == None
     ll.add(nodes[0])

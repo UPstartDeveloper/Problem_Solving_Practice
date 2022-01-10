@@ -40,12 +40,12 @@ class CombinationIterator:
         self.combos = list()
         self._generate_combinations([], 0)
         self.current_index = 0
-        
-    def _generate_combinations(self, current_combo, choice_index):        
+
+    def _generate_combinations(self, current_combo, choice_index):
         ### DRIVER
         # Base Case: all done!
         if len(current_combo) == self.size:
-            self.combos.append(''.join(current_combo))
+            self.combos.append("".join(current_combo))
         # Recursive Case: keep going
         else:
             for next_index in range(choice_index, len(self.chars)):
@@ -61,7 +61,7 @@ class CombinationIterator:
 
     def hasNext(self) -> bool:
         return self.current_index < len(self.combos)
-        
+
 
 # Your CombinationIterator object will be instantiated and called as such:
 # obj = CombinationIterator(characters, combinationLength)

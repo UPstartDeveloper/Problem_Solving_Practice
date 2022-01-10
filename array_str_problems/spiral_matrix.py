@@ -1,14 +1,10 @@
 from typing import List
 
+
 class Solution:
     def __init__(self):
-        self.dirs = {
-            "right": (0, 1),
-            "down": (1, 0),
-            "up": (-1, 0),
-            "left": (0, -1)
-        }
-        
+        self.dirs = {"right": (0, 1), "down": (1, 0), "up": (-1, 0), "left": (0, -1)}
+
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         """
         Leetcode: https://leetcode.com/problems/spiral-matrix/
@@ -70,19 +66,19 @@ class Solution:
             change_in_coords = self.dirs[current_dir]
             return (
                 current_coords[0] + change_in_coords[0],
-                current_coords[1] + change_in_coords[1]
+                current_coords[1] + change_in_coords[1],
             )
-        
+
         def _is_at_edge(current_dir, coords, hor_limit, ver_limit):
-            if current_dir == 'right':
+            if current_dir == "right":
                 return coords[1] == len(matrix[0]) - 1 - hor_limit
-            elif current_dir == 'left':
+            elif current_dir == "left":
                 return coords[1] == hor_limit
-            elif current_dir == 'up':
+            elif current_dir == "up":
                 return coords[0] == ver_limit
-            elif current_dir == 'down':
+            elif current_dir == "down":
                 return coords[0] == len(matrix) - 1 - ver_limit
-            
+
         def _change_dir(current_dir):
             if current_dir == "right":
                 return "down"
@@ -92,21 +88,21 @@ class Solution:
                 return "up"
             else:  # current_dir == "up"
                 return "right"
-            
+
         def _change_limits(current_dir, hor_limit, ver_limit):
             if current_dir == "right":
                 hor_limit += 1
             elif current_dir == "up":
                 ver_limit += 1
             return hor_limit, ver_limit
-        
+
         ### MAIN
         # A: init values
         output = list()
         current_dir = "right"
         coords = (0, 0)
         hor_limit, ver_limit = 0, 0
-        # B: begin traversal 
+        # B: begin traversal
         NUM_ELEMS = len(matrix) * len(matrix[0])
         while len(output) < NUM_ELEMS:
             # a: add elem at current coords to output
@@ -114,9 +110,7 @@ class Solution:
             # b: if at edge ---> change current_dir
             if _is_at_edge(current_dir, coords, hor_limit, ver_limit):
                 current_dir = _change_dir(current_dir)
-                hor_limit, ver_limit = (
-                    _change_limits(current_dir, hor_limit, ver_limit) 
-                )
+                hor_limit, ver_limit = _change_limits(current_dir, hor_limit, ver_limit)
             # c: always --> move another step in current_dir
             coords = _get_next_coords(coords, current_dir)
         # C: all done!

@@ -1,6 +1,7 @@
 from collections import deque
 from typing import List, Set
 
+
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
         """
@@ -70,7 +71,7 @@ class Solution:
         Adj:
             johnsmith@mail.com ----john_newyork@mail.com ---- john00@mail.com"
             [ John ] + sorted([email1, 2, ...])
-        """       
+        """
         ### DRIVER
         # A: make the graph
         accounts_graph = AccountGraph(accounts)  # TODO
@@ -78,14 +79,14 @@ class Solution:
         name_emails_merged = accounts_graph.traverse()  # TODO
         # C: return the output
         return name_emails_merged
-    
+
 
 class Vertex:
     def __init__(self, email, name):
         self.email = email
         self.name = name
         self.neighbors = dict()  # email ---> Vertex
-        
+
 
 class AccountGraph:
     def __init__(self, accounts):
@@ -95,13 +96,8 @@ class AccountGraph:
             name = a[0]
             # B: make new vertex object for all new emails
             emails = a[1:]
-            new_emails = [
-                email for email in emails
-                if email not in self.graph
-            ]
-            new_vertices = [
-                Vertex(email, name) for email in new_emails
-            ]
+            new_emails = [email for email in emails if email not in self.graph]
+            new_vertices = [Vertex(email, name) for email in new_emails]
             # C: add to the .graph property!
             for v in new_vertices:
                 self.graph[v.email] = v
@@ -111,7 +107,7 @@ class AccountGraph:
                 next_vertex = self.graph[emails[index + 1]]
                 vertex.neighbors[next_vertex.email] = next_vertex
                 next_vertex.neighbors[vertex.email] = vertex
-                
+
     def traverse(self):
         ### HELPERS
         def _bfs(vertex) -> Set[Vertex]:
@@ -139,7 +135,7 @@ class AccountGraph:
                 emails = [v.email for v in vertices_local_components]
                 merged_acct = [vertex.name] + sorted(emails)
                 output.append(merged_acct)
-                # 3: keep track of all globally visited 
+                # 3: keep track of all globally visited
                 for email in emails:
                     visited.add(email)
         # C: return output

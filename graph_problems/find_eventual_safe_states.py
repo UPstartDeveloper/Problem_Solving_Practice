@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
         """
@@ -47,7 +48,7 @@ class Solution:
         """
         ### HELPER
         def is_safe(node_id, visited) -> bool:
-            '''iter DFS to check if any path is cyclical - fail fast'''
+            """iter DFS to check if any path is cyclical - fail fast"""
             if node_id in visited:
                 return False
             visited.add(node_id)
@@ -58,7 +59,7 @@ class Solution:
                 elif neighbor_id in visited:
                     visited.remove(neighbor_id)
             return True
-        
+
         ### MAIN
         safe_ids = list()
         for node_id in range(len(graph)):

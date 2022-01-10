@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         """
@@ -45,5 +46,6 @@ class Solution:
                 right *= nums[index]
         # bring it all together
         return output
-    
+
+
 # Time and space O(n)

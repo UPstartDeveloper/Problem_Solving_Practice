@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Solution:
     def find_missing(nums: List[int]) -> int:
         """
@@ -28,10 +29,10 @@ class Solution:
             # a: move the current value into its sorted position
             while not (nums[index] == index + 1 or nums[index] == 0):
                 # i. "kick" this value to its sorted index in the arr
-                if (nums[index] > 0):
+                if nums[index] > 0:
                     sorted_index = nums[index] - 1
                     nums[index], nums[sorted_index] = nums[sorted_index], nums[index]
             # b: move on
-            index += 1  
+            index += 1
         # C: return the missing value
         return nums.index(0) + 1

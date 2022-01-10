@@ -24,14 +24,14 @@ class Solution:
             index1, longest_length = 0, 0
             while index1 < len(grades) - 1:
                 move_fwd = 0
-                if grades[index1] != 'D':
+                if grades[index1] != "D":
                     move_fwd = 1
                 else:  # grades[index1] == 'D'
                     local_length, first_ndx = 1, index1
                     while (
-                        first_ndx < len(grades) - 1 and 
-                        grades[first_ndx] == 'D' and
-                        grades[first_ndx + 1] == 'D'
+                        first_ndx < len(grades) - 1
+                        and grades[first_ndx] == "D"
+                        and grades[first_ndx + 1] == "D"
                     ):
                         local_length += 1
                         first_ndx += 1
@@ -39,25 +39,23 @@ class Solution:
                     move_fwd = first_ndx + 1 - index1
                 index1 += move_fwd
             return longest_length
-                
+
         ### MAIN
         grades = grades.upper()
-        num_ds_overall = ndo = grades.count('D')
-        num_fs_overall = nfo = grades.count('F')
+        num_ds_overall = ndo = grades.count("D")
+        num_fs_overall = nfo = grades.count("F")
         longest_consecutive_ds = lcd = _find_longest(grades)
-        return (
-            ndo < 5 and nfo < 2 and lcd <= 3
-        )
+        return ndo < 5 and nfo < 2 and lcd <= 3
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # input, exp_output
     tests = [
-        ('A', True),
-        ('D', True),
-        ('ABBDCDDD', True),
-        ('ABDDCDDD', False),
-        ('ADADADADADADADADADAD', False)
+        ("A", True),
+        ("D", True),
+        ("ABBDCDDD", True),
+        ("ABDDCDDD", False),
+        ("ADADADADADADADADADAD", False),
     ]
 
     sol = Solution()

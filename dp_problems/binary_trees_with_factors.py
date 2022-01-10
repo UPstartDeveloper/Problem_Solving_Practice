@@ -2,7 +2,7 @@ class Solution:
     def __init__(self):
         self.arr_set = set()
         self.num_trees_from_integer = dict()
-        
+
     def numFactoredBinaryTrees(self, arr: List[int]) -> int:
         """
         Leetcode: https://leetcode.com/problems/binary-trees-with-factors/
@@ -79,27 +79,27 @@ class Solution:
                     # move on to the next possible factor
                     factor1 += 1
                 # move on to the next num in arr
-                int_factors[num] = factors  
+                int_factors[num] = factors
             # all done!
             return int_factors
-        
+
         def _count(num):
             """return the # of  trees possible, with num as root"""
             return self.num_trees_from_integer[num]
-        
+
         ### MAIN
         # A: init values
         arr.sort()
         total_count, self.arr_set = 0, set(arr)
 
         # B: make a dict of int --> set of tuple factors
-        int_factors = _find_factors(arr)  
-            
+        int_factors = _find_factors(arr)
+
         # C: acculmulate counts from each int
         for integer in arr:
             count_per_value = cpv = 1
             for factor1, factor2 in int_factors[integer]:
-            # compute total num of trees w/ children as root
+                # compute total num of trees w/ children as root
                 if factor1 == factor2:
                     cpv += 2 * _count(factor1)
                 elif factor1 != factor1:
@@ -107,6 +107,6 @@ class Solution:
                 # add to the total, and cache the result
                 total_count += cpv
             self.num_trees_from_integer[integer] = cpv
-            
+
         # D: all done!
         return total_count

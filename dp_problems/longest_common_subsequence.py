@@ -63,13 +63,10 @@ class Solution:
         # 0: handle EC:
         if text1 == text2:
             return len(text1)
-        elif text1 == '' or text2 == '':
+        elif text1 == "" or text2 == "":
             return 0
         # A: init dp_table
-        table = [
-            [0 for _ in range(len(text2) + 1)]
-            for _ in range(len(text1) + 1)
-        ]
+        table = [[0 for _ in range(len(text2) + 1)] for _ in range(len(text1) + 1)]
         # B: solve subproblems
         for row_index in range(1, len(table)):
             for col_index in range(1, len(table[0])):
@@ -77,12 +74,12 @@ class Solution:
                 up, left, diagonal = (
                     table[row_index - 1][col_index],  # up
                     table[row_index][col_index - 1],  # left
-                    table[row_index - 1][col_index - 1] # diagonal
+                    table[row_index - 1][col_index - 1],  # diagonal
                 )
                 # if last letters === ----> 1 + (max(left, up, diagnonal))
                 if char1 == char2:
                     table[row_index][col_index] = diagonal + 1
-                else: 
+                else:
                     table[row_index][col_index] = max(up, diagonal, left)
         # C: return answer (from dp_table)
         return table[-1][-1]

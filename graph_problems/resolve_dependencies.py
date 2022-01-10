@@ -7,9 +7,7 @@ dependencies = {
         "xmllib": {
             "version": "0.2.3",
             "name": "xmllib",
-            "dependencies": {
-                "parser": {"name": "parser", "version": "1.2.1"},
-            },
+            "dependencies": {"parser": {"name": "parser", "version": "1.2.1"},},
         },
         "parser": {"name": "parser", "version": "1.4.6"},
     },

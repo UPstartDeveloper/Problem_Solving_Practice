@@ -2,10 +2,12 @@ from collections import deque
 import math
 from typing import List
 
+
 class Vertex:
     def __init__(self, key):
         self.id = key
         self.neighbors = dict()  # id --> Vertex
+
 
 class Solution:
     def largestComponentSize(self, nums: List[int]) -> int:
@@ -56,13 +58,10 @@ class Solution:
                 C: return max(sizes)
         """
         ### HELPERS
-        def _construct_graph(nums):  
+        def _construct_graph(nums):
             """TODO"""
             # 1) traverse nums array - place Vertex objs in the dict
-            graph = dict(zip(
-                nums, 
-                [Vertex(num) for num in nums]
-            ))
+            graph = dict(zip(nums, [Vertex(num) for num in nums]))
             # 2) do another pass -> figure out the edges
             for index1 in range(len(nums)):
                 num1 = nums[index1]
@@ -77,12 +76,12 @@ class Solution:
                         vertex1.neighbors[num2] = vertex2
                         vertex2.neighbors[num1] = vertex1
             return graph
-            
+
         def _calculate_comp_sizes(graph):
             """TODO: iterative BFS"""
             sizes, visited = list(), set()
             for node_id, vertex in graph.items():
-                # start BFS on connect comp 
+                # start BFS on connect comp
                 if node_id not in visited:
                     q = deque([vertex])
                     size_comp = 0
@@ -99,11 +98,11 @@ class Solution:
                     # add size to our sizes
                     sizes.append(size_comp)
             return sizes
-        
+
         ### DRIVER
         # A: construct graph
         graph = _construct_graph(nums)
         # B: BFS on each of the components ---> sizes = []
         sizes = _calculate_comp_sizes(graph)
-        # C: output 
+        # C: output
         return max(sizes)

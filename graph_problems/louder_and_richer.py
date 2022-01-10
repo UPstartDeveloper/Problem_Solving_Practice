@@ -6,8 +6,8 @@ class PersonVertex:
         self.id = num
         self.q_lvl = quietness
         self.richer = dict()  # id --> vertex
-        
-        
+
+
 class PersonGraph:
     def __init__(self, richer, quiet):
         self.quietest_cache = dict()
@@ -19,7 +19,7 @@ class PersonGraph:
         for id1, id2 in richer:
             person1, person2 = self.graph[id1], self.graph[id2]
             person2.richer[id1] = person1
-            
+
     def find_quietest_and_richer(self, person_id):
         """TODO: iterative DFS"""
         if person_id not in self.quietest_cache:
@@ -29,7 +29,7 @@ class PersonGraph:
                 self.quietest_cache[person_id] = person_id
             # Recursive Case: has neighbors
             else:
-                # get the quietest amongst all downstream neighbors, and self 
+                # get the quietest amongst all downstream neighbors, and self
                 quietest_nodes = [
                     self.graph[self.find_quietest_and_richer(neighbor_id)]
                     for neighbor_id in person.richer
@@ -40,12 +40,12 @@ class PersonGraph:
                 # cache the answer
                 self.quietest_cache[person_id] = quietest_nodes[0].id
         return self.quietest_cache[person_id]
-        
+
     def sort_by_money_and_quietness(self):
         """TODO"""
         # A: init array
         sorted_ids = [-1 for _ in range(len(self.graph))]
-        # B: find most quiet for each 
+        # B: find most quiet for each
         for person_id in self.graph:
             sorted_ids[person_id] = self.find_quietest_and_richer(person_id)
         # C: return arr

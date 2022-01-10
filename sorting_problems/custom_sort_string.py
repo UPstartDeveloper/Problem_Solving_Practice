@@ -53,20 +53,19 @@ class Solution:
                     ordering_values.append(char)
                     char_set.add(char)
             return ordering_values
-    
+
         def _new_string(ordering_values, char_freq_in_s):
             new_str_chars = list()
             for index, unique_char in enumerate(ordering_values):
                 count = char_freq_in_s[unique_char]
                 for _ in range(count):
                     new_str_chars.append(unique_char)
-            return ''.join(new_str_chars)
+            return "".join(new_str_chars)
 
         ### DRIVER
         # A: make an order for all the chars
-        ordering_values = _make_ordering_values(order, s)   
+        ordering_values = _make_ordering_values(order, s)
         # B: frequency dist of s
         char_freq_in_s = Counter(list(s))
         # C: make the new string
-        return _new_string(ordering_values, char_freq_in_s) 
-        
+        return _new_string(ordering_values, char_freq_in_s)

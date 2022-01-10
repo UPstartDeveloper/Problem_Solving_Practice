@@ -1,7 +1,7 @@
 class Solution:
     def __init__(self):
-        self.DIVISOR = (10**9) + 7
-        
+        self.DIVISOR = (10 ** 9) + 7
+
     def countGoodNumbers(self, n: int) -> int:
         """
         Leetcode: https://leetcode.com/problems/count-good-numbers/
@@ -35,6 +35,5 @@ class Solution:
         """
         half = n // 2
         first_term = pow(5, (half + (n % 2)), self.DIVISOR)
-        second_term =  pow(4, half, self.DIVISOR)
+        second_term = pow(4, half, self.DIVISOR)
         return (first_term * second_term) % self.DIVISOR
-    

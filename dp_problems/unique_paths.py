@@ -1,8 +1,7 @@
 class Solution:
-    
     def __init__(self):
         self.paths_count = 0
-    
+
     def uniquePaths(self, m: int, n: int) -> int:
         """
         Leetcode: https://leetcode.com/problems/unique-paths/
@@ -69,29 +68,26 @@ class Solution:
                 _count_paths((row + 1, col))  # down
                 _count_paths((row, col + 1))  # right
             return self.paths_count
-        
+
         def _count_paths_dp():
             # A: init dp table
-            table = [
-                [0 for _ in range(n)]
-                for _ in range(m)
-            ]
+            table = [[0 for _ in range(n)] for _ in range(m)]
             # B: handle edge cases - last col and row
             for row_index in range(m):
                 table[row_index][-1] = 1
             for col_index in range(n):
                 table[-1][col_index] = 1
             # C: solve recursive cases
-            for row_index in range(m-2, -1, -1):
-                for col_index in range(n-2, -1, -1):
+            for row_index in range(m - 2, -1, -1):
+                for col_index in range(n - 2, -1, -1):
                     # use the down and right neighbors to solve
                     table[row_index][col_index] = (
-                        table[row_index + 1][col_index] +
-                        table[row_index][col_index + 1]
+                        table[row_index + 1][col_index]
+                        + table[row_index][col_index + 1]
                     )
             # D: return the answer
             return table[0][0]
-        
+
         ### DRIVER
         # A: handle EC
         if m == 1 or n == 1:
@@ -99,5 +95,5 @@ class Solution:
         elif m < 1 or n < 1:
             raise ValueError("Invalid grid dims")
         # B: handle rest of cases
-        # return _count_paths_bt((0, 0))  # Backtracking 
+        # return _count_paths_bt((0, 0))  # Backtracking
         return _count_paths_dp()  # Dynamic Programming

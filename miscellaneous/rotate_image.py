@@ -26,10 +26,7 @@ def rotate_out_of_place(matrix):
     new_matrix = [[0 for i in range(NUMCOLS)] for j in range(NUMROWS)]
     # populate the cols in the new matrix, with rows from the original
     for index_row, row in enumerate(matrix):
-        for (
-            index_col,
-            value,
-        ) in enumerate(row):
+        for (index_col, value,) in enumerate(row):
             # calculate the shared column
             new_col = NUMROWS - (index_row + 1)
             # calculating the new row

@@ -1,12 +1,15 @@
-from typing import Optional 
+from typing import Optional
+
 
 class TreeNode:
     """Definition for a binary tree node."""
+
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
-        
+
+
 class Solution:
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
         """
@@ -41,7 +44,7 @@ class Solution:
                 else:  # key > node.val
                     node = node.right
             return parent, node  # node may be None
-        
+
         def _find_successor(node):
             """returns a bool (to tell if the node has 2 kids) and the successor"""
             # case 0
@@ -59,7 +62,7 @@ class Solution:
                 return False, node.left
             else:  # only 1 child, and it's the right child
                 return False, node.right
-        
+
         def _delete(parent, n2d):
             # double check we have valid inputs
             if n2d is not None and n2d.val == key:
@@ -86,7 +89,7 @@ class Solution:
                     elif parent and n2d == parent.right:
                         parent.right = successor
                     return successor
-        
+
         ### DRIVER
         # A: edge cases:
         if root is not None:
@@ -97,6 +100,6 @@ class Solution:
                 takeover_node = _delete(parent, n2d)
                 # TODO[test] updating the root node
                 if root.val == key:
-                    root = takeover_node  
+                    root = takeover_node
         # D: return the root
         return root
