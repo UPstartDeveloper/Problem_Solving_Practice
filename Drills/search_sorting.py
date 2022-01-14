@@ -1,5 +1,6 @@
 from typing import List
 
+
 def binary_search(nums: List[int], target: int, use_iterative=True) -> int:
     """Returns the index of the target elem in nums, or -1 if not found."""
     ### HELPERS
@@ -17,7 +18,7 @@ def binary_search(nums: List[int], target: int, use_iterative=True) -> int:
         # not found
         return -1
 
-    def _bs_recursive(low=0, hi=len(nums)-1):
+    def _bs_recursive(low=0, hi=len(nums) - 1):
         mid = (low + hi) // 2
         found = nums[mid]
         # base cases
@@ -27,9 +28,9 @@ def binary_search(nums: List[int], target: int, use_iterative=True) -> int:
             return -1
         # recursive cases
         elif target < found:
-            return _bs_recursive(low, mid-1)
+            return _bs_recursive(low, mid - 1)
         elif target > found:
-            return _bs_recursive(mid+1, hi)
+            return _bs_recursive(mid + 1, hi)
 
     ### MAIN
     if use_iterative:
@@ -101,13 +102,10 @@ def merge_sort(nums: List[int]) -> List[int]:
     # Base Case
     if len(nums) < 2:
         return nums
-    # Recursive 
+    # Recursive
     else:  # len(nums) >= 2:
         # divide
         mid = len(nums) // 2
-        sorted_left, sorted_right = (
-            merge_sort(nums[:mid]),
-            merge_sort(nums[mid:])
-        )
+        sorted_left, sorted_right = (merge_sort(nums[:mid]), merge_sort(nums[mid:]))
         # conquer
         return _merge(sorted_left, sorted_right)

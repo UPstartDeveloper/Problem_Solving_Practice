@@ -1,11 +1,13 @@
 from typing import Optional
 
+
 class ListNode:
     """Definition for singly-linked list."""
+
     def __init__(self, val=0, next_node=None):
         self.val = val
         self.next = next_node
-        
+
 
 class Solution:
     def swap_pairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
@@ -57,7 +59,7 @@ class Solution:
                   
             2 --> 1 --> 4 --> 3 --> 
                               p.    n1
-        """ 
+        """
         if head is not None:
             # A: init values
             prev, n1, n2 = None, head, head.next
