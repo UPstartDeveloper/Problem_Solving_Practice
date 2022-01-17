@@ -96,16 +96,13 @@ class Solution:
                     self.min_cost = total_current_cost
             # Recursive case: choose next color
             else:  # current_row < len(paint_costs)
-                # color_costs = paint_costs[current_row]
-                for index in range(3):
-                    # cost = color_costs[index]
-                    if (current_row == 0) or (
-                        len(colors_chosen) > 0 and index != colors_chosen[-1]
-                    ):
+                # try out all potential combos
+                for index in range(len(paint_costs[0])):
+                    if current_row == 0 or index != colors_chosen[-1]:
                         # pick the color, and recurse
                         colors_chosen.append(index)
                         _solve_using_backtracking(current_row + 1, colors_chosen)
-                        # TODO[test]: pop the last added
+                        # pop the last added
                         colors_chosen.pop()
             # All done!
             return self.min_cost
