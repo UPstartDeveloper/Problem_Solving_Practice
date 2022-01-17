@@ -1,6 +1,7 @@
 from cmath import exp
 from typing import List
 
+
 class Solution:
     def min_cost_to_paint(self, paint_costs: List[List[int]]) -> int:
         """
@@ -76,9 +77,10 @@ class Solution:
             4. too big matrix?
                 - assume it fits in memory
 
-        Approach:
-
-            1. BF:
+        Approach: 
+            1. SEE BELOW
+                Time: O(n * 3^n)
+                Space: O(n)
 
         """
         ### HELPERS
@@ -97,10 +99,8 @@ class Solution:
                 # color_costs = paint_costs[current_row]
                 for index in range(3):
                     # cost = color_costs[index]
-                    if (
-                        (current_row == 0) or 
-                        (len(colors_chosen) > 0 and 
-                         index != colors_chosen[-1])
+                    if (current_row == 0) or (
+                        len(colors_chosen) > 0 and index != colors_chosen[-1]
                     ):
                         # pick the color, and recurse
                         colors_chosen.append(index)
@@ -122,7 +122,7 @@ if __name__ == "__main__":
     solver = Solution()
     tests = [
         # input           exp output
-        ([[3,2,4], [3,4,6]], 5)
+        ([[3, 2, 4], [3, 4, 6]], 5)
     ]
     for matrix, exp_output in tests:
         actual = solver.min_cost_to_paint(matrix)
