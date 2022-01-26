@@ -1,3 +1,4 @@
+from collections import deque
 from typing import List
 
 
@@ -65,7 +66,7 @@ class CollectorNode:
 
 class ManagerNode(CollectorNode):
     def __init__(self, house_indices, parent=None):
-        self.left, self.right = None
+        self.left, self.right = None, None
         self.hi = house_indices
         super().__init__(parent)
 
@@ -99,10 +100,31 @@ class CollectorTree:
             for index, node in enumerate([boss.left, boss.right]):
                 if len(node.hi) > 1:  # they need to delegate more
                     self.assign_workers(boss=node)
-                else:  # turns out they're just a worker
+                elif len(node.hi)  == 1:  # turns out they're just a worker
                     node = Worker(node.hi[0], boss)
                     # re-establish parent-child relationship
                     if index == 0:
                         boss.left = node
                     else:  # index == 1
-                        boss.right = None
+                        boss.right = node
+
+    def print_indices(self):
+        """Print all the house addresses being collected."""
+        # iterative BFS
+        visited, q = list(), deque([self.root])
+        while q:
+            node = q.popleft()
+            if isinstance(node, ManagerNode):
+                for child in [node.left, node.right]:
+                    q.append(child)
+            else:  # worker
+                visited.append(node.house_index)
+        return visited
+
+
+if __name__ == "__main__":
+    houses = [0, 1, 2, 3]
+    exp_out = list(range(len(houses)))
+    solver = Solution()
+    tree = solver.collect_candy(houses)
+    assert tree.print_indices() == exp_out, f"Expected: {exp_out}, Actual: {tree.print_indices()}"
