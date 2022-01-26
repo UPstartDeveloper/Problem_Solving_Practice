@@ -20,8 +20,9 @@ class Solution:
         We can represent the cost of painting each bike through 
         - a matrix that will be of n x 3 shape. 
         
-        For example, cost[0][0] represents the cost of painting the first bike green, 
-                     cost[2][2] represents the cost of painting the third bike red.
+        For example, 
+            cost[0][0] represents the cost of painting the first bike green,
+            cost[2][2] represents the cost of painting the third bike red.
 
         
         Given this information, write a function that 
@@ -84,13 +85,13 @@ class Solution:
 
         """
         ### HELPERS
-        def _solve_using_backtracking(current_row, colors_chosen):
+        def _backtracking_helper(current_row, colors_chosen):
             # Base Case: outside the matrix
             if current_row == len(paint_costs):
                 # compute total
                 total_current_cost = 0
-                for bike_index, color_chosen in enumerate(colors_chosen):
-                    total_current_cost += paint_costs[bike_index][color_chosen]
+                for bike_index, color_price in enumerate(colors_chosen):
+                    total_current_cost += paint_costs[bike_index][color_price]
                 # update min
                 if total_current_cost < self.min_cost:
                     self.min_cost = total_current_cost
@@ -101,7 +102,7 @@ class Solution:
                     if current_row == 0 or index != colors_chosen[-1]:
                         # pick the color, and recurse
                         colors_chosen.append(index)
-                        _solve_using_backtracking(current_row + 1, colors_chosen)
+                        _backtracking_helper(current_row + 1, colors_chosen)
                         # pop the last added
                         colors_chosen.pop()
             # All done!
@@ -112,7 +113,7 @@ class Solution:
         pass
         # Solution 1
         self.min_cost = float("inf")
-        return _solve_using_backtracking(0, list())
+        return _backtracking_helper(0, list())
 
 
 if __name__ == "__main__":
@@ -123,4 +124,5 @@ if __name__ == "__main__":
     ]
     for matrix, exp_output in tests:
         actual = solver.min_cost_to_paint(matrix)
-        assert exp_output == actual, f"Actual: {actual}, Expected: {exp_output}"
+        eo = exp_output
+        assert eo == actual, f"Actual: {actual}, Expected: {exp_output}"
