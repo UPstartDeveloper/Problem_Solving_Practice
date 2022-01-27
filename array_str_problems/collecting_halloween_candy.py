@@ -100,7 +100,7 @@ class CollectorTree:
             for index, node in enumerate([boss.left, boss.right]):
                 if len(node.hi) > 1:  # they need to delegate more
                     self.assign_workers(boss=node)
-                elif len(node.hi)  == 1:  # turns out they're just a worker
+                elif len(node.hi) == 1:  # turns out they're just a worker
                     node = Worker(node.hi[0], boss)
                     # re-establish parent-child relationship
                     if index == 0:
@@ -127,4 +127,6 @@ if __name__ == "__main__":
     exp_out = list(range(len(houses)))
     solver = Solution()
     tree = solver.collect_candy(houses)
-    assert tree.print_indices() == exp_out, f"Expected: {exp_out}, Actual: {tree.print_indices()}"
+    assert (
+        tree.print_indices() == exp_out
+    ), f"Expected: {exp_out}, Actual: {tree.print_indices()}"
