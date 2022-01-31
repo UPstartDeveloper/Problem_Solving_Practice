@@ -45,12 +45,22 @@ class Solution:
         def _max_row_wise(grid):
             return [max(row) for row in grid]
         
+        def _count_towers():
+            towers = 0
+            for row in grid:
+                for tower_height in row:
+                    if tower_height > 0:
+                        towers += 1
+            return towers
+        
         ### MAIN
         n = len(grid)
-        xy_area = n * n
+        xy_area = _count_towers()
         max_of_cols = _max_col_wise(grid)
         yz_area = _scalar_multiply(n, max_of_cols)
         max_of_rows = _max_row_wise(grid)
         xz_area = _scalar_multiply(n, max_of_rows)
         
         return xy_area + yz_area + xz_area
+        
+        
