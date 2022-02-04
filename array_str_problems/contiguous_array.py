@@ -65,34 +65,35 @@ class Solution:
         
         """
         ### HELPERS
-        def get_valid_length(sub):
-            if (
-                len(sub) % 2 == 0 and 
-                sum(sub) == (len(sub) / 2)
-            ):
-                return len(sub)
-            else:
-                return 0
+        def _is_valid(answer_ndx, even_length):
+            if -1 < answer_ndx < len(nums):
+                sub_arr_sum = sum(nums[answer_ndx - even_length + 1:answer_ndx + 1])
+                return sub_arr_sum == even_length / 2
+            return False
             
-        def _generate_sub(start):
-            """continually 'extend' from the starting index"""
-            subs_from_start = list()
-            sub_so_far = list()
-            for index in range(start, len(nums)):
-                sub_so_far.append(nums[index])
-                subs_from_start.append(sub_so_far[:])
-            return subs_from_start
+        def _map_possible_answers(total_length):
+            """map all even ints (0 --> len(num)) --> exp_ndx (int - 1) - O(N)"""
+            possible_valid_lengths = {0: 0}
+            for even_length in range(2, len(nums) + 1, 2):
+                possible_valid_lengths[even_length] = even_length - 1
+            return possible_valid_lengths
         
-        def _create_subarrays(nums):
-            subs = list()
-            for start in range(len(nums)):
-                subs.extend(_generate_sub(start))
-            return subs
+        def _verify_lengths(nums, possible_valid_lengths):
+            for even_length in range(2, len(nums) + 1, 2):
+                # go to its index ---> verifying it's valid
+                answer_ndx = possible_valid_lengths[even_length]
+                while answer_ndx < len(nums) and _is_valid(answer_ndx, even_length) is False:
+                    answer_ndx += 1
+                possible_valid_lengths[even_length] = answer_ndx
         
         ### MAIN
-        # A: form --> dupe work
-        all_subs = _create_subarrays(nums)  #O(n^2)
-        # B: validate them
-        valid_subs = [get_valid_length(sub) for sub in all_subs]  # O(n^3)
-        # C: return the len(longest)
-        return max(valid_subs)  # O(n^2)
+        # A: id potential answers
+        possible_valid_lengths = _map_possible_answers(len(nums))
+        # B: traverse the dict - for each even int - O(n^2)
+        _verify_lengths(nums, possible_valid_lengths)
+        # C: traverse the dict - linear search for answer - - O(N)
+        final_answers = [
+            length for length, index in possible_valid_lengths.items()
+            if -1 < index < len(nums)
+        ]
+        return max(final_answers)
