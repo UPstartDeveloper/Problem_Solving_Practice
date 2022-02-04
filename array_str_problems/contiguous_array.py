@@ -4,6 +4,8 @@ from typing import List
 class Solution:
     def findMaxLength(self, nums: List[int]) -> int:
         """
+        Leetcode: https://leetcode.com/problems/contiguous-array/submissions/
+        
         Input/Problem:
             int[0 or 1, immmutable, unsorted, dupes, non-empty]
             
@@ -64,36 +66,21 @@ class Solution:
                     
         
         """
-        ### HELPERS
-        def _is_valid(answer_ndx, even_length):
-            if -1 < answer_ndx < len(nums):
-                sub_arr_sum = sum(nums[answer_ndx - even_length + 1:answer_ndx + 1])
-                return sub_arr_sum == even_length / 2
-            return False
-            
-        def _map_possible_answers(total_length):
-            """map all even ints (0 --> len(num)) --> exp_ndx (int - 1) - O(N)"""
-            possible_valid_lengths = {0: 0}
-            for even_length in range(2, len(nums) + 1, 2):
-                possible_valid_lengths[even_length] = even_length - 1
-            return possible_valid_lengths
-        
-        def _verify_lengths(nums, possible_valid_lengths):
-            for even_length in range(2, len(nums) + 1, 2):
-                # go to its index ---> verifying it's valid
-                answer_ndx = possible_valid_lengths[even_length]
-                while answer_ndx < len(nums) and _is_valid(answer_ndx, even_length) is False:
-                    answer_ndx += 1
-                possible_valid_lengths[even_length] = answer_ndx
         
         ### MAIN
-        # A: id potential answers
-        possible_valid_lengths = _map_possible_answers(len(nums))
-        # B: traverse the dict - for each even int - O(n^2)
-        _verify_lengths(nums, possible_valid_lengths)
-        # C: traverse the dict - linear search for answer - - O(N)
-        final_answers = [
-            length for length, index in possible_valid_lengths.items()
-            if -1 < index < len(nums)
-        ]
-        return max(final_answers)
+        sub_sum_indices = {0: -1}
+        max_length, sum_so_far = 0, 0
+        for index, bit in enumerate(nums):
+            if bit == 0:
+                sum_so_far -= 1
+            else:  # bit == 1
+                sum_so_far += 1
+            if sum_so_far in sub_sum_indices:
+                # get the longest length possible, by seeing the first time this happened
+                first_time = sub_sum_indices[sum_so_far]
+                total_length = index - first_time
+                max_length = max(max_length, total_length)
+            else:  # first time seen
+                sub_sum_indices[sum_so_far] = index
+        return max_length
+        
