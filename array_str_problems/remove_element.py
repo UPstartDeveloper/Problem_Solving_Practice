@@ -1,7 +1,9 @@
 from typing import List
 
+
 class Solution:
     """Leetcode: https://leetcode.com/problems/remove-element/"""
+
     def removeElement(self, nums: List[int], val: int) -> int:
         # A: set init positions
         index1, index2 = 0, len(nums) - 1
@@ -26,5 +28,3 @@ class Solution:
                 break
             final_ndx += 1
         return final_ndx
-            
-        

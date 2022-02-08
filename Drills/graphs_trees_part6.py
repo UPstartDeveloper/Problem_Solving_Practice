@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class TreeNode:
     def __init__(self, key: int) -> None:
         self.key = key
@@ -10,7 +11,7 @@ class BinaryTree:
     def __init__(self):
         self.root = None  # TreeNode
 
-    def dfs(self, iterative=True, method='inorder'):
+    def dfs(self, iterative=True, method="inorder"):
         ### HELPERS
         def _inorder_recursive(node=self.root, visited=set()):
             if node:
@@ -51,9 +52,9 @@ class BinaryTree:
 
         ### MAIN
         functions = {
-            'inorder': [_inorder_recursive, _inorder_iterative],
-            'preorder': [],
-            'postorder': []
+            "inorder": [_inorder_recursive, _inorder_iterative],
+            "preorder": [],
+            "postorder": [],
         }
 
         return functions[method][int(iterative)]()

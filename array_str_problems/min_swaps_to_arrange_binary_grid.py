@@ -37,7 +37,7 @@ class Solution:
                     else ==> return -1
         """
         ### HELPERS
-        def _locate_ones(grid): 
+        def _locate_ones(grid):
             last_one_in_rows = list()
             for row in grid:
                 for col_index in range(len(row) - 1, -1, -1):
@@ -45,9 +45,9 @@ class Solution:
                         last_one_in_rows.append(col_index)
                         break
             return last_one_in_rows
-        
+
         def _bubble_sort(nums: List[int]) -> int:
-            '''return num_swaps'''
+            """return num_swaps"""
             is_sorted, num_swaps_overall = False, 0
             # sort the array
             while is_sorted is False:
@@ -66,7 +66,7 @@ class Solution:
                 # update global count
                 num_swaps_overall += num_swaps
             return num_swaps_overall
-        
+
         ### MAIN
         # A: mark the position of the last 1 in each row
         last_one_in_rows = _locate_ones(grid)
@@ -80,4 +80,3 @@ class Solution:
                 return -1
         # grid is now valid!
         return num_swaps
-        

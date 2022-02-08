@@ -3,11 +3,12 @@ from collections import deque
 
 class TreeNode:
     """Definition for a binary tree node."""
+
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
-        
+
 
 class Solution:
     def countPairs(self, root: TreeNode, distance: int) -> int:
@@ -64,18 +65,11 @@ class Solution:
         """
         # HELPERS
         def is_leaf(node):
-            return (
-                node and 
-                node.left is None and 
-                node.right is None
-            )
-        
+            return node and node.left is None and node.right is None
+
         def _init_left_right_dist_attr(node):
-            node.leaf_distances = {
-                "left": [],
-                "right": []
-            }
-            
+            node.leaf_distances = {"left": [], "right": []}
+
         def _dfs(visit=print):
             """iterative in-order"""
             node, stack = root, list()
@@ -83,16 +77,16 @@ class Solution:
                 if node:
                     stack.append(node)
                     node = node.left
-                else: 
+                else:
                     node = stack.pop()
                     visit(node)
                     node = node.right
             return
-            
+
         def _save_distances(node):
             """Makes a 'cache' or how far each node is, from all downstream leaves"""
             # Recursive: parent node
-            if node and is_leaf(node) is False: 
+            if node and is_leaf(node) is False:
                 for child in [node.left, node.right]:
                     if child is not None:
                         _save_distances(child)
@@ -100,21 +94,21 @@ class Solution:
                 if node.left:
                     if is_leaf(node.left) is False:
                         for distances_down in node.left.leaf_distances.values():
-                            node.leaf_distances["left"].extend([
-                                d + 1 for d in distances_down
-                            ])
+                            node.leaf_distances["left"].extend(
+                                [d + 1 for d in distances_down]
+                            )
                     else:  # child is a leaf, so we already know we're only 1 away
                         node.leaf_distances["left"].append(1)
                 # do the same on both sides!
                 if node.right:
                     if is_leaf(node.right) is False:
                         for distances_down in node.right.leaf_distances.values():
-                            node.leaf_distances["right"].extend([
-                                d + 1 for d in distances_down
-                            ])
+                            node.leaf_distances["right"].extend(
+                                [d + 1 for d in distances_down]
+                            )
                     else:  # child is a leaf, so we already know we're only 1 away
-                        node.leaf_distances["right"].append(1)  
-                        
+                        node.leaf_distances["right"].append(1)
+
         def _find_good_pairs(node):
             """count how good pairs there are, for a single node"""
             count = 0
@@ -123,7 +117,7 @@ class Solution:
                     if distance_left + distance_right <= distance:
                         count += 1
             return count
-                        
+
         def _count_good_pairs(root):
             """iterative BFS - find all pairs across the whole tree"""
             queue = q = deque([root])
@@ -135,12 +129,12 @@ class Solution:
                     if child is not None:
                         q.append(child)
             return total
-        
+
         ### MAIN
         # A: save the dist each node is to all "downstream" leaves
         _dfs(_init_left_right_dist_attr)
         _save_distances(root)
-        
+
         # B: compute the number of good pairs - via BFS
         total = _count_good_pairs(root)
         return total

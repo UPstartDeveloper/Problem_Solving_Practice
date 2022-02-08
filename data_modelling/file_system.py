@@ -53,19 +53,17 @@ Actions:
     c: folderpermanent_delete(recursive=True/False): TODO
 """
 
+
 class FileSystemObject:
     def __init__(self, location=""):
         self.location = location
 
 
 class File:
-    def __init__(self,  file_name, memory_size, location, content):
+    def __init__(self, file_name, memory_size, location, content):
         super().__init__(location)
-        self.data = {
-            "file_name": file_name,
-            "size": memory_size,
-            "content": content
-        }
+        self.data = {"file_name": file_name, "size": memory_size, "content": content}
+
 
 class Folder:
     pass

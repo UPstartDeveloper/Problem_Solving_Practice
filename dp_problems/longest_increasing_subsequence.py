@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         """
@@ -93,21 +94,21 @@ class Solution:
             # track current val, size of current subseq
             current_val = nums[index]
             sub_seq_size = sss = 1
-            # traverse 
+            # traverse
             ndx2 = index + 1
             while ndx2 < len(nums):
                 val2 = nums[ndx2]
-                # track everytime increase 
+                # track everytime increase
                 if val2 > current_val:
                     current_val = val2
-                    sss += 1 
+                    sss += 1
                 # move on
                 ndx2 += 1
             # all done!
             return sss
-        
+
         def _scan_prev_ans(index, sa):
-            ''''finds the set of SIS lengths before the current index'''
+            """'finds the set of SIS lengths before the current index"""
             largest_length, prev_ndx, current_elem = 0, 0, nums[index]
             while prev_ndx < index:
                 # double check this length can be included in the new subseq
@@ -117,7 +118,7 @@ class Solution:
                 prev_ndx += 1
             # all done!
             return largest_length
-        
+
         ### MAIN
         # A: init an arr of 1's
         sub_ans = sa = [1 for _ in range(len(nums))]

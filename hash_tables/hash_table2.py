@@ -61,6 +61,7 @@ class LinkedList:
                 self.tail = prev
             prev.next = node.next
 
+
 class HashTable:
     def __init__(self, num_buckets=8):
         """uses separate chaining"""
@@ -75,7 +76,7 @@ class HashTable:
         pair = bucket.search((key, value))
         if pair is not None:  # update a ListNode
             pair.val = (key, value)
-        else:  # add a ListNode 
+        else:  # add a ListNode
             bucket.add(ListNode(val=(key, value)))
 
     def get(self, key):
@@ -90,8 +91,7 @@ class HashTable:
 
     def remove(self, key):
         # verify the key-value pair in this bucket
-        value = self.get(key) 
+        value = self.get(key)
         if value is not None:
             bucket = self._get_bucket(key)
             bucket.delete((key, value))
-

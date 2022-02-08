@@ -40,5 +40,5 @@ class Solution:
                     seen_before.add(s[index2])
             # update the longest length, if appropiate
             longest = max(longest, len(seen_before))
-            
+
         return longest

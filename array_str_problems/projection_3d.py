@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Solution:
     def projectionArea(self, grid: List[List[int]]) -> int:
         """
@@ -32,7 +33,7 @@ class Solution:
         ### HELPERS
         def _scalar_multiply(coef, arr):
             return sum([elem for elem in arr])
-        
+
         def _max_col_wise(grid):
             highest_vals = list()
             for col_index in range(len(grid[0])):
@@ -41,10 +42,10 @@ class Solution:
                     highest = max(highest, grid[row_index][col_index])
                 highest_vals.append(highest)
             return highest_vals
-        
+
         def _max_row_wise(grid):
             return [max(row) for row in grid]
-        
+
         def _count_towers():
             towers = 0
             for row in grid:
@@ -52,7 +53,7 @@ class Solution:
                     if tower_height > 0:
                         towers += 1
             return towers
-        
+
         ### MAIN
         n = len(grid)
         xy_area = _count_towers()
@@ -60,7 +61,5 @@ class Solution:
         yz_area = _scalar_multiply(n, max_of_cols)
         max_of_rows = _max_row_wise(grid)
         xz_area = _scalar_multiply(n, max_of_rows)
-        
+
         return xy_area + yz_area + xz_area
-        
-        

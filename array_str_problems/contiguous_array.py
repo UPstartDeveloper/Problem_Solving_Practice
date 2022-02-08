@@ -66,7 +66,7 @@ class Solution:
                     
         
         """
-        
+
         ### MAIN
         sub_sum_indices = {0: -1}
         max_length, sum_so_far = 0, 0
@@ -83,4 +83,3 @@ class Solution:
             else:  # first time seen
                 sub_sum_indices[sum_so_far] = index
         return max_length
-        
