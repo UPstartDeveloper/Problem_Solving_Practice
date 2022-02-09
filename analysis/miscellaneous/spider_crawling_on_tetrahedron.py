@@ -97,7 +97,9 @@ class Tetrahedron:
         vertex1.neighbors[vertex2.id] = vertex2
         vertex2.neighbors[vertex1.id] = vertex1
 
-    def find_paths(self, current: List[str], all_paths: List[List[str]], stop_length:int):
+    def find_paths(
+        self, current: List[str], all_paths: List[List[str]], stop_length: int
+    ):
         # Base Case: done with 1 current path
         if len(current) == stop_length:
             all_paths.append(current[:])

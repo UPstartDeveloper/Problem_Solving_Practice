@@ -17,11 +17,11 @@ Scope:
 - where - desktop
 
 Key Objects:
-    1. Folder: M-way tree folder strcutres
+    1. Folder: M-way tree folder strcutres ✅
         - children: contains files/more folders
         - location: str
     2. File -- dictionary
-        - file_name: str
+        - file_name: str ✅
         - memory_size: float
         - location: str
         - content: Any
@@ -29,7 +29,7 @@ Key Objects:
 Relationships:
     - 1 files --- 1 location
     - Tree --> File
-    - File -- Tree
+    - File -- Tree ✅
 
 Actions:
 1. create (folder)
@@ -55,15 +55,37 @@ Actions:
 
 
 class FileSystemObject:
-    def __init__(self, location=""):
-        self.location = location
+    # TODO: add a property "object_name" for both that comes from splitting the location
+    def __init__(self, location):
+        self.location = location  # absolute path
+        folder_names = location.split("/")
+        self.object_name = ""
+        if len(folder_names) > 0:
+            self.object_name = folder_names[-1]
 
 
-class File:
-    def __init__(self, file_name, memory_size, location, content):
+class File(FileSystemObject):
+    def __init__(self, location, memory_size, content):
         super().__init__(location)
-        self.data = {"file_name": file_name, "size": memory_size, "content": content}
+        self.data = {"size": memory_size, "content": content}
 
 
-class Folder:
-    pass
+class Folder(FileSystemObject):
+    def __init__(self, location, children=dict()):
+        super().__init__(location)  # only gives the name of the folder itself
+        self.children = children  # map object_name --> FileSystemObject
+
+
+class FileSystem:
+    """An M-way tree"""
+    def __init__(self):
+        self.root = Folder("/")
+
+    def create_folder(self, full_path):
+        """
+        Expects an absolute path
+
+        ex: /Users/zain/Downloads
+        
+        """
+        pass
