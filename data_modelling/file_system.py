@@ -78,6 +78,7 @@ class Folder(FileSystemObject):
 
 class FileSystem:
     """An M-way tree"""
+
     def __init__(self):
         self.root = Folder("/")
 

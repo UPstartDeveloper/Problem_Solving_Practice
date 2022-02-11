@@ -69,11 +69,11 @@ class Solution:
         """
         ### HELPERS
         pass
-    
+
         ### MAIN
         # A: init the output
         num_pairs = 0
-        
+
         # B: count the pairs
         if k == 0:
             histogram = Counter(nums)
@@ -95,6 +95,6 @@ class Solution:
                 if upper in nums_set:
                     pairs.add((num, upper))
             num_pairs = len(pairs)
-            
+
         # C: output
         return num_pairs
