@@ -36,29 +36,31 @@ class Solution:
             null root --> return False
             
         Approach:
-        
-            Subproblem: @node, what is all r2l sums?
-                Base: node is a leaf
-                    return node.val
-                Recursive:
-                    n2l_sums = [recurse on each child]
-                    return node.val + n2l_sums
+            
+            O(n) time, potentially O(n) space:
+                Subproblem: @node, what are all r2l sums?
+                    Base: node is a leaf
+                        return node.val
+                    Recursive:
+                        n2l_sums = [recurse on each child]
+                        return node.val + n2l_sums
                 
             At the root --> return if tS in its r2L sums
         
         """
         ### HELPER
         def _check_node_to_leaf_sums(node, sum_so_far):
-            if node:
-                # visit this node
+            """recursive pre-order DFS"""
+            if node is not None:
+                # "visit" this node
                 sum_so_far += node.val
                 if node.left or node.right:
                     # recurse downstream
-                    for c in [node.left, node.right]:
-                        if c:
-                            _check_node_to_leaf_sums(c, sum_so_far)
+                    for child in [node.left, node.right]:
+                        if child is not None:
+                            _check_node_to_leaf_sums(child, sum_so_far)
                 else:  # at leaves only
-                    # afterward - see if we can have reached the target
+                    # see if we have reached the target
                     if sum_so_far == targetSum and not self.is_path_sum:
                         self.is_path_sum = True
             
