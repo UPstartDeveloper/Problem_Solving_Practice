@@ -4,7 +4,7 @@ from typing import List
 class Solution:
     DIRECTIONS = [
         (0, -1),  # left
-        (0, 1),   # right
+        (0, 1),  # right
         (1, 0),  # down
         (-1, 0),  # up
         (1, -1),  # bottom left
@@ -12,6 +12,7 @@ class Solution:
         (-1, -1),  # up left
         (-1, 1),  # up right
     ]
+
     def gameOfLife(self, board: List[List[int]]) -> None:
         """
         Leetcode: https://leetcode.com/problems/game-of-life/
@@ -27,12 +28,12 @@ class Solution:
         """
         ### HELPER
         def _invert_bit(row_index, col_index):
-            '''1 --> 0, and 0 --> 1'''
+            """1 --> 0, and 0 --> 1"""
             bit = board[row_index][col_index]
             board[row_index][col_index] = bit ^ 1
-            
+
         def _count_live_neighbor(row_index, col_index):
-            '''TODO: traverse the 8 directions, see which is live'''
+            """TODO: traverse the 8 directions, see which is live"""
             count = 0
             for row_change, col_change in self.DIRECTIONS:
                 neighbor_row = nr = row_index + row_change
@@ -42,20 +43,20 @@ class Solution:
                     if board[nr][nc] == 1:
                         count += 1
             return count
-            
+
         def _needs_change(row_index, col_index) -> bool:
-            # A: current state? 
+            # A: current state?
             state = board[row_index][col_index]
             # B: TODO: # of live neighbors?
             num_live = _count_live_neighbor(row_index, col_index)
-            # C: evaulate the appropiate 
+            # C: evaulate the appropiate
             if state == 1 and (num_live < 2 or num_live > 3):
                 return True
             elif state == 0 and num_live == 3:
                 return True
             # needs no change
             return False
-            
+
         ### MAIN
         # A: init a set of coords
         coords = set()
