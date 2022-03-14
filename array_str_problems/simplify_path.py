@@ -91,5 +91,5 @@ class Solution:
         canonical_path = cp = _convert_abs_to_canonical(parsed_path)
                             
         # 3) final conversion --> str
-        pre_canonical_path = ["/", "/".join(cp)]  
-        return "".join(pre_canonical_path)
+        output_as_list = ["/", "/".join(cp)]  
+        return "".join(output_as_list)
