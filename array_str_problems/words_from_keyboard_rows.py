@@ -3,7 +3,7 @@ from typing import List
 
 class Solution:
     """
-    Suppose you’re given a list of words. 
+    Suppose you're given a list of words. 
     Using this list, 
         return only the words that can be typed by using letters of the alphabet 
         on a single row 
