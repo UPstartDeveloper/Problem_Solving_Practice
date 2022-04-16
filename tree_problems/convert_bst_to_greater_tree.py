@@ -9,6 +9,8 @@ class TreeNode:
 class Solution:
     def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         """
+        LeetCode: https://leetcode.com/problems/convert-bst-to-greater-tree/
+        
         Intuition
             in order DFS
             
