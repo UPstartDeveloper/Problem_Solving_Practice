@@ -9,7 +9,7 @@ class Solution:
             "left": (0, -1)
         }
         
-    def generate_matrix(self, n: int) -> List[int]:
+    def generate_matrix(self, n: int) -> List[List[int]]:
         """
         Leetcode: https://leetcode.com/problems/spiral-matrix-ii/
         
