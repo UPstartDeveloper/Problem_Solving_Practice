@@ -36,9 +36,11 @@ class PeekingIterator:
             
         EC:
             1) multiple calls to peek() in a row?
+        
+        Solution --> O(1) time and space, amortized
         """
         self.iter = iterator
-        self.cache = deque()  # FIFO
+        self.cache = deque()  # could also just be a list
         
     def peek(self):
         """
@@ -47,7 +49,7 @@ class PeekingIterator:
         """
         if len(self.cache) == 0:
             current_elem = self.iter.next()
-            self.cache.append(current_elem)
+            self.cache.append(current_elem) # this len() always <= 1
         return self.cache[0]
 
     def next(self):
