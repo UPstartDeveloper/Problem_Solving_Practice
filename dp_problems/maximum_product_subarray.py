@@ -69,40 +69,38 @@ prefix_prods 2. 6. -12  48
         """
         ### HELPERS
         def _find_largest_smallest(mode):
-            # A: init vars 
+            # A: init vars
             running_prod = rp = 1
             largest_product = float("-inf")
             smallest_product = float("inf")
-            
-            # B: loop through the arr --> find the largest/smallest ===> 
+
+            # B: loop through the arr --> find the largest/smallest ===>
             if mode == "forward":
                 start, stop, change = 0, len(nums), 1
             else:  # mode == "backward"
                 start, stop, change = len(nums) - 1, -1, -1
             for index in range(start, stop, change):
-                
+
                 elem = nums[index]
                 # a) update rp with current elem
                 if elem == 0:
                     rp = 0
                 else:
                     rp *= elem
-                    
+
                 # b) update l/s
                 largest_product = max(rp, largest_product)
                 smallest_product = min(rp, smallest_product)
 
                 if elem == 0:
                     rp = 1
-            
+
             # all done!
             return largest_product
-        
-        
+
         ### MAIN
-        # A: find prefix and suffix prods 
+        # A: find prefix and suffix prods
         largest_product_fwd = _find_largest_smallest("forward")
         largest_product_back = _find_largest_smallest("backward")
         # B: all done!
         return max(largest_product_fwd, largest_product_back)
-        

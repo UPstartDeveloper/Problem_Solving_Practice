@@ -3,7 +3,7 @@ from collections import deque
 
 class Node:
     # Definition for a Node.
-    def __init__(self, val = 0, neighbors = None):
+    def __init__(self, val=0, neighbors=None):
         self.val = val
         self.neighbors = neighbors if neighbors is not None else []
 
@@ -33,7 +33,7 @@ class Solution:
         """
         ### HELPERS
         def _bfs(node):
-            '''assuming node is not None, has a val == 1'''
+            """assuming node is not None, has a val == 1"""
             clone, q, visited = dict(), deque([node]), set()
             while q:
                 node = q.popleft()
@@ -50,13 +50,11 @@ class Solution:
                         clone[neighbor.val] = Node(neighbor.val)
                     cloned_neighbor = clone[neighbor.val]
                     # we'll come back to this "street"; make it 1-way for now
-                    cloned_node.neighbors.append(cloned_neighbor)  
+                    cloned_node.neighbors.append(cloned_neighbor)
             return clone
-        
+
         ### MAIN
         if node is not None:
             # A: generate adj list
             clone = _bfs(node)
             return clone[1]  # int --> Node
-
-  

@@ -1,4 +1,4 @@
-fromm typing import List
+from typing import List
 
 
 class Solution:
@@ -46,5 +46,3 @@ class Solution:
         # C: overwrite nums1
         for index1 in range(len(nums1)):
             nums1[index1] = merged[index1]
-
-        

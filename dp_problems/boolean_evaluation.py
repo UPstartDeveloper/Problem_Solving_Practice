@@ -34,24 +34,27 @@ class Solution:
             for idx, char in enumerate(list(expression)):
                 if char in {"&", "|", "^"}:
                     if (
-                        not (0 < idx < len(expression) - 1) or
-                        not expression[idx - 1].isnumeric() or 
-                        not expression[idx + 1].isnumeric()
+                        idx == 0
+                        or idx == (len(expression) - 1)
+                        or not expression[idx - 1].isnumeric()
+                        or not expression[idx + 1].isnumeric()
                     ):
-                        raise ValueError(f"The expression {expression} has malformed operators.")
+                        raise ValueError(
+                            f"The expression {expression} has malformed operators."
+                        )
                 elif char in {"0", "1"}:
                     if (
-                        (idx < len(expression) - 1 and expression[idx + 1].isnumeric()) 
-                         or 
-                        (idx > 0 and expression[idx - 1].isnumeric()) 
-                    ):
-                        raise ValueError(f"The expression {expression} has malformed operands.")
+                        idx < len(expression) - 1 and expression[idx + 1].isnumeric()
+                    ) or (idx > 0 and expression[idx - 1].isnumeric()):
+                        raise ValueError(
+                            f"The expression {expression} has malformed operands."
+                        )
 
         ### DRIVER
         # A: check for edge cases
-        if len(expression) == 0:
-            return 0  # empty str
         _validate_str(expression)
+        if len(expression) == 0:  # empty str
+            return 0
         # B: TODO: assign labels to each operator
         ...
         # C: TODO: generate all possible orders of operation

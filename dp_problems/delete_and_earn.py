@@ -68,13 +68,11 @@ class Solution:
                     return True
                 size += 1
             return size == 0
-        
+
         ### MAIN
         # EC: invalid input
         if _input_invalid(nums):
-            raise ValueError(
-                f"Check that {nums} contains >= ints > 0"
-            )
+            raise ValueError(f"Check that {nums} contains >= ints > 0")
         # A: compute # points gain'd from taking 1 element type
         points = defaultdict(int)
         for num in nums:
@@ -84,12 +82,8 @@ class Solution:
         # C: find answer
         for num in range(2, max(nums) + 1):
             # we end w/ greatest elem type; so forget about elem+1
-            all_points_between_0_and_num = max(
-                one_back, two_back + points.get(num, 0)
-            )  
+            all_points_between_0_and_num = max(one_back, two_back + points.get(num, 0))
             # move on to the next subproblem
-            two_back, one_back = (
-                one_back, all_points_between_0_and_num
-            )
+            two_back, one_back = (one_back, all_points_between_0_and_num)
         # D: all done!
         return one_back

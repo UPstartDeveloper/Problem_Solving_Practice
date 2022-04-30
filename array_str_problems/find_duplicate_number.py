@@ -42,7 +42,7 @@ class Solution:
                         return nums[index1]
             # edge case: no duplicates
             return 0
-        
+
         def _search_for_duplicate_linear(nums) -> int:
             "solution for special case where # unique = n"
             largest = n = max(nums)
@@ -50,13 +50,14 @@ class Solution:
             sum_of_duplicates = sum(nums) - sum_of_unique
             num_of_duplicates = len(nums) - n
             return sum_of_duplicates // num_of_duplicates
-        
+
         ### DRIVER
         # A: Brute force: check all pairs of numbers
         return _search_for_duplicate(nums)
         # B: optimized approach
         # return _search_for_duplicate_linear(nums)
-    
+
+
 """
 [3,1,3,4,2]
  1
@@ -65,4 +66,3 @@ collections - sets, lists, dictionaries, heaps
 constant extra space - fixed size array, pointers
 
 """
-        

@@ -67,10 +67,10 @@ class Solution:
                 # recursive: go right
                 else:  # target > me
                     lo = mid + 1
-                
+
             # not found
             return -1
-        
+
         def _search_ending(target):
             lo, hi = 0, len(nums) - 1
             while lo <= hi:
@@ -79,9 +79,8 @@ class Solution:
                 # base case: answer found
                 if me == target:
                     # did we find the first?
-                    if (
-                        (mid == len(nums) - 1) or 
-                        (mid < len(nums) -1 and nums[mid + 1] != target)
+                    if (mid == len(nums) - 1) or (
+                        mid < len(nums) - 1 and nums[mid + 1] != target
                     ):
                         return mid
                 # recursive: go left
@@ -90,17 +89,15 @@ class Solution:
                 # recursive: go right
                 elif target >= me:  # target > me
                     lo = mid + 1
-                
+
             # not found
             return -1
-            
-        
+
         ### MAIN
         interval = [-1, -1]
         if len(nums) > 0:
             # TODO: populate the interval
             interval[0] = _search_start(target)  # TODO
             interval[1] = _search_ending(target)  # TODO
-        
+
         return interval
-        

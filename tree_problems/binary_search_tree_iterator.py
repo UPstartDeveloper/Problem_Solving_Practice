@@ -9,12 +9,11 @@ class TreeNode:
 
 
 class BSTIterator:
-
     def __init__(self, root: Optional[TreeNode]):
         """LeetCode: https://leetcode.com/problems/binary-search-tree-iterator/"""
         # iterative, vanilla in-order DFS
         self.node, self.stack = root, list()  # last index is the top
-    
+
     def next(self) -> int:
         """moves the pointer to the right, returns the value at the node"""
         while self.node:
@@ -26,7 +25,6 @@ class BSTIterator:
 
     def hasNext(self) -> bool:
         return self.node is not None or len(self.stack) > 0
-        
 
 
 # Your BSTIterator object will be instantiated and called as such:

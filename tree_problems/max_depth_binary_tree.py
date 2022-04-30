@@ -9,6 +9,7 @@ class TreeNode:
 
 from collections import deque
 
+
 class Solution:
     def maxDepthBFS(self, root: TreeNode) -> int:
         depth = 0
@@ -33,14 +34,14 @@ class Solution:
     ########################################################################
     # DFS APProach
     ########################################################################
-        
-    
+
     class TreeNode:
-    """Definition for a binary tree node."""
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+        """Definition for a binary tree node."""
+
+        def __init__(self, val=0, left=None, right=None):
+            self.val = val
+            self.left = left
+            self.right = right
 
 
 class Solution:
@@ -75,12 +76,11 @@ class Solution:
                 else:
                     _max_depth_search(node.left, current_depth + 1)
                     _max_depth_search(node.right, current_depth + 1)
-            
-        ### MAIN 
+
+        ### MAIN
         # A: init max_depth - TODO[refactor if needed]
         self.max_depth = 0
         # B: check edge case
         if root is not None:
             _max_depth_search(root)  # goal: find max_depth
         return self.max_depth
-        

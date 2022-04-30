@@ -43,23 +43,25 @@ class Solution:
         # Edge Case
         if len(nums) == 0:
             return []
-        
+
         # Find the value where each range "begins"
         starts = [nums[0]]
-        starts.extend([
-            elem for index, elem in enumerate(nums)
-            if index > 0 and
-            elem >= nums[index - 1] + 2
-        ])
-        
+        starts.extend(
+            [
+                elem
+                for index, elem in enumerate(nums)
+                if index > 0 and elem >= nums[index - 1] + 2
+            ]
+        )
+
         # Locate the correspond end value for each range
         ends = [
-            elem for index, elem in enumerate(nums)
-            if index < len(nums) - 1 and
-            elem <= nums[index + 1] - 2
+            elem
+            for index, elem in enumerate(nums)
+            if index < len(nums) - 1 and elem <= nums[index + 1] - 2
         ]
         ends.append(nums[-1])
-        
+
         # Form the output
         out = []
         for start, end in zip(starts, ends):
@@ -68,6 +70,6 @@ class Solution:
                 out.append(str(start))
             else:
                 out.append(f"{start}->{end}")
-                
+
         # All done!
         return out

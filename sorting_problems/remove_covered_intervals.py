@@ -63,10 +63,7 @@ class Solution:
                 start_g, end_g = g
                 start_i, end_i = interval
                 # get min of starts/maxes of ends
-                bounds = [
-                    min(start_g, start_i),
-                    max(end_g, end_i)
-                ]
+                bounds = [min(start_g, start_i), max(end_g, end_i)]
                 print("comparing", g, interval, bounds)
                 # place the larger interval in groups
                 if bounds == interval or bounds == g:
@@ -77,9 +74,8 @@ class Solution:
                 groups.append(interval)
         # 3) return length of 2D list
         return len(groups)
-        
-       
-    
+
+
 """
 groups = [
     [1, 4],    < -- group
@@ -101,4 +97,3 @@ ei = 4
 bounds = [1, 6]
 
 """
-        

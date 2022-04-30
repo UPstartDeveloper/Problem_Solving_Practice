@@ -1,5 +1,6 @@
 class TreeNode:
     """Definition for a binary tree node."""
+
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
@@ -26,7 +27,7 @@ class Solution:
                     # go down the right branch
                     node = node.right
             return visited
-        
+
         ### DRIVER
         new_root = nr = root
         if root is not None:

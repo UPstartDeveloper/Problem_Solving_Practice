@@ -96,10 +96,11 @@ class Solution:
                     update the key with (min of starts, max times)
             # return dict        
     """
+
     def maximize_revenue(self, jobs: List[List[int]]) -> int:
         ### HELPERS
         def _group_jobs(jobs):
-            # init the dict 
+            # init the dict
             job_groups = dict()
             # traverse jobs
             for start1, end1, revenue in jobs:
@@ -119,12 +120,12 @@ class Solution:
                     # init a key-value pair
                     job_groups[(start1, end1)] = revenue
             # return dict
-            return job_groups 
-        
+            return job_groups
+
         ### DRIVER
         # A&B: merge all the overlapping jobs
         job_groups = _group_jobs(jobs)
-        #C: acculmulate max by the highest revenue of the sub-jobs
+        # C: acculmulate max by the highest revenue of the sub-jobs
         max_revenue = sum(job_groups.values())
         # D: return output!!
         return print(f"Optimal profit for this set of jobs is: {max_revenue}")
@@ -132,12 +133,12 @@ class Solution:
 
 if __name__ == "__main__":
     jobs = [
-        [1, 2, 50], 
-        [1, 2, 100], 
-        [7, 25, 100], 
-        [6, 21, 45], 
-        [3, 50, 200], 
-        [7, 50, 400]
+        [1, 2, 50],
+        [1, 2, 100],
+        [7, 25, 100],
+        [6, 21, 45],
+        [3, 50, 200],
+        [7, 50, 400],
     ]
     sol = Solution()
     sol.maximize_revenue(jobs)

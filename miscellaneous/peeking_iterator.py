@@ -41,7 +41,7 @@ class PeekingIterator:
         """
         self.iter = iterator
         self.cache = deque()  # could also just be a list
-        
+
     def peek(self):
         """
         Returns the next element in the iteration without advancing the iterator.
@@ -49,7 +49,7 @@ class PeekingIterator:
         """
         if len(self.cache) == 0:
             current_elem = self.iter.next()
-            self.cache.append(current_elem) # this len() always <= 1
+            self.cache.append(current_elem)  # this len() always <= 1
         return self.cache[0]
 
     def next(self):
@@ -59,13 +59,13 @@ class PeekingIterator:
         if len(self.cache) > 0:
             return self.cache.popleft()
         return self.iter.next()
-        
+
     def hasNext(self):
         """
         :rtype: bool
         """
         return len(self.cache) > 0 or self.iter.hasNext()
-        
+
 
 # Your PeekingIterator object will be instantiated and called as such:
 # iter = PeekingIterator(Iterator(nums))

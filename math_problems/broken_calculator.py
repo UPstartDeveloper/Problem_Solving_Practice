@@ -45,7 +45,7 @@ class Solution:
         """
         ### HELPER
         pass
-        
+
         ### DRIVER
         # EC:
         if startValue == target:
@@ -72,5 +72,3 @@ class Solution:
             level_no += 1
         # C: no path found?
         raise ValueError(f"Cannot fix calculator {sV} into {t}")
-        
-        

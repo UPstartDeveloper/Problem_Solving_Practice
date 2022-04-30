@@ -37,12 +37,8 @@ class Solution:
         ### HELPERs
         def _as_int(current_perm):
             """assumes the input has >= 3 int elems"""
-            return (
-                (100 * current_perm[0]) +
-                (10 * current_perm[1])  +
-                (current_perm[2])
-            )
-        
+            return (100 * current_perm[0]) + (10 * current_perm[1]) + (current_perm[2])
+
         def _form_permutations(h, digits):
             all_perms = ap = list()
             # 1st loop: can be any nonzero digit
@@ -56,7 +52,7 @@ class Solution:
                         if Counter(p) <= h:
                             ap.append(p)
             return ap
-     
+
         ### MAIN
         # A: tally value counts
         histogram = h = Counter(digits)  # O(n)

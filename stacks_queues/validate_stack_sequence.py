@@ -45,7 +45,7 @@ class Solution:
                 if pushed_ndx finised AND validator.is_empty() -> T/F
                 
                     
-        """        
+        """
         ### MAIN
         # A: init a validator stack
         stack = []
@@ -57,9 +57,9 @@ class Solution:
             # if we've pushed an elem -> then pop it before pushing any others
             while (
                 # avoid index errors
-                popped_ndx < len(popped) and 
-                len(stack) > 0 and 
-                stack[-1] == popped[popped_ndx]
+                popped_ndx < len(popped)
+                and len(stack) > 0
+                and stack[-1] == popped[popped_ndx]
             ):
                 stack.pop()
                 popped_ndx += 1

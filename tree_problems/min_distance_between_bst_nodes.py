@@ -3,6 +3,7 @@ from typing import Optional
 
 class TreeNode:
     """Definition for a binary tree node."""
+
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
@@ -48,7 +49,7 @@ class Solution:
                 diff = values[ndx1 + 1] - values[ndx1]
                 min_diff = min(diff, min_diff)
             return min_diff
-        
+
         def _min_diff_pointers(node, prev=-1):
             # Base case: node is a leaf
             if node:
@@ -60,16 +61,10 @@ class Solution:
                 prev = node.val
                 _min_diff_pointers(node.right, prev)
             return self.min_diff
-                
-            
-        
+
         ### APPROACH #1: using an array + DFS (linear t/s)
         return _min_diff_arr(root)
-        
+
         ### APPROACH #2: pointers  (linear t, tree needs balance)
         # self.min_diff = float("inf")
         # return _min_diff_pointers(root)
-        
-        
-
-        

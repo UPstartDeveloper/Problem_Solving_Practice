@@ -3,16 +3,19 @@ from typing import Optional
 
 class ListNode:
     """Definition for singly-linked list."""
+
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
-        
-        
+
+
 class Solution:
-    
+
     BASE = 10
-    
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+
+    def addTwoNumbers(
+        self, l1: Optional[ListNode], l2: Optional[ListNode]
+    ) -> Optional[ListNode]:
         """
         Input:
             2 immutable, non-empty, int LL
@@ -44,7 +47,7 @@ class Solution:
                     node.next = ListNode(digit)
                     node = node.next
             return head
-        
+
         def _decode(head):
             """given a SLL ---> give the int equivalent"""
             # A: determine length
@@ -63,7 +66,7 @@ class Solution:
                 pos += 1
             # C: return the total value of this LL
             return total
-        
+
         def _reverse(head):
             """reverse a SLL in O(n), O(1) space"""
             prev, curr = None, head
@@ -75,13 +78,13 @@ class Solution:
                 prev = curr
                 curr = s
             return prev
-    
+
         ### MAIN
         # A: decode both lists ---> base 10 ints
-        values = [_decode(head) for head in [l1, l2]]  
+        values = [_decode(head) for head in [l1, l2]]
         # B: sum
         total = sum(values)
         # C: encode as a SLL
-        l3 = _reverse(_encode(total))  
+        l3 = _reverse(_encode(total))
         # D: return the output
         return l3

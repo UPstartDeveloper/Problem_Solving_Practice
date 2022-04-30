@@ -3,6 +3,7 @@ from typing import Optional
 
 class TreeNode:
     """Definition for a binary tree node."""
+
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
@@ -63,7 +64,7 @@ class Solution:
                     # see if we have reached the target
                     if sum_so_far == targetSum and not self.is_path_sum:
                         self.is_path_sum = True
-            
+
         ### MAIN
         self.is_path_sum = False
         if root is not None:

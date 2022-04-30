@@ -50,7 +50,7 @@ class Solution:
                 
         
         """
-        ### HELPER 
+        ### HELPER
         def _check_palindrome(p1, p2):
             while p1 < p2:
                 if s[p1] != s[p2]:
@@ -59,7 +59,7 @@ class Solution:
                 p1 += 1
                 p2 -= 1
             return p1, p2
-        
+
         ### DRIVER
         # A: try to validate the whole string
         p1, p2 = 0, len(s) - 1
@@ -72,7 +72,7 @@ class Solution:
                 if (-2 in is_palindrome_without_p2) and (-2 in is_pal_without_p1):
                     return False
                 # A3: string still works, let's move on (w/ no duplicate checks)
-                elif (-2 not in is_palindrome_without_p2):
+                elif -2 not in is_palindrome_without_p2:
                     p1, p2 = is_palindrome_without_p2
                 else:
                     p1, p2 = is_pal_without_p1
@@ -82,5 +82,3 @@ class Solution:
                 p2 -= 1
         # B: all done!
         return True
-        
-        

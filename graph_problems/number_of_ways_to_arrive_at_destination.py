@@ -59,16 +59,16 @@ class Solution:
                 graph[node2].append((node1, time))
             # all done!
             return graph
-            
+
         def add_time(node_id, time_so_far, visited):
-            if time_so_far in self.time_num_paths:  
+            if time_so_far in self.time_num_paths:
                 self.time_num_paths[time_so_far] += 1
             elif time_so_far not in self.time_num_paths:
                 self.time_num_paths[time_so_far] = 1
-                
+
         def _dfs(node_id, time_so_far, visited):
             # visit
-            visited.add(node_id)    
+            visited.add(node_id)
             # keep going
             for neighbor_id, road_time in graph[node_id]:
                 # check if not visited_already
@@ -82,16 +82,13 @@ class Solution:
                         _dfs(neighbor_id, new_time, visited)
             # remove_node from visited
             visited.remove(node_id)
-                            
-                
+
         ### MAIN
         # 1. construct Graph as adj list
         graph = _construct_graph(n, roads)  # TODO
         # 2. find all the times of all paths between 0 --> n- 1
         self.time_num_paths = dict()
-        _dfs(0, 0, set()) 
+        _dfs(0, 0, set())
         # 3. find min_time in time_num_paths
         min_time = min(self.time_num_paths.keys())
         return self.time_num_paths[min_time]
-        
-        

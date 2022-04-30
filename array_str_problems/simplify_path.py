@@ -68,7 +68,7 @@ class Solution:
                 if len(path_obj) == 0 or path_obj == ".":
                     parsed_path[index] = 0
             return parsed_path
-                
+
         def _convert_abs_to_canonical(parsed_path):
             canonical_path = cp = []  # our "stack"
             # traverse output:
@@ -80,16 +80,16 @@ class Solution:
                         cp.append(path_obj)
                     # and if it's == ".." and len(cp) > 0:
                     elif len(cp) > 0:
-                        cp.pop()     
+                        cp.pop()
             return cp
-                        
+
         ### MAIN
         # 1) parse the abs path
-        parsed_path = _parse(path)  
-                    
+        parsed_path = _parse(path)
+
         # 2) gather all the dirs
         canonical_path = cp = _convert_abs_to_canonical(parsed_path)
-                            
+
         # 3) final conversion --> str
-        output_as_list = ["/", "/".join(cp)]  
+        output_as_list = ["/", "/".join(cp)]
         return "".join(output_as_list)

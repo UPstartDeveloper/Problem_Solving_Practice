@@ -71,14 +71,12 @@ class Solution:
                 else:
                     index += 1
             return traps
-        
+
         def _compute_trapped_vol(traps):
             vol = 0
             # @each trap:
             for left_ndx, right_ndx in traps:
-                left_height, right_height = (
-                    height[left_ndx], height[right_ndx]
-                )
+                left_height, right_height = (height[left_ndx], height[right_ndx])
                 water_height = min(left_height, right_height)
                 # @each pos in the seq (including boundaries):
                 for pos in range(left_ndx, right_ndx + 1):
@@ -87,7 +85,7 @@ class Solution:
                     if pos_height < water_height:
                         vol += water_height - pos_height
             return vol
-        
+
         ### MAIN
         # A: scan left-right - get largest preceding heights
         lr_scan = [0 for _ in range(len(height))]
@@ -108,4 +106,3 @@ class Solution:
         for ht, left, right in zip(height, lr_scan, rl_scan):
             vol += min(left, right) - ht
         return vol
-        

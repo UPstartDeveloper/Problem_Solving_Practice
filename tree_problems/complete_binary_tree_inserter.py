@@ -8,7 +8,6 @@ from collections import deque
 #         self.left = left
 #         self.right = right
 class CBTInserter:
-
     def __init__(self, root: Optional[TreeNode]):
         self.root = root
 
@@ -32,7 +31,6 @@ class CBTInserter:
     def get_root(self) -> Optional[TreeNode]:
         if self.root:
             return self.root
-        
 
 
 # Your CBTInserter object will be instantiated and called as such:

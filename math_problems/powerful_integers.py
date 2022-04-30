@@ -37,17 +37,17 @@ class Solution:
                 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
                     ^
         """
-        ### HELPRS        
+        ### HELPRS
         def _get_closest_sq_root(x, base):
             if base == 1:
                 return 1
             return math.floor(math.log(x, base))
-        
+
         def _sum_set(x, y, bound):
-            # A: get closest square roots of x y 
+            # A: get closest square roots of x y
             x_root = _get_closest_sq_root(bound, x)
             y_root = _get_closest_sq_root(bound, y)
-            # B: compute all their sums 
+            # B: compute all their sums
             sum_set = set()
             for x_exp in range(0, x_root + 1):
                 for y_exp in range(0, y_root + 1):
@@ -55,10 +55,10 @@ class Solution:
                     sum_val = sum([x ** x_exp, y ** y_exp])
                     if sum_val <= bound:
                         sum_set.add(sum_val)
-                
+
             # return answers
             return list(sum_set)
-        
+
         ### MAIN
         # Edge Cases:
         if bound < 2:

@@ -3,13 +3,17 @@ from typing import Optional
 
 class TreeNode:
     """Definition for a binary tree node."""
+
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
 
+
 class Solution:
-    def trimBST(self, root: Optional[TreeNode], low: int, high: int) -> Optional[TreeNode]:
+    def trimBST(
+        self, root: Optional[TreeNode], low: int, high: int
+    ) -> Optional[TreeNode]:
         """
         LeetCode:
             https://leetcode.com/problems/trim-a-binary-search-tree/
@@ -41,7 +45,7 @@ class Solution:
                     return _find_root(node.left)
                 elif low <= node.val <= high:
                     return node
-        
+
         def _trim(node):
             if node:
                 # figure out which children to keep
@@ -52,7 +56,7 @@ class Solution:
                 if node.right:
                     node.right = _find_root(node.right)
                 _trim(node.right)
-        
+
         ### DRIVER
         # A
         root = _find_root(root)
@@ -60,4 +64,3 @@ class Solution:
         _trim(root)  # assuming this (possibly new) root is valid
         # C
         return root
-        

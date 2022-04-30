@@ -1,7 +1,7 @@
 from typing import List
 
 
-class Solution:        
+class Solution:
     def largestSumOfAverages(self, nums: List[int], k: int) -> float:
         """
         Leetcode: https://leetcode.com/problems/largest-sum-of-averages/
@@ -37,7 +37,7 @@ class Solution:
         """
         ### HELPERS
         def _backtracking_helper(all_ways, total, num_parts, current_way):
-            # Base: 
+            # Base:
             if len(current_way) == k and sum(current_way) == len(nums):
                 all_ways.add(tuple(current_way[:]))
             # Recursive: keep finding more values
@@ -52,30 +52,31 @@ class Solution:
                     current_way.append(partition_len)
                     # recurse
                     nums_remaining = total - partition_len
-                    _backtracking_helper(all_ways, nums_remaining, 
-                                         partitions_left, current_way)
+                    _backtracking_helper(
+                        all_ways, nums_remaining, partitions_left, current_way
+                    )
                     # "backtrack" for next iteration
                     current_way.pop()
             # all done!
             return all_ways
-                    
+
         def _compute_all_schemes(total, num_parts):
             """finds all the ways to add k positive ints up to total"""
             all_ways = set()
             return _backtracking_helper(all_ways, total, num_parts, [])
-        
+
         def _compute_score(nums, scheme):
             """given a list of how long to make each subarr --> compute score"""
             sums, nums_index, scheme_index = list(), 0, 0
             # for each subarray - compute its sum
             while scheme_index < len(scheme):
                 next_part = scheme[scheme_index]
-                sums.append(sum(nums[nums_index:nums_index + next_part]))
+                sums.append(sum(nums[nums_index : nums_index + next_part]))
                 nums_index += next_part
                 scheme_index += 1
             # return overall score
             return sum([sum_val / length for sum_val, length in zip(sums, scheme)])
-                
+
         ### MAIN
         self.max_score = 0
         # A: find all possible partitions (by lengths)
@@ -86,7 +87,5 @@ class Solution:
             # compute score avgs of each subarr, and update output
             score = _compute_score(nums, scheme)  # TODO[code]
             self.max_score = max(self.max_score, score)
-        # C: take the max 
+        # C: take the max
         return self.max_score
-        
-        

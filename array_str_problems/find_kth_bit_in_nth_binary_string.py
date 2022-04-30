@@ -32,19 +32,13 @@ class Solution:
         """
         ### HELPERS
         def _modify(prev_str):
-            inverted = ''.join([
-              "1" if char == "0" else "0"
-               for char in list(prev_str)
-            ])
+            inverted = "".join(["1" if char == "0" else "0" for char in list(prev_str)])
             return inverted[::-1]
-        
+
         ### MAIN
         # A: form S_n
         last_str = "0"
         for index in range(1, n):  # n iterations
-            last_str = "".join([
-                last_str, str(1), _modify(last_str)  # O(2 * 2^n)
-            ])
+            last_str = "".join([last_str, str(1), _modify(last_str)])  # O(2 * 2^n)
         # B: return kth bit
         return last_str[k - 1]
-        

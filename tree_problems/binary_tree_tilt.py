@@ -3,6 +3,7 @@ from typing import Optional
 
 class TreeNode:
     """Definition for a binary tree node."""
+
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
@@ -56,7 +57,7 @@ class Solution:
         """
         ### HELPERS
         def _compute_tilt(node):
-            '''post-order DFS'''
+            """post-order DFS"""
             # Recursive case
             if node is not None:
                 # recurse on left, return sum of all left subtree values
@@ -68,7 +69,7 @@ class Solution:
                 return node.val + left_sum + right_sum
             # base case
             return 0
-        
+
         ### MAIN
         # init tilt
         self.tilt_sum = 0

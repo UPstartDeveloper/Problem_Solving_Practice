@@ -11,6 +11,7 @@ class Solution:
 
       the index for shortest person = # of people taller in front of him + # of shorter people in front of him + 1
     """
+
     def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
         # A: init queue
         queue = [-1 for p in people]

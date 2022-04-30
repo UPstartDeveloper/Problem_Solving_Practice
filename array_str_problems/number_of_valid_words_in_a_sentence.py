@@ -62,13 +62,11 @@ class Solution:
                     if hc < 1:
                         # - is it surrounded by letters?
                         if 0 < index < len(sub) - 1:
-                            if (
-                                (sub[index-1] in ascii_lowercase)
-                                and 
-                                (sub[index+1] in ascii_lowercase)
+                            if (sub[index - 1] in ascii_lowercase) and (
+                                sub[index + 1] in ascii_lowercase
                             ):
                                 hc += 1
-                                continue 
+                                continue
                     return False
                 # - is there 0 or (1 at the end) punc?
                 elif char in [".", ",", "!"]:
@@ -78,7 +76,7 @@ class Solution:
                         return False
             # all checks pass
             return True
-        
+
         ### DRIVER
         # A: split the string into space-separated substrings
         substrings = sentence.split()

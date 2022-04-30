@@ -1,11 +1,13 @@
 from typing import Optional
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
-        
-        
+
+
 class Solution:
     def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         """
@@ -32,14 +34,14 @@ class Solution:
         
         
         """
-        ### HELPERS        
+        ### HELPERS
         def _get_total(node, total):
             if node:
                 total = _get_total(node.left, total)
                 total += node.val
                 total = _get_total(node.right, total)
             return total
-        
+
         def _update_nodes(node, total, ssf=0):
             if node:
                 ssf = _update_nodes(node.left, total, ssf)
@@ -49,13 +51,12 @@ class Solution:
                 ssf += original
                 ssf = _update_nodes(node.right, total, ssf)
             return ssf
-        
+
         ### DRIVER
         if root is not None:
             # A: get total sum
             total = _get_total(root, 0)
             # B: update node values
             _update_nodes(root, total)
-        # C: return 
+        # C: return
         return root
-        

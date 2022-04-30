@@ -1,7 +1,9 @@
 from typing import Optional
 
+
 class TreeNode:
     """Definition for a binary tree node."""
+
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
@@ -42,7 +44,7 @@ class Solution:
                 if visits < k:
                     visits = _find_kth_smallest(node.right, visits)
             return visits
-        
+
         ### DRIVER
         # A: init return value
         self.kth = -1

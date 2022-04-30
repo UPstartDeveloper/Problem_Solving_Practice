@@ -40,7 +40,7 @@ class Solution:
                 if count > (len(nums) / 2):
                     return num
             return None
-        
+
         def _find_majority_using_iter(nums):
             """O(n^2) time, O(1) space"""
             threshold, index = len(nums) / 2, 0
@@ -54,15 +54,15 @@ class Solution:
                         count += 1
                         # swap
                         if (
-                            last_seen_index < len(nums) - 1 and
-                            nums[last_seen_index + 1] != elem
+                            last_seen_index < len(nums) - 1
+                            and nums[last_seen_index + 1] != elem
                         ):
-                            nums[other_ndx], nums[last_seen_index+1] = (
-                                nums[last_seen_index+1], 
-                                nums[other_ndx]
+                            nums[other_ndx], nums[last_seen_index + 1] = (
+                                nums[last_seen_index + 1],
+                                nums[other_ndx],
                             )
                             last_seen_index += 1
-                        
+
                         # early exit
                         if count > threshold:
                             break
@@ -72,7 +72,7 @@ class Solution:
                 # move index fwd
                 else:
                     index = last_seen_index + 1
-        
+
         def _find_majority_using_suffix(nums):
             """O(n) time, O(1) space"""
             count = 0
@@ -81,16 +81,14 @@ class Solution:
             for num in nums:
                 if count == 0:
                     candidate = num
-                count += (1 if num == candidate else -1)
+                count += 1 if num == candidate else -1
             # all done!
             return candidate
-        
+
         ### MAIN
         # 1: Histogram
-        # return _find_majority_using_dict(nums)  
+        # return _find_majority_using_dict(nums)
         # 2: nested for loops
-        # return _find_majority_using_iter(nums) 
+        # return _find_majority_using_iter(nums)
         # 3: use Boyer-Moore Voting Algo
         return _find_majority_using_suffix(nums)
-    
-        

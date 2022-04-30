@@ -15,7 +15,7 @@ class Solution:
                 left.extend(_find_ooo(node.left))
                 right.extend(_find_ooo(node.right))
                 # visit: see if the node we have is in order
-                
+
         ### DRIVER
         if root is not None:
             self.out_of_order = list()
@@ -29,4 +29,3 @@ class Solution:
             node1, node2 = self.out_of_order
             node1.val, node2.val = node2.val, node1.val
         return root
-        

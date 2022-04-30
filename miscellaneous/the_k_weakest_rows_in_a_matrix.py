@@ -74,18 +74,18 @@ class Solution:
 
         ### DRIVER
         # A: map {# soldier --> [row_indices]}
-        soldiers_of_rows = _get_soldiers_of_rows(mat)   # O(m * log(n))
+        soldiers_of_rows = _get_soldiers_of_rows(mat)  # O(m * log(n))
         # B: traverse the key-value pairs in sorted order
         weakest = w = list()
-        for row_indices in (soldiers_of_rows):  # n iteration
+        for row_indices in soldiers_of_rows:  # n iteration
             # adding rows to output
-            for index in row_indices:  # k iter 
+            for index in row_indices:  # k iter
                 if len(w) < k:
-                    w.append(index)  
+                    w.append(index)
                 else:
                     break
         # C: return the first k
-        return w 
+        return w
 
 
 # Time: O(m * log(n))

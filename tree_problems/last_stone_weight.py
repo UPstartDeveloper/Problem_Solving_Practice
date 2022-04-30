@@ -1,5 +1,6 @@
 class BinaryMaxHeap:
     """Source: https://github.com/UPstartDeveloper/CS-2.1-Trees-Sorting/blob/master/Code/priorityqueue.py"""
+
     def __init__(self, items=None):
         """Initialize this heap and insert the given items, if any."""
         # Initialize an empty list to store the items
@@ -37,7 +38,7 @@ class BinaryMaxHeap:
         # Swap this item with parent item if values are out of order
         if item > parent_item:
             self.items[index], self.items[parent_index] = parent_item, item
-        # Recursively bubble up again if necessary
+            # Recursively bubble up again if necessary
             if parent_index > 0:
                 new_parent_index = self._parent_index(parent_index)
                 if item > self.items[new_parent_index]:
@@ -71,7 +72,7 @@ class BinaryMaxHeap:
     def _parent_index(self, index):
         """Return the parent index of the item at the given index."""
         if index <= 0:
-            raise IndexError('Heap index {} has no parent index'.format(index))
+            raise IndexError("Heap index {} has no parent index".format(index))
         return (index - 1) >> 1  # Shift right to divide by 2
 
     def _left_child_index(self, index):
@@ -81,7 +82,7 @@ class BinaryMaxHeap:
     def _right_child_index(self, index):
         """Return the right child index of the item at the given index."""
         return (index << 1) + 2  # Shift left to multiply by 2
-    
+
 
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
@@ -161,7 +162,7 @@ class Solution:
         """
         # A: heapify the array at the start - O(n log n)
         heap = BinaryMaxHeap(stones)
-                
+
         # B: game loop ---> while len > 1:  ---> O(n log n)
         while heap.size() > 1:
 
