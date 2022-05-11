@@ -1,6 +1,8 @@
 class Solution:
-    def countVowelStrings(self, n: int) -> int:
+    def count_vowel_strings(self, n: int) -> int:
         """
+        LeetCode: https://leetcode.com/problems/count-sorted-vowel-strings/
+        
         Input: 
             pos int < 51
         
@@ -64,7 +66,6 @@ class Solution:
         return sum(dist)
     
     
-    
     # TEST CASES
     
     # n = 0  ✅
@@ -80,4 +81,4 @@ class Solution:
     # n = 2  ✅
     
     
-    # n = 33 --> no we run out of time? nno ---> but we do at 47
+    # n = 33 --> ✅
