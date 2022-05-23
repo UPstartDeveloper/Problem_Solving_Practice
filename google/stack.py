@@ -3,6 +3,7 @@ from list import LinkedList
 
 class ArrayStack:
     """last index is the top"""
+
     def __init__(self):
         self.stack = list()
 
@@ -20,6 +21,7 @@ class ArrayStack:
 
 class LinkedStack:
     """top of the stack is the head node"""
+
     def __init__(self):
         self.items = LinkedList()
 

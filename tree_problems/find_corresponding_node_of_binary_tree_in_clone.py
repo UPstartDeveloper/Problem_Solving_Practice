@@ -1,5 +1,6 @@
 class TreeNode:
     """Definition for a binary tree node."""
+
     def __init__(self, x):
         self.val = x
         self.left = None
@@ -7,7 +8,9 @@ class TreeNode:
 
 
 class Solution:
-    def get_target_copy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+    def get_target_copy(
+        self, original: TreeNode, cloned: TreeNode, target: TreeNode
+    ) -> TreeNode:
         """
         LeetCode: https://leetcode.com/problems/find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree/
         
@@ -35,28 +38,28 @@ class Solution:
         """
         ### HELPERS
         def _find_pos(original, target):
-            '''iterative in-orer DFS'''
+            """iterative in-orer DFS"""
             node, stack = original, list()  # top is last index
             visits = 0
-            
+
             while node or stack:
                 if node:
                     stack.append(node)
                     node = node.left
                 else:
                     node = stack.pop()
-                    
+
                     # "Visit"
                     visits += 1
                     if node == target:
                         break
-                    
+
                     node = node.right
-                
+
             return visits
-        
+
         def _find_node(node, target_pos, visits):
-            '''recursive in-order DFS'''
+            """recursive in-order DFS"""
             if node:
                 visits = _find_node(node.left, target_pos, visits)
                 visits += 1
@@ -65,19 +68,21 @@ class Solution:
                     self.corr_node = node
                 visits = _find_node(node.right, target_pos, visits)
             return visits
-        
+
         ### DRIVER
         # A: [edge case]
         if (
-            not isinstance(original, TreeNode) or 
-            not isinstance(cloned, TreeNode) or
-            not isinstance(target, TreeNode)
+            not isinstance(original, TreeNode)
+            or not isinstance(cloned, TreeNode)
+            or not isinstance(target, TreeNode)
         ):
-            raise ValueError("sorry, at least 1 of [original,cloned,target] is not a TreeNode")
+            raise ValueError(
+                "sorry, at least 1 of [original,cloned,target] is not a TreeNode"
+            )
         # B: 1st DFS -> locate the node
         node_pos = _find_pos(original, target)
         # C: 2nd DFS -> locate the clone
         self.corr_node = None
         if node_pos > 0:
-            _find_node(cloned, node_pos, 0) 
+            _find_node(cloned, node_pos, 0)
         return self.corr_node

@@ -14,7 +14,6 @@ class DLL:
         self.tail.prev = self.head
 
     def add(self, new_val, add_last=True):
-
         def _append(node):
             node.prev = self.tail.prev
             node.next = self.tail
@@ -41,7 +40,7 @@ class DLL:
         while node != self.tail and node.val != val:
             node = node.next
         return node
-    
+
     def find(self, val):
         found_node = self._search(val)
         if found_node.val == val:

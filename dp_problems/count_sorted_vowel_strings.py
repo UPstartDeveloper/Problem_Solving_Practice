@@ -46,7 +46,7 @@ class Solution:
             Space: O(1)
             
                
-        """        
+        """
         ### DRIVER
         # A: guard clause
         if n < 1 or n > 50:
@@ -64,21 +64,18 @@ class Solution:
                 dist[index] = prefix_sum
         # D: return the total number of sorted strings in the last level
         return sum(dist)
-    
-    
+
     # TEST CASES
-    
+
     # n = 0  ✅
-    
+
     # n = 1
-    # count = 0, 1, 2, 3, 4, 5 
+    # count = 0, 1, 2, 3, 4, 5
     # choices = [1, 2, 3, 4, 5]
     # letter.          ^
     # current_perm = [ ]
     # last_added = 0
-    
-    
+
     # n = 2  ✅
-    
-    
+
     # n = 33 --> ✅

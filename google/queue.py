@@ -6,6 +6,7 @@ class ArrayQueue:
     """going to choose the last index and the back, and first as front
        in prod this choice would most likely depend on the application domain
     """
+
     def __init__(self):
         self.items = list()
 
@@ -23,6 +24,7 @@ class ArrayQueue:
 
 class LinkedQueue:
     """front of the queue is the head, back is the tail"""
+
     def __init__(self):
         self.items = LinkedList()
 
@@ -43,7 +45,6 @@ class LinkedQueue:
 
 
 class Deque:
-
     def __init__(self):
         self.items = DLL()
 
@@ -64,8 +65,6 @@ class Deque:
             if front:
                 target = self.items.head.next
             else:
-                target  = self.items.tail.prev
+                target = self.items.tail.prev
 
             return self.items.delete(target.val)
-            
-            

@@ -1,8 +1,16 @@
 from collections import deque
 
+
 class Node:
     """Definition for a Node."""
-    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+
+    def __init__(
+        self,
+        val: int = 0,
+        left: "Node" = None,
+        right: "Node" = None,
+        next: "Node" = None,
+    ):
         self.val = val
         self.left = left
         self.right = right
@@ -37,7 +45,7 @@ class Solution:
         """
         ### HELPER
         def _bfs_helper(root):
-            '''iterative'''
+            """iterative"""
             # A: init queue
             q = deque([root])
             # B: traverse the queue
@@ -52,10 +60,10 @@ class Solution:
                     node = q.popleft()
                     for child in [node.left, node.right]:
                         if child:
-                            q.append(child)  # TODO[logic-check] 
+                            q.append(child)  # TODO[logic-check]
             # C: all done!
             return root
-        
+
         ### DRIVER
         if isinstance(root, Node) is False:
             return

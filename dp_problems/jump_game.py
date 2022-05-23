@@ -6,17 +6,15 @@ class Solution:
             if index == len(nums) - 1:
                 self.is_possible = True
                 return
-            
+
             # recursive
             elif index < len(nums):
-                for new_index in range(
-                    index + nums[index], index, -1
-                ):
+                for new_index in range(index + nums[index], index, -1):
                     if not self.is_possible:
                         _recursive_helper(new_index)
                     else:
                         break
-        
+
         ### DRIVER
         if len(nums) == 1:
             return True

@@ -1,10 +1,12 @@
 from list import LinkedList
 
+
 class HashTable:
     """An associative array that uses separate chaining to resolve hash collections.
        For now we don't rely on dynamic resizing.
     """
-    def __init__(self, num_buckets=8): 
+
+    def __init__(self, num_buckets=8):
         self.buckets = [LinkedList() for _ in range(num_buckets)]
 
     def _get_bucket_index(self, key):

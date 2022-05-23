@@ -1,9 +1,10 @@
 class Solution:
     """LeetCode: https://leetcode.com/problems/implement-strstr/"""
+
     def strStr(self, haystack: str, needle: str) -> int:
         # init runner
         index_hay = ih = 0
-        
+
         # find the occurence
         occurence = -1
         while ih < len(haystack):
@@ -12,9 +13,9 @@ class Solution:
                 hay_index = hi = ih + 1
                 needle_index = ni = 1
                 while (
-                    hi < len(haystack) and
-                    ni < len(needle) and
-                    haystack[hi] == needle[ni]
+                    hi < len(haystack)
+                    and ni < len(needle)
+                    and haystack[hi] == needle[ni]
                 ):
                     hi += 1
                     ni += 1
@@ -24,8 +25,6 @@ class Solution:
                     break
             # move on
             ih += 1
-            
-            
+
         # all done
         return occurence
-        

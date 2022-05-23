@@ -3,7 +3,7 @@ class ListNode:
         self.val = val
         self.next = next
 
-    
+
 class LinkedList:
     def __init__(self, head=None):
         self.head = head
@@ -21,11 +21,11 @@ class LinkedList:
 
         def _append(node):
             if self.head is None:
-                self.head = node  
+                self.head = node
             else:
                 self.tail.next = node
             self.tail = node  # for a list of size 1 --> head = tail
-        
+
         ### DRIVER
         if front is True:
             _prepend(new_node)
@@ -37,7 +37,7 @@ class LinkedList:
         prev, current = None, self.head
         while current and current.val != node.val:
             prev = current
-            current = current.next  
+            current = current.next
         return prev, current
 
     def search(self, node):
@@ -65,11 +65,11 @@ class LinkedList:
 
         if found and found == self.head:
             self.head = None
-        
+
         if found and found == self.tail:
             self.tail = prev
             self.tail.next = None
-    
+
         self.size -= 1
 
     def items(self):
@@ -78,7 +78,5 @@ class LinkedList:
         while node is not None:
             all_values.append(node.val)
             node = node.next
-            
+
         return all_values
-
-

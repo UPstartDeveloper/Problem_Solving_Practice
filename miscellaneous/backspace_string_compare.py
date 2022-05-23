@@ -56,6 +56,7 @@ class Solution:
             - invalid strs
             - s and t == -----> auto-True
         """
+
         def _parse(string):
             stack = list()
             for char in string:
@@ -63,7 +64,6 @@ class Solution:
                     stack.append(char)
                 elif len(stack) > 0:
                     stack.pop()
-            return ''.join(stack)
-        
+            return "".join(stack)
+
         return _parse(s) == _parse(t)
-        
