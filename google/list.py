@@ -14,19 +14,17 @@ class LinkedList:
 
         ### HELPERS
         def _prepend(node):
-            if self.head is not None:
-                node.next = self.head
+            if self.head is None:
+                self.tail = node
+            node.next = self.head
             self.head = node
 
         def _append(node):
             if self.head is None:
                 self.head = node  
-            elif self.tail is None:
-                self.tail = new_node
-                self.head.next = self.tail
-            elif self.tail is not None:
-                self.tail.next = new_node
-                self.tail = new_node
+            else:
+                self.tail.next = node
+            self.tail = node  # for a list of size 1 --> head = tail
         
         ### DRIVER
         if front is True:
@@ -70,8 +68,17 @@ class LinkedList:
         
         if found and found == self.tail:
             self.tail = prev
-
+            self.tail.next = None
+    
         self.size -= 1
 
+    def items(self):
+        all_values, node = list(), self.head
+
+        while node is not None:
+            all_values.append(node.val)
+            node = node.next
+            
+        return all_values
 
 
