@@ -68,3 +68,9 @@ class Deque:
                 target = self.items.tail.prev
 
             return self.items.delete(target.val)
+
+
+class CircularQueue(LinkedQueue):
+    def rear(self):
+        if self.items.size > 0:
+            return self.items.tail.val
