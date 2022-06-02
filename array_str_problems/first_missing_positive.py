@@ -66,4 +66,3 @@ class Solution:
         smallest_pos = set(range(1, len(all_pos) + 2))
         missing_pos = smallest_pos - present_pos
         return min(missing_pos)
-        

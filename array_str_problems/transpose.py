@@ -111,7 +111,7 @@ class Solution:
         # remove any added chars
         # clean(matrix)
         # return matrix
-    
+
         ####### OUT - of PLACE (more common/optimal)
         def _transpose(input_grid):
             # modify the output matrix in place
@@ -120,17 +120,17 @@ class Solution:
                 output_row = [
                     input_grid[row_index][col_index]
                     for row_index in range(len(input_grid))
-                ]                
+                ]
                 output.append(output_row)
 
             return output
-        
+
         ### DRIVER
-        
+
         # TODO[add guard clauses]
-        
+
         # A: init the transpose grid
         transposed = t = _transpose(matrix)
-        
+
         # B: return the transpose
         return transposed

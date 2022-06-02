@@ -46,17 +46,14 @@ class Solution:
         """
         ### HELPERS
         def _preprocess(words) -> List[Tuple[Set, int]]:
-            return [
-                (set(word), len(word))
-                for word in words
-            ]
-            
+            return [(set(word), len(word)) for word in words]
+
         def _make_buckets(word_sets_and_len):
             # track all sets so far
             all_sets = list()
             # map each set to the largest length seen so far
             largest_per_set = dict()  # index -> lenght
-            
+
             for word_index, word_obj in enumerate(word_sets_and_len):
                 letter_set, length = word_obj
                 # find the right bucket for this word
@@ -66,7 +63,7 @@ class Solution:
                     # check for "overlap"
                     # TODO
                 # once found - map the bucket_index -> length
-                
+
         ### DRIVER - brute force - O(w^2 * l) time, O(w * l) space,
         #              where w = # of words, and l = longest length
         # A)
@@ -78,6 +75,6 @@ class Solution:
                 # throw out all the invalid
                 if len(set1.union(set2)) == len(set1) + len(set2):
                     # set the max_prod
-                    max_prod = max(max_prod, len1*len2)
+                    max_prod = max(max_prod, len1 * len2)
         # C)
         return max_prod

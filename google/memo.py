@@ -1,5 +1,6 @@
 class memoize:
     """class-based way to do memoization"""
+
     def __init__(self, func):
         self.cache = dict()
         self.f = func
@@ -11,6 +12,8 @@ class memoize:
 
 
 """func-based way"""
+
+
 def memoize(func):
     cache = dict()
 
@@ -20,4 +23,3 @@ def memoize(func):
         return cache[args]
 
     return caller
-

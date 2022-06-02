@@ -9,7 +9,7 @@ class Solution:
 
         LeetCode: https://leetcode.com/problems/permutations-ii/
         """
-        
+
         ### HELPERS
         def _recursor(current, all_p, choices) -> set:
             # base
@@ -24,31 +24,26 @@ class Solution:
             for index, number in enumerate(choices):
                 current.append(number)
                 rems = [
-                    val 
-                    for other_ndx, val in enumerate(choices)
-                    if index != other_ndx
+                    val for other_ndx, val in enumerate(choices) if index != other_ndx
                 ]
                 _recursor(current, all_p, rems)
                 current.pop()
             return all_p
-            
-        
+
         ### DRIVER
-        all_p = _recursor(list(), set(), nums) 
+        all_p = _recursor(list(), set(), nums)
         return list([list(p) for p in all_p])
 
 
 class Solution:
-    def combine_unique(
-        self, nums: List[int], target_size: int
-    ) -> List[List[int]]:
+    def combine_unique(self, nums: List[int], target_size: int) -> List[List[int]]:
         """
         Given a collection of numbers, nums, that might contain duplicates, 
         returns all possible unique combinations.
 
         LeetCode: https://leetcode.com/problems/permutations-ii/
         """
-        
+
         ### HELPERS
         def _recursor(current, all_p, choices) -> set:
             # base
@@ -63,33 +58,29 @@ class Solution:
             for index, number in enumerate(choices):
                 current.append(number)
                 rems = [
-                    val 
-                    for other_ndx, val in enumerate(choices)
-                    if index > other_ndx
+                    val for other_ndx, val in enumerate(choices) if index > other_ndx
                 ]
                 _recursor(current, all_p, rems)
                 current.pop()
             return all_p
-            
-        
+
         ### DRIVER
         # EC: target_size == n
         if len(nums) == target_size:
             return [nums]
 
         # general algo
-        all_p = _recursor(list(), set(), nums) 
+        all_p = _recursor(list(), set(), nums)
         return list([list(p) for p in all_p])
 
 
 class Solution:
-
     def subsets(self, nums: List[int]) -> List[List[int]]:
         """
         Given a collection of numbers, nums, that might contain duplicates, 
         returns all possible unique subsets of integers.
         """
-        
+
         ### HELPERS
         def _recursor(current, all_sub, choices, target_size) -> set:
             # base
@@ -104,15 +95,12 @@ class Solution:
             for index, number in enumerate(choices):
                 current.append(number)
                 rems = [
-                    val 
-                    for other_ndx, val in enumerate(choices)
-                    if index > other_ndx
+                    val for other_ndx, val in enumerate(choices) if index > other_ndx
                 ]
                 _recursor(current, all_sub, rems, target_size)
                 current.pop()
             return all_sub
-            
-        
+
         ### DRIVER
         # EC: target_size == n
         if len(nums) == 1:
@@ -122,7 +110,7 @@ class Solution:
         all_sub = list()
 
         for size in range(1, len(nums)):
-            sub = _recursor(list(), set(), nums, size) 
+            sub = _recursor(list(), set(), nums, size)
             all_sub.extend(list([list(s) for s in sub]))
 
         return all_sub

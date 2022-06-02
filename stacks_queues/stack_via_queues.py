@@ -1,5 +1,4 @@
 class MyStack:
-
     def __init__(self):
         """
         Initialize your data structure here.
@@ -7,13 +6,13 @@ class MyStack:
         """
         self.q1 = list()
         self.q2 = list()
-        
+
     def _find_last_enqueued(self, delete):
         # dequeue all but back of q1, onto q2
         for index in range(len(self.q1) - 1):
             item = self.q1[index]
             self.q2.append(item)
-        # switch the pointers 
+        # switch the pointers
         self.q1, self.q2 = self.q2, [self.q1[-1]]
         # copy/delete the value left
         last = self.q2.pop()
@@ -26,7 +25,6 @@ class MyStack:
         Push element x onto stack.
         """
         self.q1.append(x)
-        
 
     def pop(self) -> int:
         """
@@ -34,7 +32,7 @@ class MyStack:
         """
         if len(self.q1) == 1:
             return self.q1.pop()
-        
+
         elif len(self.q1) > 1:
             last = self._find_last_enqueued(True)
             return last
@@ -45,10 +43,9 @@ class MyStack:
         """
         if len(self.q1) == 1:
             return self.q1[0]
-        
+
         elif len(self.q1) > 1:
             return self._find_last_enqueued(False)
-        
 
     def empty(self) -> bool:
         """

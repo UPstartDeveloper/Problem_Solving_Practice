@@ -23,10 +23,10 @@ class Solution:
             
         """
         sum_so_far = ssf = 0
-        
+
         for index, num in enumerate(nums):
-            
+
             ssf += num
             nums[index] = ssf
-        
+
         return nums

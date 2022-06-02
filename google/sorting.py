@@ -1,19 +1,21 @@
 """
 ITERATIVE SORTING ALGOS
 """
+
+
 def bubble_sort(nums):
     pass
 
 
 def insertion_sort(nums):
-    '''
+    """
     time: O(n^2)
     space: O(1)
     inplace/mutative
     iterative
     stable
     internal algorithm
-    '''
+    """
     # sort each index (after the first)
     for index in range(1, len(nums)):
         num_index, num = index, nums[index]
@@ -30,7 +32,6 @@ def insertion_sort(nums):
     return nums
 
 
-
 def selection_sort(nums):
     pass
 
@@ -38,6 +39,8 @@ def selection_sort(nums):
 """
 DIVIDE and CONQUER
 """
+
+
 def merge_sort(nums):
     """
     time: O(n log(n))
@@ -69,9 +72,9 @@ def merge_sort(nums):
         return nums
     # recursive:
     mid = len(nums) // 2
-    # sort the left 
+    # sort the left
     sorted_l = merge_sort(nums[:mid])
-    # sort the right 
+    # sort the right
     sorted_r = merge_sort(nums[mid:])
     # merge!
     return _merge(sorted_l, sorted_r)
@@ -87,6 +90,7 @@ def quick_sort(nums):
     internal
     recursive
     """
+
     def _partition(low, high):
         # choose the last element as the pivot
         pivot = high
@@ -98,14 +102,12 @@ def quick_sort(nums):
                 less_than_tail += 1
                 nums[iterator], nums[less_than_tail] = (
                     nums[less_than_tail],
-                    nums[iterator]
+                    nums[iterator],
                 )
             iterator += 1
-        
+
         # move the pivot into place
-        nums[pivot], nums[less_than_tail + 1] = (
-            nums[less_than_tail + 1], nums[pivot]
-        )
+        nums[pivot], nums[less_than_tail + 1] = (nums[less_than_tail + 1], nums[pivot])
         return less_than_tail + 1
 
     def _recursor(low, high):
@@ -119,6 +121,7 @@ def quick_sort(nums):
         # recurse on right side
         _recursor(pivot + 1, high)
         return nums
+
     # init case
     return _recursor(0, len(nums) - 1)
 

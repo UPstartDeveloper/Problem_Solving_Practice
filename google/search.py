@@ -20,7 +20,7 @@ def search(array: List[int], target: int, use_binary=True, use_iter=True) -> int
                 return index
         return -1
 
-    def _binary_recursive(lo=0, hi=len(array)-1):
+    def _binary_recursive(lo=0, hi=len(array) - 1):
         # base case: not found
         if lo > hi:
             return -1

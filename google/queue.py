@@ -72,6 +72,7 @@ class Deque:
 
 class CircularQueue(LinkedQueue):
     """interface based on this website: https://www.geeksforgeeks.org/circular-queue-set-1-introduction-array-implementation/"""
+
     def rear(self):
         if self.items.size > 0:
             return self.items.tail.val
