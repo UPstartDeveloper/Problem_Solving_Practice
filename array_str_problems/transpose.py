@@ -4,6 +4,8 @@ from typing import List
 class Solution:
     def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
         """
+        LeetCode: https://leetcode.com/problems/transpose-matrix/
+        
         Clarifications:
             1. Input:
                 - non-empty
@@ -103,9 +105,32 @@ class Solution:
                     matrix.pop(row_index)
 
         # - add rows or cols of "d" to make the matrix a square
-        squarify(matrix)
+        # squarify(matrix)
         # - traverse the main diagonal
-        transpose(matrix)
+        # transpose(matrix)
         # remove any added chars
-        clean(matrix)
-        return matrix
+        # clean(matrix)
+        # return matrix
+    
+        ####### OUT - of PLACE (more common/optimal)
+        def _transpose(input_grid):
+            # modify the output matrix in place
+            output = list()
+            for col_index in range(len(input_grid[0])):
+                output_row = [
+                    input_grid[row_index][col_index]
+                    for row_index in range(len(input_grid))
+                ]                
+                output.append(output_row)
+
+            return output
+        
+        ### DRIVER
+        
+        # TODO[add guard clauses]
+        
+        # A: init the transpose grid
+        transposed = t = _transpose(matrix)
+        
+        # B: return the transpose
+        return transposed
