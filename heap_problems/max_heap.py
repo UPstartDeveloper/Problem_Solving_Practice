@@ -1,5 +1,9 @@
+from audioop import bias
+
+
 class BinaryMaxHeap:
     def __init__(self, items=None):
+        self.items = list()
         if isinstance(items, list) and len(items) > 0:
             for item in items:
                 self.insert(item)
@@ -18,7 +22,7 @@ class BinaryMaxHeap:
             # Then, delete it.
             self.items.pop()
             # reorder the tree
-            if self.size > 1:
+            if self.size() > 1:
                 self._bubble_down(0)
 
             return highest
@@ -63,10 +67,28 @@ class BinaryMaxHeap:
                 node_index = left
             # keep going if needed
             if node_index < len(self.items):
-                self._bubble_down(node_index)
+                left, right = self._child_indices(node_index)
+                left_elem = self.items[left]
+                right_elem = self.items[right] if right < len(self.items) else float("-inf")
+                if self.items[node_index] < max(left_elem, right_elem):
+                    self._bubble_down(node_index)
 
     def _parent_index(self, node_index):
         return (node_index - 1) >> 2
 
     def _child_indices(self, node_index):
         return [node_index << 1 + 1, node_index << 1 + 2]
+
+
+if __name__ == "__main__":
+    array = [9, 4, 5, 3, 7, 8]
+    heap = BinaryMaxHeap(array)
+    print(heap.items)
+    print(heap.get_max())  # 9
+    print(heap.delete_max())  # 9
+    print(heap.get_max())  # 8
+    heap.insert(4)
+    print(heap.get_max())  # 8
+    heap.insert(13)
+    print(heap.delete_max())  # 13
+    print(heap.get_max())  # 8
