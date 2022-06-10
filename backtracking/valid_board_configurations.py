@@ -36,7 +36,7 @@ class Solution:
     def valid_board_configurations(self, N: int) -> int:
         ### HELPERS
 
-        def _traverse(row, col, board):
+        def _traverse(start_row, start_col, board):
             # define 8 direction vectors
             directions = [
                 (0, 1),  # down
@@ -50,12 +50,15 @@ class Solution:
             ]
             # traverse the grid in all 8 directions
             for delta_x, delta_y in directions:
-                # TODO[test]: is it enough iterations?
-                for _ in range(abs(len(board) - row)):
+                row, col = start_row, start_col
+                for _ in range(abs(len(board))):
                     new_x, new_y = row + delta_x, col + delta_y
                     if -1 < new_x < len(board) and -1 < new_y < len(board[0]):
                         # fill in 1s
                         board[new_x][new_y] = 1
+                    else:
+                        break
+                    row, col = new_x, new_y
             # all done!
 
         def _place_queens(start_col: int) -> Tuple[Tuple[int, int]]:
