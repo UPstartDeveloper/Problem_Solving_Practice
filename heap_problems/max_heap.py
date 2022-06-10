@@ -69,7 +69,9 @@ class BinaryMaxHeap:
             if node_index < len(self.items):
                 left, right = self._child_indices(node_index)
                 left_elem = self.items[left]
-                right_elem = self.items[right] if right < len(self.items) else float("-inf")
+                right_elem = (
+                    self.items[right] if right < len(self.items) else float("-inf")
+                )
                 if self.items[node_index] < max(left_elem, right_elem):
                     self._bubble_down(node_index)
 

@@ -24,6 +24,7 @@ class NumMatrix:
     
         1) Human Approach:
     """
+
     def cum_sum(self, arr):
         summed = list([0])
         runninng_sum = rs = 0
@@ -31,18 +32,17 @@ class NumMatrix:
             rs += num
             summed.append(rs)
         return summed
-    
+
     def __init__(self, matrix: List[List[int]]):
         self.matrix = matrix
         self.dp_table = [self.cum_sum(row) for row in matrix]
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
         total = 0
-        
+
         for row_index in range(row1, row2 + 1):
             row_total = (
-                self.dp_table[row_index][col2 + 1] -
-                self.dp_table[row_index][col1]
+                self.dp_table[row_index][col2 + 1] - self.dp_table[row_index][col1]
             )
             total += row_total
         return total
