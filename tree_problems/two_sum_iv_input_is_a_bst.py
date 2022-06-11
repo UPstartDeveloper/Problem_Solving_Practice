@@ -3,6 +3,7 @@ from typing import Optional
 
 class TreeNode:
     """Definition for a binary tree node."""
+
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
@@ -43,10 +44,10 @@ class Solution:
             3) Two Pointers, in the Tree - ???     
         
         """
-        
+
         ### HELPERs
         def _search(node, value) -> Optional[TreeNode]:
-            '''recursive binary search on BST'''
+            """recursive binary search on BST"""
             if node:
                 if node.val == value:
                     return node
@@ -55,12 +56,12 @@ class Solution:
                 else:  # value < node.val
                     return _search(node.left, value)
             return None
-             
+
         ### DRIVER
-        
+
         # BRUTE force - iterative in-order traversal
         node, stack, target = root, list(), k
-            
+
         while node or stack:
             if node:
                 stack.append(node)
@@ -71,8 +72,5 @@ class Solution:
                 if found and found != node:
                     return True
                 node = node.right
-                
+
         return False
-        
-        
-        

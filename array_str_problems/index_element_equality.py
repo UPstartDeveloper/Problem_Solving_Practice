@@ -1,11 +1,10 @@
 def index_equals_value_search(arr, use_linear=False):
-  
     def _linear():
         for index, elem in enumerate(arr):
             if index == elem:
                 return index
         return -1
-  
+
     def _binary_search():
         """
         iterative Binary Searrch
@@ -33,7 +32,7 @@ def index_equals_value_search(arr, use_linear=False):
 
         # base case: not found!
         return -1
-  
+
     if use_linear:
         return _linear()
     return _binary_search()

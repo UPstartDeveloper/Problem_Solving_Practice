@@ -47,14 +47,14 @@ class Solution:
             return 0
         elif len(nums) == 0:
             return -1
-        
+
         ### DRIVER
         sum_so_far = ssf = 0
         steps = 0
-        
+
         index1 = p1 = 0
-        index2 = p2 = len(nums)  - 1
-        
+        index2 = p2 = len(nums) - 1
+
         while p1 <= p2:
             # get the largest of those THAT FIT
             elem1, elem2 = nums[p1], nums[p2]
@@ -62,11 +62,11 @@ class Solution:
             # TODO[test] - what if elem1 == elem2, p1 != p2, and we want p2?
             ends = [elem1, elem2]
             candidates = sorted([e for e in ends if ssf + e <= x], reverse=True)
-            
+
             # stop condition
             if len(candidates) == 0:
                 break
-                
+
             # keep going
             else:
                 chosen = candidates[0]
@@ -77,5 +77,5 @@ class Solution:
                     p1 += 1
                 else:
                     p2 -= 1
-                
+
         return steps if ssf == x else -1

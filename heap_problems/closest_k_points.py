@@ -72,8 +72,8 @@ class BinaryHeap:
                 left_elem = self.items[left]
                 right_elem = self.items[right]
                 if (
-                    self.items[node_index] < left_elem or
-                    self.items[node_index] < right_elem
+                    self.items[node_index] < left_elem
+                    or self.items[node_index] < right_elem
                 ):
                     self._bubble_down(node_index)
 
@@ -87,20 +87,18 @@ class BinaryHeap:
 class Solution:
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
         """LeetCode: https://leetcode.com/problems/k-closest-points-to-origin"""
-        
+
         ### HELPERS
         def _get_dist(x, y):
             return (x ** 2) + (y ** 2)
-        
+
         ### DRIVER
-        
+
         # Assume that n >= k > 0
-        
+
         # A: get dists
-        point_dist = [
-            _get_dist(x, y) for x, y in points
-        ]
-        
+        point_dist = [_get_dist(x, y) for x, y in points]
+
         # B: "bucket" distances by dist -> indices of points
         dist_buckets = db = dict()
         for index, dist in enumerate(point_dist):
@@ -108,22 +106,21 @@ class Solution:
                 db[dist] = deque([index])
             else:
                 db[dist].append(index)
-        
+
         # C: sort the distances using a heap
-        heap = h = BinaryHeap(point_dist[:k])  # max heap 
+        heap = h = BinaryHeap(point_dist[:k])  # max heap
         for i in range(k, len(point_dist)):
             dist = point_dist[i]
             if dist < heap.get_max():
                 heap.delete_max()  # TODO[debug]
                 heap.insert(dist)  # TODO[debug]
-                
+
         k_lowest_dists = kld = heap.items[:]
-    
+
         # D: convert the sorted distances back into point objs
         k_lowest_points = klp = list()
         for dist in kld:
             index = db[dist].popleft()
             klp.append(points[index])
-        
-        return klp 
-        
+
+        return klp

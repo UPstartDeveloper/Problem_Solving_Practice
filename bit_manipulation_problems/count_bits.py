@@ -44,18 +44,16 @@ class Solution:
             log2(1) --> 0
             log2(2) --> 1
         """
-        
+
         ### HELPERS
-        def _get_powers_in_range(n): 
+        def _get_powers_in_range(n):
             # list out powers of 2 (start at 1) while <= n
             max_exp = int(math.log2(n))
-            powers_of_2 = set([
-                2 ** exp for exp in range(0, max_exp + 1)
-            ])
+            powers_of_2 = set([2 ** exp for exp in range(0, max_exp + 1)])
             return powers_of_2
-        
-        def _set_in_between_values(a, powers_of_two):            
-            last_power_2 = lp2 = 1 
+
+        def _set_in_between_values(a, powers_of_two):
+            last_power_2 = lp2 = 1
             # traverse 3 --> n using i:
             for index in range(1, n + 1):
                 # base case - check if i is a power of 2
@@ -63,22 +61,22 @@ class Solution:
                     a[index] = 1
                     lp2 = index
                 # recursive case
-                else:  
+                else:
                     remaining = r = index - lp2
                     # ans[last power of 2] + ans[remaining]
                     a[index] = a[lp2] + a[r]
-        
+
         ### DRIVERS
         if isinstance(n, int) is False or n < 0:
-            raise ValueError(f"Expected a non-negative int for 'n', received: {n}") 
+            raise ValueError(f"Expected a non-negative int for 'n', received: {n}")
         if n == 0:  # extra edge case
             return [0]
-        
+
         # start w/ all powers of 2
         answers = a = [0 for _ in range(n + 1)]
         powers_of_two = _get_powers_in_range(n)  # O(log n)
-        
+
         # populate the rest - the "in-between values"
         _set_in_between_values(a, powers_of_two)
-        
+
         return a

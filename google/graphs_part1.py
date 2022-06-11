@@ -10,6 +10,7 @@ class Vertex:
 
 class Graph:
     """Assumes all nodes have unique int IDs."""
+
     def __init__(self, is_directed=False):
 
         self.is_directed = is_directed
@@ -34,7 +35,7 @@ class Graph:
                 for neighbor in node.neighbors.values():
                     if neighbor.val not in visited:
                         stack.append(neighbor)
-            
+
             return visited
 
         def _dfs_recursive(node, visited):
@@ -56,7 +57,7 @@ class Graph:
             _dfs_iterative(visited)
         else:
             _dfs_recursive(None, visited)
-        
+
         return visited
 
     def bfs(self):
@@ -76,9 +77,9 @@ class Graph:
             for neighbor in node.neighbors.values():
                 if neighbor.val not in visited:
                     q.append(neighbor)
-        
+
         return visited
-    
+
     def has_path(self, node1: int, node2: int) -> bool:
         """
         Returns whether or not node1 and node2 
@@ -101,7 +102,7 @@ class Graph:
                 for neighbor in node.neighbors.values():
                     if neighbor.val not in visited:
                         stack.append(neighbor)
-            
+
             return visited
 
         ### DRIVER
