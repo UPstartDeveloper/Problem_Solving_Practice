@@ -7,7 +7,7 @@ Given shiftArr and an integer num, implement a function shiftedArrSearch that fi
 
 
 def shifted_arr_search(shiftArr, num):
-  """
+    """
   Input:
     shiftArr:
       non-empty
@@ -79,34 +79,33 @@ def shifted_arr_search(shiftArr, num):
           
           
   """
-  # iterative, binary search
-  
-  low, high = 0, len(shiftArr) - 1
-  target = num
-  
-  while low <= high:
-    
-    mid_index = (low + high) // 2
-    
-    mid_value = shiftArr[mid_index]
-    
-    # base:
-    if target == mid_value:
-      return mid_index
-    
-    # go left - TODO
-    elif shiftArr[low] <= target < mid_value:
-      high = mid_index - 1
-    
-    # go right - TODO[test]
-    elif shiftArr[high] < mid_value and target <= shiftArr[high]:
-      low = mid_index + 1
-      
-    elif mid_value < target <= shiftArr[high]:
-      low = mid_index + 1
-      
-    else:
-      break
-      
-  return -1
-    
+    # iterative, binary search
+
+    low, high = 0, len(shiftArr) - 1
+    target = num
+
+    while low <= high:
+
+        mid_index = (low + high) // 2
+
+        mid_value = shiftArr[mid_index]
+
+        # base:
+        if target == mid_value:
+            return mid_index
+
+        # go left - TODO
+        elif shiftArr[low] <= target < mid_value:
+            high = mid_index - 1
+
+        # go right - TODO[test]
+        elif shiftArr[high] < mid_value and target <= shiftArr[high]:
+            low = mid_index + 1
+
+        elif mid_value < target <= shiftArr[high]:
+            low = mid_index + 1
+
+        else:
+            break
+
+    return -1

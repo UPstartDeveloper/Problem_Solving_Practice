@@ -37,21 +37,16 @@ class Solution:
         Time: O(e), where e = # of elements in matrix
         Space: O(e), in the worst case when grid is all 1's
         """
-        
+
         ### HELPERS
         def _get_neighbors(ri, ci):
-            return [
-                (ri, ci + 1),
-                (ri, ci - 1),
-                (ri + 1, ci),
-                (ri - 1, ci)
-            ]
-        
+            return [(ri, ci + 1), (ri, ci - 1), (ri + 1, ci), (ri - 1, ci)]
+
         def _dfs(ri, ci):
-            '''iterative DFS (top of stack is last index)'''
+            """iterative DFS (top of stack is last index)"""
             size = 0
             stack = list([(ri, ci)])
-            
+
             while stack:
                 ri, ci = stack.pop()
                 if grid[ri][ci] == 1:
@@ -61,13 +56,13 @@ class Solution:
                     for nr, nc in _get_neighbors(ri, ci):
                         if -1 < nr < len(grid) and -1 < nc < len(grid[nr]):
                             stack.append((nr, nc))
-            
+
             return size
-        
+
         ### DRIVER
         # init largest area seen so far
         max_area = 0
-        
+
         # find all areas
         for ri in range(len(grid)):
             row = grid[ri]
@@ -75,11 +70,13 @@ class Solution:
                 elem = grid[ri][ci]
                 # edge case for invalid grid values
                 if not (elem == 0 or elem == 1):
-                    raise ValueError(f"Expected bit at {ri, ci} in grid, \
-                                      instead found a {type(elem)}.")
+                    raise ValueError(
+                        f"Expected bit at {ri, ci} in grid, \
+                                      instead found a {type(elem)}."
+                    )
                 # area of ONE island
                 elif elem == 1:
                     size = _dfs(ri, ci)
                     max_area = max(max_area, size)
-        # all done!    
+        # all done!
         return max_area
