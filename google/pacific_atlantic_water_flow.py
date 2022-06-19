@@ -4,6 +4,7 @@ from typing import List
 class Solution:
     """
     LeetCode: https://leetcode.com/problems/pacific-atlantic-water-flow/
+    Credit to gabhinav001 for solution: https://leetcode.com/problems/pacific-atlantic-water-flow/discuss/2161314/simple-dfs-beats-98
 
     There is an m x n rectangular island that borders both the Pacific Ocean 
     and Atlantic Ocean. (pretty big huh?)
@@ -82,49 +83,60 @@ class Solution:
         3. Idea #3 --> find the points in set A AND P
             1
     """
-    def pacific_to_atlantic(self, island: List[List[int]]) -> List[List[int, int]]:
+    def pacific_atlantic(self, board: List[List[int]]) -> List[List[int]]:
         ### HELPERS
         def _get_neighbors(row, col):
             return [
-                (row + 1, col),
-                (row - 1, col),
-                (row, col + 1),
-                (row, col - 1),
+                (row + 1, col),  # down
+                (row - 1, col),  # up
+                (row, col + 1),  # right
+                (row, col - 1),  # left
             ]
 
-        def _is_in_both(ri, ci):
-            """plan: iterative DFS w/ visited set"""
-            is_in_p, is_in_a = False, False
-            stack, visited = list([(ri, ci)]), set()
-
+        def reachable(stack):
+            """iterative DFS on a directed graph, w/ potential cycles"""
+            visited = set()
+            
             while stack:
-                row, col = stack.pop()
-                # check oceans
-                if row == 0 or col == 0:
-                    is_in_p = True
-                if row == len(island) - 1 or col == len(island[0]) - 1:
-                    is_in_a = True
-                visited.add((row, col))
-                # add neighbors
-                for nr, nc in _get_neighbors(row, col):
-                    if -1 < nr < len(island) and -1 < nc < len(island[0]):
-                        if (nr, nc) not in visited:
-                            if island[nr][nc] <= island[row][col]:
-                                stack.append((nr, nc))
+                # visit operation
+                node = stack.pop()
+                if node not in visited:
+                    visited.add(node)
+                    row, col = node 
 
-            return is_in_p and is_in_a
-
-        ### GUARD
-        if not island or not island[0]:
-            return []
-
-        ### DRIVER
-        coords = list()
-
-        for ri in range(len(island)):  # row index
-            for ci in range(len(island[0])):  # col index
-
-                if _is_in_both(ri, ci) is True:
-                    coords.append([ri, ci])
+                    # visit all neighbors
+                    for neighbor_row, neighbor_col in _get_neighbors(row, col):
+                        nr, nc = neighbor_row, neighbor_col
+                        # validation checks
+                        if -1 < nr < len(board) and -1 < nc < len(board[nr]):
+                            if (nr, nc) not in visited:
+                                if board[row][col] <= board[nr][nc]:
+                                    stack.append((nr, nc))
+            # all done!
+            return visited
         
-        return coords
+        ### DRIVER
+        # 1: find the set of all coords that can reach Pacific
+        stack = list()
+        # push first row
+        for j in range(len(board[0])):
+            stack.append((0, j))
+        # push first col
+        for i in range(len(board)):
+            stack.append((i, 0))
+
+        can_reach_pacific = reachable(stack)
+        
+        # 2: find the set of all coords to reach Atlantic
+        stack.clear()
+        # last row
+        for j in range(len(board[0])):
+            stack.append((len(board)-1, j))
+        # last col
+        for i in range(len(board)):
+            stack.append((i, len(board[0])-1))
+    
+        can_reach_atlantic = reachable(stack)
+        
+        # 3: find the "overlap"
+        return can_reach_pacific and can_reach_atlantic        
