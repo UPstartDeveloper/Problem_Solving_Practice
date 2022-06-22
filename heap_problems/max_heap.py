@@ -1,6 +1,3 @@
-from audioop import bias
-
-
 class BinaryMaxHeap:
     def __init__(self, items=None):
         self.items = list()
