@@ -29,15 +29,15 @@ class NestedInteger:
         pass
 
 
-class NestedIterator:              
+class NestedIterator:
     def __init__(self, nestedList: List[NestedInteger]):
         # recursive backtracking algo
         self.all_ints = list()
-        self._populate(0, nestedList) # TODO[test]
+        self._populate(0, nestedList)  # TODO[test]
         self.global_index = 0
 
     def _populate(self, index, current_list):
-        '''recursive backtrackig on an m-way'''
+        """recursive backtrackig on an m-way"""
         if index < len(current_list):
             element = current_list[index]
 
@@ -58,6 +58,7 @@ class NestedIterator:
 
     def hasNext(self) -> bool:
         return self.global_index < len(self.all_ints)
+
 
 """
 all_ints = [1, 1, 2, 1, 1]

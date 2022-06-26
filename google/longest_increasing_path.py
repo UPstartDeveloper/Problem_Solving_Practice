@@ -2,9 +2,7 @@ from typing import List
 
 
 class Solution:
-    def longest_increasing_path(
-        self, nums: List[int], left: int, right: int
-    ) -> int:
+    def longest_increasing_path(self, nums: List[int], left: int, right: int) -> int:
         """
         Source: https://interviewing.io/recordings/Java-FAANG-12
 
@@ -84,4 +82,6 @@ if __name__ == "__main__":
     for input, output in zip(inputs, correct_outputs):
         arr, left, right = input
         real = sol.longest_increasing_path(arr, left, right)
-        assert sol.longest_increasing_path(arr, left, right) == output, f"expected {output}, received {real}"
+        assert (
+            sol.longest_increasing_path(arr, left, right) == output
+        ), f"expected {output}, received {real}"

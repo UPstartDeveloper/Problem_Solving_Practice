@@ -90,11 +90,8 @@ class Solution:
         """
         ### HELPERS
         ...
-        
+
         ### DRIVER
         a, b, c = sorted(list([a, b, c]))
-        
-        return list([
-            _compute_min(a, b, c),  # TODO
-            _compute_max(a, b, c)  # TODO
-        ])        
+
+        return list([_compute_min(a, b, c), _compute_max(a, b, c)])  # TODO  # TODO

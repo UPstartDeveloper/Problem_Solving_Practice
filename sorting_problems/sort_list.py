@@ -10,25 +10,25 @@ class ListNode:
 
 class Solution:
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        """LeetCode: m"""
+        """LeetCode: https://leetcode.com/problems/sort-list/"""
         ### HELPERS
         def _print_list(head):
-            '''use to help debugging'''
+            """use to help debugging"""
             nodes = list()
             node = head
             while node:
                 nodes.append(node.val)
                 node = node.next
             print(nodes, head)
-            return 
-        
+            return
+
         ### DRIVER - iterative bubble sort - O(n**2) time, O(1) space
         is_sorted = False
         dummy_node = ListNode(None, next=head)
         # begin sorting
         while is_sorted is False:
             swaps = 0
-            node1 = head 
+            node1 = head
             dummy_node.next = head
             prev = dummy_node
             # one pass over list

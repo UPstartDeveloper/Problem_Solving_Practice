@@ -1,8 +1,10 @@
 from collections import deque
-from typing import List, Optional 
+from typing import List, Optional
+
 
 class TreeNode:
     """Definition for a binary tree node."""
+
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
@@ -47,11 +49,11 @@ class Solution:
             """TODO: debug for trees w/ lots of levels"""
             if node:
                 ...
-                
+
         def _bfs(node):
-            '''iterative level-order traversal'''
+            """iterative level-order traversal"""
             queue = q = deque([node])
-            while queue:                
+            while queue:
                 level_len = len(q)
                 for count in range(level_len):
                     node = q.popleft()
@@ -62,19 +64,19 @@ class Solution:
                                 f"Expect node.val to be int in range [-100, 100], actual is {node.val}."
                             )
                         else:
-                            visit(node)  
+                            visit(node)
                     # enqueue children
                     for child in [node.left, node.right]:
                         if child:
                             q.append(child)
-        
+
         ### DRIVER
         self.node_vals = list()
-        
+
         if root:
-            visit = lambda node: self.node_vals.append(node.val) 
+            visit = lambda node: self.node_vals.append(node.val)
             _bfs(root)
             # _dfs(root)
-            
+
         # all done!
         return self.node_vals

@@ -21,7 +21,7 @@ class Solution:
 
     def minCameraCover(self, root: Optional[TreeNode]) -> int:
         def _recursive_helper(node):
-            '''recursive post order DFS'''
+            """recursive post order DFS"""
             # null node - doesn't need us to do anything
             if not node:
                 return self.COVERED

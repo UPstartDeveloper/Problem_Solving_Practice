@@ -2,7 +2,6 @@ from collections import OrderedDict
 
 
 class FreqStack:
-
     def __init__(self):
         """
         LeetCode: https://leetcode.com/problems/maximum-frequency-stack/
@@ -105,7 +104,7 @@ class FreqStack:
         self.elem_frequencies = self.ef = OrderedDict()
         self.max_freq = -1  # largest frequency of any pushed elems
         self.freq_groups = self.fg = dict()  # freq --> [unique val types]
-        
+
     def push(self, val: int) -> None:
         """
         add elem to the top of the stack
@@ -115,12 +114,12 @@ class FreqStack:
         if val in self.ef:
             prev_count = self.ef[val]
             new_count += prev_count
-      
+
         self.ef[val] = new_count
-        
+
         # update the max frequency (will need it later)
         self.max_freq = max(self.max_freq, new_count)
-        
+
         # place the val in the right group
         if new_count not in self.fg:
             self.fg[new_count] = list([val])
@@ -130,13 +129,13 @@ class FreqStack:
     def pop(self) -> int:
         # get max freq element!
         current_mfe = self.fg[self.max_freq].pop()
-        
+
         # update state
         self.ef[current_mfe] -= 1
-        
+
         if len(self.fg[self.max_freq]) == 0:
             self.max_freq -= 1
-        
+
         # all done!
         return current_mfe
 

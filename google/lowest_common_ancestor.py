@@ -7,7 +7,9 @@ class TreeNode:
 
 
 class Solution:
-    def lowest_common_ancestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    def lowest_common_ancestor(
+        self, root: "TreeNode", p: "TreeNode", q: "TreeNode"
+    ) -> "TreeNode":
         """
         Source: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 
@@ -57,10 +59,10 @@ class Solution:
         """
         ### HELPERS
         def _dfs_helper(node, target, parents):
-            '''
+            """
             recursive backtracking
             parents = arrayStack, top is last index
-            '''
+            """
             if node:
                 # base case
                 if node == target:
@@ -88,9 +90,9 @@ class Solution:
 
             # find intersection (the first is the lowest)
             while (
-                index1 < length1 and 
-                index2 < length2 and
-                ancestors1[index1] != ancestors2[index2]
+                index1 < length1
+                and index2 < length2
+                and ancestors1[index1] != ancestors2[index2]
             ):
                 index1 += 1
                 index2 += 1
@@ -101,7 +103,7 @@ class Solution:
         ### EC
         if not root:
             raise ValueError("There is no tree")
-        
+
         if not root.left and not root.right:
             return root
 

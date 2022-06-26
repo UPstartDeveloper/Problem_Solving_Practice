@@ -83,6 +83,7 @@ class Solution:
         3. Idea #3 --> find the points in set A AND P
             1
     """
+
     def pacific_atlantic(self, board: List[List[int]]) -> List[List[int]]:
         ### HELPERS
         def _get_neighbors(row, col):
@@ -96,13 +97,13 @@ class Solution:
         def reachable(stack):
             """iterative DFS on a directed graph, w/ potential cycles"""
             visited = set()
-            
+
             while stack:
                 # visit operation
                 node = stack.pop()
                 if node not in visited:
                     visited.add(node)
-                    row, col = node 
+                    row, col = node
 
                     # visit all neighbors
                     for neighbor_row, neighbor_col in _get_neighbors(row, col):
@@ -114,7 +115,7 @@ class Solution:
                                     stack.append((nr, nc))
             # all done!
             return visited
-        
+
         ### DRIVER
         # 1: find the set of all coords that can reach Pacific
         stack = list()
@@ -126,17 +127,17 @@ class Solution:
             stack.append((i, 0))
 
         can_reach_pacific = reachable(stack)
-        
+
         # 2: find the set of all coords to reach Atlantic
         stack.clear()
         # last row
         for j in range(len(board[0])):
-            stack.append((len(board)-1, j))
+            stack.append((len(board) - 1, j))
         # last col
         for i in range(len(board)):
-            stack.append((i, len(board[0])-1))
-    
+            stack.append((i, len(board[0]) - 1))
+
         can_reach_atlantic = reachable(stack)
-        
+
         # 3: find the "overlap"
-        return can_reach_pacific and can_reach_atlantic        
+        return can_reach_pacific and can_reach_atlantic
