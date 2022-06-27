@@ -80,6 +80,7 @@ class Solution:
                 if node.child:
                     temp = node.next
                     node.next = node.child
+                    node.child.prev = node
                     # divide - traverse in a separate stack frame
                     child_list_tail = _traverse(node.child)
                     # conquer - connect the nodes in 1 line
