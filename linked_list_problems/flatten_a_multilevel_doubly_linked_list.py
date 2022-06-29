@@ -73,7 +73,7 @@ class Solution:
         """
         ### HELPERS
         def _traverse(node):
-            '''recursive traversal algo'''
+            """recursive traversal algo"""
             # A:
             while node:
                 # B: the "merge" operation
@@ -95,7 +95,7 @@ class Solution:
                 else:  # avoid infinite loop
                     break
             # C: return tail
-            return node 
+            return node
 
         ### EC
         if not head:
@@ -105,6 +105,8 @@ class Solution:
         final = _traverse(head)  # helper
         final.next = None
         return head
+
+
 """
                                                 n
  1---2---3--7---8--11--12--9---10--4---5---6--NULL

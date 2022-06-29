@@ -3,9 +3,12 @@ from typing import Optional
 
 class ListNode:
     """Definition for singly-linked list."""
+
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+
+
 class Solution:
     def mergeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
         """
@@ -80,7 +83,6 @@ class Solution:
         """
         ### HELPERS
 
-
         ### EC:
         # TODO
 
@@ -89,7 +91,7 @@ class Solution:
             # A:
             prev, further = head, head.next
 
-            # B: 
+            # B:
             while further.next:
                 running_sum = rs = 0
 
@@ -107,8 +109,9 @@ class Solution:
                 else:
                     prev.next = None
 
-            # E: 
+            # E:
             return head
+
 
 """
 Input: [1,3,4 --> 
