@@ -52,8 +52,6 @@ class Solution:
                 f"Expected a time string in hh:mm format, actual is {time}."
             )
 
-        ### DRIVER - assume valid input
-        # A: place both hands
         hour_min = time.split(":")
         hr, minute = int(hour_min[0]), int(hour_min[1])
 
@@ -64,11 +62,10 @@ class Solution:
                 f"Arg for minute = {minute} is not an int or outside of allowed range of 0-59."
             )
 
+        ### DRIVER
+        # A: place both hands
         hr_pos_hr, hr_pos_min = _convert(hr, minute)
         # B: compute the angle
-        diff1, diff2 = (
-            _compute_angle(hr_pos_hr, hr_pos_min),
-            _compute_angle(hr_pos_min, hr_pos_hr),
-        )
+        diff1 = _compute_angle(hr_pos_hr, hr_pos_min),
         # C: return the angle
-        return min(diff1, diff2)
+        return min(diff1, 360 - diff1)
