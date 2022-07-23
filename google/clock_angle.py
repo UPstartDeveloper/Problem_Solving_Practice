@@ -66,6 +66,6 @@ class Solution:
         # A: place both hands
         hr_pos_hr, hr_pos_min = _convert(hr, minute)
         # B: compute the angle
-        diff1 = _compute_angle(hr_pos_hr, hr_pos_min),
+        diff1 = (_compute_angle(hr_pos_hr, hr_pos_min),)
         # C: return the angle
         return min(diff1, 360 - diff1)

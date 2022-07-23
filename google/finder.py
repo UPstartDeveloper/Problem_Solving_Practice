@@ -67,11 +67,12 @@ Approach:
 
 """
 
+
 class Solution:
     def compute_size(self, directory, full_path):
         ### HELPERS
         def _find_file_or_folder():
-            '''iterative search'''
+            """iterative search"""
             path_queue = full_path.split("/")
             current_directory = cd = directory
 
@@ -83,7 +84,7 @@ class Solution:
             return cd
 
         def _compute_size_helper(folder_or_file):
-            '''recursive backtracking'''
+            """recursive backtracking"""
             # base case?
             if "size" in folder_or_file.keys():
                 self.full_size += folder_or_file["size"]
@@ -100,13 +101,13 @@ class Solution:
 
         ### DRIVER
         if full_path not in self.cache:
-            # A             
+            # A
             desired_folder_or_file = _find_file_or_folder()
-            
-            # B: 
+
+            # B:
             self.full_size = 0
             _compute_size_helper(desired_folder_or_file)
-            
+
             # C
             self.cache[full_path] = self.full_size
 
@@ -117,12 +118,15 @@ if __name__ == "__main__":
     directory = {
         "dev": {
             "keras_model.py": {"size": 6, "content": "this is fake src code"},  # ---> 6
-            "tf_model.py": {"size": 6, "content": "this is fake src code"}, # ---> 12
-            "flax_model.py": {"size": 6, "content": "this is fake src code"}, # -> 18, 24, 30
+            "tf_model.py": {"size": 6, "content": "this is fake src code"},  # ---> 12
+            "flax_model.py": {
+                "size": 6,
+                "content": "this is fake src code",
+            },  # -> 18, 24, 30
             "torch_model.py": {"size": 6, "content": "this is fake src code"},
             "sklearn_model.py": {"size": 6, "content": "this is fake src code"},
         },
-        "selfie.png": {"size": 200, "content": "blah blah RGB values"}
+        "selfie.png": {"size": 200, "content": "blah blah RGB values"},
     }
     sol = Solution()
 

@@ -42,7 +42,7 @@ class Solution:
         def _add_boxes(sorted_bt):
             added_total = 0
             total_weight = 0
-            
+
             # add boxes while we can
             for index in range(len(sorted_bt)):
                 boxes_left, _ = sorted_bt[index]
@@ -50,20 +50,20 @@ class Solution:
                 added = min(boxes_left, truckSize - added_total)
                 added_so_far += added
                 # update truck weight (in total)
-                total_weight += sorted_bt[index][1] * added           
-                
+                total_weight += sorted_bt[index][1] * added
+
             return total_weight
-        
+
         ### GUARD clauses
         # TODO
         ...
-        
+
         ### DRIVER - assume valid input
         # A:
         bt = boxTypes
         bt.sort(reverse=True, key=lambda pair: pair[1])
-        
-        # B: 
+
+        # B:
         total_weight = _add_boxes(bt)
-        
+
         return total_weight
