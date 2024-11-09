@@ -46,7 +46,69 @@ class Solution:
                     Counting Sort --> O(n + k)
 
                 then do the linear pass above
+
+        Test case:
+            cni
+            0, 1, 2, 4
+
+            min_elem
+            1
+
+            max_e
+            3
+                      0  1  2
+            counts = [1, 1, 2]
+                      ^
+            nums
+            [1, 2, 3, 3]
+             ^
+
+             count = 1
+
         """
+        ### HELPERS
+        def _using_set() -> bool:
+            return len(set(nums)) != len(nums)
+
+        def _using_sort() -> bool:
+            has_dupe = False
+
+            # sort using counting sort
+            min_elem = min(nums)
+            max_elem = max(nums)
+
+            # init counts array
+            counts = [0 for _ in range(max_elem - min_elem + 1)]
+            # diff = max_elem - min_elem
+
+            # populate the counts - TODO[test]
+            for num in nums:
+                counts[num - min_elem] += 1
+
+            # sort the array
+            current_nums_index = 0
+
+            for index, count in enumerate(counts):
+                value = index + min_elem  # 2 + 1 = 3
+
+                for nums_index in range(current_nums_index, current_nums_index + count): # (2, 3)
+                    nums[nums_index] = value
+
+                current_nums_index += count
+
+            for index1 in range(len(nums) - 1):
+                index2 = index1 + 1
+
+                num1, num2 = nums[index1], nums[index2]
+
+                if num1 == num2:
+                    has_dupe = True
+                    break
+
+            return has_dupe
+
+
+            # pass over array to find a duplicate
         ### DRIVER
         # iter8 over array, use set to detect dupes
         return len(set(nums)) != len(nums)
