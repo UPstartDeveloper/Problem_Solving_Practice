@@ -1,6 +1,6 @@
 class Solution:
     """https://neetcode.io/problems/is-palindrome"""
-    def isPalindrome(self, s: str) -> bool:
+    def is_palindrome(self, s: str) -> bool:
         """
         Input: str
             - immutable
